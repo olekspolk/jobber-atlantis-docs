@@ -1,8 +1,10 @@
-// Scenario checks for the FilterPicker page in headless Chrome: overlays opened in the live preview
-// must be fully visible from the first painted frame, without moving the example or the page.
+// Scenario checks in headless Chrome: overlays opened in the live preview must be fully visible from
+// the first painted frame, without moving the example or the page. The FilterPicker page gets the
+// full set of scenarios; every other documented component, a check of its own example.
 //
-//   npm run dev            # in another terminal
-//   npm run verify         # DOCS_URL=http://localhost:5191 npm run verify  for a dev server elsewhere
+//   npm run dev                      # in another terminal
+//   npm run verify                   # DOCS_URL=http://localhost:5191 npm run verify  for a dev server elsewhere
+//   npm run verify -- InputDate Menu # only those components' checks
 //
 // Headless Chrome renders frames, so resize events, requestAnimationFrame and Floating UI's
 // autoUpdate behave as in a visible tab. Puppeteer hides scrollbars by default; they are shown here
@@ -93,23 +95,26 @@ function installHarness() {
   const frame = () => document.querySelector("iframe");
   const doc = () => frame().contentDocument;
   const win = () => frame().contentWindow;
+  // A control by its label, aria-label or placeholder, or by its tag ("<input>", "<img>").
   const find = (source) =>
-    [...doc().querySelectorAll("button, [role=button], [role=combobox]")].find((el) =>
-      new RegExp(source).test(`${el.innerText || ""} ${el.getAttribute("aria-label") || ""}`),
+    [...doc().querySelectorAll("button, [role=button], [role=combobox], input, img")].find((el) =>
+      new RegExp(source).test(
+        `${el.innerText || ""} ${el.getAttribute("aria-label") || ""} ${el.getAttribute("placeholder") || ""} <${el.tagName.toLowerCase()}>`,
+      ),
     );
   const box = (el) => {
     const r = el.getBoundingClientRect();
     return { left: Math.round(r.left), top: Math.round(r.top) };
   };
   // Same notion of "layer" as the guest: rendered next to #root, not a full-viewport wrapper.
-  const layerBoxes = () => {
+  const layerElements = () => {
     const out = [];
     const visit = (el, depth) => {
       const style = win().getComputedStyle(el);
       if (style.display === "none" || style.visibility === "hidden") return;
       const r = el.getBoundingClientRect();
       const full = r.width >= win().innerWidth - 1 && r.height >= win().innerHeight - 1;
-      if (r.width > 2 && r.height > 2 && !full) return void out.push(r);
+      if (r.width > 2 && r.height > 2 && !full) return void out.push(el);
       if ((r.width > 0 && r.width <= 2) || (r.height > 0 && r.height <= 2) || depth >= 5) return;
       [...el.children].forEach((child) => visit(child, depth + 1));
     };
@@ -118,6 +123,12 @@ function installHarness() {
       .forEach((el) => visit(el, 0));
     return out;
   };
+  const layerBoxes = () => layerElements().map((el) => el.getBoundingClientRect());
+  // Scroll areas in the layers that hide part of their content.
+  const hiddenContent = () =>
+    layerElements()
+      .flatMap((el) => [el, ...el.querySelectorAll("*")])
+      .filter((el) => el.scrollHeight > el.clientHeight + 1 && /(auto|scroll)/.test(win().getComputedStyle(el).overflowY)).length;
 
   window.__verify = {
     setCode(code) {
@@ -185,6 +196,7 @@ function installHarness() {
         frozen: Boolean(doc().querySelector("style[data-overlay-frame]")),
         layers: layers.map((r) => [Math.round(r.top), Math.round(r.bottom)]),
         allVisible: layers.every((r) => r.top >= -1 && r.bottom <= win().innerHeight + 1),
+        hidden: hiddenContent(),
         scrollHeight: doc().documentElement.scrollHeight,
         tabsTop: Math.round(document.querySelector('[role="tablist"]').getBoundingClientRect().top),
         resize: frame().style.resize,
@@ -415,6 +427,55 @@ async function runLoadRace(browser) {
   return result;
 }
 
+// The other documented components, each with the control that opens its example's overlay.
+const COMPONENT_OVERLAYS = [{ name: "InputDate", click: "<input>" }];
+
+// A component's page as it loads: its example's overlay must open in full over the page, hiding
+// nothing in a scroll area, and close on a press on the page outside the frame.
+async function runComponent(browser, { name, click }) {
+  console.log(`· ${name}`);
+  const page = await browser.newPage();
+  page.setDefaultTimeout(15000);
+  page.on("dialog", (dialog) => dialog.dismiss());
+  await page.setViewport(WINDOW);
+  await page.goto(`${BASE}/components/${name}/web`, { waitUntil: "load" });
+  await page.waitForFunction(() => document.querySelector("iframe")?.contentDocument?.getElementById("root")?.childElementCount);
+  await page.evaluate(installHarness);
+  const call = (method, ...args) => page.evaluate((m, a) => window.__verify[m](...a), method, args);
+  await sleep(1500);
+  const rest = await call("snap");
+  const control = await call("center", click);
+  await page.mouse.click(control.x, control.y);
+  await sleep(1500);
+  const open = await call("snap");
+  const heading = await page.evaluate(() => {
+    const rect = document.querySelector("h1").getBoundingClientRect();
+    return { x: rect.x + 20, y: rect.y + rect.height / 2 };
+  });
+  await page.mouse.click(heading.x, heading.y);
+  await sleep(1500);
+  const closed = await call("snap");
+  await page.close();
+  return { rest, open, closed };
+}
+
+const componentCheck = (name) => [
+  `${name}: its example's overlay opens in full over the page, closes on a press outside the frame`,
+  (r) => {
+    const { rest, open, closed } = r.components[name];
+    return (
+      rest.frame === RESTING &&
+      open.layers.length > 0 &&
+      open.allVisible &&
+      open.hidden === 0 &&
+      open.frame > RESTING &&
+      open.slot === RESTING &&
+      closed.layers.length === 0 &&
+      closed.frame === RESTING
+    );
+  },
+];
+
 const same = (a, b) => a.left === b.left && a.top === b.top;
 
 const CHECKS = [
@@ -460,20 +521,34 @@ const browser = await puppeteer.launch({
   ignoreDefaultArgs: ["--hide-scrollbars"],
 });
 
+// Names given on the command line run only those components' checks.
+const only = process.argv.slice(2);
+
 try {
-  const r = await run(browser);
-  r.loadRace = await runLoadRace(browser);
+  const r = only.length ? {} : await run(browser);
+  if (!only.length) r.loadRace = await runLoadRace(browser);
+  r.components = {};
+  for (const spec of COMPONENT_OVERLAYS.filter((spec) => !only.length || only.includes(spec.name))) {
+    r.components[spec.name] = await runComponent(browser, spec);
+  }
+  const checks = [...(only.length ? [] : CHECKS), ...Object.keys(r.components).map(componentCheck)];
   let failed = 0;
   console.log("");
-  for (const [name, check] of CHECKS) {
+  for (const [name, check] of checks) {
     const ok = Boolean(check(r));
     if (!ok) failed += 1;
     console.log(`${ok ? "PASS" : "FAIL"}  ${name}`);
   }
-  console.log(`\nfirst painted frame: ${JSON.stringify(r.first)}   rest trigger: ${JSON.stringify(r.rest.trigger)}`);
-  console.log(`open: frame ${r.open.frame}px, slot ${r.open.slot}px, menu ${JSON.stringify(r.open.layers)}`);
-  console.log(`minimum size: ${JSON.stringify(r.minFirst)}   rest trigger: ${JSON.stringify(r.minRest)}`);
-  console.log(`\n${CHECKS.length - failed}/${CHECKS.length} passed.`);
+  console.log("");
+  if (!only.length) {
+    console.log(`first painted frame: ${JSON.stringify(r.first)}   rest trigger: ${JSON.stringify(r.rest.trigger)}`);
+    console.log(`open: frame ${r.open.frame}px, slot ${r.open.slot}px, menu ${JSON.stringify(r.open.layers)}`);
+    console.log(`minimum size: ${JSON.stringify(r.minFirst)}   rest trigger: ${JSON.stringify(r.minRest)}`);
+  }
+  for (const [name, { rest, open, closed }] of Object.entries(r.components)) {
+    console.log(`${name}: frame ${rest.frame} → ${open.frame}px open (layers ${JSON.stringify(open.layers)}, ${open.hidden} hiding content) → ${closed.frame}px closed`);
+  }
+  console.log(`\n${checks.length - failed}/${checks.length} passed.`);
   process.exitCode = failed ? 1 : 0;
 } finally {
   await browser.close();

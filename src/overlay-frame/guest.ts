@@ -1,11 +1,11 @@
-import { OVERLAY_FRAME_PROTOCOL } from "./protocol";
+import { OVERLAY_FRAME_PROTOCOL, type OverlayFrameExtent, type OverlayFrameSize } from "./protocol";
 
 export interface OverlayFrameGuestOptions {
   /** The element the example renders into. Everything else in <body> is treated as a layer. */
   readonly rootSelector: string;
-  /** Room kept below (and around) a layer, in px. */
+  /** Room kept around a layer the frame grows for, in px. */
   readonly gap: number;
-  /** Height requests per second; bounds an overlay that keeps resizing as the frame does. */
+  /** Size requests per second; bounds an overlay that keeps resizing as the frame does. */
   readonly maxRequestsPerSecond: number;
   /**
    * Origin of the embedding page, for the postMessage fallback (cross-origin frames). `null`: the
@@ -13,6 +13,7 @@ export interface OverlayFrameGuestOptions {
    */
   readonly hostOrigin: string | null;
   readonly messageType: string;
+  readonly extentType: string;
   readonly hostGlobal: string;
   readonly outsidePressType: string;
   readonly syncType: string;
@@ -30,7 +31,7 @@ export const DEFAULT_GUEST_OPTIONS: OverlayFrameGuestOptions = {
 /**
  * Runs inside the framed document. While an overlay (anything rendered next to the root: popovers,
  * menus, tooltips, dialogs; or positioned out of the root's flow, like a dropdown drawn under its
- * trigger) does not fit the frame, it asks the host for the height it needs, and it hands the height
+ * trigger) does not fit the frame, it asks the host for the size it needs, and it hands the size
  * back once nothing floats. Documents without such overlays are never touched.
  *
  * While the frame is taller, the example must look exactly as it did, so on the first request it
@@ -48,9 +49,16 @@ export const DEFAULT_GUEST_OPTIONS: OverlayFrameGuestOptions = {
  * Positioning libraries are then told the viewport changed (a `resize` event, which the browser
  * would dispatch only in the next frame), and the re-placed overlay is measured again before paint.
  *
- * Growing only adds room at the bottom. An overlay flipped above its trigger (neither side fitted)
- * gets its own height of room below, so its preferred placement fits and it flips back; one that
- * does not move (fixed top placement) cannot be helped and does not grow the frame further.
+ * Growing adds room at the bottom and at the sides, never at the top. An overlay flipped above its
+ * trigger (neither side fitted) gets its own height of room below, so its preferred placement fits
+ * and it flips back; one that does not move (fixed top placement) cannot be helped and does not grow
+ * the frame further.
+ *
+ * An overlay cut off at a side of the frame (partly out of it: one placed out of view on purpose is
+ * left alone) asks for the frame to reach that much further on that side, and the host extends it
+ * as far as the page has room. Extending it to the left moves this document's viewport left on the
+ * page, so the pinned root moves right by as much and stays where it was painted; positioning
+ * libraries re-place the overlay against it. The sides only widen while an overlay is open.
  *
  * An overlay the frame squeezes rather than cuts off gets the room it would take in a window: a
  * dropdown a positioning library sized to the room below its trigger, which then scrolls, gets what
@@ -64,8 +72,8 @@ export const DEFAULT_GUEST_OPTIONS: OverlayFrameGuestOptions = {
  * body, outside every overlay, which is what Floating UI's useDismiss, Base UI, Radix or MUI's
  * ClickAwayListener listen for on the document.
  *
- * A host that attaches after a height was sent (late, or again while an overlay is open) calls
- * `sync`, and the height is sent again even though it did not change.
+ * A host that attaches after a size was sent (late, or again while an overlay is open) calls
+ * `sync`, and the size is sent again even though it did not change.
  *
  * Self-contained on purpose: it is serialised with Function.prototype.toString (see
  * overlayFrameGuestScript), so it must not use anything from this module's scope.
@@ -88,9 +96,16 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
 
   let rest = readRest();
   let freezeStyle: HTMLStyleElement | null = null;
-  let frozenViewport = 0;
+  // Where the root is pinned while frozen (before the frame's extension to the left), and the
+  // viewport's size then: the frame's resting size.
+  let pin: { top: number; left: number; width: number; height: number } | null = null;
+  let frozenViewport = { width: 0, height: 0 };
   // undefined: not known to the host (it attached after the last request).
-  let lastNeed: number | null | undefined = null;
+  let lastSize: OverlayFrameSize | null | undefined = null;
+  // How far past its resting sides the host has extended the frame; and how far the open overlays
+  // asked for, kept while they stay open, since shrinking back would cut them off again.
+  let extent: OverlayFrameExtent = { left: 0, right: 0 };
+  let sides = { left: 0, right: 0 };
   let lastTopOverflow: number | null = null;
   let requestTimes: number[] = [];
   let retryTimer = 0;
@@ -117,7 +132,9 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   const scrolls = (area: Element) =>
     area.scrollHeight > area.clientHeight + 1 && /auto|scroll/.test(getComputedStyle(area).overflowY);
 
-  type Layer = { el: Element; r: DOMRect };
+  // screen: found inside a full-viewport wrapper, so part of an overlay laid out against the whole
+  // viewport (a full-screen viewer, a dialog on its backdrop).
+  type Layer = { el: Element; r: DOMRect; screen: boolean };
 
   // What floats over the example: what is rendered next to the root, and what the root positions
   // out of its own flow — fixed, or absolutely positioned mostly outside the box it is positioned
@@ -127,20 +144,21 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   // (focus guards, live regions) are ignored.
   function layers(): Layer[] {
     const open: Layer[] = [];
-    const visit = (el: Element, depth: number) => {
+    const visit = (el: Element, depth: number, screen: boolean) => {
       const style = getComputedStyle(el);
       if (style.display === "none" || style.visibility === "hidden") return;
       const r = el.getBoundingClientRect();
+      const wrapper = coversViewport(r);
       const panel = () => [el, ...Array.from(el.querySelectorAll("*"))].some(scrolls);
-      if (r.width > 2 && r.height > 2 && (!coversViewport(r) || panel())) {
-        open.push({ el, r });
+      if (r.width > 2 && r.height > 2 && (!wrapper || panel())) {
+        open.push({ el, r, screen });
         return;
       }
       if ((r.width > 0 && r.width <= 2) || (r.height > 0 && r.height <= 2) || depth >= 5) return;
-      for (const child of Array.from(el.children)) visit(child, depth + 1);
+      for (const child of Array.from(el.children)) visit(child, depth + 1, screen || wrapper);
     };
     for (const el of Array.from(document.body.children)) {
-      if (el !== root && el.tagName !== "SCRIPT" && el.tagName !== "STYLE") visit(el, 0);
+      if (el !== root && el.tagName !== "SCRIPT" && el.tagName !== "STYLE") visit(el, 0, false);
     }
     const floating: Element[] = [];
     for (const el of Array.from(root.querySelectorAll("*"))) {
@@ -149,7 +167,7 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
       if (floating.some((f) => f.contains(el))) continue;
       if (style.position === "fixed") {
         floating.push(el);
-        visit(el, 0);
+        visit(el, 0, false);
         continue;
       }
       const r = el.getBoundingClientRect();
@@ -161,7 +179,7 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
       // A badge or an icon overlapping its box's edge is part of it; what hangs below or above it is not.
       if (outside > gap && outside >= r.height / 2) {
         floating.push(el);
-        open.push({ el, r });
+        open.push({ el, r, screen: false });
       }
     }
     return open;
@@ -194,14 +212,25 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
     return hidden ? vh + hidden + EDGE : 0;
   }
 
-  function requiredHeight(open: Layer[]) {
+  function requiredSize(open: Layer[]) {
     const vh = innerHeight;
+    const vw = document.documentElement.clientWidth;
     let need = 0;
     let overflow = false;
     let topOverflow = 0;
     let cutOffAtTop = 0;
+    let { left, right } = sides;
     for (const layer of open) {
       const r = layer.r;
+      // Cut off at a side, not out of view: the frame reaches that much further on that side. An
+      // overlay laid out against the whole viewport gets the page's whole width instead, as it
+      // would have in a window.
+      if (r.right > 0 && r.left < vw && (r.left < -1 || r.right > vw + 1)) {
+        overflow = true;
+        if (layer.screen) left = right = Infinity;
+        if (r.left < -1) left = Math.max(left, extent.left - r.left + gap);
+        if (r.right > vw + 1) right = Math.max(right, extent.right + r.right - vw + gap);
+      }
       if (r.bottom > vh) overflow = true;
       if (r.top < 0) {
         overflow = true;
@@ -223,11 +252,11 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
       const stuck = lastTopOverflow !== null && Math.abs(lastTopOverflow - topOverflow) < 1;
       if (!stuck) need = Math.max(need, vh + cutOffAtTop + gap);
     }
-    return { overflow, need: Math.ceil(need), topOverflow };
+    return { overflow, need: Math.ceil(need), topOverflow, left: Math.ceil(left), right: Math.ceil(right) };
   }
 
   function freeze() {
-    frozenViewport = innerHeight;
+    frozenViewport = { width: innerWidth, height: innerHeight };
     freezeStyle = document.createElement("style");
     freezeStyle.setAttribute("data-overlay-frame", "frozen");
     const scrollbar = (shown: boolean) => (shown ? "scroll" : "hidden");
@@ -235,24 +264,30 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
       `html{overflow-x:${scrollbar(rest.scrollbarX)}!important;overflow-y:${scrollbar(rest.scrollbarY)}!important}` +
       "body{overflow:hidden!important}";
     document.head.appendChild(freezeStyle);
-    const noScrollbars =
-      "html,body{overflow:hidden!important}" +
-      (rest.scrollbarY ? "html{scrollbar-gutter:stable!important}" : "");
 
     if (scrollX !== rest.x || scrollY !== rest.y) scrollTo(rest.x, rest.y);
     const r = root.getBoundingClientRect();
+    pin = { top: r.top + rest.y, left: r.left + rest.x, width: r.width, height: r.height };
     // The root can be matched by any selector; pin it through an attribute of our own.
     root.setAttribute(PIN_ATTRIBUTE, "");
+    writePin();
+  }
+
+  // The frozen document: no scrollbars (a resting vertical one's gutter kept), the root pinned where
+  // it was painted, moved right by as much as the frame reaches past its resting left side.
+  function writePin() {
+    if (!freezeStyle || !pin) return;
     freezeStyle.textContent =
-      noScrollbars +
+      "html,body{overflow:hidden!important}" +
+      (rest.scrollbarY ? "html{scrollbar-gutter:stable!important}" : "") +
       "html,body{height:auto!important}" +
       // Keep the document tall (wide) enough for the resting scroll offset to stay valid.
       `html{min-height:calc(100% + ${rest.y}px)!important` +
       (rest.x ? `;min-width:calc(100% + ${rest.x}px)!important` : "") +
       "}body{min-height:0!important}" +
       `[${PIN_ATTRIBUTE}]{position:absolute!important;margin:0!important;box-sizing:border-box!important;` +
-      `top:${r.top + rest.y}px!important;left:${r.left + rest.x}px!important;` +
-      `width:${r.width}px!important;height:${r.height}px!important;min-height:0!important}`;
+      `top:${pin.top}px!important;left:${pin.left + extent.left}px!important;` +
+      `width:${pin.width}px!important;height:${pin.height}px!important;min-height:0!important}`;
   }
 
   function unfreeze() {
@@ -261,29 +296,48 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
     freezeStyle.remove();
     freezeStyle = null;
     root.removeAttribute(PIN_ATTRIBUTE);
-    frozenViewport = 0;
+    pin = null;
+    frozenViewport = { width: 0, height: 0 };
     lastTopOverflow = null;
   }
 
-  function send(need: number | null) {
-    if (need === lastNeed) return;
-    if (need !== null) {
+  // The host has put the frame back at its resting size.
+  const backToRest = () =>
+    Math.abs(innerWidth - frozenViewport.width) <= 1 && Math.abs(innerHeight - frozenViewport.height) <= 1;
+
+  // Returns whether the frame's sides moved.
+  function setExtent(next: OverlayFrameExtent | undefined): boolean {
+    if (!next || (next.left === extent.left && next.right === extent.right)) return false;
+    extent = { left: next.left, right: next.right };
+    writePin();
+    return true;
+  }
+
+  const sameSize = (a: OverlayFrameSize | null | undefined, b: OverlayFrameSize | null) =>
+    a === b || (!!a && !!b && a.height === b.height && a.left === b.left && a.right === b.right);
+
+  // Returns whether the frame's sides moved, as far as is known at once (same-origin).
+  function send(size: OverlayFrameSize | null): boolean {
+    if (sameSize(lastSize, size)) return false;
+    if (size !== null) {
       const now = Date.now();
       requestTimes = requestTimes.filter((t) => now - t < 1000);
       if (requestTimes.length >= options.maxRequestsPerSecond) {
         // Measure again once the oldest request leaves the window, so the latest need is not lost.
         clearTimeout(retryTimer);
         retryTimer = window.setTimeout(schedule, 1000 - (now - requestTimes[0]));
-        return;
+        return false;
       }
       requestTimes.push(now);
     }
-    lastNeed = need;
+    lastSize = size;
     const host = (window as unknown as Record<string, unknown>)[options.hostGlobal] as
-      | { requestHeight?: (need: number | null) => void }
+      | { requestSize?: (size: OverlayFrameSize | null) => OverlayFrameExtent }
       | undefined;
-    if (host && typeof host.requestHeight === "function") host.requestHeight(need);
-    else parent.postMessage({ type: options.messageType, need }, hostOrigin);
+    if (host && typeof host.requestSize === "function") return setExtent(host.requestSize(size));
+    parent.postMessage({ type: options.messageType, size }, hostOrigin);
+    // The host answers with the extent it applied (extentType); at rest there is none.
+    return size === null && setExtent({ left: 0, right: 0 });
   }
 
   function measure() {
@@ -291,31 +345,35 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
     const open = layers();
     openInRoot = open.some(({ el }) => root.contains(el));
     if (!open.length) {
+      sides = { left: 0, right: 0 };
       if (!freezeStyle) {
         rest = readRest();
         return;
       }
       send(null);
-      // Release the root once the host has restored the resting height (or shortly after);
-      // releasing it earlier would re-centre the example in the still-tall frame.
+      // Release the root once the host has restored the resting size (or shortly after);
+      // releasing it earlier would re-centre the example in the still-larger frame.
       clearTimeout(unfreezeTimer);
       unfreezeTimer = window.setTimeout(unfreeze, 400);
-      if (Math.abs(innerHeight - frozenViewport) <= 1) unfreeze();
+      if (backToRest()) unfreeze();
       return;
     }
 
-    let result = requiredHeight(open);
+    let result = requiredSize(open);
     if (!freezeStyle && !result.overflow) return;
     clearTimeout(unfreezeTimer);
     const freezing = !freezeStyle;
     if (freezing) {
       freeze();
-      result = requiredHeight(layers());
+      result = requiredSize(layers());
     }
     lastTopOverflow = result.topOverflow > 0 ? result.topOverflow : null;
-    send(result.need);
+    sides = { left: result.left, right: result.right };
+    const moved = send({ height: result.need, left: result.left, right: result.right });
 
-    if (freezing) {
+    // A new viewport (or, for a frame extended to the left, the example moved within it): the overlay
+    // is re-placed now rather than in the next frame.
+    if (freezing || moved) {
       // Until this frame is painted, measure mutations (the overlay being re-placed) right away.
       settling = 5;
       window.setTimeout(() => (settling = 0), 0);
@@ -354,7 +412,7 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   });
 
   addEventListener("resize", () => {
-    if (freezeStyle && lastNeed === null && Math.abs(innerHeight - frozenViewport) <= 1) unfreeze();
+    if (freezeStyle && lastSize === null && backToRest()) unfreeze();
     schedule();
   });
 
@@ -378,18 +436,22 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   }
 
   // Measured at once: a same-origin host calls this from attaching, right after the previous host
-  // (if any) collapsed the frame, so the height is back before that collapse is ever laid out.
+  // (if any) collapsed the frame, so the size is back before that collapse is ever laid out.
   function sync() {
-    lastNeed = undefined;
+    lastSize = undefined;
     measure();
   }
 
   (window as unknown as Record<string, unknown>)[options.guestGlobal] = { outsidePress, sync };
   addEventListener("message", (event) => {
-    const data = event.data as { type?: string } | null;
+    const data = event.data as { type?: string; left?: unknown; right?: unknown } | null;
     if (event.source !== parent) return;
     if (data?.type === options.outsidePressType) outsidePress();
     else if (data?.type === options.syncType) sync();
+    else if (data?.type === options.extentType) {
+      // The cross-origin answer to a request: the example moves with the frame's left side.
+      if (setExtent({ left: Number(data.left) || 0, right: Number(data.right) || 0 })) dispatchEvent(new Event("resize"));
+    }
   });
 }
 

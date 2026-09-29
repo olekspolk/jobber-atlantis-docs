@@ -45,7 +45,7 @@ export interface OverlayFrameProps extends IframeHTMLAttributes<HTMLIFrameElemen
   readonly initialHeight?: number;
 }
 
-/** Drop-in replacement for an `<iframe>` whose document may open overlays taller than the frame. */
+/** Drop-in replacement for an `<iframe>` whose document may open overlays larger than the frame. */
 export const OverlayFrame = forwardRef<HTMLIFrameElement, OverlayFrameProps>(function OverlayFrame(
   {
     initialHeight = 200,
@@ -55,6 +55,7 @@ export const OverlayFrame = forwardRef<HTMLIFrameElement, OverlayFrameProps>(fun
     dismissOnOutsidePress,
     guestOrigin,
     messageType,
+    extentType,
     hostGlobal,
     outsidePressType,
     syncType,
@@ -71,6 +72,7 @@ export const OverlayFrame = forwardRef<HTMLIFrameElement, OverlayFrameProps>(fun
     dismissOnOutsidePress,
     guestOrigin,
     messageType,
+    extentType,
     hostGlobal,
     outsidePressType,
     syncType,

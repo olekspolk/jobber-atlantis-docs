@@ -1,4 +1,4 @@
-// An iframe whose document can open overlays (menus, popovers, tooltips, dialogs) taller than the
+// An iframe whose document can open overlays (menus, popovers, tooltips, dialogs) larger than the
 // frame: while one is open, the frame grows over the page instead of clipping it.
 //
 //   guest (inside the framed document):  overlayFrameGuestScript()  — or overlayFrameGuest() in a bundle
@@ -6,8 +6,11 @@
 //                                        attachOverlayFrameHost() for anything else
 export {
   OVERLAY_FRAME_PROTOCOL,
+  type OverlayFrameExtent,
+  type OverlayFrameExtentMessage,
   type OverlayFrameGuestApi,
   type OverlayFrameHostApi,
+  type OverlayFrameSize,
   type OverlayFrameSizeMessage,
 } from "./protocol";
 export {

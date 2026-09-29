@@ -1,17 +1,18 @@
 # overlay-frame
 
-An iframe whose document can open overlays — menus, popovers, tooltips, dialogs, drawers — taller
+An iframe whose document can open overlays — menus, popovers, tooltips, dialogs, drawers — larger
 than the frame, or squeezed to fit it. While one is open, the frame grows **over** the page (its
-document is transparent, so only the overlay shows); the page layout keeps the frame's resting
-height, so nothing below it moves. When the overlay closes, the frame goes back to its resting
-height. A press anywhere on the page closes the overlay, as if the content were not in an iframe.
+document is transparent, so only the overlay shows): downwards, and sideways as far as the page
+has room; the page layout keeps the frame's resting size, so nothing around it moves. When the
+overlay closes, the frame goes back to its resting size. A press anywhere on the page closes the
+overlay, as if the content were not in an iframe.
 
 No dependencies. The core is framework-agnostic; `react.tsx` is a thin React layer on top.
 
 ```
-guest.ts     runs inside the framed document: measures overlays, asks for height, keeps the painted
+guest.ts     runs inside the framed document: measures overlays, asks for a size, keeps the painted
              example still while the frame grows, replays presses from the page as outside presses
-host.ts      runs in the embedding page: applies the height over a slot that holds the layout and
+host.ts      runs in the embedding page: applies the size over a slot that holds the layout and
              reports presses on the page
 react.tsx    useOverlayFrame() / <OverlayFrame> for React
 protocol.ts  the contract between the two (message types, synchronous host and guest globals)
@@ -37,8 +38,8 @@ from it instead. `overlayFrameGuestScript` serialises that same function with
 <OverlayFrame ref={iframeRef} title="Preview" expandedZIndex="1000" style={{ minHeight: 200 }} />
 ```
 
-Without React: put the iframe (absolutely positioned, `width: 100%`) inside a `position: relative`
-wrapper and call `const detach = attachOverlayFrameHost(iframe, { slot: wrapper })`.
+Without React: put the iframe (absolutely positioned, `left: 0`, `width: 100%`) inside a
+`position: relative` wrapper and call `const detach = attachOverlayFrameHost(iframe, { slot: wrapper })`.
 
 **3. Stacking** — choose `expandedZIndex` above the page content that follows the frame and below
 the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--elevation-modal) - 1)`.
@@ -48,13 +49,13 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
 | Guest (`overlayFrameGuestScript` / `overlayFrameGuest`) | Default | |
 |---|---|---|
 | `rootSelector` | `"#root"` | Element the content renders into; everything else in `<body>` is an overlay, and so is what the content positions out of its flow |
-| `gap` | `16` | Room kept below an overlay, px |
+| `gap` | `16` | Room kept around an overlay the frame grows for, px |
 | `maxRequestsPerSecond` | `12` | Bounds an overlay that keeps resizing as the frame does; a held-back request is sent once the limit allows |
 | `hostOrigin` | parent's origin | Origin of the page, for the `postMessage` fallback (cross-origin frames). By default the parent's origin as the browser reports it (`location.ancestorOrigins`), else the frame's own — set it where the browser does not report it |
 
 | Host (`attachOverlayFrameHost` / `<OverlayFrame>`) | Default | |
 |---|---|---|
-| `slot` | — | Wrapper that holds the resting height (created by `<OverlayFrame>`) |
+| `slot` | — | Wrapper that holds the resting size (created by `<OverlayFrame>`) |
 | `maxViewportFraction` | `0.9` | Largest height, as a fraction of the window height |
 | `maxHeight` | — | Largest height, in px; whichever of the two is lower applies |
 | `expandedZIndex` | `"1000"` | z-index while expanded |
@@ -68,9 +69,15 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
   hanging below or above the box it is positioned against, like a dropdown drawn under its trigger.
 - The first painted frame after an overlay opens already shows the overlay in full. When guest and
   host are same-origin, the guest calls the host synchronously from a `requestAnimationFrame` callback,
-  so the new height is laid out before that frame is painted (`postMessage` would land a frame late
+  so the new size is laid out before that frame is painted (`postMessage` would land a frame late
   and flash the cut-off overlay; it remains the cross-origin fallback).
-- The example does not move while the frame is taller: the root is pinned at its painted position
+- An overlay cut off at a side of the frame gets the frame reaching that much further on that side,
+  as far as the page's visible area goes (the window, and every ancestor that clips or scrolls), so
+  it is cut off no more than the page itself would cut it off. One laid out against the whole
+  viewport (a full-screen viewer, a dialog on its backdrop) gets the page's whole width, as it would
+  in a window. The host answers each request with how far it extended the frame; the frame reaching
+  out to the left moves its viewport left on the page, so the pinned example moves right by as much.
+- The example does not move while the frame is larger: the root is pinned at its painted position
   and size, measured with the resting page's scrollbars and no others (a classic scrollbar the
   overlay makes appear would shift centred content by half its width; a horizontal one the resting
   page had, under an example wider than the frame, would by half its height once gone), a resting
@@ -97,10 +104,10 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
   something floats.
 - Documents without overlays are never touched. The resting height follows the embedder and the
   user's resize handle, which is hidden while expanded.
-- Hosts can come and go. A detached host leaves the frame at its resting height; a host that
+- Hosts can come and go. A detached host leaves the frame at its resting size; a host that
   attaches — late, or again while an overlay is open (as when `<OverlayFrame>`'s options change) —
-  asks the guest to repeat the height it needs (`sync`). Same-origin, the frame is back at that
-  height before its collapsed size is ever laid out.
+  asks the guest to repeat the size it needs (`sync`). Same-origin, the frame is back at that
+  size before its collapsed size is ever laid out.
 
 ## Limits
 
@@ -115,9 +122,11 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
   overlay that closes only through a backdrop of its own (a side drawer's dimmed overlay) closes on
   a press on that backdrop inside the frame, or on Escape.
 - An overlay taller than the window stops at `maxViewportFraction` (or `maxHeight`).
-- The frame grows downwards only. An overlay wider than the frame (a phone's preview is under 300px
-  wide) is placed by its own library within the frame's width, and what does not fit is cut off at
-  the sides.
+- The frame never grows upwards, and sideways it reaches no further than the page's visible area. An
+  overlay placed beyond that stays cut off, as on a page that narrow: on a phone, a calendar aligned
+  with a small trigger's edge, which its library flips but does not shift.
+- Cross-origin, the frame's extension to the left reaches the guest by message, a frame late: for
+  that frame, the example is shifted left by as much.
 - A box exactly the size of the frame is taken for a backdrop and looked through, unless it scrolls
   part of its content. One larger than the frame is measured as an overlay.
 - A squeezed overlay is recognised by a scroll area ending at the frame's edge, by spanning exactly

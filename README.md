@@ -15,10 +15,10 @@ page and close on a click anywhere on it, as if the example were not in an ifram
 
 [`src/overlay-frame`](src/overlay-frame) is a standalone module with no dependencies. While an
 overlay in the example does not fit the frame — cut off by it, or squeezed into it and scrolling —
-the frame grows over the page (the layout keeps its resting height, so nothing below moves), the
-example stays exactly where it was painted, and presses on the page are replayed in the frame, so
-overlays close as they would without it. Design, options and limits are in
-[its README](src/overlay-frame/README.md).
+the frame grows over the page, downwards and sideways as far as the page has room (the layout keeps
+its resting size, so nothing around it moves), the example stays exactly where it was painted, and
+presses on the page are replayed in the frame, so overlays close as they would without it. Design,
+options and limits are in [its README](src/overlay-frame/README.md).
 
 Integrating it takes two lines: the preview document ([`skeleton.ts`](src/preview/skeleton.ts)) adds
 `overlayFrameGuestScript()`, and [`AtlantisPreviewViewer.tsx`](src/preview/AtlantisPreviewViewer.tsx)
@@ -36,7 +36,8 @@ npm run build              # typecheck + production build
 
 `npm run verify` opens overlays in the live preview and checks that they are fully visible from the
 first painted frame, that neither the example nor the page moves, and that a click outside closes
-them — including resized previews, menus that flip, scrollbars, modal backdrops and edits.
+them — including resized previews, menus that flip, overlays past the preview's sides, scrollbars,
+modal backdrops and edits.
 
 ## Deployment
 

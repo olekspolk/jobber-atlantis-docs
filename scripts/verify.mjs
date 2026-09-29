@@ -42,6 +42,43 @@ ${LABELS.slice(0, count)
     </div>
   );`;
 
+// A popover that follows its trigger, as positioning libraries keep it (re-placed on resize), and
+// where it is placed hangs 60px past the preview's left or right side: a calendar aligned with a
+// small trigger's right side, a menu that could not be shifted inside.
+const sidePopover = (side) => `const ref = React.useRef(null);
+  const [open, setOpen] = useState(false);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const trigger = ref.current;
+    const popover = document.createElement("div");
+    const width = 240;
+    const start = trigger.getBoundingClientRect().left;
+    const offset = ${side === "left" ? "-start - 60" : "innerWidth + 60 - width - start"};
+    const place = () => {
+      const r = trigger.getBoundingClientRect();
+      popover.style.cssText =
+        "position:fixed;height:80px;background:var(--color-surface);width:" + width + "px;" +
+        "top:" + (r.bottom + 8) + "px;left:" + (r.left + offset) + "px";
+    };
+    place();
+    addEventListener("resize", place);
+    document.body.appendChild(popover);
+    const onKeyDown = (event) => event.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      removeEventListener("resize", place);
+      document.removeEventListener("keydown", onKeyDown);
+      popover.remove();
+    };
+  }, [open]);
+
+  return (
+    <button ref={ref} onClick={() => setOpen(true)}>
+      Popover trigger
+    </button>
+  );`;
+
 const EXAMPLES = {
   // Trigger near the bottom of the preview: Floating UI flips the menu above it.
   flipUp: picker("paddingTop: 170"),
@@ -103,6 +140,27 @@ const EXAMPLES = {
   }, []);
 
   return <p>A panel as tall as the viewport</p>;`,
+  leftPopover: sidePopover("left"),
+  rightPopover: sidePopover("right"),
+  // A dialog 60px wider than the preview, centred in the viewport.
+  wideDialog: `const [open, setOpen] = useState(false);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const backdrop = document.createElement("div");
+    backdrop.style.cssText = "position:fixed;inset:0;display:flex;align-items:center;justify-content:center";
+    backdrop.innerHTML =
+      '<div style="flex:none;height:120px;background:var(--color-surface);width:' + (innerWidth + 60) + 'px"></div>';
+    document.body.appendChild(backdrop);
+    const onKeyDown = (event) => event.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      backdrop.remove();
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  return <Button label="Open wide dialog" onClick={() => setOpen(true)} />;`,
   syntaxError: `return (
     <div>`,
   staticTall: `return (
@@ -133,9 +191,38 @@ function installHarness() {
         `${el.innerText || ""} ${el.getAttribute("aria-label") || ""} ${el.getAttribute("placeholder") || ""} <${el.tagName.toLowerCase()}>`,
       ),
     );
+  // Where a control in the preview is on the page. The frame reaching past its left side moves its
+  // own viewport, so positions inside it are no measure of the example staying put.
   const box = (el) => {
+    const f = frame().getBoundingClientRect();
     const r = el.getBoundingClientRect();
-    return { left: Math.round(r.left), top: Math.round(r.top) };
+    return { left: Math.round(f.left + r.left), top: Math.round(f.top + r.top) };
+  };
+  // The page's visible area around the preview, as the host counts it: the window, and every
+  // ancestor that clips or scrolls. The frame reaches no further sideways.
+  const clipBox = () => {
+    let left = 0;
+    let right = document.documentElement.clientWidth;
+    for (let el = frame().parentElement.parentElement; el && el !== document.documentElement; el = el.parentElement) {
+      const { overflowX, display } = getComputedStyle(el);
+      if (overflowX === "visible" || display === "inline" || display === "contents") continue;
+      const r = el.getBoundingClientRect();
+      left = Math.max(left, r.left + el.clientLeft);
+      right = Math.min(right, r.left + el.clientLeft + el.clientWidth);
+    }
+    return { left, right };
+  };
+  // Nothing cut off: not at the top or bottom, and at a side only where the frame already reaches
+  // the page's visible edge (the page itself would cut the overlay off there).
+  const inFull = (r) => {
+    const f = frame().getBoundingClientRect();
+    const clip = clipBox();
+    return (
+      r.top >= -1 &&
+      r.bottom <= win().innerHeight + 1 &&
+      (r.left >= -1 || f.left <= clip.left + 1) &&
+      (r.right <= doc().documentElement.clientWidth + 1 || f.right >= clip.right - 1)
+    );
   };
   // A scroll area hiding part of its content.
   const scrolls = (el) => el.scrollHeight > el.clientHeight + 1 && /(auto|scroll)/.test(win().getComputedStyle(el).overflowY);
@@ -247,13 +334,14 @@ function installHarness() {
           const ro = new (win().ResizeObserver)(() => {
             ro.disconnect();
             const r = layer.getBoundingClientRect();
+            const f = frame().getBoundingClientRect();
             resolve({
-              frame: Math.round(frame().getBoundingClientRect().height),
-              clipped: r.top < -1 || r.bottom > win().innerHeight + 1,
+              frame: Math.round(f.height),
+              clipped: !inFull(r),
               trigger: box(find(source)),
-              menuLeft: Math.round(r.left),
-              menuRight: Math.round(r.right),
-              width: doc().documentElement.clientWidth,
+              menuLeft: Math.round(f.left + r.left),
+              menuRight: Math.round(f.left + r.right),
+              frameRight: Math.round(f.right),
             });
           });
           ro.observe(layer);
@@ -267,12 +355,20 @@ function installHarness() {
     },
     snap() {
       const layers = layerBoxes();
+      const f = frame().getBoundingClientRect();
+      const slot = frame().parentElement.getBoundingClientRect();
       return {
         frame: Math.round(frame().getBoundingClientRect().height),
         slot: Math.round(frame().parentElement.getBoundingClientRect().height),
         frozen: Boolean(doc().querySelector("style[data-overlay-frame]")),
         layers: layers.map((r) => [Math.round(r.top), Math.round(r.bottom)]),
-        allVisible: layers.every((r) => r.top >= -1 && r.bottom <= win().innerHeight + 1),
+        allVisible: layers.every(inFull),
+        // How far the frame reaches past its slot's sides, and whether as far as the page allows.
+        extended: { left: Math.round(slot.left - f.left), right: Math.round(f.right - slot.right) },
+        reachesPageSides: (() => {
+          const clip = clipBox();
+          return f.left <= clip.left + 1 && f.right >= clip.right - 1;
+        })(),
         hidden: hiddenContent().length,
         squeezed: squeezedContent().length,
         top: Math.round(frame().getBoundingClientRect().top),
@@ -447,6 +543,22 @@ async function run(browser) {
   await sleep(1500);
   r.modalClosed = await snap();
 
+  console.log("· overlays past the preview's sides");
+  for (const [key, example, control] of [
+    ["left", EXAMPLES.leftPopover, "Popover trigger"],
+    ["right", EXAMPLES.rightPopover, "Popover trigger"],
+    ["wide", EXAMPLES.wideDialog, "Open wide dialog"],
+  ]) {
+    await load(example);
+    await call("settled", control);
+    r[`${key}Rest`] = await call("trigger", control);
+    await call("click", control);
+    await sleep(1500);
+    r[`${key}Open`] = { ...(await snap()), trigger: await call("trigger", control) };
+    await escape();
+    r[`${key}Closed`] = await snap();
+  }
+
   console.log("· edge cases");
   await load(EXAMPLES.syntaxError);
   r.syntaxError = await snap();
@@ -599,7 +711,7 @@ const CHECKS = [
   [
     "first painted frame: menu aligned with its trigger, where the frame is wide enough for that",
     ({ first }) =>
-      first.trigger.left + first.menuRight - first.menuLeft > first.width ||
+      first.trigger.left + first.menuRight - first.menuLeft > first.frameRight - 16 ||
       Math.abs(first.menuLeft - first.trigger.left) <= 1,
   ],
   ["open: menu fully visible", (r) => r.open.allVisible],
@@ -622,9 +734,39 @@ const CHECKS = [
   ["trigger near the bottom: menu fully visible", (r) => r.flipOpen.allVisible],
   ["tall example (scrollbar at rest): first frame not cut off, example does not move", (r) => r.tallRest.scrollbar > 0 && !r.tallFirst.clipped && same(r.tallFirst.trigger, r.tallRest.trigger)],
   ["tall example: example where it was after close", (r) => same(r.tallClosed.trigger, r.tallRest.trigger)],
-  ["menu that fits the frame: visible, frame untouched", (r) => r.fitsOpen.layers.length > 0 && r.fitsOpen.allVisible && r.fitsOpen.frame === RESTING && !r.fitsOpen.frozen],
+  [
+    "menu that fits the frame: visible, frame untouched (on a phone, where the menu is wider than the frame, only its sides reach out)",
+    ({ fitsOpen: open }) =>
+      open.layers.length > 0 &&
+      open.allVisible &&
+      open.frame === RESTING &&
+      (!open.frozen || (PHONE && open.extended.left + open.extended.right > 0)),
+  ],
   ["menu that fits the frame: closes on a click outside the frame", (r) => r.fitsOutside.open === 0],
   ["modal-like layer: fully visible, frame back to rest after close", (r) => r.modalOpen.allVisible && r.modalOpen.frame > RESTING && r.modalClosed.frame === RESTING],
+  [
+    "popover past the preview's left side: the frame reaches out on that side, the example stays put, the popover shows in full",
+    ({ leftOpen: open, leftRest }) =>
+      open.allVisible && open.extended.left > 0 && open.extended.right === 0 && open.frame === RESTING && same(open.trigger, leftRest),
+  ],
+  [
+    "popover past the right side: the frame reaches out on that side, the popover shows in full",
+    ({ rightOpen: open, rightRest }) =>
+      open.allVisible && open.extended.right > 0 && open.extended.left === 0 && open.frame === RESTING && same(open.trigger, rightRest),
+  ],
+  [
+    "dialog wider than the preview, on a backdrop: the frame reaches out on both sides as far as the page allows, the dialog shows in full",
+    ({ wideOpen: open, wideRest }) =>
+      open.allVisible &&
+      open.extended.left > 0 &&
+      Math.abs(open.extended.left - open.extended.right) <= 1 &&
+      open.reachesPageSides &&
+      same(open.trigger, wideRest),
+  ],
+  [
+    "closed: the frame's sides back at rest",
+    (r) => [r.leftClosed, r.rightClosed, r.wideClosed].every((c) => c.frame === RESTING && !c.frozen && c.extended.left === 0 && c.extended.right === 0),
+  ],
   ["syntax error: error shown, frame untouched", (r) => r.syntaxError.error && r.syntaxError.frame === RESTING],
   ["tall static content (no overlay): frame untouched", (r) => r.staticTall.frame === RESTING && !r.staticTall.frozen],
   ["layer sized in vh: gets all the room at once, down to the window's bottom, and keeps it", (r) => r.vhA.frame === r.vhB.frame && r.vhB.frame === toWindowBottom(r.vhB)],
@@ -675,6 +817,10 @@ try {
     console.log(`first painted frame: ${JSON.stringify(r.first)}   rest trigger: ${JSON.stringify(r.rest.trigger)}`);
     console.log(`open: frame ${r.open.frame}px, slot ${r.open.slot}px, menu ${JSON.stringify(r.open.layers)}`);
     console.log(`minimum size: ${JSON.stringify(r.minFirst)}   rest trigger: ${JSON.stringify(r.minRest)}`);
+    for (const key of ["left", "right", "wide"]) {
+      const { extended, frame, trigger } = r[`${key}Open`];
+      console.log(`${key}: frame reaches ${extended.left}px left, ${extended.right}px right (${frame}px tall); trigger ${JSON.stringify(trigger)} at rest ${JSON.stringify(r[`${key}Rest`])}`);
+    }
   }
   for (const [name, { rest, open, later, closed }] of Object.entries(r.components)) {
     console.log(`${name}: frame ${rest.frame} → ${open.frame}px open, ${later.frame}px 2s later (layers ${JSON.stringify(open.layers)}, ${open.squeezed} squeezed) → ${closed.frame}px closed`);

@@ -49,6 +49,11 @@ export const DEFAULT_GUEST_OPTIONS: OverlayFrameGuestOptions = {
  * gets its own height of room below, so its preferred placement fits and it flips back; one that
  * does not move (fixed top placement) cannot be helped and does not grow the frame further.
  *
+ * An overlay the frame squeezes rather than cuts off gets the room it would take in a window: a
+ * dropdown a positioning library sized to the room below its trigger, which then scrolls, gets what
+ * its scroll area hides; a side drawer as tall as the viewport gets all the host allows. It keeps
+ * that room while it is open, since shrinking back would squeeze it again.
+ *
  * A press outside the frame never reaches this document, so overlays that close on an outside press
  * would stay open. The host reports it (`outsidePress`) and it is replayed here as a press on the
  * body, outside every overlay, which is what Floating UI's useDismiss, Base UI, Radix or MUI's
@@ -89,16 +94,18 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
 
   const coversViewport = (r: DOMRect) => r.width >= innerWidth - 1 && r.height >= innerHeight - 1;
 
-  // Boxes of what is rendered next to the root. Full-viewport wrappers (backdrops, portal hosts)
-  // are searched rather than measured; 1–2px helpers (focus guards, live regions) are ignored.
-  function layerRects(): DOMRect[] {
-    const rects: DOMRect[] = [];
+  type Layer = { el: Element; r: DOMRect };
+
+  // What is rendered next to the root. Full-viewport wrappers (backdrops, portal hosts) are
+  // searched rather than measured; 1–2px helpers (focus guards, live regions) are ignored.
+  function layers(): Layer[] {
+    const open: Layer[] = [];
     const visit = (el: Element, depth: number) => {
       const style = getComputedStyle(el);
       if (style.display === "none" || style.visibility === "hidden") return;
       const r = el.getBoundingClientRect();
       if (r.width > 2 && r.height > 2 && !coversViewport(r)) {
-        rects.push(r);
+        open.push({ el, r });
         return;
       }
       if ((r.width > 0 && r.width <= 2) || (r.height > 0 && r.height <= 2) || depth >= 5) return;
@@ -107,16 +114,42 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
     for (const el of Array.from(document.body.children)) {
       if (el !== root && el.tagName !== "SCRIPT" && el.tagName !== "STYLE") visit(el, 0);
     }
-    return rects;
+    return open;
   }
 
-  function requiredHeight(rects: DOMRect[]) {
+  // How close to the viewport's edge (px) a scroll area ends when the viewport sizes it: positioning
+  // libraries keep a few px of padding from it.
+  const EDGE = 32;
+  // The room each squeezed layer asked for, kept while it stays open: shrinking back would squeeze
+  // it again.
+  const floors = new WeakMap<Element, number>();
+
+  // The height a layer squeezed to fit the frame, rather than cut off by it, would take in a window.
+  // One exactly as tall as the viewport (a side drawer) takes all the host allows; one with a scroll
+  // area hiding content and ending at the viewport's edge (a list sized to the room below its
+  // trigger) takes what that area hides.
+  function squeezedRoom({ el, r }: Layer, vh: number): number {
+    if (Math.abs(r.top) <= 1 && Math.abs(r.bottom - vh) <= 1) return Infinity;
+    let hidden = 0;
+    for (const area of [el, ...Array.from(el.querySelectorAll("*"))]) {
+      if (area.scrollHeight <= area.clientHeight + 1) continue;
+      const a = area.getBoundingClientRect();
+      const atEdge = (a.bottom >= vh - EDGE && a.bottom <= vh + 1) || (a.top >= -1 && a.top <= EDGE);
+      if (atEdge && /auto|scroll/.test(getComputedStyle(area).overflowY)) {
+        hidden = Math.max(hidden, area.scrollHeight - area.clientHeight);
+      }
+    }
+    return hidden ? vh + hidden + EDGE : 0;
+  }
+
+  function requiredHeight(open: Layer[]) {
     const vh = innerHeight;
     let need = 0;
     let overflow = false;
     let topOverflow = 0;
     let cutOffAtTop = 0;
-    for (const r of rects) {
+    for (const layer of open) {
+      const r = layer.r;
       if (r.bottom > vh) overflow = true;
       if (r.top < 0) {
         overflow = true;
@@ -124,6 +157,12 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
         cutOffAtTop = Math.max(cutOffAtTop, r.height);
       }
       need = Math.max(need, r.bottom + gap, r.height + 2 * gap);
+      const floor = Math.max(floors.get(layer.el) ?? 0, squeezedRoom(layer, vh));
+      if (floor) {
+        floors.set(layer.el, floor);
+        if (floor > vh + 1) overflow = true;
+        need = Math.max(need, floor);
+      }
     }
     if (topOverflow > 0) {
       const stuck = lastTopOverflow !== null && Math.abs(lastTopOverflow - topOverflow) < 1;
@@ -191,8 +230,8 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
 
   function measure() {
     scheduled = false;
-    const rects = layerRects();
-    if (!rects.length) {
+    const open = layers();
+    if (!open.length) {
       if (!freezeStyle) {
         rest = readRest();
         return;
@@ -206,13 +245,13 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
       return;
     }
 
-    let result = requiredHeight(rects);
+    let result = requiredHeight(open);
     if (!freezeStyle && !result.overflow) return;
     clearTimeout(unfreezeTimer);
     const freezing = !freezeStyle;
     if (freezing) {
       freeze();
-      result = requiredHeight(layerRects());
+      result = requiredHeight(layers());
     }
     lastTopOverflow = result.topOverflow > 0 ? result.topOverflow : null;
     send(result.need);
@@ -262,11 +301,11 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   // Scroll events arrive a frame late, so a scroll caused by an opening overlay arrives once the
   // overlay exists and is not taken as the resting offset.
   addEventListener("scroll", () => {
-    if (!freezeStyle && !layerRects().length) rest = readRest();
+    if (!freezeStyle && !layers().length) rest = readRest();
   }, { passive: true });
 
   function outsidePress() {
-    if (!layerRects().length) return;
+    if (!layers().length) return;
     // Coordinates outside the viewport, so no library mistakes it for a press on a scrollbar.
     const mouse = { bubbles: true, cancelable: true, composed: true, view: window, clientX: -1, clientY: -1 };
     const pointer = { ...mouse, pointerId: 1, pointerType: "mouse", isPrimary: true };

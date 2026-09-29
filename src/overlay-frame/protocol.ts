@@ -1,10 +1,10 @@
 /**
  * Contract between the document inside the frame (the guest) and the page that embeds it (the host).
  *
- * Guest → host: the height the guest's open overlays need (`null` once nothing floats). The guest
- * calls the host synchronously through `hostGlobal`, which the host installs on the frame's window
- * when both are same-origin; that lets the new height be laid out in the same frame as the overlay,
- * so a cut-off overlay is never painted.
+ * Guest → host: the height the guest's open overlays need (`Infinity`: all the host allows; `null`
+ * once nothing floats). The guest calls the host synchronously through `hostGlobal`, which the host
+ * installs on the frame's window when both are same-origin; that lets the new height be laid out in
+ * the same frame as the overlay, so a cut-off overlay is never painted.
  *
  * Host → guest: a press outside the frame. It never reaches the guest's document, so overlays that
  * close on an outside press would stay open; the host calls `guestGlobal.outsidePress()`. And on

@@ -72,6 +72,33 @@ const EXAMPLES = {
   }, []);
 
   return <p>A layer sized in vh, next to #root</p>;`,
+  // A list sized to the room below it, as positioning libraries size a dropdown: in the resting frame
+  // it shows 90px of its 400px and scrolls.
+  squeezedList: `React.useEffect(() => {
+    const list = document.createElement("div");
+    list.innerHTML = '<div style="height:400px"></div>';
+    const place = () => {
+      list.style.cssText = "position:fixed;top:150px;left:10px;width:200px;overflow:auto;max-height:" + (innerHeight - 170) + "px";
+    };
+    place();
+    addEventListener("resize", place);
+    document.body.appendChild(list);
+    return () => {
+      removeEventListener("resize", place);
+      list.remove();
+    };
+  }, []);
+
+  return <p>A list sized to the room below it</p>;`,
+  // A panel exactly as tall as the viewport, like a side drawer.
+  drawer: `React.useEffect(() => {
+    const panel = document.createElement("div");
+    panel.style.cssText = "position:fixed;top:0;right:0;width:200px;height:100%;background:var(--color-surface)";
+    document.body.appendChild(panel);
+    return () => panel.remove();
+  }, []);
+
+  return <p>A panel as tall as the viewport</p>;`,
   syntaxError: `return (
     <div>`,
   staticTall: `return (
@@ -375,6 +402,10 @@ async function run(browser) {
   r.vhA = await snap();
   await sleep(2500);
   r.vhB = await snap();
+  await load(EXAMPLES.squeezedList);
+  r.squeezed = await snap();
+  await load(EXAMPLES.drawer);
+  r.drawer = await snap();
 
   console.log("· editing: a nested return, a theme change");
   await load(EXAMPLES.nestedReturn);
@@ -495,6 +526,7 @@ const CHECKS = [
   ["first painted frame: menu aligned with its trigger", (r) => Math.abs(r.first.menuLeft - r.first.trigger.left) <= 1],
   ["open: menu fully visible", (r) => r.open.allVisible],
   ["open: frame grows over the page, layout keeps the resting height", (r) => r.open.frame > RESTING && r.open.slot === RESTING],
+  ["open: frame grows only as far as the menu needs (its bottom + 16px), though its list scrolls", (r) => r.open.hidden > 0 && r.open.frame === Math.max(...r.open.layers.map(([, bottom]) => bottom)) + 16],
   ["open: content below does not move", (r) => r.open.tabsTop === r.rest.tabsTop],
   ["open: above page content, resize handle hidden", (r) => r.open.zIndex !== "" && r.open.resize === "none"],
   ["filtering the list: menu stays fully visible", (r) => r.filtered.allVisible],
@@ -518,6 +550,8 @@ const CHECKS = [
   ["syntax error: error shown, frame untouched", (r) => r.syntaxError.error && r.syntaxError.frame === RESTING],
   ["tall static content (no overlay): frame untouched", (r) => r.staticTall.frame === RESTING && !r.staticTall.frozen],
   ["layer sized in vh: growth stops (capped, stable)", (r) => r.vhA.frame === r.vhB.frame && r.vhB.frame <= CAP],
+  ["squeezed list (sized to the room below it): frame grows until it hides nothing", (r) => r.squeezed.frame > RESTING && r.squeezed.allVisible && r.squeezed.hidden === 0],
+  ["panel as tall as the viewport (a side drawer): gets all the height allowed", (r) => r.drawer.frame === CAP],
   ["bare example with a return inside a callback: rendered", (r) => r.nestedReturn !== null],
   ["theme change: the edit stays in the editor and the preview, which follows the theme", (r) => r.themeChange.editor === EXAMPLES.edited && r.themeChange.preview !== null && r.themeChange.theme === "dark"],
   ["edit made while the preview loads: shown once it has loaded, not the page's example", (r) => r.loadRace.loading && r.loadRace.edited !== null && r.loadRace.example === null],

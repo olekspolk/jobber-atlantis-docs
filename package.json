@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Improved replica of the Atlantis docs: menus, popovers and tooltips in live examples extend past the preview iframe",
+  "description": "Improved replica of the Atlantis docs: menus, dropdowns, date pickers and drawers in live examples extend past the preview iframe",
   "scripts": {
     "assets": "node scripts/copy-docs.mjs && node scripts/build-editor-bundle.mjs",
     "predev": "npm run assets",

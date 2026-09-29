@@ -1,10 +1,10 @@
 # overlay-frame
 
-An iframe whose document can open overlays — menus, popovers, tooltips, dialogs — taller than the
-frame. While one is open, the frame grows **over** the page (its document is transparent, so only the
-overlay shows); the page layout keeps the frame's resting height, so nothing below it moves. When
-the overlay closes, the frame goes back to its resting height. A press anywhere on the page closes
-the overlay, as if the content were not in an iframe.
+An iframe whose document can open overlays — menus, popovers, tooltips, dialogs, drawers — taller
+than the frame, or squeezed to fit it. While one is open, the frame grows **over** the page (its
+document is transparent, so only the overlay shows); the page layout keeps the frame's resting
+height, so nothing below it moves. When the overlay closes, the frame goes back to its resting
+height. A press anywhere on the page closes the overlay, as if the content were not in an iframe.
 
 No dependencies. The core is framework-agnostic; `react.tsx` is a thin React layer on top.
 
@@ -72,6 +72,11 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
   `scrollIntoView` of a selected option) is undone. All of this happens before the first paint.
 - Positioning libraries hear about the new viewport right away (a `resize` event; Floating UI's
   `autoUpdate` listens for it), and the re-placed overlay is measured again within the same frame.
+- An overlay the frame squeezes rather than cuts off gets the room it would have in the window. A
+  dropdown sized to the room below its trigger (Floating UI's `size`, Base UI's available height)
+  scrolls in an area that ends at the frame's edge: the frame grows by what that area hides. A panel
+  exactly as tall as the frame (a side drawer) gets all the height allowed. The room stays while the
+  overlay is open, so the frame does not shrink back into squeezing it.
 - A press on the page outside the frame closes the guest's overlays, like a press outside an overlay
   on a normal page. That press never reaches the framed document, so the host reports it (capture
   phase, so the page stopping propagation does not hide it) and the guest replays it as
@@ -95,3 +100,5 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
 - A press inside another iframe on the page never reaches this page's document, so it does not
   close the overlay.
 - An overlay taller than the window stops at `maxViewportFraction`.
+- A squeezed overlay is recognised by a scroll area ending at the frame's edge, or by spanning
+  exactly its height; one fitted to the frame another way keeps the size it was given.

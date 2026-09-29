@@ -1,0 +1,7 @@
+{
+  "devServerPort": 5190,
+  "atlantisUrl": "https://atlantis.getjobber.com",
+  "storybookUrl": "https://atlantis.getjobber.com/storybook/web/",
+  "componentsSourceUrl": "https://github.com/GetJobber/atlantis/blob/master/packages/components/src",
+  "fontsUrl": "https://cdn.jobber.com/fonts/fonts.css"
+}

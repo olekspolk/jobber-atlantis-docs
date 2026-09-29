@@ -1,0 +1,112 @@
+.navMenuContainer {
+  --subItemInset: calc(var(--space-small) + var(--space-smaller));
+  --navItemHeight: 40px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--sideBarWidth);
+  min-width: var(--sideBarWidth);
+  height: 100dvh;
+  box-sizing: border-box;
+  padding: var(--space-large) 0 0 0;
+}
+
+.navMenuContainer > * {
+  padding-left: var(--space-base);
+  padding-right: var(--space-base);
+  padding-bottom: var(--space-base);
+}
+
+.navMenuHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-large);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 17px;
+  color: var(--color-heading);
+  font-family: "Jobber Pro", Poppins, Helvetica, Arial, sans-serif;
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: 0.06em;
+}
+
+.logoMark {
+  width: 15px;
+  height: 15px;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.navMenu {
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-large);
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  flex: 1;
+  min-height: 0;
+}
+
+.navMenu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navMenu li {
+  margin-bottom: var(--space-smaller);
+}
+
+.navMenuItem {
+  align-items: center;
+  display: flex;
+  min-height: var(--navItemHeight);
+  overflow-wrap: anywhere;
+  transition: all var(--timing-base) ease-out;
+  user-select: none;
+  box-sizing: border-box;
+  border-radius: var(--radius-small);
+}
+
+.navMenuLink {
+  color: var(--color-text);
+  outline: transparent;
+  text-decoration: none;
+  padding: 0 var(--space-small);
+}
+
+.navMenuLink:visited {
+  color: var(--color-text);
+}
+
+.navMenuLink:hover,
+.navMenuLink:focus-visible {
+  background-color: var(--color-surface--background--hover);
+  color: var(--color-text);
+}
+
+.selected {
+  background-color: var(--color-surface);
+}
+
+.navMenuSubItem {
+  padding-left: var(--subItemInset);
+}
+
+.navMenuSubTitle {
+  min-height: 24px;
+  padding: var(--space-smaller) var(--space-small) var(--space-small) var(--space-small);
+  align-items: end;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text--secondary);
+  letter-spacing: 0.02em;
+}

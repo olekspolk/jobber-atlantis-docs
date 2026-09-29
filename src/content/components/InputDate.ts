@@ -7,5 +7,5 @@ export default {
   storybook: "components-forms-and-inputs-inputdate--basic",
   source: "InputDate/InputDate.tsx",
   example: `const [date, setDate] = useState(new Date());
-      return <InputDate value={date} onChange={setDate} />;`,
+return <InputDate value={date} onChange={setDate} />;`,
 } satisfies ComponentSource;

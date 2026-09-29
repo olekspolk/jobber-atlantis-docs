@@ -18,7 +18,7 @@ return (
     <Combobox.TriggerInput placeholder="Search team members" />
     <Combobox.Content>
       <Combobox.List>
-        {teamMember => (
+        {(teamMember) => (
           <Combobox.Item key={teamMember} value={teamMember}>
             {teamMember}
           </Combobox.Item>

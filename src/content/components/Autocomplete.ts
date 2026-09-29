@@ -8,15 +8,27 @@ export default {
   source: "Autocomplete/Autocomplete.tsx",
   example: `const [value, setValue] = useState();
 const [inputValue, setInputValue] = useState("");
-const menu = [{
-  type: "section",
-  label: "Services",
-  options: [
-    { label: "Drain Cleaning" }, { label: "Pipe Replacement" }, { label: "Sewer Line Repair" }, { label: "Seasonal Refreshment" }, { label: "Window Cleaning" }, { label: "Roof Inspection" }, { label: "Flooring Installation" }, { label: "Baseboard Installation" }, { label: "HVAC Repair" }, { label: "HVAC Installation" }]
-}];
+const menu = [
+  {
+    type: "section",
+    label: "Services",
+    options: [
+      { label: "Drain Cleaning" },
+      { label: "Pipe Replacement" },
+      { label: "Sewer Line Repair" },
+      { label: "Seasonal Refreshment" },
+      { label: "Window Cleaning" },
+      { label: "Roof Inspection" },
+      { label: "Flooring Installation" },
+      { label: "Baseboard Installation" },
+      { label: "HVAC Repair" },
+      { label: "HVAC Installation" },
+    ],
+  },
+];
 
 return (
-  <div style={{width: "100%"}}>
+  <div style={{ width: "100%" }}>
     <Autocomplete
       placeholder="Search"
       value={value}

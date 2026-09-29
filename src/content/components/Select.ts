@@ -21,7 +21,7 @@ return (
     label={"Status"}
     value={value}
     onValueChange={setValue}
-    renderValue={value => labels[value]}
+    renderValue={(value) => labels[value]}
   >
     <Select.Item value="all">All statuses</Select.Item>
     <Select.Separator />

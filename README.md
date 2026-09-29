@@ -7,6 +7,8 @@ page and close on a click anywhere on it, as if the example were not in an ifram
 
 **Live:** [jobber-atlantis-docs.pages.dev](https://jobber-atlantis-docs.pages.dev)
 
+![The DatePicker page before and after the fix: the calendar cut off at the bottom of the 260px preview, then opening in full over the page](docs/datepicker-before-after.png)
+
 ## The fix
 
 [`src/overlay-frame`](src/overlay-frame) is a standalone module with no dependencies. While an

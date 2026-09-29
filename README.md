@@ -28,9 +28,10 @@ renders `<OverlayFrame>` in place of the `<iframe>`.
 
 ```bash
 npm install
-npm run dev      # http://localhost:5190
-npm run verify   # scenario checks in headless Chrome, with the dev server running
-npm run build    # typecheck + production build
+npm run dev                # http://localhost:5190
+npm run verify             # scenario checks in headless Chrome, with the dev server running
+npm run verify -- --phone  # the same in a phone-sized window, on the small-screen layout
+npm run build              # typecheck + production build
 ```
 
 `npm run verify` opens overlays in the live preview and checks that they are fully visible from the

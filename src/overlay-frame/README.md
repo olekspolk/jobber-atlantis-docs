@@ -71,16 +71,19 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
   so the new height is laid out before that frame is painted (`postMessage` would land a frame late
   and flash the cut-off overlay; it remains the cross-origin fallback).
 - The example does not move while the frame is taller: the root is pinned at its painted position
-  and size, scrollbars are removed before measuring (a classic scrollbar would shift centred content
-  by half its width), a resting scrollbar gutter is kept, and a scroll the opening caused (e.g.
-  `scrollIntoView` of a selected option) is undone. All of this happens before the first paint.
+  and size, measured with the resting page's scrollbars and no others (a classic scrollbar the
+  overlay makes appear would shift centred content by half its width; a horizontal one the resting
+  page had, under an example wider than the frame, would by half its height once gone), a resting
+  scrollbar gutter is kept, and a scroll the opening caused (e.g. `scrollIntoView` of a selected
+  option) is undone. All of this happens before the first paint.
 - Positioning libraries hear about the new viewport right away (a `resize` event; Floating UI's
   `autoUpdate` listens for it), and the re-placed overlay is measured again within the same frame.
 - An overlay the frame squeezes rather than cuts off gets the room it would have in the window. A
   dropdown sized to the room below its trigger (Floating UI's `size`, Base UI's available height)
   scrolls in an area that ends at the frame's edge: the frame grows by what that area hides. A panel
-  exactly as tall as the frame (a side drawer) gets all the room there is. The room stays while the
-  overlay is open, so the frame does not shrink back into squeezing it.
+  exactly as tall as the frame (a side drawer) gets all the room there is, and so does one that fills
+  the whole frame and scrolls part of its content (the same drawer in a phone's narrow preview). The
+  room stays while the overlay is open, so the frame does not shrink back into squeezing it.
 - An overlay laid out against the viewport (a full-screen viewer, a layer sized in `vh`), whose
   bottom moves down as far as the frame grows, gets all the room there is at once instead of
   creeping towards it. All the room there is ends 16px above the window's bottom, so it stays in
@@ -112,5 +115,11 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
   overlay that closes only through a backdrop of its own (a side drawer's dimmed overlay) closes on
   a press on that backdrop inside the frame, or on Escape.
 - An overlay taller than the window stops at `maxViewportFraction` (or `maxHeight`).
-- A squeezed overlay is recognised by a scroll area ending at the frame's edge, or by spanning
-  exactly its height; one fitted to the frame another way keeps the size it was given.
+- The frame grows downwards only. An overlay wider than the frame (a phone's preview is under 300px
+  wide) is placed by its own library within the frame's width, and what does not fit is cut off at
+  the sides.
+- A box exactly the size of the frame is taken for a backdrop and looked through, unless it scrolls
+  part of its content. One larger than the frame is measured as an overlay.
+- A squeezed overlay is recognised by a scroll area ending at the frame's edge, by spanning exactly
+  its height, or by filling it and scrolling; one fitted to the frame another way keeps the size it
+  was given.

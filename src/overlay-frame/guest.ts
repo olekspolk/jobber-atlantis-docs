@@ -38,9 +38,11 @@ export const DEFAULT_GUEST_OPTIONS: OverlayFrameGuestOptions = {
  *  - the root is pinned at its current position and size. The embedder's CSS may centre it in
  *    `html, body { height: 100% }`, which would re-centre it as the frame grows (and with body
  *    margins, overflow the centred html by a few px each way);
- *  - scrollbars are removed before the root is measured: the overflowing overlay makes a classic
- *    scrollbar appear, which narrows centred content by half its width. A gutter the resting page
- *    already had is kept, so the width does not change either;
+ *  - the root is measured with the resting page's scrollbars and no others: the overflowing overlay
+ *    makes a classic scrollbar appear, which narrows centred content by half its width, and a
+ *    horizontal one the resting page had (an example wider than the frame) would lift it by half its
+ *    height once gone. Pinned, it no longer depends on them, and they are removed; a resting vertical
+ *    one's gutter is kept, so the width does not change either;
  *  - the resting scroll offset is restored and kept valid: opening can scroll the document itself
  *    (scrollIntoView of the selected option scrolls every ancestor).
  * Positioning libraries are then told the viewport changed (a `resize` event, which the browser
@@ -76,11 +78,12 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   const hostOrigin = options.hostOrigin ?? location.ancestorOrigins?.[0] ?? location.origin;
   const PIN_ATTRIBUTE = "data-overlay-frame-pinned";
 
-  type Rest = { x: number; y: number; scrollbar: boolean };
+  type Rest = { x: number; y: number; scrollbarX: boolean; scrollbarY: boolean };
   const readRest = (): Rest => ({
     x: scrollX,
     y: scrollY,
-    scrollbar: innerWidth - document.documentElement.clientWidth > 0,
+    scrollbarX: innerHeight - document.documentElement.clientHeight > 0,
+    scrollbarY: innerWidth - document.documentElement.clientWidth > 0,
   });
 
   let rest = readRest();
@@ -97,21 +100,39 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   // An overlay inside the root was open at the last measure: changes in the pinned root then count.
   let openInRoot = false;
 
-  const coversViewport = (r: DOMRect) => r.width >= innerWidth - 1 && r.height >= innerHeight - 1;
+  // Exactly the viewport's box, with or without its scrollbars: a backdrop, a portal host. A panel
+  // larger than the viewport is not one, it overflows it.
+  const coversViewport = (r: DOMRect) => {
+    const { clientWidth, clientHeight } = document.documentElement;
+    return (
+      Math.abs(r.left) <= 1 &&
+      Math.abs(r.top) <= 1 &&
+      r.right >= clientWidth - 1 &&
+      r.right <= innerWidth + 1 &&
+      r.bottom >= clientHeight - 1 &&
+      r.bottom <= innerHeight + 1
+    );
+  };
+  // A scroll area hiding part of its content.
+  const scrolls = (area: Element) =>
+    area.scrollHeight > area.clientHeight + 1 && /auto|scroll/.test(getComputedStyle(area).overflowY);
 
   type Layer = { el: Element; r: DOMRect };
 
   // What floats over the example: what is rendered next to the root, and what the root positions
   // out of its own flow — fixed, or absolutely positioned mostly outside the box it is positioned
   // against (a dropdown drawn under its trigger). Full-viewport wrappers (backdrops, portal hosts)
-  // are searched rather than measured; 1–2px helpers (focus guards, live regions) are ignored.
+  // are searched rather than measured, unless they scroll part of their content: then they are
+  // panels the viewport sizes (a drawer that takes a narrow frame's whole width). 1–2px helpers
+  // (focus guards, live regions) are ignored.
   function layers(): Layer[] {
     const open: Layer[] = [];
     const visit = (el: Element, depth: number) => {
       const style = getComputedStyle(el);
       if (style.display === "none" || style.visibility === "hidden") return;
       const r = el.getBoundingClientRect();
-      if (r.width > 2 && r.height > 2 && !coversViewport(r)) {
+      const panel = () => [el, ...Array.from(el.querySelectorAll("*"))].some(scrolls);
+      if (r.width > 2 && r.height > 2 && (!coversViewport(r) || panel())) {
         open.push({ el, r });
         return;
       }
@@ -165,12 +186,10 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
     if (Math.abs(r.top) <= 1 && Math.abs(r.bottom - vh) <= 1) return Infinity;
     let hidden = 0;
     for (const area of [el, ...Array.from(el.querySelectorAll("*"))]) {
-      if (area.scrollHeight <= area.clientHeight + 1) continue;
+      if (!scrolls(area)) continue;
       const a = area.getBoundingClientRect();
       const atEdge = (a.bottom >= vh - EDGE && a.bottom <= vh + 1) || (a.top >= -1 && a.top <= EDGE);
-      if (atEdge && /auto|scroll/.test(getComputedStyle(area).overflowY)) {
-        hidden = Math.max(hidden, area.scrollHeight - area.clientHeight);
-      }
+      if (atEdge) hidden = Math.max(hidden, area.scrollHeight - area.clientHeight);
     }
     return hidden ? vh + hidden + EDGE : 0;
   }
@@ -211,11 +230,14 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
     frozenViewport = innerHeight;
     freezeStyle = document.createElement("style");
     freezeStyle.setAttribute("data-overlay-frame", "frozen");
+    const scrollbar = (shown: boolean) => (shown ? "scroll" : "hidden");
+    freezeStyle.textContent =
+      `html{overflow-x:${scrollbar(rest.scrollbarX)}!important;overflow-y:${scrollbar(rest.scrollbarY)}!important}` +
+      "body{overflow:hidden!important}";
+    document.head.appendChild(freezeStyle);
     const noScrollbars =
       "html,body{overflow:hidden!important}" +
-      (rest.scrollbar ? "html{scrollbar-gutter:stable!important}" : "");
-    freezeStyle.textContent = noScrollbars;
-    document.head.appendChild(freezeStyle);
+      (rest.scrollbarY ? "html{scrollbar-gutter:stable!important}" : "");
 
     if (scrollX !== rest.x || scrollY !== rest.y) scrollTo(rest.x, rest.y);
     const r = root.getBoundingClientRect();

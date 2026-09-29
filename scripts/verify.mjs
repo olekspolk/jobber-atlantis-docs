@@ -6,6 +6,7 @@
 //   npm run dev                      # in another terminal
 //   npm run verify                   # DOCS_URL=http://localhost:5191 npm run verify  for a dev server elsewhere
 //   npm run verify -- InputDate Menu # only those components' checks
+//   npm run verify -- --phone        # in a phone-sized window, on the site's small-screen layout
 //
 // Headless Chrome renders frames, so resize events, requestAnimationFrame and Floating UI's
 // autoUpdate behave as in a visible tab. Puppeteer hides scrollbars by default; they are shown here
@@ -19,7 +20,8 @@ import site from "../site.config.json" with { type: "json" };
 const BASE = process.env.DOCS_URL ?? `http://localhost:${site.devServerPort}`;
 const CHROME =
   process.env.CHROME_PATH ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const WINDOW = { width: 1440, height: 900 };
+const PHONE = process.argv.includes("--phone");
+const WINDOW = PHONE ? { width: 375, height: 812 } : { width: 1440, height: 900 };
 const RESTING = 260;
 const CAP = Math.round(WINDOW.height * 0.9);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -134,17 +136,27 @@ function installHarness() {
     const r = el.getBoundingClientRect();
     return { left: Math.round(r.left), top: Math.round(r.top) };
   };
-  // Same notion of "layer" as the guest: rendered next to #root, not a full-viewport wrapper, or
-  // positioned inside #root out of its flow (fixed, or hanging below or above the box it is
-  // positioned against).
+  // A scroll area hiding part of its content.
+  const scrolls = (el) => el.scrollHeight > el.clientHeight + 1 && /(auto|scroll)/.test(win().getComputedStyle(el).overflowY);
+  // Same notion of "layer" as the guest: rendered next to #root, not a full-viewport wrapper (unless
+  // it scrolls part of its content), or positioned inside #root out of its flow (fixed, or hanging
+  // below or above the box it is positioned against).
   const layerElements = () => {
     const out = [];
     const visit = (el, depth) => {
       const style = win().getComputedStyle(el);
       if (style.display === "none" || style.visibility === "hidden") return;
       const r = el.getBoundingClientRect();
-      const full = r.width >= win().innerWidth - 1 && r.height >= win().innerHeight - 1;
-      if (r.width > 2 && r.height > 2 && !full) return void out.push(el);
+      const { clientWidth, clientHeight } = doc().documentElement;
+      const full =
+        Math.abs(r.left) <= 1 &&
+        Math.abs(r.top) <= 1 &&
+        r.right >= clientWidth - 1 &&
+        r.right <= win().innerWidth + 1 &&
+        r.bottom >= clientHeight - 1 &&
+        r.bottom <= win().innerHeight + 1;
+      const panel = () => [el, ...el.querySelectorAll("*")].some(scrolls);
+      if (r.width > 2 && r.height > 2 && (!full || panel())) return void out.push(el);
       if ((r.width > 0 && r.width <= 2) || (r.height > 0 && r.height <= 2) || depth >= 5) return;
       [...el.children].forEach((child) => visit(child, depth + 1));
     };
@@ -178,7 +190,7 @@ function installHarness() {
   const hiddenContent = () =>
     layerElements()
       .flatMap((el) => [el, ...el.querySelectorAll("*")])
-      .filter((el) => el.scrollHeight > el.clientHeight + 1 && /(auto|scroll)/.test(win().getComputedStyle(el).overflowY));
+      .filter(scrolls);
   // Those of them ending at the viewport's edge: sized by the frame rather than by their own maximum.
   const squeezedContent = () =>
     hiddenContent().filter((el) => {
@@ -239,6 +251,8 @@ function installHarness() {
               clipped: r.top < -1 || r.bottom > win().innerHeight + 1,
               trigger: box(find(source)),
               menuLeft: Math.round(r.left),
+              menuRight: Math.round(r.right),
+              width: doc().documentElement.clientWidth,
             });
           });
           ro.observe(layer);
@@ -261,6 +275,9 @@ function installHarness() {
         hidden: hiddenContent().length,
         squeezed: squeezedContent().length,
         top: Math.round(frame().getBoundingClientRect().top),
+        // All the room there is, as the host counts it: down to 16px above the window's bottom.
+        windowRoom: Math.floor(window.innerHeight - frame().getBoundingClientRect().top - 16),
+        width: win().innerWidth,
         scrollHeight: doc().documentElement.scrollHeight,
         tabsTop: Math.round(document.querySelector('[role="tablist"]').getBoundingClientRect().top),
         resize: frame().style.resize,
@@ -497,15 +514,17 @@ async function runLoadRace(browser) {
 
 // The other components whose overlays the preview cuts off or squeezes, each with the control that
 // opens its example's overlay. It closes on a press on the page outside the frame, or on Escape for a
-// full-screen viewer, which covers the whole window on a normal page.
+// full-screen viewer, which covers the whole window on a normal page. In a preview no wider than
+// Atlantis's small-screen breakpoint (a phone's), some open as a bottom sheet that fits the preview.
+const SMALL_SCREEN = 490;
 const COMPONENT_OVERLAYS = [
   { name: "InputDate", click: "<input>" },
   { name: "DatePicker", click: "Open Datepicker" },
   { name: "Gallery", click: "<img>", close: "Escape", maxHeight: 500 },
   { name: "LightBox", click: "Click me", close: "Escape", maxHeight: 500 },
-  { name: "Menu", click: "More Actions" },
+  { name: "Menu", click: "More Actions", smallScreenFits: true },
   { name: "Autocomplete", click: "<input>" },
-  { name: "Combobox", click: "Search team members" },
+  { name: "Combobox", click: "Search team members", smallScreenFits: true },
   { name: "Select", click: "Active" },
   { name: "SelectPrimitive", click: "Select an option" },
   { name: "SideDrawer", click: "Open Side Drawer", close: "Escape" },
@@ -549,16 +568,17 @@ async function runComponent(browser, { name, click, close }) {
   return { rest, open, later, closed };
 }
 
-const componentCheck = ({ name, close, maxHeight = CAP }) => [
-  `${name}: its example's overlay opens in full over the page (at most ${maxHeight}px), keeps its size, closes on ${close ?? "a press outside the frame"}`,
+const componentCheck = ({ name, close, maxHeight = CAP, smallScreenFits }) => [
+  `${name}: its example's overlay opens in full over the page (at most ${maxHeight}px${smallScreenFits ? "; in a small-screen preview, within it" : ""}), keeps its size, closes on ${close ?? "a press outside the frame"}`,
   (r) => {
     const { rest, open, later, closed } = r.components[name];
+    const fits = smallScreenFits && rest.width <= SMALL_SCREEN;
     return (
       rest.frame === RESTING &&
       open.layers.length > 0 &&
       open.allVisible &&
       open.squeezed === 0 &&
-      open.frame > RESTING &&
+      (fits ? open.frame === RESTING : open.frame > RESTING) &&
       open.frame <= maxHeight &&
       open.slot === RESTING &&
       later.frame === open.frame &&
@@ -570,12 +590,17 @@ const componentCheck = ({ name, close, maxHeight = CAP }) => [
 
 const same = (a, b) => a.left === b.left && a.top === b.top;
 // All the room there is: down to 16px above the window's bottom, within the cap.
-const toWindowBottom = (snap) => Math.min(CAP, WINDOW.height - snap.top - 16);
+const toWindowBottom = (snap) => Math.min(CAP, snap.windowRoom);
 
 const CHECKS = [
   ["first painted frame: menu not cut off", (r) => !r.first.clipped],
   ["first painted frame: example does not move (vertically or sideways)", (r) => same(r.first.trigger, r.rest.trigger)],
-  ["first painted frame: menu aligned with its trigger", (r) => Math.abs(r.first.menuLeft - r.first.trigger.left) <= 1],
+  [
+    "first painted frame: menu aligned with its trigger, where the frame is wide enough for that",
+    ({ first }) =>
+      first.trigger.left + first.menuRight - first.menuLeft > first.width ||
+      Math.abs(first.menuLeft - first.trigger.left) <= 1,
+  ],
   ["open: menu fully visible", (r) => r.open.allVisible],
   ["open: frame grows over the page, layout keeps the resting height", (r) => r.open.frame > RESTING && r.open.slot === RESTING],
   ["open: frame grows only as far as the menu needs (its bottom + 16px), though its list scrolls", (r) => r.open.hidden > 0 && r.open.frame === Math.max(...r.open.layers.map(([, bottom]) => bottom)) + 16],
@@ -619,7 +644,7 @@ const browser = await puppeteer.launch({
 });
 
 // Names given on the command line run only those components' checks.
-const only = process.argv.slice(2);
+const only = process.argv.slice(2).filter((arg) => !arg.startsWith("--"));
 
 try {
   const r = only.length ? {} : await run(browser);

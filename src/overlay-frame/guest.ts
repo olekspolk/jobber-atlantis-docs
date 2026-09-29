@@ -29,8 +29,9 @@ export const DEFAULT_GUEST_OPTIONS: OverlayFrameGuestOptions = {
 
 /**
  * Runs inside the framed document. While an overlay (anything rendered next to the root: popovers,
- * menus, tooltips, dialogs) does not fit the frame, it asks the host for the height it needs, and it
- * hands the height back once nothing floats. Documents without such overlays are never touched.
+ * menus, tooltips, dialogs; or positioned out of the root's flow, like a dropdown drawn under its
+ * trigger) does not fit the frame, it asks the host for the height it needs, and it hands the height
+ * back once nothing floats. Documents without such overlays are never touched.
  *
  * While the frame is taller, the example must look exactly as it did, so on the first request it
  * freezes the painted state:
@@ -93,13 +94,17 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   let scheduled = false;
   let settling = 0;
   let unfreezeTimer = 0;
+  // An overlay inside the root was open at the last measure: changes in the pinned root then count.
+  let openInRoot = false;
 
   const coversViewport = (r: DOMRect) => r.width >= innerWidth - 1 && r.height >= innerHeight - 1;
 
   type Layer = { el: Element; r: DOMRect };
 
-  // What is rendered next to the root. Full-viewport wrappers (backdrops, portal hosts) are
-  // searched rather than measured; 1–2px helpers (focus guards, live regions) are ignored.
+  // What floats over the example: what is rendered next to the root, and what the root positions
+  // out of its own flow — fixed, or absolutely positioned mostly outside the box it is positioned
+  // against (a dropdown drawn under its trigger). Full-viewport wrappers (backdrops, portal hosts)
+  // are searched rather than measured; 1–2px helpers (focus guards, live regions) are ignored.
   function layers(): Layer[] {
     const open: Layer[] = [];
     const visit = (el: Element, depth: number) => {
@@ -115,6 +120,28 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
     };
     for (const el of Array.from(document.body.children)) {
       if (el !== root && el.tagName !== "SCRIPT" && el.tagName !== "STYLE") visit(el, 0);
+    }
+    const floating: Element[] = [];
+    for (const el of Array.from(root.querySelectorAll("*"))) {
+      const style = getComputedStyle(el);
+      if (style.position !== "absolute" && style.position !== "fixed") continue;
+      if (floating.some((f) => f.contains(el))) continue;
+      if (style.position === "fixed") {
+        floating.push(el);
+        visit(el, 0);
+        continue;
+      }
+      const r = el.getBoundingClientRect();
+      if (style.visibility === "hidden" || r.width <= 2 || r.height <= 2) continue;
+      // One positioned against the page rather than a box of its own floats out of the example.
+      const parent = (el as HTMLElement).offsetParent; // SVG elements have none: measured against the root
+      const box = (parent && parent !== document.body ? parent : root).getBoundingClientRect();
+      const outside = Math.max(0, box.top - r.top) + Math.max(0, r.bottom - box.bottom);
+      // A badge or an icon overlapping its box's edge is part of it; what hangs below or above it is not.
+      if (outside > gap && outside >= r.height / 2) {
+        floating.push(el);
+        open.push({ el, r });
+      }
     }
     return open;
   }
@@ -240,6 +267,7 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   function measure() {
     scheduled = false;
     const open = layers();
+    openInRoot = open.some(({ el }) => root.contains(el));
     if (!open.length) {
       if (!freezeStyle) {
         rest = readRest();
@@ -287,8 +315,9 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   // Microtasks queued from a requestAnimationFrame callback still run before that frame's paint.
   new MutationObserver((records) => {
     // While frozen, changes inside the pinned root are skipped (an animated example would cost a
-    // measure per frame): a layer re-placed after one of them mutates itself.
-    if (freezeStyle && records.every((record) => root.contains(record.target))) return;
+    // measure per frame): a layer re-placed after one of them mutates itself. Unless the layer is
+    // inside the root, where its own changes (and its closing) happen.
+    if (freezeStyle && !openInRoot && records.every((record) => root.contains(record.target))) return;
     if (settling > 0 && freezeStyle) {
       settling--;
       measure();

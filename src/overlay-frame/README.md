@@ -47,7 +47,7 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
 
 | Guest (`overlayFrameGuestScript` / `overlayFrameGuest`) | Default | |
 |---|---|---|
-| `rootSelector` | `"#root"` | Element the content renders into; everything else in `<body>` is an overlay |
+| `rootSelector` | `"#root"` | Element the content renders into; everything else in `<body>` is an overlay, and so is what the content positions out of its flow |
 | `gap` | `16` | Room kept below an overlay, px |
 | `maxRequestsPerSecond` | `12` | Bounds an overlay that keeps resizing as the frame does; a held-back request is sent once the limit allows |
 | `hostOrigin` | parent's origin | Origin of the page, for the `postMessage` fallback (cross-origin frames). By default the parent's origin as the browser reports it (`location.ancestorOrigins`), else the frame's own — set it where the browser does not report it |
@@ -63,6 +63,9 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
 
 ## What it guarantees
 
+- Overlays are found wherever they render: next to the root (a portal into `<body>`, as Floating
+  UI, Base UI, Radix and MUI do), or inside it, positioned out of the content's flow — fixed, or
+  hanging below or above the box it is positioned against, like a dropdown drawn under its trigger.
 - The first painted frame after an overlay opens already shows the overlay in full. When guest and
   host are same-origin, the guest calls the host synchronously from a `requestAnimationFrame` callback,
   so the new height is laid out before that frame is painted (`postMessage` would land a frame late
@@ -98,8 +101,9 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
 
 ## Limits
 
-- Overlays must render next to the root (a portal into `<body>`, as Floating UI, Base UI, Radix and
-  MUI do). One positioned inside the root is not measured.
+- An overlay inside the root counts once it hangs out of the box it is positioned against, by more
+  than `gap` and by at least half its height. One drawn over that box, or laid out in the flow, is
+  taken for part of the content.
 - While expanded, the transparent part of the frame receives pointer input: a click on covered page
   content dismisses the overlay (a second click reaches the page). Wheel scrolling reaches the page.
 - A press inside another iframe on the page never reaches this page's document, so it does not

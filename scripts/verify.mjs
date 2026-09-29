@@ -134,7 +134,9 @@ function installHarness() {
     const r = el.getBoundingClientRect();
     return { left: Math.round(r.left), top: Math.round(r.top) };
   };
-  // Same notion of "layer" as the guest: rendered next to #root, not a full-viewport wrapper.
+  // Same notion of "layer" as the guest: rendered next to #root, not a full-viewport wrapper, or
+  // positioned inside #root out of its flow (fixed, or hanging below or above the box it is
+  // positioned against).
   const layerElements = () => {
     const out = [];
     const visit = (el, depth) => {
@@ -146,9 +148,29 @@ function installHarness() {
       if ((r.width > 0 && r.width <= 2) || (r.height > 0 && r.height <= 2) || depth >= 5) return;
       [...el.children].forEach((child) => visit(child, depth + 1));
     };
+    const root = doc().getElementById("root");
     [...doc().body.children]
-      .filter((el) => el.id !== "root" && !["SCRIPT", "STYLE"].includes(el.tagName))
+      .filter((el) => el !== root && !["SCRIPT", "STYLE"].includes(el.tagName))
       .forEach((el) => visit(el, 0));
+    const floating = [];
+    for (const el of root.querySelectorAll("*")) {
+      const style = win().getComputedStyle(el);
+      if (!["absolute", "fixed"].includes(style.position) || floating.some((f) => f.contains(el))) continue;
+      if (style.position === "fixed") {
+        floating.push(el);
+        visit(el, 0);
+        continue;
+      }
+      const r = el.getBoundingClientRect();
+      if (style.visibility === "hidden" || r.width <= 2 || r.height <= 2) continue;
+      const parent = el.offsetParent;
+      const box = (parent && parent !== doc().body ? parent : root).getBoundingClientRect();
+      const outside = Math.max(0, box.top - r.top) + Math.max(0, r.bottom - box.bottom);
+      if (outside > 16 && outside >= r.height / 2) {
+        floating.push(el);
+        out.push(el);
+      }
+    }
     return out;
   };
   const layerBoxes = () => layerElements().map((el) => el.getBoundingClientRect());
@@ -487,6 +509,8 @@ const COMPONENT_OVERLAYS = [
   { name: "Select", click: "Active" },
   { name: "SelectPrimitive", click: "Select an option" },
   { name: "SideDrawer", click: "Open Side Drawer", close: "Escape" },
+  // Drawn inside the example, under its trigger, rather than next to it.
+  { name: "MultiSelect", click: "Status" },
 ];
 
 // A component's page as it loads: its example's overlay must open in full over the page, squeezed

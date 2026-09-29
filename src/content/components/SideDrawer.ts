@@ -6,7 +6,7 @@ export default {
   markdown,
   storybook: "components-overlays-sidedrawer--basic",
   source: "SideDrawer/SideDrawer.tsx",
-  example: `    const [sideDrawerOpen, setSideDrawerOpen] = useState(true);
+  example: `    const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
 
   return (
     <>
@@ -15,7 +15,6 @@ export default {
         label="Open Side Drawer"
       />
       <SideDrawer
-        open={true}
         open={sideDrawerOpen}
         onRequestClose={() => setSideDrawerOpen(false)}
       >

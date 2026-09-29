@@ -50,6 +50,10 @@ export const AtlantisPreviewEditor = () => {
       });
       editorView.current = new EditorView({ state: startState, parent: editor.current });
       editorView.current.dispatch({});
+      // Dev-only handle so scenario checks can type into the editor the way a user would.
+      if (import.meta.env.DEV) {
+        (window as unknown as { __previewEditor?: EditorView }).__previewEditor = editorView.current;
+      }
     }
     return () => {
       editorView.current?.destroy();

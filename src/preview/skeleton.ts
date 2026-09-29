@@ -3,6 +3,7 @@ import darkModeUrl from "@jobber/design/dark.mode.css?url";
 import foundationUrl from "@jobber/design/foundation.css?url";
 import { parser } from "@lezer/javascript";
 import site from "../../site.config.json";
+import { overlayFrameGuestScript } from "../overlay-frame";
 import { fillTemplate } from "../template";
 import codeWrapper from "./codeWrapper.js?raw";
 import skeleton from "./skeleton.html?raw";
@@ -11,7 +12,8 @@ export type PreviewTheme = "light" | "dark";
 
 /**
  * The document written into the preview iframe with document.open/write/close: the
- * atlantis.getjobber.com skeleton.
+ * atlantis.getjobber.com skeleton plus the overlay-frame guest script, which lets menus and
+ * popovers extend past the frame.
  */
 export const skeletonHTML = (theme: PreviewTheme) =>
   fillTemplate(skeleton, {
@@ -20,6 +22,7 @@ export const skeletonHTML = (theme: PreviewTheme) =>
     stylesUrl,
     foundationUrl,
     darkModeUrl,
+    overlayFrameGuest: overlayFrameGuestScript({ rootSelector: "#root" }),
   });
 
 /** Turns the transpiled `function App(props){...}` into a module that renders it into #root. */

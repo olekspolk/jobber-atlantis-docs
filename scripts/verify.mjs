@@ -10,7 +10,8 @@
 //
 // Headless Chrome renders frames, so resize events, requestAnimationFrame and Floating UI's
 // autoUpdate behave as in a visible tab. Puppeteer hides scrollbars by default; they are shown here
-// because a classic scrollbar (desktop Chrome with a mouse) takes layout width.
+// because a classic scrollbar (desktop Chrome with a mouse) takes layout width. macOS draws overlay
+// scrollbars instead while no mouse is connected, so on a Mac, Chrome is told to show them always.
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -639,7 +640,12 @@ const browser = await puppeteer.launch({
   executablePath: CHROME,
   headless: true,
   userDataDir: profile,
-  args: ["--no-first-run", "--no-default-browser-check", `--window-size=${WINDOW.width},${WINDOW.height}`],
+  args: [
+    "--no-first-run",
+    "--no-default-browser-check",
+    `--window-size=${WINDOW.width},${WINDOW.height}`,
+    ...(process.platform === "darwin" ? ["-AppleShowScrollBars", "Always"] : []),
+  ],
   ignoreDefaultArgs: ["--hide-scrollbars"],
 });
 

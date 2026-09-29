@@ -1,4 +1,4 @@
-import { AtlantisThemeContextProvider, Button, FilterPicker, React, ReactDOM, useState } from "@jobber/components";
+import { {{scope}} } from "@jobber/components";
 
 {{app}}
 

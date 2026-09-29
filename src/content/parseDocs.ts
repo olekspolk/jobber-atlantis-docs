@@ -52,11 +52,11 @@ function splitRow(line: string): string[] {
   return cells;
 }
 
-function parseProps(section: string): PropGroup[] {
+function parseProps(section: string, name: string): PropGroup[] {
   const web = section.split(/^### /m).find((part) => part.startsWith("Web")) ?? section;
-  return web
-    .split(/^#### /m)
-    .slice(1)
+  const groups = web.split(/^#### /m);
+  // Several tables are headed "#### Name"; a component with one has it right under "### Web".
+  return (groups.length > 1 ? groups.slice(1) : [`${name}\n${web}`])
     .map((block) => {
       const [nameLine, ...rest] = block.split("\n");
       const rows = rest
@@ -75,19 +75,23 @@ function parseProps(section: string): PropGroup[] {
     });
 }
 
-export function parseComponentDocs(raw: string) {
+// Headings that open a component's implementation notes; any of them may be missing.
+const IMPLEMENTATION = ["Configuration", "Component customization", "Composable Version", "Composition", "Developer notes", "Testing"];
+
+export function parseComponentDocs(raw: string, name: string) {
   const md = rewriteLinks(raw).replace(/^# .*\n/, "");
   const at = (heading: string) => md.search(new RegExp(`^## ${heading}\\s*$`, "m"));
 
-  const configuration = at("Configuration");
-  const props = at("Props");
+  const found = at("Props");
+  const props = found >= 0 ? found : md.length;
+  const implementation = Math.min(props, ...IMPLEMENTATION.map(at).filter((index) => index >= 0));
 
-  const design = md.slice(0, configuration);
-  const implement = md.slice(configuration, props);
+  const design = md.slice(0, implementation);
+  const implement = md.slice(implementation, props);
   const toc: TocEntry[] = [...design.matchAll(/^## (.+)$/gm)].map((match) => ({
     id: headingId(match[1]),
     label: match[1],
   }));
 
-  return { design, implement, toc, props: parseProps(md.slice(props)) };
+  return { design, implement, toc, props: found >= 0 ? parseProps(md.slice(props), name) : [] };
 }

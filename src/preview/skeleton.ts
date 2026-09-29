@@ -3,12 +3,16 @@ import darkModeUrl from "@jobber/design/dark.mode.css?url";
 import foundationUrl from "@jobber/design/foundation.css?url";
 import { parser } from "@lezer/javascript";
 import site from "../../site.config.json";
+import editorScope from "../generated/editor-scope.json?raw";
 import { overlayFrameGuestScript } from "../overlay-frame";
 import { fillTemplate } from "../template";
 import codeWrapper from "./codeWrapper.js?raw";
 import skeleton from "./skeleton.html?raw";
 
 export type PreviewTheme = "light" | "dark";
+
+// Everything /editorBundle.js exports, listed by scripts/build-editor-bundle.mjs.
+const SCOPE = (JSON.parse(editorScope) as string[]).join(", ");
 
 /**
  * The document written into the preview iframe with document.open/write/close: the
@@ -26,7 +30,8 @@ export const skeletonHTML = (theme: PreviewTheme) =>
   });
 
 /** Turns the transpiled `function App(props){...}` into a module that renders it into #root. */
-export const WebCodeWrapper = (transpiledCode: string) => fillTemplate(codeWrapper, { app: transpiledCode });
+export const WebCodeWrapper = (transpiledCode: string) =>
+  fillTemplate(codeWrapper, { scope: SCOPE, app: transpiledCode });
 
 /** Parser for example code, shared with the editor. */
 export const exampleParser = parser.configure({ dialect: "jsx ts" });

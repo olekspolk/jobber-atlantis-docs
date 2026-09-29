@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { FILTER_PICKER_PATH } from "../pages/FilterPickerPage";
+import { COMPONENTS } from "../content/registry";
 import styles from "./NavMenu.module.css";
 
-// The site's side navigation, reduced to the one component documented here.
+// The site's side navigation, reduced to the components documented here.
 export const NavMenu = () => (
   <div className={styles.navMenuContainer}>
     <div className={styles.navMenuHeader}>
@@ -16,18 +16,20 @@ export const NavMenu = () => (
         <li>
           <div className={`${styles.navMenuItem} ${styles.navMenuSubTitle}`}>Components</div>
           <ul>
-            <li>
-              <NavLink
-                to={FILTER_PICKER_PATH}
-                className={({ isActive }) =>
-                  [styles.navMenuItem, styles.navMenuSubItem, styles.navMenuLink, isActive ? styles.selected : ""].join(
-                    " ",
-                  )
-                }
-              >
-                FilterPicker
-              </NavLink>
-            </li>
+            {COMPONENTS.map((component) => (
+              <li key={component.name}>
+                <NavLink
+                  to={component.path}
+                  className={({ isActive }) =>
+                    [styles.navMenuItem, styles.navMenuSubItem, styles.navMenuLink, isActive ? styles.selected : ""].join(
+                      " ",
+                    )
+                  }
+                >
+                  {component.name}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </li>
       </ul>

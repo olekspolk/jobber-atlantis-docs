@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Local replica of the Atlantis FilterPicker docs page (live editor + iframe preview) with the overlay-frame fix",
+  "description": "Improved replica of the Atlantis docs: menus, popovers and tooltips in live examples extend past the preview iframe",
   "scripts": {
     "assets": "node scripts/copy-docs.mjs && node scripts/build-editor-bundle.mjs",
     "predev": "npm run assets",

@@ -1,9 +1,12 @@
-import site from "../../site.config.json";
-import markdown from "./generated/FilterPicker.md?raw";
-import { parseComponentDocs } from "./parseDocs";
+import markdown from "../../generated/docs/FilterPicker.md?raw";
+import type { ComponentSource } from "../registry";
 
-// The example the original page loads into the editor (FilterPickerContent.component.element).
-export const FILTER_PICKER_EXAMPLE = `const [selected, setSelected] = useState([
+export default {
+  name: "FilterPicker",
+  markdown,
+  storybook: "components-selections-filterpicker--clear-selection",
+  source: "FilterPicker/FilterPicker.tsx",
+  example: `const [selected, setSelected] = useState([
     {
       id: "1",
       label: "Bilbo Baggins",
@@ -51,17 +54,5 @@ export const FILTER_PICKER_EXAMPLE = `const [selected, setSelected] = useState([
         />
       </FilterPicker>
     </div>
-  );`;
-
-export const FILTER_PICKER_DOCS = parseComponentDocs(markdown);
-
-export const FILTER_PICKER_LINKS = [
-  {
-    label: "Web Storybook",
-    url: `${site.storybookUrl}?path=/story/components-selections-filterpicker--clear-selection`,
-  },
-  {
-    label: "Web GitHub",
-    url: `${site.componentsSourceUrl}/FilterPicker/FilterPicker.tsx`,
-  },
-];
+  );`,
+} satisfies ComponentSource;

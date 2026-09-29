@@ -23,7 +23,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const LABELS = ["Bilbo Baggins", "Frodo Baggins", "Pippin Took", "Merry Brandybuck", "Sam Gamgee", "Aragorn"];
 
-// The examples use only what the preview scope offers: FilterPicker, Button, useState and React.
+// Variations of the FilterPicker page's own example.
 const picker = (wrapperStyle, count = LABELS.length) => `const [selected, setSelected] = useState([]);
 
   return (

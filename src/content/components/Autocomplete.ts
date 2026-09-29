@@ -3,6 +3,7 @@ import type { ComponentSource } from "../registry";
 
 export default {
   name: "Autocomplete",
+  category: "Forms & Inputs",
   markdown,
   storybook: "components-forms-and-inputs-autocomplete--flat",
   source: "Autocomplete/Autocomplete.tsx",

@@ -3,6 +3,7 @@ import type { ComponentSource } from "../registry";
 
 export default {
   name: "Gallery",
+  category: "Images & Icons",
   markdown,
   storybook: "components-images-and-icons-gallery--basic",
   source: "Gallery/Gallery.tsx",

@@ -3,6 +3,7 @@ import type { ComponentSource } from "../registry";
 
 export default {
   name: "FilterPicker",
+  category: "Selections",
   markdown,
   storybook: "components-selections-filterpicker--clear-selection",
   source: "FilterPicker/FilterPicker.tsx",

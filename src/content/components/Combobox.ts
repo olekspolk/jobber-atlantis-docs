@@ -3,6 +3,7 @@ import type { ComponentSource } from "../registry";
 
 export default {
   name: "Combobox",
+  category: "Selections",
   markdown,
   storybook: "components-selections-combobox--single-select",
   source: "Combobox/Combobox.tsx",

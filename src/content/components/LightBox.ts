@@ -3,6 +3,7 @@ import type { ComponentSource } from "../registry";
 
 export default {
   name: "LightBox",
+  category: "Images & Icons",
   markdown,
   storybook: "components-images-and-icons-lightbox--basic",
   source: "LightBox/LightBox.tsx",

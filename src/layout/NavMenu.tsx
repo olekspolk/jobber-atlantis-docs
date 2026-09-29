@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { COMPONENTS } from "../content/registry";
+import { COMPONENT_GROUPS } from "../content/registry";
 import styles from "./NavMenu.module.css";
 
-// The site's side navigation, reduced to the components documented here.
+// The site's side navigation, reduced to its components, grouped as the site groups them.
 export const NavMenu = () => (
   <div className={styles.navMenuContainer}>
     <div className={styles.navMenuHeader}>
@@ -13,25 +13,27 @@ export const NavMenu = () => (
     </div>
     <nav className={styles.navMenu} aria-label="Main">
       <ul>
-        <li>
-          <div className={`${styles.navMenuItem} ${styles.navMenuSubTitle}`}>Components</div>
-          <ul>
-            {COMPONENTS.map((component) => (
-              <li key={component.name}>
-                <NavLink
-                  to={component.path}
-                  className={({ isActive }) =>
-                    [styles.navMenuItem, styles.navMenuSubItem, styles.navMenuLink, isActive ? styles.selected : ""].join(
-                      " ",
-                    )
-                  }
-                >
-                  {component.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </li>
+        {COMPONENT_GROUPS.map(({ category, components }) => (
+          <li key={category}>
+            <div className={`${styles.navMenuItem} ${styles.navMenuSubTitle}`}>{category}</div>
+            <ul>
+              {components.map((component) => (
+                <li key={component.name}>
+                  <NavLink
+                    to={component.path}
+                    className={({ isActive }) =>
+                      [styles.navMenuItem, styles.navMenuSubItem, styles.navMenuLink, isActive ? styles.selected : ""].join(
+                        " ",
+                      )
+                    }
+                  >
+                    {component.name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
       </ul>
     </nav>
   </div>

@@ -3,6 +3,7 @@ import type { ComponentSource } from "../registry";
 
 export default {
   name: "SideDrawer",
+  category: "Overlays",
   markdown,
   storybook: "components-overlays-sidedrawer--basic",
   source: "SideDrawer/SideDrawer.tsx",

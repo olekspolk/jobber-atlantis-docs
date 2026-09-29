@@ -3,6 +3,7 @@ import type { ComponentSource } from "../registry";
 
 export default {
   name: "SelectPrimitive",
+  category: "Primitives",
   markdown,
   storybook: "components-primitives-selectprimitive--basic",
   source: "primitives/SelectPrimitive/SelectPrimitive.tsx",

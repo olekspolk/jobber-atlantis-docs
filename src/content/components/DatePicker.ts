@@ -3,6 +3,7 @@ import type { ComponentSource } from "../registry";
 
 export default {
   name: "DatePicker",
+  category: "Selections",
   markdown,
   storybook: "components-selections-datepicker--basic",
   source: "DatePicker/DatePicker.tsx",

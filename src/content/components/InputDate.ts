@@ -3,6 +3,7 @@ import type { ComponentSource } from "../registry";
 
 export default {
   name: "InputDate",
+  category: "Forms & Inputs",
   markdown,
   storybook: "components-forms-and-inputs-inputdate--basic",
   source: "InputDate/InputDate.tsx",

@@ -1,6 +1,7 @@
 // Scenario checks in headless Chrome: overlays opened in the live preview must be fully visible from
 // the first painted frame, without moving the example or the page. The FilterPicker page gets the
-// full set of scenarios; every other documented component, a check of its own example.
+// full set of scenarios; the other components whose overlays the preview cuts off or squeezes, a check
+// of their own example.
 //
 //   npm run dev                      # in another terminal
 //   npm run verify                   # DOCS_URL=http://localhost:5191 npm run verify  for a dev server elsewhere
@@ -472,9 +473,9 @@ async function runLoadRace(browser) {
   return result;
 }
 
-// The other documented components, each with the control that opens its example's overlay. It closes
-// on a press on the page outside the frame, or on Escape for a full-screen viewer, which covers the
-// whole window on a normal page.
+// The other components whose overlays the preview cuts off or squeezes, each with the control that
+// opens its example's overlay. It closes on a press on the page outside the frame, or on Escape for a
+// full-screen viewer, which covers the whole window on a normal page.
 const COMPONENT_OVERLAYS = [
   { name: "InputDate", click: "<input>" },
   { name: "DatePicker", click: "Open Datepicker" },

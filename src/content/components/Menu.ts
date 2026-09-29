@@ -3,6 +3,7 @@ import type { ComponentSource } from "../registry";
 
 export default {
   name: "Menu",
+  category: "Navigation",
   markdown,
   storybook: "components-navigation-menu-composable--action-menu",
   source: "Menu/Menu.tsx",

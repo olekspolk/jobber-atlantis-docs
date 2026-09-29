@@ -30,6 +30,7 @@
 }
 
 .searchButtonText {
+  display: none;
   flex: 1;
   margin: 0 var(--space-small);
   text-align: start;
@@ -39,7 +40,7 @@
 }
 
 .kbd {
-  display: inline-flex;
+  display: none;
   align-items: center;
   justify-content: center;
   min-width: 20px;
@@ -51,6 +52,16 @@
   color: var(--color-text--secondary);
   font-size: 12px;
   font-family: inherit;
+}
+
+@media screen and (min-width: 768px) {
+  .searchButtonText {
+    display: block;
+  }
+
+  .kbd {
+    display: inline-flex;
+  }
 }
 
 .themeToggle {

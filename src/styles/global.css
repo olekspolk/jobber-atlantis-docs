@@ -1,5 +1,11 @@
 :root {
-  --sideBarWidth: 235px;
+  --sideBarWidth: 200px;
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --sideBarWidth: 235px;
+  }
 }
 
 html,
@@ -10,6 +16,16 @@ body {
   font-family: var(--typography--fontFamily-normal, Inter, Helvetica, Arial, sans-serif);
   font-size: 14px;
   line-height: 21px;
+}
+
+/* Component names are long single words (AtlantisThemeContext, FormatFile.DeleteButtonContainer):
+   on a narrow phone, headings break them rather than overflow the column. */
+.baseView-main :is(h1, h2, h3, h4) {
+  overflow-wrap: anywhere;
+}
+
+.docs-mdx {
+  overflow-wrap: break-word;
 }
 
 .docs-mdx h2 {
@@ -77,10 +93,14 @@ body {
   color: var(--color-text);
 }
 
+.docs-mdx-table {
+  overflow-x: auto;
+  margin: 0 0 24px;
+}
+
 .docs-mdx table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0 0 24px;
 }
 
 .docs-mdx th,

@@ -2,14 +2,19 @@ import { NavLink } from "react-router-dom";
 import { COMPONENT_GROUPS } from "../content/registry";
 import styles from "./NavMenu.module.css";
 
-// The site's side navigation, reduced to its components, grouped as the site groups them.
-export const NavMenu = () => (
+export const Logo = () => (
+  <span className={styles.logo}>
+    <span className={styles.logoMark} aria-hidden />
+    JOBBER
+  </span>
+);
+
+// The site's side navigation, reduced to its components, grouped as the site groups them. On small
+// screens it opens in the NavDrawer instead, which has a logo of its own.
+export const NavMenu = ({ onNavigate }: { onNavigate?: () => void }) => (
   <div className={styles.navMenuContainer}>
     <div className={styles.navMenuHeader}>
-      <span className={styles.logo}>
-        <span className={styles.logoMark} aria-hidden />
-        JOBBER
-      </span>
+      <Logo />
     </div>
     <nav className={styles.navMenu} aria-label="Main">
       <ul>
@@ -21,6 +26,7 @@ export const NavMenu = () => (
                 <li key={component.name}>
                   <NavLink
                     to={component.path}
+                    onClick={onNavigate}
                     className={({ isActive }) =>
                       [styles.navMenuItem, styles.navMenuSubItem, styles.navMenuLink, isActive ? styles.selected : ""].join(
                         " ",
@@ -36,5 +42,12 @@ export const NavMenu = () => (
         ))}
       </ul>
     </nav>
+  </div>
+);
+
+// The side navigation as a column next to the page, from the site's medium breakpoint up.
+export const DesktopNav = () => (
+  <div className={styles.desktopNavContainer}>
+    <NavMenu />
   </div>
 );

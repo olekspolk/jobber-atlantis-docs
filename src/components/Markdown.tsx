@@ -39,6 +39,12 @@ const components: Components = {
       </div>
     );
   },
+  // A table wider than the column (on a phone) scrolls sideways by itself, not the whole page.
+  table: ({ children }) => (
+    <div className="docs-mdx-table">
+      <table>{children}</table>
+    </div>
+  ),
   a: ({ href, children }) => (
     <a href={href} target={href?.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
       {children}

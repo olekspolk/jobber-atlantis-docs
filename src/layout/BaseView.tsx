@@ -20,6 +20,7 @@ export const BaseView = ({ main, siderail }: { main: ReactNode; siderail: ReactN
         <div style={{ height: "100%", overflowY: "scroll", borderRadius: "inherit" }} data-main-scroll>
           <Box alignItems="center">
             <div
+              className="baseView-main"
               style={{
                 width: "100%",
                 maxWidth: "calc(768px + var(--space-large))",

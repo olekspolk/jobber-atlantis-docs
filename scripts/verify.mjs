@@ -427,15 +427,18 @@ async function runLoadRace(browser) {
   return result;
 }
 
-// The other documented components, each with the control that opens its example's overlay.
+// The other documented components, each with the control that opens its example's overlay. It closes
+// on a press on the page outside the frame, or on Escape for a full-screen viewer, which covers the
+// whole window on a normal page.
 const COMPONENT_OVERLAYS = [
   { name: "InputDate", click: "<input>" },
   { name: "DatePicker", click: "Open Datepicker" },
+  { name: "Gallery", click: "<img>", close: "Escape" },
 ];
 
 // A component's page as it loads: its example's overlay must open in full over the page, hiding
-// nothing in a scroll area, and close on a press on the page outside the frame.
-async function runComponent(browser, { name, click }) {
+// nothing in a scroll area, and close again.
+async function runComponent(browser, { name, click, close }) {
   console.log(`· ${name}`);
   const page = await browser.newPage();
   page.setDefaultTimeout(15000);
@@ -451,19 +454,23 @@ async function runComponent(browser, { name, click }) {
   await page.mouse.click(control.x, control.y);
   await sleep(1500);
   const open = await call("snap");
-  const heading = await page.evaluate(() => {
-    const rect = document.querySelector("h1").getBoundingClientRect();
-    return { x: rect.x + 20, y: rect.y + rect.height / 2 };
-  });
-  await page.mouse.click(heading.x, heading.y);
+  if (close === "Escape") {
+    await page.keyboard.press("Escape");
+  } else {
+    const heading = await page.evaluate(() => {
+      const rect = document.querySelector("h1").getBoundingClientRect();
+      return { x: rect.x + 20, y: rect.y + rect.height / 2 };
+    });
+    await page.mouse.click(heading.x, heading.y);
+  }
   await sleep(1500);
   const closed = await call("snap");
   await page.close();
   return { rest, open, closed };
 }
 
-const componentCheck = (name) => [
-  `${name}: its example's overlay opens in full over the page, closes on a press outside the frame`,
+const componentCheck = ({ name, close }) => [
+  `${name}: its example's overlay opens in full over the page, closes on ${close ?? "a press outside the frame"}`,
   (r) => {
     const { rest, open, closed } = r.components[name];
     return (
@@ -534,7 +541,10 @@ try {
   for (const spec of COMPONENT_OVERLAYS.filter((spec) => !only.length || only.includes(spec.name))) {
     r.components[spec.name] = await runComponent(browser, spec);
   }
-  const checks = [...(only.length ? [] : CHECKS), ...Object.keys(r.components).map(componentCheck)];
+  const checks = [
+    ...(only.length ? [] : CHECKS),
+    ...COMPONENT_OVERLAYS.filter((spec) => spec.name in r.components).map(componentCheck),
+  ];
   let failed = 0;
   console.log("");
   for (const [name, check] of checks) {

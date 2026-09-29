@@ -474,6 +474,7 @@ const COMPONENT_OVERLAYS = [
   { name: "DatePicker", click: "Open Datepicker" },
   { name: "Gallery", click: "<img>", close: "Escape" },
   { name: "LightBox", click: "Click me", close: "Escape" },
+  { name: "Menu", click: "More Actions" },
 ];
 
 // A component's page as it loads: its example's overlay must open in full over the page, squeezed

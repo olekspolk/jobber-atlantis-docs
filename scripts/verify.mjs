@@ -428,7 +428,10 @@ async function runLoadRace(browser) {
 }
 
 // The other documented components, each with the control that opens its example's overlay.
-const COMPONENT_OVERLAYS = [{ name: "InputDate", click: "<input>" }];
+const COMPONENT_OVERLAYS = [
+  { name: "InputDate", click: "<input>" },
+  { name: "DatePicker", click: "Open Datepicker" },
+];
 
 // A component's page as it loads: its example's overlay must open in full over the page, hiding
 // nothing in a scroll area, and close on a press on the page outside the frame.

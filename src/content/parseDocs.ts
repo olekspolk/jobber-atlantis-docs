@@ -84,7 +84,13 @@ export function parseComponentDocs(raw: string, name: string) {
 
   const found = at("Props");
   const props = found >= 0 ? found : md.length;
-  const implementation = Math.min(props, ...IMPLEMENTATION.map(at).filter((index) => index >= 0));
+  // The implementation notes may also restart the outline, at the first heading that repeats one.
+  const headings = [...md.matchAll(/^## (.+?)\s*$/gm)];
+  const repeated = headings.find((heading, i) => headings.slice(0, i).some((earlier) => earlier[1] === heading[1]));
+  const implementation = Math.min(
+    props,
+    ...[...IMPLEMENTATION.map(at), repeated?.index ?? -1].filter((index) => index >= 0),
+  );
 
   const design = md.slice(0, implementation);
   const implement = md.slice(implementation, props);

@@ -5,7 +5,7 @@ export interface OverlayFrameGuestOptions {
   readonly rootSelector: string;
   /** Room kept below (and around) a layer, in px. */
   readonly gap: number;
-  /** Height requests per second; bounds a layer that grows with the frame (sized in vh). */
+  /** Height requests per second; bounds an overlay that keeps resizing as the frame does. */
   readonly maxRequestsPerSecond: number;
   /**
    * Origin of the embedding page, for the postMessage fallback (cross-origin frames). `null`: the
@@ -52,7 +52,9 @@ export const DEFAULT_GUEST_OPTIONS: OverlayFrameGuestOptions = {
  * An overlay the frame squeezes rather than cuts off gets the room it would take in a window: a
  * dropdown a positioning library sized to the room below its trigger, which then scrolls, gets what
  * its scroll area hides; a side drawer as tall as the viewport gets all the host allows. It keeps
- * that room while it is open, since shrinking back would squeeze it again.
+ * that room while it is open, since shrinking back would squeeze it again. So does an overlay laid
+ * out against the viewport (a full-screen viewer, a layer sized in vh), which gets all the host
+ * allows as soon as its bottom moves as far as the frame grew, instead of creeping towards it.
  *
  * A press outside the frame never reaches this document, so overlays that close on an outside press
  * would stay open. The host reports it (`outsidePress`) and it is replayed here as a press on the
@@ -123,6 +125,10 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
   // The room each squeezed layer asked for, kept while it stays open: shrinking back would squeeze
   // it again.
   const floors = new WeakMap<Element, number>();
+  // Where each layer ended, and the viewport's height then. One whose bottom moved down as far as the
+  // viewport grew is laid out against it (a full-screen viewer, a layer sized in vh): chased a few px
+  // per request, it would creep to the cap, so it gets all the room the host allows at once.
+  const lastSeen = new WeakMap<Element, { bottom: number; vh: number }>();
 
   // The height a layer squeezed to fit the frame, rather than cut off by it, would take in a window.
   // One exactly as tall as the viewport (a side drawer) takes all the host allows; one with a scroll
@@ -157,6 +163,9 @@ export function overlayFrameGuest(options: OverlayFrameGuestOptions): void {
         cutOffAtTop = Math.max(cutOffAtTop, r.height);
       }
       need = Math.max(need, r.bottom + gap, r.height + 2 * gap);
+      const seen = lastSeen.get(layer.el);
+      if (seen && vh > seen.vh + 1 && r.bottom - seen.bottom >= vh - seen.vh - 1) floors.set(layer.el, Infinity);
+      lastSeen.set(layer.el, { bottom: r.bottom, vh });
       const floor = Math.max(floors.get(layer.el) ?? 0, squeezedRoom(layer, vh));
       if (floor) {
         floors.set(layer.el, floor);

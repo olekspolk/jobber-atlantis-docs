@@ -28,6 +28,9 @@ export interface OverlayFrameHostOptions {
 
 type FrameWindow = Window & Record<string, unknown>;
 
+// Room left between the window's bottom and a frame given all the room there is.
+const WINDOW_GAP = 16;
+
 /**
  * Host side: applies the height the framed document asks for while it shows an overlay, and
  * restores the resting height when it stops. The frame's document is transparent, so only the
@@ -91,7 +94,9 @@ export function attachOverlayFrameHost(
       return;
     }
     const cap = Math.max(restingHeight, Math.round(window.innerHeight * maxViewportFraction));
-    applyHeight(Math.min(cap, Math.max(restingHeight, need)));
+    // All there is (a side drawer, a full-screen viewer): down to the window's bottom, so it stays in view.
+    const room = need === Infinity ? Math.floor(window.innerHeight - frame.getBoundingClientRect().top - WINDOW_GAP) : need;
+    applyHeight(Math.min(cap, Math.max(restingHeight, room)));
   };
 
   // Synchronous channel (same origin). document.open() keeps the window object, but re-install

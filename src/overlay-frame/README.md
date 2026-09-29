@@ -49,7 +49,7 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
 |---|---|---|
 | `rootSelector` | `"#root"` | Element the content renders into; everything else in `<body>` is an overlay |
 | `gap` | `16` | Room kept below an overlay, px |
-| `maxRequestsPerSecond` | `12` | Bounds an overlay that grows with the frame (sized in `vh`); a held-back request is sent once the limit allows |
+| `maxRequestsPerSecond` | `12` | Bounds an overlay that keeps resizing as the frame does; a held-back request is sent once the limit allows |
 | `hostOrigin` | parent's origin | Origin of the page, for the `postMessage` fallback (cross-origin frames). By default the parent's origin as the browser reports it (`location.ancestorOrigins`), else the frame's own — set it where the browser does not report it |
 
 | Host (`attachOverlayFrameHost` / `<OverlayFrame>`) | Default | |
@@ -75,8 +75,12 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
 - An overlay the frame squeezes rather than cuts off gets the room it would have in the window. A
   dropdown sized to the room below its trigger (Floating UI's `size`, Base UI's available height)
   scrolls in an area that ends at the frame's edge: the frame grows by what that area hides. A panel
-  exactly as tall as the frame (a side drawer) gets all the height allowed. The room stays while the
+  exactly as tall as the frame (a side drawer) gets all the room there is. The room stays while the
   overlay is open, so the frame does not shrink back into squeezing it.
+- An overlay laid out against the viewport (a full-screen viewer, a layer sized in `vh`), whose
+  bottom moves down as far as the frame grows, gets all the room there is at once instead of
+  creeping towards it. All the room there is ends 16px above the window's bottom, so it stays in
+  view; it opens at that size and keeps it.
 - A press on the page outside the frame closes the guest's overlays, like a press outside an overlay
   on a normal page. That press never reaches the framed document, so the host reports it (capture
   phase, so the page stopping propagation does not hide it) and the guest replays it as

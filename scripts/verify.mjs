@@ -155,7 +155,13 @@ function installHarness() {
   const hiddenContent = () =>
     layerElements()
       .flatMap((el) => [el, ...el.querySelectorAll("*")])
-      .filter((el) => el.scrollHeight > el.clientHeight + 1 && /(auto|scroll)/.test(win().getComputedStyle(el).overflowY)).length;
+      .filter((el) => el.scrollHeight > el.clientHeight + 1 && /(auto|scroll)/.test(win().getComputedStyle(el).overflowY));
+  // Those of them ending at the viewport's edge: sized by the frame rather than by their own maximum.
+  const squeezedContent = () =>
+    hiddenContent().filter((el) => {
+      const r = el.getBoundingClientRect();
+      return r.bottom >= win().innerHeight - 32 || r.top <= 32;
+    });
 
   window.__verify = {
     setCode(code) {
@@ -223,7 +229,9 @@ function installHarness() {
         frozen: Boolean(doc().querySelector("style[data-overlay-frame]")),
         layers: layers.map((r) => [Math.round(r.top), Math.round(r.bottom)]),
         allVisible: layers.every((r) => r.top >= -1 && r.bottom <= win().innerHeight + 1),
-        hidden: hiddenContent(),
+        hidden: hiddenContent().length,
+        squeezed: squeezedContent().length,
+        top: Math.round(frame().getBoundingClientRect().top),
         scrollHeight: doc().documentElement.scrollHeight,
         tabsTop: Math.round(document.querySelector('[role="tablist"]').getBoundingClientRect().top),
         resize: frame().style.resize,
@@ -468,8 +476,8 @@ const COMPONENT_OVERLAYS = [
   { name: "LightBox", click: "Click me", close: "Escape" },
 ];
 
-// A component's page as it loads: its example's overlay must open in full over the page, hiding
-// nothing in a scroll area, and close again.
+// A component's page as it loads: its example's overlay must open in full over the page, squeezed
+// by nothing, keep its size once open, and close again.
 async function runComponent(browser, { name, click, close }) {
   console.log(`· ${name}`);
   const page = await browser.newPage();
@@ -486,6 +494,8 @@ async function runComponent(browser, { name, click, close }) {
   await page.mouse.click(control.x, control.y);
   await sleep(1500);
   const open = await call("snap");
+  await sleep(2000);
+  const later = await call("snap");
   if (close === "Escape") {
     await page.keyboard.press("Escape");
   } else {
@@ -498,20 +508,21 @@ async function runComponent(browser, { name, click, close }) {
   await sleep(1500);
   const closed = await call("snap");
   await page.close();
-  return { rest, open, closed };
+  return { rest, open, later, closed };
 }
 
 const componentCheck = ({ name, close }) => [
-  `${name}: its example's overlay opens in full over the page, closes on ${close ?? "a press outside the frame"}`,
+  `${name}: its example's overlay opens in full over the page, keeps its size, closes on ${close ?? "a press outside the frame"}`,
   (r) => {
-    const { rest, open, closed } = r.components[name];
+    const { rest, open, later, closed } = r.components[name];
     return (
       rest.frame === RESTING &&
       open.layers.length > 0 &&
       open.allVisible &&
-      open.hidden === 0 &&
+      open.squeezed === 0 &&
       open.frame > RESTING &&
       open.slot === RESTING &&
+      later.frame === open.frame &&
       closed.layers.length === 0 &&
       closed.frame === RESTING
     );
@@ -519,6 +530,8 @@ const componentCheck = ({ name, close }) => [
 ];
 
 const same = (a, b) => a.left === b.left && a.top === b.top;
+// All the room there is: down to 16px above the window's bottom, within the cap.
+const toWindowBottom = (snap) => Math.min(CAP, WINDOW.height - snap.top - 16);
 
 const CHECKS = [
   ["first painted frame: menu not cut off", (r) => !r.first.clipped],
@@ -549,9 +562,9 @@ const CHECKS = [
   ["modal-like layer: fully visible, frame back to rest after close", (r) => r.modalOpen.allVisible && r.modalOpen.frame > RESTING && r.modalClosed.frame === RESTING],
   ["syntax error: error shown, frame untouched", (r) => r.syntaxError.error && r.syntaxError.frame === RESTING],
   ["tall static content (no overlay): frame untouched", (r) => r.staticTall.frame === RESTING && !r.staticTall.frozen],
-  ["layer sized in vh: growth stops (capped, stable)", (r) => r.vhA.frame === r.vhB.frame && r.vhB.frame <= CAP],
+  ["layer sized in vh: gets all the room at once, down to the window's bottom, and keeps it", (r) => r.vhA.frame === r.vhB.frame && r.vhB.frame === toWindowBottom(r.vhB)],
   ["squeezed list (sized to the room below it): frame grows until it hides nothing", (r) => r.squeezed.frame > RESTING && r.squeezed.allVisible && r.squeezed.hidden === 0],
-  ["panel as tall as the viewport (a side drawer): gets all the height allowed", (r) => r.drawer.frame === CAP],
+  ["panel as tall as the viewport (a side drawer): reaches down to the window's bottom", (r) => r.drawer.frame === toWindowBottom(r.drawer)],
   ["bare example with a return inside a callback: rendered", (r) => r.nestedReturn !== null],
   ["theme change: the edit stays in the editor and the preview, which follows the theme", (r) => r.themeChange.editor === EXAMPLES.edited && r.themeChange.preview !== null && r.themeChange.theme === "dark"],
   ["edit made while the preview loads: shown once it has loaded, not the page's example", (r) => r.loadRace.loading && r.loadRace.edited !== null && r.loadRace.example === null],
@@ -593,8 +606,8 @@ try {
     console.log(`open: frame ${r.open.frame}px, slot ${r.open.slot}px, menu ${JSON.stringify(r.open.layers)}`);
     console.log(`minimum size: ${JSON.stringify(r.minFirst)}   rest trigger: ${JSON.stringify(r.minRest)}`);
   }
-  for (const [name, { rest, open, closed }] of Object.entries(r.components)) {
-    console.log(`${name}: frame ${rest.frame} → ${open.frame}px open (layers ${JSON.stringify(open.layers)}, ${open.hidden} hiding content) → ${closed.frame}px closed`);
+  for (const [name, { rest, open, later, closed }] of Object.entries(r.components)) {
+    console.log(`${name}: frame ${rest.frame} → ${open.frame}px open, ${later.frame}px 2s later (layers ${JSON.stringify(open.layers)}, ${open.squeezed} squeezed) → ${closed.frame}px closed`);
   }
   console.log(`\n${checks.length - failed}/${checks.length} passed.`);
   process.exitCode = failed ? 1 : 0;

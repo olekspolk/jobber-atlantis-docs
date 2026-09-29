@@ -478,8 +478,8 @@ async function runLoadRace(browser) {
 const COMPONENT_OVERLAYS = [
   { name: "InputDate", click: "<input>" },
   { name: "DatePicker", click: "Open Datepicker" },
-  { name: "Gallery", click: "<img>", close: "Escape" },
-  { name: "LightBox", click: "Click me", close: "Escape" },
+  { name: "Gallery", click: "<img>", close: "Escape", maxHeight: 500 },
+  { name: "LightBox", click: "Click me", close: "Escape", maxHeight: 500 },
   { name: "Menu", click: "More Actions" },
   { name: "Autocomplete", click: "<input>" },
   { name: "Combobox", click: "Search team members" },
@@ -524,8 +524,8 @@ async function runComponent(browser, { name, click, close }) {
   return { rest, open, later, closed };
 }
 
-const componentCheck = ({ name, close }) => [
-  `${name}: its example's overlay opens in full over the page, keeps its size, closes on ${close ?? "a press outside the frame"}`,
+const componentCheck = ({ name, close, maxHeight = CAP }) => [
+  `${name}: its example's overlay opens in full over the page (at most ${maxHeight}px), keeps its size, closes on ${close ?? "a press outside the frame"}`,
   (r) => {
     const { rest, open, later, closed } = r.components[name];
     return (
@@ -534,6 +534,7 @@ const componentCheck = ({ name, close }) => [
       open.allVisible &&
       open.squeezed === 0 &&
       open.frame > RESTING &&
+      open.frame <= maxHeight &&
       open.slot === RESTING &&
       later.frame === open.frame &&
       closed.layers.length === 0 &&

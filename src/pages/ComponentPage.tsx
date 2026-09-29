@@ -53,7 +53,7 @@ const ComponentView = ({ component }: { component: ComponentDocs }) => {
             <Content spacing="large">
               <Box direction="column" gap="small" alignItems="flex-end">
                 <CodePreviewWindow>
-                  <AtlantisPreviewViewer />
+                  <AtlantisPreviewViewer maxHeight={component.previewMaxHeight} />
                 </CodePreviewWindow>
               </Box>
               <span style={{ "--public-tab--inset": 0 } as CSSProperties}>

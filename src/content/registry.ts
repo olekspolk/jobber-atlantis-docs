@@ -12,6 +12,8 @@ export interface ComponentSource {
   readonly source: string;
   /** The example the site loads into the editor. */
   readonly example: string;
+  /** Largest height the preview may grow to while the example shows an overlay, in px. */
+  readonly previewMaxHeight?: number;
 }
 
 const modules = import.meta.glob<{ default: ComponentSource }>("./components/*.ts", { eager: true });

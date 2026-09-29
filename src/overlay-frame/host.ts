@@ -13,6 +13,8 @@ export interface OverlayFrameHostOptions {
   readonly slot: HTMLElement;
   /** Largest height the frame may take, as a fraction of the window height. */
   readonly maxViewportFraction?: number;
+  /** Largest height the frame may take, in px (whichever of the two is lower applies). */
+  readonly maxHeight?: number;
   /** z-index while the frame is taller than its slot: above the page, below the page's own modals. */
   readonly expandedZIndex?: string;
   /** Report presses on the page to the guest, so its overlays close on an outside press. */
@@ -45,6 +47,7 @@ export function attachOverlayFrameHost(
   {
     slot,
     maxViewportFraction = 0.9,
+    maxHeight = Infinity,
     expandedZIndex = "1000",
     dismissOnOutsidePress = true,
     guestOrigin = window.location.origin,
@@ -93,7 +96,7 @@ export function attachOverlayFrameHost(
       applyHeight(restingHeight);
       return;
     }
-    const cap = Math.max(restingHeight, Math.round(window.innerHeight * maxViewportFraction));
+    const cap = Math.max(restingHeight, Math.min(maxHeight, Math.round(window.innerHeight * maxViewportFraction)));
     // All there is (a side drawer, a full-screen viewer): down to the window's bottom, so it stays in view.
     const room = need === Infinity ? Math.floor(window.innerHeight - frame.getBoundingClientRect().top - WINDOW_GAP) : need;
     applyHeight(Math.min(cap, Math.max(restingHeight, room)));

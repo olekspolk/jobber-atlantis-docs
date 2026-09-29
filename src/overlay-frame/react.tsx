@@ -50,6 +50,7 @@ export const OverlayFrame = forwardRef<HTMLIFrameElement, OverlayFrameProps>(fun
   {
     initialHeight = 200,
     maxViewportFraction,
+    maxHeight,
     expandedZIndex,
     dismissOnOutsidePress,
     guestOrigin,
@@ -65,6 +66,7 @@ export const OverlayFrame = forwardRef<HTMLIFrameElement, OverlayFrameProps>(fun
 ) {
   const { slotRef, frameRef, slotStyle, frameStyle } = useOverlayFrame({
     maxViewportFraction,
+    maxHeight,
     expandedZIndex,
     dismissOnOutsidePress,
     guestOrigin,

@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { OverlayFrame } from "../overlay-frame";
 import { useAtlantisPreview } from "./AtlantisPreviewProvider";
 
-export const AtlantisPreviewViewer = () => {
+export const AtlantisPreviewViewer = ({ maxHeight }: { maxHeight?: number }) => {
   const { iframe } = useAtlantisPreview();
 
   return (
@@ -11,6 +11,7 @@ export const AtlantisPreviewViewer = () => {
       title="Live example preview"
       // Above page content (CodeMirror's gutters use z-index 200), below Atlantis modals and toasts.
       expandedZIndex="calc(var(--elevation-modal) - 1)"
+      maxHeight={maxHeight}
       style={{ minHeight: "200px" }}
     />
   );

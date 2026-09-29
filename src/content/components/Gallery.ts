@@ -6,6 +6,8 @@ export default {
   markdown,
   storybook: "components-images-and-icons-gallery--basic",
   source: "Gallery/Gallery.tsx",
+  // A full-screen viewer would take the whole window; 500px shows it in full and keeps the page in sight.
+  previewMaxHeight: 500,
   example: `<Gallery
       files={[
         {

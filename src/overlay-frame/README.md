@@ -56,6 +56,7 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
 |---|---|---|
 | `slot` | — | Wrapper that holds the resting height (created by `<OverlayFrame>`) |
 | `maxViewportFraction` | `0.9` | Largest height, as a fraction of the window height |
+| `maxHeight` | — | Largest height, in px; whichever of the two is lower applies |
 | `expandedZIndex` | `"1000"` | z-index while expanded |
 | `dismissOnOutsidePress` | `true` | Report presses on the page to the guest (see below) |
 | `guestOrigin` | page origin | Origin used for the `postMessage` fallback |
@@ -106,6 +107,6 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
 - A press on the page is replayed on the frame's `<body>`, where outside-press listeners watch. An
   overlay that closes only through a backdrop of its own (a side drawer's dimmed overlay) closes on
   a press on that backdrop inside the frame, or on Escape.
-- An overlay taller than the window stops at `maxViewportFraction`.
+- An overlay taller than the window stops at `maxViewportFraction` (or `maxHeight`).
 - A squeezed overlay is recognised by a scroll area ending at the frame's edge, or by spanning
   exactly its height; one fitted to the frame another way keeps the size it was given.

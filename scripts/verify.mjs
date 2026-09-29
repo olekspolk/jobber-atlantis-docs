@@ -184,6 +184,12 @@ function installHarness() {
       const el = find(source);
       return el ? box(el) : null;
     },
+    // The control is laid out, and loaded if it is an image (thumbnails come from the network).
+    ready(source) {
+      const el = find(source);
+      const r = el?.getBoundingClientRect();
+      return Boolean(r && r.width > 0 && r.height > 0 && (el.tagName !== "IMG" || (el.complete && el.naturalWidth > 0)));
+    },
     // The example's first render can come before its web font (Inter), which then widens the text
     // and re-centres the example by a few px: wait for the font and a frame laid out with it.
     async settled(source) {
@@ -497,6 +503,7 @@ async function runComponent(browser, { name, click, close }) {
   await sleep(1500);
   const rest = await call("snap");
   if (click) {
+    await page.waitForFunction((source) => window.__verify.ready(source), {}, click);
     const control = await call("center", click);
     await page.mouse.click(control.x, control.y);
   }

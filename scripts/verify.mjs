@@ -466,9 +466,9 @@ async function runLoadRace(browser) {
   return result;
 }
 
-// The other documented components, each with the control that opens its example's overlay. It closes
-// on a press on the page outside the frame, or on Escape for a full-screen viewer, which covers the
-// whole window on a normal page.
+// The other documented components, each with the control that opens its example's overlay (none when
+// the example opens it as it loads). It closes on a press on the page outside the frame, or on Escape
+// for a full-screen viewer, which covers the whole window on a normal page.
 const COMPONENT_OVERLAYS = [
   { name: "InputDate", click: "<input>" },
   { name: "DatePicker", click: "Open Datepicker" },
@@ -479,6 +479,7 @@ const COMPONENT_OVERLAYS = [
   { name: "Combobox", click: "Search team members" },
   { name: "Select", click: "Active" },
   { name: "SelectPrimitive", click: "Select an option" },
+  { name: "SideDrawer", close: "Escape" },
 ];
 
 // A component's page as it loads: its example's overlay must open in full over the page, squeezed
@@ -495,8 +496,10 @@ async function runComponent(browser, { name, click, close }) {
   const call = (method, ...args) => page.evaluate((m, a) => window.__verify[m](...a), method, args);
   await sleep(1500);
   const rest = await call("snap");
-  const control = await call("center", click);
-  await page.mouse.click(control.x, control.y);
+  if (click) {
+    const control = await call("center", click);
+    await page.mouse.click(control.x, control.y);
+  }
   await sleep(1500);
   const open = await call("snap");
   await sleep(2000);
@@ -516,12 +519,12 @@ async function runComponent(browser, { name, click, close }) {
   return { rest, open, later, closed };
 }
 
-const componentCheck = ({ name, close }) => [
+const componentCheck = ({ name, click, close }) => [
   `${name}: its example's overlay opens in full over the page, keeps its size, closes on ${close ?? "a press outside the frame"}`,
   (r) => {
     const { rest, open, later, closed } = r.components[name];
     return (
-      rest.frame === RESTING &&
+      (!click || rest.frame === RESTING) &&
       open.layers.length > 0 &&
       open.allVisible &&
       open.squeezed === 0 &&

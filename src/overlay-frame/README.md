@@ -103,6 +103,9 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
   content dismisses the overlay (a second click reaches the page). Wheel scrolling reaches the page.
 - A press inside another iframe on the page never reaches this page's document, so it does not
   close the overlay.
+- A press on the page is replayed on the frame's `<body>`, where outside-press listeners watch. An
+  overlay that closes only through a backdrop of its own (a side drawer's dimmed overlay) closes on
+  a press on that backdrop inside the frame, or on Escape.
 - An overlay taller than the window stops at `maxViewportFraction`.
 - A squeezed overlay is recognised by a scroll area ending at the frame's edge, or by spanning
   exactly its height; one fitted to the frame another way keeps the size it was given.

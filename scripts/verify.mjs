@@ -478,6 +478,7 @@ const COMPONENT_OVERLAYS = [
   { name: "Autocomplete", click: "<input>" },
   { name: "Combobox", click: "Search team members" },
   { name: "Select", click: "Active" },
+  { name: "SelectPrimitive", click: "Select an option" },
 ];
 
 // A component's page as it loads: its example's overlay must open in full over the page, squeezed

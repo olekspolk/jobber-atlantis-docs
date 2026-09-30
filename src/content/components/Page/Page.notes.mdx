@@ -5,7 +5,7 @@ greater customization, and composability with other components. This is
 particularly useful when you need real links in the "More Actions" menu (e.g.
 for client-side router integration) or custom action elements.
 
-```
+```tsx
 <Page width="fill">
   <Page.Header>
     <Page.HeaderContent>
@@ -59,7 +59,7 @@ badges. Use when you need to display metadata alongside the heading. When no
 metadata is needed, use `Page.Title` directly without wrapping in
 `Page.TitleBar`.
 
-```
+```tsx
 <Page.TitleBar>
   <Page.Title>My Page Title</Page.Title>
   <StatusLabel label="Active" status="success" />
@@ -79,7 +79,7 @@ styling. Works with any children type including translation components like
 
 For markdown formatting, provide `<Markdown>` explicitly:
 
-```
+```tsx
 <Page.Subtitle>
   <Markdown content="Everything but the **Kitchen Sink**" basicUsage />
 </Page.Subtitle>
@@ -92,7 +92,7 @@ styling. Works with any children type including translation components.
 
 For markdown formatting with links, provide `<Markdown>` explicitly:
 
-```
+```tsx
 <Page.Intro>
   <Markdown
     content="Read more at our [Help Center](https://help.getjobber.com)."
@@ -112,7 +112,7 @@ layout that stacks on small viewports and inlines on larger ones.
 Positional slots that control where action elements appear. Use these to wrap
 either the default action buttons or fully custom elements.
 
-```
+```tsx
 {/* Default button via slot */}
 <Page.ActionPrimary>
   <Page.PrimaryButton label="Create" onClick={handleCreate} />
@@ -140,7 +140,7 @@ you are using TanStack Router in the consumer app, you can wrap `Menu.Item` with
 TanStack Router's `createLink()` to get right-click and ctrl-click support on
 menu links:
 
-```
+```tsx
 // Create once in the consumer app
 const TSRMenuItem = createLink(Menu.Item);
 
@@ -182,7 +182,7 @@ need composable actions (e.g. for client-side router links in the menu).
 
 Before:
 
-```
+```tsx
 <Page
   title="Clients"
   subtitle="Manage your client list"
@@ -198,7 +198,7 @@ Before:
 
 After:
 
-```
+```tsx
 <Page width="fill">
   <Page.Header>
     <Page.HeaderContent>
@@ -230,7 +230,7 @@ After:
 The original props-based API remains fully supported. If you don't need
 composable actions, this is the simplest way to use Page:
 
-```
+```tsx
 <Page
   title="Clients"
   subtitle="Manage your client list"

@@ -21,7 +21,7 @@ import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
 import { ComponentLinks } from "../components/ComponentLinks";
 import { LinkableHeading } from "../components/LinkableHeading";
 import { SiteContent } from "../content/components";
-import { highlightAll } from "../content/mdx/prism";
+import "../content/mdx/prism";
 import type { ComponentContent } from "../content/types";
 import { BaseView } from "../layout/BaseView";
 import { PageShell } from "../layout/PageShell";
@@ -169,17 +169,11 @@ function useComponentViewTabs({
     if (next.resolvedType) updateType(next.resolvedType);
   }, [fromUrl, updateType]);
 
-  // Code in the document is highlighted again whenever a tab shows.
-  useEffect(() => {
-    requestAnimationFrame(highlightAll);
-  }, []);
-
   // The page's search parameters (?isLegacy, ?minimal, ?theme) carry over to the tab's URL.
   const setAndNavigateTab = (tabIndex: number) => {
     setTab(tabIndex);
     const url = getComponentUrlForTab({ name, availablePlatforms, tabIndex });
     if (url) navigate({ pathname: url, search });
-    requestAnimationFrame(highlightAll);
   };
 
   const handleTabChange = (tabIn: number) => {
@@ -238,10 +232,8 @@ const ComponentView = ({ PageMeta }: { PageMeta: ComponentContent }) => {
   // frame and the module the frame loads would otherwise hold the document up on a slow connection.
   const tabHasDocument = tab === DESIGN_TAB_INDEX || (Notes !== null && tab === availablePlatforms.length + 1);
   const [previewStarted, setPreviewStarted] = useState(!tabHasDocument);
-  // The documents load after the tab shows: their code is highlighted, and a link's heading
-  // scrolled to, once they are in the page.
+  // The documents load after the tab shows: a link's heading is scrolled to once they are in the page.
   const onDocumentReady = () => {
-    requestAnimationFrame(highlightAll);
     scrollToHash();
     setPreviewStarted(true);
     markPageReady();

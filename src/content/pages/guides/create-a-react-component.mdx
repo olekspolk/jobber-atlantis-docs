@@ -227,7 +227,7 @@ but, that shouldn't stop you from making your component. Onwards!
 Glad you asked, go to `AmountCounter.stories.mdx` and drop the code below on
 that file.
 
-```
+```tsx
 <Canvas>
   <AmountCounter
     title="Children"
@@ -420,7 +420,7 @@ So what's the issue? The `onChange` is an optional prop. Which means we have to
 make sure that the `onChange` callback only fires when it can actually be fired.
 It means, we need to guard it by checking if `onChange` is defined. Like so…
 
-```
+```tsx
 onChange && onChange(newValue)
 ```
 
@@ -450,7 +450,7 @@ the `AmountCounter`'s playground.
 - Open up `AmountCounter.mdx` again.
 - Replace the previous example we had with this bit of code.
 
-```
+```tsx
 <Playground>
   {() => {
     const [value, setValue] = useState(0);
@@ -476,7 +476,7 @@ the `useState` from react. It's a new way of adding and updating the state. I
 suggest you
 [read more about it](https://reactjs.org/docs/hooks-reference.html#usestate).
 
-```
+```tsx
 import { useState } from "react";
 ```
 

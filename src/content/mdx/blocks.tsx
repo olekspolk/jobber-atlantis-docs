@@ -3,9 +3,8 @@
 import { Box } from "@jobber/components/Box";
 import { Button } from "@jobber/components/Button";
 import { Card } from "@jobber/components/Card";
-import { Children, type ReactElement, type ReactNode, isValidElement, useEffect, useMemo, useState } from "react";
+import { Children, type ReactElement, type ReactNode, isValidElement, useMemo, useState } from "react";
 import reactElementToJsxString from "react-element-to-jsx-string";
-import { highlightAll } from "./prism";
 
 // A component's name for its JSX: a function's own name, as on the site (bundler suffixes such as
 // Text$1 dropped). A forwardRef or memo component is an object, named by its displayName or by the
@@ -50,10 +49,6 @@ export const Canvas = ({ children, code: providedCode }: { children?: ReactNode;
     return Children.toArray(children).map(getCodeSnippet).filter(Boolean).join("\n\n");
   }, [children, providedCode]);
 
-  useEffect(() => {
-    highlightAll();
-  }, [codeVisible, code]);
-
   return (
     <Card>
       <Box padding="largest" direction="column" alignItems="start">
@@ -70,7 +65,9 @@ export const Canvas = ({ children, code: providedCode }: { children?: ReactNode;
       </Box>
       {codeVisible && (
         <pre>
-          <code className="language-javascript">{code}</code>
+          <code className="language-javascript" key={code}>
+            {code}
+          </code>
         </pre>
       )}
     </Card>

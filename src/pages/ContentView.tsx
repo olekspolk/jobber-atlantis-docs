@@ -1,6 +1,7 @@
 import { Content } from "@jobber/components/Content";
 import { type ReactNode, Suspense, createElement } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import "../content/mdx/prism";
 import { contentMap } from "../content/pages/maps";
 import type { LoadMDX, TocEntry } from "../content/types";
 import { AnchorLinks } from "../layout/AnchorLinks";

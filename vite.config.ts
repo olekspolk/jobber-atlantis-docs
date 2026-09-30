@@ -7,7 +7,6 @@ import { defineConfig, transformWithEsbuild } from "vite";
 import site from "./site.config.json";
 import { rehypeHeadingIds } from "./src/content/mdx/rehypeHeadingIds";
 import { remarkStorybookLinks } from "./src/content/mdx/remarkStorybookLinks";
-import { fillTemplate } from "./src/template";
 
 const mdxPlugin = mdx({ remarkPlugins: [remarkGfm, remarkStorybookLinks], rehypePlugins: [rehypeHeadingIds] });
 
@@ -43,11 +42,14 @@ export default defineConfig({
       transform: (value: string, id: string) => (/[?&]raw\b/.test(id) ? undefined : mdxPlugin.transform(value, id)),
     },
     react({ include: /\.(md|mdx|js|jsx|ts|tsx)$/ }),
+    // Atlantis's foundation.css starts by importing Inter and Poppins from Google Fonts, a stylesheet
+    // the page's own would wait for: the page declares them in src/styles/fonts.css instead. The
+    // preview frame's copy (imported with ?url) keeps the import.
     {
-      name: "site-config",
-      transformIndexHtml: {
-        order: "pre",
-        handler: (html) => fillTemplate(html, { fontsUrl: site.fontsUrl }),
+      name: "foundation-without-font-import",
+      transform(code, id) {
+        if (!/[\\/]@jobber[\\/]design[\\/]dist[\\/]foundation\.css$/.test(id)) return;
+        return code.replace(/@import url\("https:\/\/fonts\.googleapis\.com\/[^"]*"\);\s*/, "");
       },
     },
     // "Show Code" writes an example out as JSX named after its components' functions, so Atlantis's

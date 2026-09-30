@@ -1,3 +1,7 @@
+// The page's stylesheets, in the order they apply on the original site: its fonts, the Tailwind
+// utilities some guides use, then Atlantis and the site's own.
+import "./styles/fonts.css";
+import "./styles/tailwind.css";
 import "@jobber/design/foundation.css";
 import "@jobber/design/dark.mode.css";
 import "@jobber/components/styles";

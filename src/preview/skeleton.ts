@@ -4,6 +4,7 @@ import foundationUrl from "@jobber/design/foundation.css?url";
 import site from "../../site.config.json";
 import editorScope from "../generated/editor-scope.json?raw";
 import { overlayFrameGuestScript } from "../overlay-frame";
+import tailwindUrl from "../styles/tailwind.css?url";
 import { fillTemplate } from "../template";
 import codeWrapper from "./codeWrapper.js?raw";
 import mobileCodeWrapper from "./mobileCodeWrapper.js?raw";
@@ -40,6 +41,7 @@ export const skeletonHTML = (theme: PreviewTheme, platform: PreviewPlatform = "w
     stylesUrl,
     foundationUrl,
     darkModeUrl,
+    tailwindUrl,
     overlayFrameGuest: overlayFrameGuestScript({ rootSelector: "#root" }),
   });
 

@@ -142,8 +142,8 @@ function pageHtml(path, [narrow, wide]) {
       `@media (max-width:767px){#prerendered>[data-width=wide]{display:none}}` +
       `@media (min-width:768px){#prerendered>[data-width=narrow]{display:none}}</style>`,
   ];
-  // The app loads once the snapshot's first paint is on screen (a second at most), at once where the
-  // snapshot is switched off.
+  // The app loads once the snapshot has painted and its text has its fonts (two seconds at most), so
+  // its code comes after the page's first and largest paints; at once where the snapshot is off.
   const loader = `<script>(function () {
       var loaded = false;
       function load() {
@@ -158,12 +158,14 @@ function pageHtml(path, [narrow, wide]) {
       if (document.documentElement.dataset.prerendered === "off") return load();
       try {
         new PerformanceObserver(function (list, observer) {
-          if (list.getEntriesByName("first-contentful-paint").length) { observer.disconnect(); setTimeout(load); }
+          if (!list.getEntriesByName("first-contentful-paint").length) return;
+          observer.disconnect();
+          (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { setTimeout(load); });
         }).observe({ type: "paint", buffered: true });
       } catch (error) {
         return load();
       }
-      setTimeout(load, 1000);
+      setTimeout(load, 2000);
     })();</script>`;
   return template
     .replace(entryScript[0], "")

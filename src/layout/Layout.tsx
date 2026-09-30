@@ -1,10 +1,11 @@
 import { AtlantisThemeContextProvider } from "@jobber/components/AtlantisThemeContext";
-import { useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AtlantisSiteProvider, useSiteSearch } from "../site/AtlantisSiteContext";
 import { hooksList } from "../site/lists";
 import { scrollToHash } from "../site/scrollToHash";
 import { NavMenu } from "./NavMenu";
+import { PageShell } from "./PageShell";
 import { THEME_STORAGE_KEY } from "./TopNav";
 import { TritonProvider, TritonSideDrawer } from "./Triton";
 
@@ -51,7 +52,10 @@ export const Layout = () => {
               ref={scrollPane}
               tabIndex={0}
             >
-              <Outlet />
+              {/* A page whose code is still loading (on its first visit) shows its top bar meanwhile. */}
+              <Suspense fallback={<PageShell />}>
+                <Outlet />
+              </Suspense>
             </div>
             <TritonSideDrawer />
           </div>

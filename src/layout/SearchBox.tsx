@@ -1,11 +1,9 @@
 import { Box } from "@jobber/components/Box";
 import { Content } from "@jobber/components/Content";
 import { Heading } from "@jobber/components/Heading";
-import { Icon } from "@jobber/components/Icon";
 import { InputText } from "@jobber/components/InputText";
 import { Modal } from "@jobber/components/Modal";
 import { Typography } from "@jobber/components/Typography";
-import { useOnKeyDown } from "@jobber/hooks/useOnKeyDown";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   type ContentListItem,
@@ -20,7 +18,6 @@ import {
 } from "../site/lists";
 import { ContentCard, ContentCardWrapper } from "./PageBlock";
 import styles from "./SearchBox.module.css";
-import buttonStyles from "./SearchButton.module.css";
 import { ToolBoxIllustration } from "./ToolBoxIllustration";
 
 const lists = [
@@ -33,11 +30,6 @@ const lists = [
   { title: "Hooks", items: hooksList },
   { title: "Packages", items: packagesList },
 ];
-
-const isTextInput = (event: KeyboardEvent) =>
-  (event.target instanceof HTMLDivElement && event.target.getAttribute("contenteditable") === "true") ||
-  event.target instanceof HTMLInputElement ||
-  event.target instanceof HTMLTextAreaElement;
 
 const SearchBoxSection = ({
   sectionTitle,
@@ -75,16 +67,10 @@ const EmptyResults = () => (
   </Box>
 );
 
-// Every page of the site by title (and a few other words for components), opened with "/".
+// Every page of the site by title (and a few other words for components): the search button's dialog.
 export const SearchBox = ({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) => {
   const ref = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState("");
-
-  useOnKeyDown((event: KeyboardEvent) => {
-    if (isTextInput(event)) return;
-    event.preventDefault();
-    setOpen(true);
-  }, "/");
 
   const filteredLists = useMemo(() => {
     const term = search.toLowerCase();
@@ -134,23 +120,5 @@ export const SearchBox = ({ open, setOpen }: { open: boolean; setOpen: (open: bo
         </div>
       </Content>
     </Modal>
-  );
-};
-
-export const SearchButton = () => {
-  const [open, setOpen] = useState(false);
-  return (
-    <Box>
-      <button type="button" onClick={() => setOpen(true)} className={buttonStyles.searchButton} aria-label="Search">
-        <Icon name="search" color="greyBlue" />
-        <span className={buttonStyles.searchButtonText}>
-          <Typography size="base" textColor="textSecondary">
-            Search
-          </Typography>
-        </span>
-        <div className={buttonStyles.searchKeyIndicator}>/</div>
-      </button>
-      <SearchBox open={open} setOpen={setOpen} />
-    </Box>
   );
 };

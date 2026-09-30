@@ -1,4 +1,3 @@
-import { Banner } from "@jobber/components/Banner";
 import { Box } from "@jobber/components/Box";
 import { Chip } from "@jobber/components/Chip";
 import { Content } from "@jobber/components/Content";
@@ -7,16 +6,25 @@ import { Menu } from "@jobber/components/Menu";
 import { Page } from "@jobber/components/Page";
 import { Tab, Tabs } from "@jobber/components/Tabs";
 import { showToast } from "@jobber/components/Toast";
-import { type CSSProperties, Suspense, createElement, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  type CSSProperties,
+  type ComponentProps,
+  Suspense,
+  createElement,
+  use,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import { ComponentLinks } from "../components/ComponentLinks";
 import { LinkableHeading } from "../components/LinkableHeading";
-import { PropsList, usePropsAsDataList } from "../components/PropsList";
 import { SiteContent } from "../content/components";
 import { highlightAll } from "../content/mdx/prism";
 import type { ComponentContent } from "../content/types";
 import { BaseView } from "../layout/BaseView";
-import { AtlantisPreviewEditor } from "../preview/AtlantisPreviewEditor";
+import { PageShell } from "../layout/PageShell";
 import { AtlantisPreviewProvider, useAtlantisPreview } from "../preview/AtlantisPreviewProvider";
 import { AtlantisPreviewViewer, CodePreviewWindow } from "../preview/AtlantisPreviewViewer";
 import { useAtlantisSite, useSiteSearch } from "../site/AtlantisSiteContext";
@@ -39,10 +47,30 @@ import {
 } from "../site/componentTypes";
 import { scrollToHash } from "../site/scrollToHash";
 import { usePageTitle } from "../site/usePageTitle";
-import { DocumentReady, useDocument } from "./ContentView";
+import type { ComponentUsage } from "./ComponentUsage";
+import { DocumentReady, useDocument } from "./documents";
 import { NotFoundPage } from "./NotFoundPage";
 
 const DESIGN_TAB_INDEX = 0;
+
+// The Web and Mobile tabs' content (the editor and the props) loads with the first of those tabs
+// shown. Once loaded it is read synchronously, so a page opened on one of them renders it with the
+// rest of the page rather than after it.
+let usageModule: typeof import("./ComponentUsage") | undefined;
+let usageLoading: Promise<typeof import("./ComponentUsage")> | undefined;
+const loadUsage = () =>
+  (usageLoading ??= import("./ComponentUsage").then(
+    (module) => (usageModule = module),
+    (error: unknown) => {
+      usageLoading = undefined;
+      throw error;
+    },
+  ));
+
+const Usage = (props: ComponentProps<typeof ComponentUsage>) => {
+  const { ComponentUsage: LoadedUsage } = usageModule ?? use(loadUsage());
+  return <LoadedUsage {...props} />;
+};
 
 const versionLabelMap: Record<ComponentKind, string> = {
   web: "Deprecated (v1)",
@@ -194,7 +222,6 @@ const ComponentView = ({ PageMeta }: { PageMeta: ComponentContent }) => {
   );
   const { tab, handleTabChange } = useComponentViewTabs({ PageMeta, updateType, tabFromUrl, isLegacy });
   useErrorCatcher();
-  const stateValues = usePropsAsDataList(getComponentProps(PageMeta, type));
   const { enableMinimal, minimal, disableMinimal, isMinimal, setComponentTypeInUrl } = useAtlantisSite();
   usePageTitle(PageMeta.title);
 
@@ -206,18 +233,27 @@ const ComponentView = ({ PageMeta }: { PageMeta: ComponentContent }) => {
   const Design = useDocument(getComponentContent(PageMeta, type));
   const Notes = useDocument(getComponentNotes(PageMeta, type));
   const code = getComponentElement(PageMeta, type);
+  // The preview starts once the tab's document is in the page (a Web or Mobile tab has none): its
+  // frame and the module the frame loads would otherwise hold the document up on a slow connection.
+  const tabHasDocument = tab === DESIGN_TAB_INDEX || (Notes !== null && tab === availablePlatforms.length + 1);
+  const [previewStarted, setPreviewStarted] = useState(!tabHasDocument);
   // The documents load after the tab shows: their code is highlighted, and a link's heading
   // scrolled to, once they are in the page.
   const onDocumentReady = () => {
     requestAnimationFrame(highlightAll);
     scrollToHash();
+    setPreviewStarted(true);
   };
 
   useEffect(() => {
-    if (!code) return;
+    if (!tabHasDocument) setPreviewStarted(true);
+  }, [tabHasDocument]);
+
+  useEffect(() => {
+    if (!code || !previewStarted) return;
     const timer = setTimeout(() => updateCode(code, true), 100);
     return () => clearTimeout(timer);
-  }, [code, type, updateCode]);
+  }, [code, type, updateCode, previewStarted]);
 
   const tabs = [
     {
@@ -242,17 +278,9 @@ const ComponentView = ({ PageMeta }: { PageMeta: ComponentContent }) => {
           label: config.platform === "web" ? "Web" : "Mobile",
           children: (
             <div data-usage-tab={platform}>
-              <Box margin={{ bottom: "base" }}>
-                <AtlantisPreviewEditor />
-              </Box>
-              {config.warningMessage && (
-                <Box margin={{ top: "base", bottom: "base" }}>
-                  <Banner type="warning" dismissible={false}>
-                    {config.warningMessage}
-                  </Banner>
-                </Box>
-              )}
-              <PropsList values={stateValues} />
+              <Suspense fallback={null}>
+                <Usage warningMessage={config.warningMessage} props={getComponentProps(PageMeta, type)} />
+              </Suspense>
             </div>
           ),
         },
@@ -340,17 +368,66 @@ const ComponentView = ({ PageMeta }: { PageMeta: ComponentContent }) => {
 // is not a component.
 const componentNameMap = new Map(Object.keys(SiteContent).map((key) => [key.toLowerCase(), key]));
 
+// A component's content, loaded the first time its page opens (again after a failed load). Once
+// loaded it is read synchronously, so opening the page again does not suspend.
+const loadedContent = new Map<string, ComponentContent>();
+const loadingContent = new Map<string, Promise<ComponentContent>>();
+function loadComponentContent(name: string) {
+  let content = loadingContent.get(name);
+  if (!content) {
+    content = SiteContent[name]().then(
+      (module) => {
+        loadedContent.set(name, module.default);
+        return module.default;
+      },
+      (error: unknown) => {
+        loadingContent.delete(name);
+        throw error;
+      },
+    );
+    loadingContent.set(name, content);
+  }
+  return content;
+}
+
+// Keyed by component: another component's page starts with a fresh preview and editor, on the
+// example its URL asks for, so the editor opens with that example's code in it.
+const LoadedComponentPage = ({ name }: { name: string }) => {
+  const { tab = "" } = useParams();
+  const { isLegacy } = useSiteSearch();
+  const tabFromUrl = tab.toLowerCase().trim();
+  const opensOnUsage = tabFromUrl === "web" || tabFromUrl === "mobile";
+  if (opensOnUsage) void loadUsage();
+  const content = loadedContent.get(name) ?? use(loadComponentContent(name));
+  if (opensOnUsage && !usageModule) use(loadUsage());
+  const [initial] = useState(() => {
+    const defaultType = getDefaultComponentType(content);
+    const { resolvedType } = getTabAndTypeFromUrl({
+      tabFromUrl,
+      availablePlatforms: getAvailablePlatformTypes(content),
+      availableTypes: getAvailableComponentTypes(content),
+      defaultType,
+      isLegacy,
+    });
+    const type = resolvedType ?? defaultType;
+    return { type, code: getComponentElement(content, type) ?? "" };
+  });
+  return (
+    <AtlantisPreviewProvider initialType={initial.type} initialCode={initial.code}>
+      <ComponentView PageMeta={content} />
+    </AtlantisPreviewProvider>
+  );
+};
+
 export const ComponentPage = () => {
   const { name = "", tab } = useParams();
   const { search, hash } = useLocation();
   const canonical = Object.hasOwn(SiteContent, name) ? name : componentNameMap.get(name.toLowerCase());
   if (!canonical) return <NotFoundPage />;
   if (canonical !== name) return <Navigate to={`/components/${canonical}${tab ? `/${tab}` : ""}${search}${hash}`} replace />;
-
-  // Keyed by component: another component's page starts with a fresh preview and editor.
   return (
-    <AtlantisPreviewProvider key={canonical} initialType={getDefaultComponentType(SiteContent[canonical])}>
-      <ComponentView PageMeta={SiteContent[canonical]} />
-    </AtlantisPreviewProvider>
+    <Suspense fallback={<PageShell />}>
+      <LoadedComponentPage name={canonical} key={canonical} />
+    </Suspense>
   );
 };

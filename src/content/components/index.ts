@@ -1,203 +1,105 @@
-// The site's components, as its component pages show them (SiteContent).
-import ActionItem from "./ActionItem";
-import ActionItemGroup from "./ActionItemGroup";
-import ActionLabel from "./ActionLabel";
-import ActivityIndicator from "./ActivityIndicator";
-import AtlantisThemeContext from "./AtlantisThemeContext";
-import Autocomplete from "./Autocomplete";
-import AutoLink from "./AutoLink";
-import Avatar from "./Avatar";
-import Banner from "./Banner";
-import BottomSheet from "./BottomSheet";
-import ButtonGroup from "./ButtonGroup";
-import Box from "./Box";
-import Button from "./Button";
-import ButtonDismiss from "./ButtonDismiss";
-import Card from "./Card";
-import Checkbox from "./Checkbox";
-import Chip from "./Chip";
-import Chips from "./Chips";
-import Cluster from "./Cluster";
-import Combobox from "./Combobox";
-import FilterPicker from "./FilterPicker";
-import ConfirmationModal from "./ConfirmationModal";
-import Container from "./Container";
-import Content from "./Content";
-import ContentBlock from "./ContentBlock";
-import ContentOverlay from "./ContentOverlay";
-import Countdown from "./Countdown";
-import Cover from "./Cover";
-import DataDump from "./DataDump";
-import DataList from "./DataList";
-import DataTable from "./DataTable";
-import DatePicker from "./DatePicker";
-import Dialog from "./Dialog";
-import Disclosure from "./Disclosure";
-import Divider from "./Divider";
-import Drawer from "./Drawer";
-import Emphasis from "./Emphasis";
-import EmptyState from "./EmptyState";
-import FeatureSwitch from "./FeatureSwitch";
-import Flex from "./Flex";
-import Form from "./Form";
-import FormatFile from "./FormatFile";
-import FormField from "./FormField";
-import Frame from "./Frame";
-import Gallery from "./Gallery";
-import Glimmer from "./Glimmer";
-import Grid from "./Grid";
-import Heading from "./Heading";
-import Icon from "./Icon";
-import IconButton from "./IconButton";
-import InlineLabel from "./InlineLabel";
-import InputAvatar from "./InputAvatar";
-import InputCurrency from "./InputCurrency";
-import InputDate from "./InputDate";
-import InputEmail from "./InputEmail";
-import InputFieldWrapper from "./InputFieldWrapper";
-import InputFile from "./InputFile";
-import InputGroup from "./InputGroup";
-import InputNumber from "./InputNumber";
-import InputPassword from "./InputPassword";
-import InputPressable from "./InputPressable";
-import InputSearch from "./InputSearch";
-import InputPhoneNumber from "./InputPhoneNumber";
-import InputText from "./InputText";
-import InputTime from "./InputTime";
-import InputValidation from "./InputValidation";
-import LightBox from "./LightBox";
-import Link from "./Link";
-import List from "./List";
-import Markdown from "./Markdown";
-import Menu from "./Menu";
-import Modal from "./Modal";
-import MultiSelect from "./MultiSelect";
-import Page from "./Page";
-import Popover from "./Popover";
-import ProgressBar from "./ProgressBar";
-import ProgressIndicator from "./ProgressIndicator";
-import RadioGroup from "./RadioGroup";
-import ResponsiveSwitcher from "./ResponsiveSwitcher";
-import SegmentedControl from "./SegmentedControl";
-import Select from "./Select";
-import LegacySelect from "./LegacySelect";
-import SelectPrimitive from "./SelectPrimitive";
-import SideDrawer from "./SideDrawer";
-import SideKick from "./SideKick";
-import Spinner from "./Spinner";
-import Stack from "./Stack";
-import StatusIndicator from "./StatusIndicator";
-import StatusLabel from "./StatusLabel";
-import Switch from "./Switch";
-import Table from "./Table";
-import Tabs from "./Tabs";
-import Text from "./Text";
-import TextList from "./TextList";
-import ThumbnailList from "./ThumbnailList";
-import Tiles from "./Tiles";
-import Toast from "./Toast";
-import Tooltip from "./Tooltip";
-import Typography from "./Typography";
 import type { ComponentContent } from "../types";
 
-export const SiteContent: Record<string, ComponentContent> = {
-  ActionItem: ActionItem,
-  ActionItemGroup: ActionItemGroup,
-  ActionLabel: ActionLabel,
-  ActivityIndicator: ActivityIndicator,
-  AtlantisThemeContext: AtlantisThemeContext,
-  Autocomplete: Autocomplete,
-  AutoLink: AutoLink,
-  Avatar: Avatar,
-  Banner: Banner,
-  BottomSheet: BottomSheet,
-  ButtonGroup: ButtonGroup,
-  Box: Box,
-  Button: Button,
-  ButtonDismiss: ButtonDismiss,
-  Card: Card,
-  Checkbox: Checkbox,
-  Chip: Chip,
-  Chips: Chips,
-  Cluster: Cluster,
-  Combobox: Combobox,
-  FilterPicker: FilterPicker,
-  ConfirmationModal: ConfirmationModal,
-  Container: Container,
-  Content: Content,
-  ContentBlock: ContentBlock,
-  ContentOverlay: ContentOverlay,
-  Countdown: Countdown,
-  Cover: Cover,
-  DataDump: DataDump,
-  DataList: DataList,
-  DataTable: DataTable,
-  DatePicker: DatePicker,
-  Dialog: Dialog,
-  Disclosure: Disclosure,
-  Divider: Divider,
-  Drawer: Drawer,
-  Emphasis: Emphasis,
-  EmptyState: EmptyState,
-  FeatureSwitch: FeatureSwitch,
-  Flex: Flex,
-  Form: Form,
-  FormatFile: FormatFile,
-  FormField: FormField,
-  Frame: Frame,
-  Gallery: Gallery,
-  Glimmer: Glimmer,
-  Grid: Grid,
-  Heading: Heading,
-  Icon: Icon,
-  IconButton: IconButton,
-  InlineLabel: InlineLabel,
-  InputAvatar: InputAvatar,
-  InputCurrency: InputCurrency,
-  InputDate: InputDate,
-  InputEmail: InputEmail,
-  InputFieldWrapper: InputFieldWrapper,
-  InputFile: InputFile,
-  InputGroup: InputGroup,
-  InputNumber: InputNumber,
-  InputPassword: InputPassword,
-  InputPressable: InputPressable,
-  InputSearch: InputSearch,
-  InputPhoneNumber: InputPhoneNumber,
-  InputText: InputText,
-  InputTime: InputTime,
-  InputValidation: InputValidation,
-  LightBox: LightBox,
-  Link: Link,
-  List: List,
-  Markdown: Markdown,
-  Menu: Menu,
-  Modal: Modal,
-  MultiSelect: MultiSelect,
-  Page: Page,
-  Popover: Popover,
-  ProgressBar: ProgressBar,
-  ProgressIndicator: ProgressIndicator,
-  RadioGroup: RadioGroup,
-  ResponsiveSwitcher: ResponsiveSwitcher,
-  SegmentedControl: SegmentedControl,
-  Select: Select,
-  LegacySelect: LegacySelect,
-  SelectPrimitive: SelectPrimitive,
-  SideDrawer: SideDrawer,
-  SideKick: SideKick,
-  Spinner: Spinner,
-  Stack: Stack,
-  StatusIndicator: StatusIndicator,
-  StatusLabel: StatusLabel,
-  Switch: Switch,
-  Table: Table,
-  Tabs: Tabs,
-  Text: Text,
-  TextList: TextList,
-  ThumbnailList: ThumbnailList,
-  Tiles: Tiles,
-  Toast: Toast,
-  Tooltip: Tooltip,
-  Typography: Typography,
+// The site's components, as its component pages show them: each one's content (its props, examples
+// and documents) loads with its page.
+export const SiteContent: Record<string, () => Promise<{ default: ComponentContent }>> = {
+  ActionItem: () => import("./ActionItem"),
+  ActionItemGroup: () => import("./ActionItemGroup"),
+  ActionLabel: () => import("./ActionLabel"),
+  ActivityIndicator: () => import("./ActivityIndicator"),
+  AtlantisThemeContext: () => import("./AtlantisThemeContext"),
+  Autocomplete: () => import("./Autocomplete"),
+  AutoLink: () => import("./AutoLink"),
+  Avatar: () => import("./Avatar"),
+  Banner: () => import("./Banner"),
+  BottomSheet: () => import("./BottomSheet"),
+  ButtonGroup: () => import("./ButtonGroup"),
+  Box: () => import("./Box"),
+  Button: () => import("./Button"),
+  ButtonDismiss: () => import("./ButtonDismiss"),
+  Card: () => import("./Card"),
+  Checkbox: () => import("./Checkbox"),
+  Chip: () => import("./Chip"),
+  Chips: () => import("./Chips"),
+  Cluster: () => import("./Cluster"),
+  Combobox: () => import("./Combobox"),
+  FilterPicker: () => import("./FilterPicker"),
+  ConfirmationModal: () => import("./ConfirmationModal"),
+  Container: () => import("./Container"),
+  Content: () => import("./Content"),
+  ContentBlock: () => import("./ContentBlock"),
+  ContentOverlay: () => import("./ContentOverlay"),
+  Countdown: () => import("./Countdown"),
+  Cover: () => import("./Cover"),
+  DataDump: () => import("./DataDump"),
+  DataList: () => import("./DataList"),
+  DataTable: () => import("./DataTable"),
+  DatePicker: () => import("./DatePicker"),
+  Dialog: () => import("./Dialog"),
+  Disclosure: () => import("./Disclosure"),
+  Divider: () => import("./Divider"),
+  Drawer: () => import("./Drawer"),
+  Emphasis: () => import("./Emphasis"),
+  EmptyState: () => import("./EmptyState"),
+  FeatureSwitch: () => import("./FeatureSwitch"),
+  Flex: () => import("./Flex"),
+  Form: () => import("./Form"),
+  FormatFile: () => import("./FormatFile"),
+  FormField: () => import("./FormField"),
+  Frame: () => import("./Frame"),
+  Gallery: () => import("./Gallery"),
+  Glimmer: () => import("./Glimmer"),
+  Grid: () => import("./Grid"),
+  Heading: () => import("./Heading"),
+  Icon: () => import("./Icon"),
+  IconButton: () => import("./IconButton"),
+  InlineLabel: () => import("./InlineLabel"),
+  InputAvatar: () => import("./InputAvatar"),
+  InputCurrency: () => import("./InputCurrency"),
+  InputDate: () => import("./InputDate"),
+  InputEmail: () => import("./InputEmail"),
+  InputFieldWrapper: () => import("./InputFieldWrapper"),
+  InputFile: () => import("./InputFile"),
+  InputGroup: () => import("./InputGroup"),
+  InputNumber: () => import("./InputNumber"),
+  InputPassword: () => import("./InputPassword"),
+  InputPressable: () => import("./InputPressable"),
+  InputSearch: () => import("./InputSearch"),
+  InputPhoneNumber: () => import("./InputPhoneNumber"),
+  InputText: () => import("./InputText"),
+  InputTime: () => import("./InputTime"),
+  InputValidation: () => import("./InputValidation"),
+  LightBox: () => import("./LightBox"),
+  Link: () => import("./Link"),
+  List: () => import("./List"),
+  Markdown: () => import("./Markdown"),
+  Menu: () => import("./Menu"),
+  Modal: () => import("./Modal"),
+  MultiSelect: () => import("./MultiSelect"),
+  Page: () => import("./Page"),
+  Popover: () => import("./Popover"),
+  ProgressBar: () => import("./ProgressBar"),
+  ProgressIndicator: () => import("./ProgressIndicator"),
+  RadioGroup: () => import("./RadioGroup"),
+  ResponsiveSwitcher: () => import("./ResponsiveSwitcher"),
+  SegmentedControl: () => import("./SegmentedControl"),
+  Select: () => import("./Select"),
+  LegacySelect: () => import("./LegacySelect"),
+  SelectPrimitive: () => import("./SelectPrimitive"),
+  SideDrawer: () => import("./SideDrawer"),
+  SideKick: () => import("./SideKick"),
+  Spinner: () => import("./Spinner"),
+  Stack: () => import("./Stack"),
+  StatusIndicator: () => import("./StatusIndicator"),
+  StatusLabel: () => import("./StatusLabel"),
+  Switch: () => import("./Switch"),
+  Table: () => import("./Table"),
+  Tabs: () => import("./Tabs"),
+  Text: () => import("./Text"),
+  TextList: () => import("./TextList"),
+  ThumbnailList: () => import("./ThumbnailList"),
+  Tiles: () => import("./Tiles"),
+  Toast: () => import("./Toast"),
+  Tooltip: () => import("./Tooltip"),
+  Typography: () => import("./Typography"),
 };

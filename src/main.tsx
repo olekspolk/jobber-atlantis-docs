@@ -3,26 +3,32 @@ import "@jobber/design/dark.mode.css";
 import "@jobber/components/styles";
 import "./styles/global.css";
 import { updateTheme } from "@jobber/components/AtlantisThemeContext";
+import { lazy } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Layout } from "./layout/Layout";
 import { THEME_STORAGE_KEY } from "./layout/TopNav";
-import { ChangelogPage } from "./pages/ChangelogPage";
-import { ComponentNotFound } from "./pages/ComponentNotFound";
-import { ComponentPage } from "./pages/ComponentPage";
-import { ContentLoader, WelcomeGuidePage } from "./pages/ContentView";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { RouteError } from "./pages/RouteError";
-import {
-  ComponentsPage,
-  ContentPage,
-  DesignPage,
-  GuidesPage,
-  HomePage,
-  HooksPage,
-  PackagesPage,
-  PatternsPage,
-} from "./pages/OverviewPages";
+
+// A page's code loads with its first visit; the 404 comes with the site.
+const overviewPage = (name: keyof typeof import("./pages/OverviewPages")) =>
+  lazy(() => import("./pages/OverviewPages").then((pages) => ({ default: pages[name] })));
+const HomePage = overviewPage("HomePage");
+const ComponentsPage = overviewPage("ComponentsPage");
+const ContentPage = overviewPage("ContentPage");
+const DesignPage = overviewPage("DesignPage");
+const GuidesPage = overviewPage("GuidesPage");
+const HooksPage = overviewPage("HooksPage");
+const PackagesPage = overviewPage("PackagesPage");
+const PatternsPage = overviewPage("PatternsPage");
+const ComponentPage = lazy(() => import("./pages/ComponentPage").then((page) => ({ default: page.ComponentPage })));
+const ChangelogPage = lazy(() => import("./pages/ChangelogPage").then((page) => ({ default: page.ChangelogPage })));
+const ContentLoader = lazy(() => import("./pages/ContentView").then((page) => ({ default: page.ContentLoader })));
+const WelcomeGuidePage = lazy(() => import("./pages/ContentView").then((page) => ({ default: page.WelcomeGuidePage })));
+const ComponentNotFound = lazy(() =>
+  import("./pages/ComponentNotFound").then((page) => ({ default: page.ComponentNotFound })),
+);
 
 // The stored theme, else ?theme=, else light, as the site starts.
 const storedTheme = (() => {
@@ -83,4 +89,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-createRoot(document.getElementById("root")!).render(<RouterProvider router={router} />);
+// Navigations are transitions: the page stays until the next one's code has loaded.
+createRoot(document.getElementById("root")!).render(
+  <RouterProvider router={router} future={{ v7_startTransition: true }} />,
+);
+

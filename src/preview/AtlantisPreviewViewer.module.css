@@ -1,0 +1,11 @@
+/* A frame's place. Until its skeleton has loaded and sized it (data-rested), it keeps the height the
+   frame will rest at, the skeleton's 200px plus the 60px writeCodeToIFrame adds, so the page below
+   does not move then; after that it follows the frame, which the reader can resize. */
+.frameBox {
+  width: 100%;
+  min-height: 260px;
+}
+
+.frameBox:has(iframe[data-rested]) {
+  min-height: 0;
+}

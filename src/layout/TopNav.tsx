@@ -6,7 +6,7 @@ import { useBreakpoints } from "@jobber/hooks/useBreakpoints";
 import { Link } from "react-router-dom";
 import { useAtlantisSite } from "../site/AtlantisSiteContext";
 import { JobberLogo } from "./JobberLogo";
-import { SearchButton } from "./SearchBox";
+import { SearchButton } from "./SearchButton";
 import { useTritonChat } from "./Triton";
 
 export const THEME_STORAGE_KEY = "theme";

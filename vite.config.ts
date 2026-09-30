@@ -63,7 +63,22 @@ export default defineConfig({
         return { code: named, map };
       },
     },
+    // @jobber/hooks does not say its modules are free of side effects, so a hook imported from its
+    // index (as Atlantis's components import them) brought every hook along, and useCollectionQuery
+    // brought Apollo's client. They only define hooks: unused ones can go.
+    {
+      name: "jobber-hooks-side-effects",
+      apply: "build",
+      transform(_code, id) {
+        if (/[\\/]node_modules[\\/]@jobber[\\/]hooks[\\/]dist[\\/]/.test(id.split("?")[0])) return { moduleSideEffects: false };
+      },
+    },
   ],
+  // The Babel worker (src/preview/transpile.worker.ts) is a module worker.
+  worker: { format: "es" },
+  // Pages load lazily, so the dev server scans every module for dependencies up front rather than
+  // what index.html reaches: otherwise it finds them a page at a time and reloads for each.
+  optimizeDeps: { entries: ["index.html", "src/**/*.{ts,tsx}"] },
   resolve: {
     alias: {
       // The live examples log their events with Storybook's `action`.

@@ -1,16 +1,7 @@
-import { Box } from "@jobber/components/Box";
-import { Button } from "@jobber/components/Button";
-import { Heading } from "@jobber/components/Heading";
-import { Icon } from "@jobber/components/Icon";
-import { SideDrawer } from "@jobber/components/SideDrawer";
-import { Text } from "@jobber/components/Text";
-import { Tooltip } from "@jobber/components/Tooltip";
-import { type ReactNode, createContext, useContext, useState } from "react";
-import site from "../../site.config.json";
+import { type ReactNode, Suspense, createContext, lazy, useContext, useState } from "react";
 
-// Triton, the site's AI assistant. It answers through Jobber's own service, which accepts requests
-// from the original site only, so the replica keeps its button and drawer and points there.
-const TRITON_SITE = "https://atlantis-ai.jobber.dev";
+// Triton's drawer loads the first time it opens, then stays, so it can animate closed.
+const TritonDrawer = lazy(() => import("./TritonDrawer").then((module) => ({ default: module.TritonDrawer })));
 
 interface Triton {
   readonly tritonOpen: boolean;
@@ -34,34 +25,12 @@ export function TritonProvider({ children }: { children: ReactNode }) {
 }
 
 export function TritonSideDrawer() {
-  const { tritonOpen, onCloseTriton } = useTritonChat();
-  return (
-    <SideDrawer open={tritonOpen} onRequestClose={onCloseTriton}>
-      <SideDrawer.Title>Triton</SideDrawer.Title>
-      <SideDrawer.Actions>
-        <Tooltip message="Visit Triton Site">
-          <Button ariaLabel="Visit Triton Site" icon="export" type="secondary" variation="subtle" url={TRITON_SITE} />
-        </Tooltip>
-      </SideDrawer.Actions>
-      <Box padding={{ left: "base", right: "base", bottom: "base" }} direction="column" height="grow">
-        <Box
-          padding="larger"
-          gap="base"
-          alignItems="center"
-          margin={{ bottom: "base" }}
-          background="surface--background--subtle"
-          radius="base"
-        >
-          <Box gap="small" alignItems="center">
-            <Icon name="sparkles" size="large" />
-            <Heading level={3}>Available on the original site</Heading>
-          </Box>
-          <Text align="center">
-            Triton answers with Jobber's own AI service, which only atlantis.getjobber.com can reach. Ask it there.
-          </Text>
-          <Button label="Open Atlantis" url={site.atlantisUrl} external />
-        </Box>
-      </Box>
-    </SideDrawer>
-  );
+  const { tritonOpen } = useTritonChat();
+  const [loaded, setLoaded] = useState(false);
+  if (tritonOpen && !loaded) setLoaded(true);
+  return loaded ? (
+    <Suspense fallback={null}>
+      <TritonDrawer />
+    </Suspense>
+  ) : null;
 }

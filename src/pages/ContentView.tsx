@@ -1,6 +1,5 @@
 import { Content } from "@jobber/components/Content";
-import type { MDXContent } from "mdx/types";
-import { type ReactNode, Suspense, createElement, lazy, useEffect, useMemo } from "react";
+import { type ReactNode, Suspense, createElement } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { contentMap } from "../content/pages/maps";
 import type { LoadMDX, TocEntry } from "../content/types";
@@ -8,6 +7,7 @@ import { AnchorLinks } from "../layout/AnchorLinks";
 import { BaseView } from "../layout/BaseView";
 import { scrollToHash } from "../site/scrollToHash";
 import { usePageTitle } from "../site/usePageTitle";
+import { DocumentReady, useDocument } from "./documents";
 import { NotFoundPage } from "./NotFoundPage";
 
 declare module "react" {
@@ -17,17 +17,6 @@ declare module "react" {
       "custom-elements": { children?: ReactNode };
     }
   }
-}
-
-// A document, loaded when its page is first opened.
-export function useDocument(load: LoadMDX | undefined): MDXContent | null {
-  return useMemo(() => (load ? (lazy(load) as unknown as MDXContent) : null), [load]);
-}
-
-// Placed after a document inside its Suspense boundary: runs once the loaded document is in the page.
-export function DocumentReady({ onReady }: { onReady: () => void }) {
-  useEffect(() => onReady(), []);
-  return null;
 }
 
 export const ContentView = ({

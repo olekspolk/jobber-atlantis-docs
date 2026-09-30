@@ -2,6 +2,11 @@ import { Box } from "@jobber/components/Box";
 import type { ReactNode } from "react";
 import { TopNav } from "./TopNav";
 
+// An overview page (Home, Components, Design...): the top bar over its sections.
+export const PageWrapper = ({ children }: { children: ReactNode }) => (
+  <div style={{ display: "flex", flexDirection: "column", height: "100dvh" }}>{children}</div>
+);
+
 // A page: its main column under the top bar, and a side rail (shown from 1024px up).
 export function BaseView({ children }: { children: ReactNode }) {
   return <div style={{ display: "flex", height: "100dvh" }}>{children}</div>;

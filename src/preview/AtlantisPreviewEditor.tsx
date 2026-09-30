@@ -2,11 +2,11 @@ import { indentWithTab } from "@codemirror/commands";
 import { LRLanguage, LanguageSupport, syntaxHighlighting } from "@codemirror/language";
 import { EditorState } from "@codemirror/state";
 import { EditorView, keymap, lineNumbers } from "@codemirror/view";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { CopyCodeButton } from "../components/CopyCodeButton";
 import { useAtlantisPreview } from "./AtlantisPreviewProvider";
 import { atlantisPreviewCodeTheme, atlantisPreviewHighlightStyle } from "./editorTheme";
-import { exampleParser } from "./skeleton";
+import { exampleParser } from "./exampleCode";
 
 const previewCodeLanguage = LRLanguage.define({
   name: "typescript",
@@ -32,7 +32,8 @@ export const AtlantisPreviewEditor = () => {
     }
   }, [code]);
 
-  useEffect(() => {
+  // Created before the tab paints, at its full height with the example in it.
+  useLayoutEffect(() => {
     if (editor.current && !editorView.current) {
       const startState = EditorState.create({
         doc: code,

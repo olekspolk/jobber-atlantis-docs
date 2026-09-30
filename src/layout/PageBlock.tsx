@@ -11,11 +11,8 @@ import { type ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { ContentListItem } from "../site/lists";
 import { usePageTitle } from "../site/usePageTitle";
+import { PageWrapper } from "./BaseView";
 import { TopNav } from "./TopNav";
-
-export const PageWrapper = ({ children }: { children: ReactNode }) => (
-  <div style={{ display: "flex", flexDirection: "column", height: "100dvh" }}>{children}</div>
-);
 
 const ComponentWrapper = ({ children }: { children: ReactNode }) => (
   <div

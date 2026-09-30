@@ -1,4 +1,3 @@
-import * as Babel from "@babel/standalone";
 import { useAtlantisTheme } from "@jobber/components/AtlantisThemeContext";
 import {
   type PropsWithChildren,
@@ -17,9 +16,9 @@ import {
   type PreviewPlatform,
   type PreviewTheme,
   WebCodeWrapper,
-  getPreCode,
   skeletonHTML,
 } from "./skeleton";
+import { transpile } from "./transpile";
 
 interface AtlantisPreviewContextValue {
   readonly iframe: RefObject<HTMLIFrameElement | null>;
@@ -52,7 +51,7 @@ const postToFrame = (frame: HTMLIFrameElement, message: object) =>
 const pendingModules = new WeakMap<HTMLIFrameElement, string>();
 
 // Same flow as atlantis.getjobber.com: the first update writes the skeleton and waits for "load",
-// later updates only post the new module to the iframe.
+// sizes the frame to it, then posts the module; later updates only post the new module.
 const writeCodeToIFrame = (frame: HTMLIFrameElement, theme: PreviewTheme, platform: PreviewPlatform, transpiledCode: string) => {
   const code = platform === "mobile" ? MobileCodeWrapper(transpiledCode) : WebCodeWrapper(transpiledCode);
   if (pendingModules.has(frame)) {
@@ -73,6 +72,9 @@ const writeCodeToIFrame = (frame: HTMLIFrameElement, theme: PreviewTheme, platfo
         frame.style.height = `${body.scrollHeight + 60}px`;
         frame.style.resize = "vertical";
       }
+      // The viewer holds the frame's place until then. It lets go a frame later, once the
+      // overlay-frame host has sized the slot to the frame (in the layout that follows).
+      requestAnimationFrame(() => requestAnimationFrame(() => (frame.dataset.rested = "")));
       postToFrame(frame, { type: "updateCode", code: pendingModules.get(frame) });
       pendingModules.delete(frame);
     },
@@ -83,11 +85,16 @@ const writeCodeToIFrame = (frame: HTMLIFrameElement, theme: PreviewTheme, platfo
   doc.close();
 };
 
-export const AtlantisPreviewProvider = ({ children, initialType = "web" }: PropsWithChildren<{ initialType?: ComponentKind }>) => {
+export const AtlantisPreviewProvider = ({
+  children,
+  initialType = "web",
+  initialCode = "",
+}: PropsWithChildren<{ initialType?: ComponentKind; initialCode?: string }>) => {
   const { theme } = useAtlantisTheme();
   const iframe = useRef<HTMLIFrameElement>(null);
   const iframeMobile = useRef<HTMLIFrameElement>(null);
-  const [code, setCode] = useState("");
+  // The editor opens with the example's code; the preview gets it with the first update.
+  const [code, setCode] = useState(initialCode);
   const [error, setError] = useState("");
   const [type, setType] = useState<ComponentKind>(initialType);
   const lastSignature = useRef("");
@@ -107,19 +114,17 @@ export const AtlantisPreviewProvider = ({ children, initialType = "web" }: Props
     if (!forceUpdate && signature === lastSignature.current) return;
     lastSignature.current = signature;
     setCode(codeUp);
-    try {
-      const transpiledCode =
-        Babel.transform(`function App(props){${getPreCode(codeUp)}}`, {
-          presets: [["env", { modules: false }], "react"],
-          plugins: [["transform-typescript", { isTSX: true, allExtensions: false }]],
-        }).code ?? "";
+    // Transpiled in order, so the frame gets the updates in the order they were made.
+    void transpile(codeUp).then((result) => {
+      if (result.error !== undefined) {
+        setError(result.error);
+        return;
+      }
       setError("");
       const platform = getPlatformForComponentType(type);
       const frame = platform === "mobile" ? iframeMobile.current : iframe.current;
-      if (frame) writeCodeToIFrame(frame, currentTheme.current, platform, transpiledCode);
-    } catch (e) {
-      setError((e as Error).message);
-    }
+      if (frame) writeCodeToIFrame(frame, currentTheme.current, platform, result.code);
+    });
   }, []);
 
   useEffect(() => {

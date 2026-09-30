@@ -15,7 +15,7 @@ interface PropRow {
 }
 
 // react-docgen's props, one list per component (Menu, Menu.Item...), as the site's DataList.
-export const usePropsAsDataList = (props: readonly PropsEntry[] | undefined) =>
+const usePropsAsDataList = (props: readonly PropsEntry[] | undefined) =>
   useMemo(
     () =>
       (props ?? []).map((entry) => ({
@@ -35,7 +35,8 @@ export const usePropsAsDataList = (props: readonly PropsEntry[] | undefined) =>
 
 type DataItem = Record<keyof PropRow, ReactElement>;
 
-export const PropsList = ({ values }: { values: ReturnType<typeof usePropsAsDataList> }) => {
+export const PropsList = ({ props }: { props: readonly PropsEntry[] | undefined }) => {
+  const values = usePropsAsDataList(props);
   const [search, setSearch] = useState("");
   const filteredValues = values.map((meta) => ({
     ...meta,

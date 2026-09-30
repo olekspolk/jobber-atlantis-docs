@@ -39,12 +39,15 @@ npm run dev                # http://localhost:5190
 npm run verify             # scenario checks in headless Chrome, with the dev server running
 npm run verify -- --phone  # the same in a phone-sized window, on the small-screen layout
 npm run build              # typecheck + production build
+npx vite preview           # the production build, on http://localhost:4173
+DOCS_URL=http://localhost:4173 npm run verify -- --components  # each component's check against it
 ```
 
 `npm run verify` opens overlays in the live preview and checks that they are fully visible from the
 first painted frame, that neither the example nor the page moves, and that a click outside closes
 them — including resized previews, menus that flip, overlays past the preview's sides, scrollbars,
-modal backdrops and edits.
+modal backdrops, edits and switching between the Web and Mobile tabs. The component checks also run
+against the production build, whose minified code is what the preview frames get there.
 
 The GIF search in the *Getting started with React* guide asks Giphy for its GIFs, with the key in
 `VITE_GIPHY_API_KEY` (in `.env` locally, a repository secret for the deployed site).

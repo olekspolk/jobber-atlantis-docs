@@ -6,6 +6,8 @@
 //   npm run dev                      # in another terminal
 //   npm run verify                   # DOCS_URL=http://localhost:5191 npm run verify  for a dev server elsewhere
 //   npm run verify -- InputDate Menu # only those components' checks
+//   npm run verify -- --components   # every component's check, which also runs against a production
+//                                    # build: npx vite preview, then DOCS_URL=http://localhost:4173
 //   npm run verify -- --phone        # in a phone-sized window, on the site's small-screen layout
 //
 // Headless Chrome renders frames, so resize events, requestAnimationFrame and Floating UI's
@@ -639,6 +641,59 @@ async function runLoadRace(browser) {
   return result;
 }
 
+// The Web and Mobile tabs share the page's editor, and each shows its own frame, the other hidden.
+// An edit goes to the frame shown, also on a page opened on its Mobile tab; a frame hidden after its
+// overlay has closed comes back at its resting size, not collapsed under the tabs.
+async function runPlatformSwitch(browser) {
+  console.log("· switching between the Web and Mobile tabs");
+  const page = await browser.newPage();
+  page.setDefaultTimeout(15000);
+  await page.setViewport(WINDOW);
+  const clickTab = async (label) => {
+    await page.evaluate((tab) => [...document.querySelectorAll('[role="tab"]')].find((el) => el.innerText.trim() === tab).click(), label);
+    await sleep(1500);
+  };
+  // Replaces the example in the editor, as typing would, and reports whether the frame shown renders it.
+  const editShows = async (label) => {
+    await page.evaluate((text) => {
+      const view = window.__previewEditor;
+      view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: `<Button label="${text}" />` } });
+    }, label);
+    await sleep(1500);
+    return page.evaluate((text) => {
+      const shown = [...document.querySelectorAll("iframe")].find((frame) => frame.getClientRects().length);
+      return Boolean(shown?.contentDocument?.getElementById("root")?.innerText.includes(text));
+    }, label);
+  };
+  const r = {};
+  await page.goto(`${BASE}/components/Button/mobile`, { waitUntil: "load" });
+  await page.waitForFunction(() => window.__previewEditor);
+  await sleep(2000);
+  r.directMobile = await editShows("Edited on a Mobile page");
+  await clickTab("Web");
+  r.toWeb = await editShows("Edited after switching to Web");
+  await clickTab("Mobile");
+  r.backToMobile = await editShows("Edited after switching back");
+
+  await page.goto(`${BASE}/components/Select/web`, { waitUntil: "load" });
+  await page.waitForFunction(() => window.__previewEditor);
+  await page.evaluate(installHarness);
+  const call = (method, ...args) => page.evaluate((m, a) => window.__verify[m](...a), method, args);
+  await sleep(1500);
+  await page.waitForFunction((source) => window.__verify.ready(source), {}, "Active");
+  r.rest = await call("snap");
+  const control = await call("center", "Active");
+  await page.mouse.click(control.x, control.y);
+  await sleep(1500);
+  await page.keyboard.press("Escape");
+  await sleep(1200);
+  await clickTab("Mobile");
+  await clickTab("Web");
+  r.back = await call("snap");
+  await page.close();
+  return r;
+}
+
 // The other components whose overlays the preview cuts off or squeezes, each with the control that
 // opens its example's overlay. It closes on a press on the page outside the frame, or on Escape for a
 // full-screen viewer, which covers the whole window on a normal page. In a preview no wider than
@@ -789,6 +844,8 @@ const CHECKS = [
   ["bare example with a return inside a callback: rendered", (r) => r.nestedReturn !== null],
   ["theme change: the edit stays in the editor and the preview, which follows the theme", (r) => r.themeChange.editor === EXAMPLES.edited && r.themeChange.preview !== null && r.themeChange.theme === "dark"],
   ["edit made while the preview loads: shown once it has loaded, not the page's example", (r) => r.loadRace.loading && r.loadRace.edited !== null && r.loadRace.example === null],
+  ["platform tabs: an edit shows in the preview shown, on a page opened on Mobile and after each switch", (r) => r.platformSwitch.directMobile && r.platformSwitch.toWeb && r.platformSwitch.backToMobile],
+  ["platform tabs after an overlay closed: the preview comes back at its resting size, nothing below moves", (r) => r.platformSwitch.back.slot === RESTING && r.platformSwitch.back.frame === RESTING && r.platformSwitch.back.tabsTop === r.platformSwitch.rest.tabsTop],
 ];
 
 const profile = mkdtempSync(join(tmpdir(), "jobber-atlantis-docs-chrome-"));
@@ -805,18 +862,23 @@ const browser = await puppeteer.launch({
   ignoreDefaultArgs: ["--hide-scrollbars"],
 });
 
-// Names given on the command line run only those components' checks.
+// Names given on the command line run only those components' checks; --components runs all of
+// theirs. They need none of the dev server's hooks, so they also run against a production build.
 const only = process.argv.slice(2).filter((arg) => !arg.startsWith("--"));
+const componentsOnly = only.length > 0 || process.argv.includes("--components");
 
 try {
-  const r = only.length ? {} : await run(browser);
-  if (!only.length) r.loadRace = await runLoadRace(browser);
+  const r = componentsOnly ? {} : await run(browser);
+  if (!componentsOnly) {
+    r.loadRace = await runLoadRace(browser);
+    r.platformSwitch = await runPlatformSwitch(browser);
+  }
   r.components = {};
   for (const spec of COMPONENT_OVERLAYS.filter((spec) => !only.length || only.includes(spec.name))) {
     r.components[spec.name] = await runComponent(browser, spec);
   }
   const checks = [
-    ...(only.length ? [] : CHECKS),
+    ...(componentsOnly ? [] : CHECKS),
     ...COMPONENT_OVERLAYS.filter((spec) => spec.name in r.components).map(componentCheck),
   ];
   let failed = 0;
@@ -827,7 +889,7 @@ try {
     console.log(`${ok ? "PASS" : "FAIL"}  ${name}`);
   }
   console.log("");
-  if (!only.length) {
+  if (!componentsOnly) {
     console.log(`first painted frame: ${JSON.stringify(r.first)}   rest trigger: ${JSON.stringify(r.rest.trigger)}`);
     console.log(`open: frame ${r.open.frame}px, slot ${r.open.slot}px, menu ${JSON.stringify(r.open.layers)}`);
     console.log(`minimum size: ${JSON.stringify(r.minFirst)}   rest trigger: ${JSON.stringify(r.minRest)}`);

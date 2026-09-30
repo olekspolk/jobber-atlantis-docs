@@ -10,6 +10,7 @@ import { Text } from "@jobber/components/Text";
 import { type ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { ContentListItem } from "../site/lists";
+import { usePageReady } from "../site/pageReady";
 import { usePageTitle } from "../site/usePageTitle";
 import { PageWrapper } from "./BaseView";
 import { TopNav } from "./TopNav";
@@ -146,6 +147,7 @@ export interface PageBlockStructure {
 
 export const PageBlock = ({ structure }: { structure: PageBlockStructure }) => {
   usePageTitle(structure.header.title);
+  usePageReady();
   const [cardView, setCardView] = useState(structure.useCategories ? "category" : "a-z");
 
   const sectionedComponents = () => {

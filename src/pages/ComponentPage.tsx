@@ -45,6 +45,7 @@ import {
   getPlatformForComponentType,
   resolveComponentTypeFromRoute,
 } from "../site/componentTypes";
+import { markPageReady } from "../site/pageReady";
 import { scrollToHash } from "../site/scrollToHash";
 import { usePageTitle } from "../site/usePageTitle";
 import type { ComponentUsage } from "./ComponentUsage";
@@ -243,10 +244,13 @@ const ComponentView = ({ PageMeta }: { PageMeta: ComponentContent }) => {
     requestAnimationFrame(highlightAll);
     scrollToHash();
     setPreviewStarted(true);
+    markPageReady();
   };
 
   useEffect(() => {
-    if (!tabHasDocument) setPreviewStarted(true);
+    if (tabHasDocument) return;
+    setPreviewStarted(true);
+    markPageReady();
   }, [tabHasDocument]);
 
   useEffect(() => {

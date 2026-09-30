@@ -9,7 +9,7 @@
     "predev": "node scripts/fetch-mobile-bundle.mjs --optional && node scripts/build-editor-bundle.mjs",
     "dev": "vite",
     "prebuild": "npm run assets",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/prerender.mjs",
     "typecheck": "tsc --noEmit",
     "verify": "node scripts/verify.mjs"
   },

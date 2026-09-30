@@ -4,12 +4,14 @@ import { Heading } from "@jobber/components/Heading";
 import { Text } from "@jobber/components/Text";
 import { useEffect } from "react";
 import { useRouteError } from "react-router-dom";
+import { usePageReady } from "../site/pageReady";
 
 // A page that failed to load or render (its document's chunk gone after a deploy, a dropped
 // connection): the navigation stays, and a reload fetches the page again.
 export const RouteError = () => {
   const error = useRouteError();
   useEffect(() => console.error(error), [error]);
+  usePageReady();
   return (
     <Box padding="extravagant" gap="base" alignItems="center">
       <Heading level={1}>Something went wrong</Heading>

@@ -26,8 +26,8 @@ jobs:
         with:
           path: public/editorMobileBundle.js
           key: editor-mobile-bundle-v1
-      # Downloads /editorMobileBundle.js if not cached, builds /editorBundle.js, then typechecks and
-      # builds dist/.
+      # Downloads /editorMobileBundle.js if not cached, builds /editorBundle.js, typechecks, builds
+      # dist/, then prerenders its pages with the runner's Chrome.
       - run: npm run build
         env:
           VITE_GIPHY_API_KEY: ${{ secrets.VITE_GIPHY_API_KEY }}

@@ -5,6 +5,7 @@ import { contentMap } from "../content/pages/maps";
 import type { LoadMDX, TocEntry } from "../content/types";
 import { AnchorLinks } from "../layout/AnchorLinks";
 import { BaseView } from "../layout/BaseView";
+import { markPageReady } from "../site/pageReady";
 import { scrollToHash } from "../site/scrollToHash";
 import { usePageTitle } from "../site/usePageTitle";
 import { DocumentReady, useDocument } from "./documents";
@@ -18,6 +19,11 @@ declare module "react" {
     }
   }
 }
+
+const onDocumentReady = () => {
+  scrollToHash();
+  markPageReady();
+};
 
 export const ContentView = ({
   title,
@@ -39,7 +45,7 @@ export const ContentView = ({
           <Content>
             <Suspense fallback={null}>
               {Document && createElement(Document)}
-              <DocumentReady onReady={scrollToHash} />
+              <DocumentReady onReady={onDocumentReady} />
             </Suspense>
           </Content>
         </custom-elements>

@@ -14,6 +14,7 @@ import { Layout } from "./layout/Layout";
 import { THEME_STORAGE_KEY } from "./layout/TopNav";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { RouteError } from "./pages/RouteError";
+import { pageReady } from "./site/pageReady";
 
 // A page's code loads with its first visit; the 404 comes with the site.
 const overviewPage = (name: keyof typeof import("./pages/OverviewPages")) =>
@@ -98,3 +99,28 @@ createRoot(document.getElementById("root")!).render(
   <RouterProvider router={router} future={{ v7_startTransition: true }} />,
 );
 
+// A prerendered page (scripts/prerender.mjs) shows its snapshot while the app renders the page out
+// of sight. Once the page is ready (10s at most), the app's page takes the snapshot's place in one
+// go, with its panes scrolled where the reader had scrolled the snapshot's. A snapshot switched off
+// in the page's head (another address, ?minimal=true) goes at once.
+const SCROLL_PANES = ["[data-scroll-pane]", "[data-main-scroll]"];
+
+function replacePrerendered(prerendered: HTMLElement) {
+  const shown = [...prerendered.children].find((variant) => variant.getClientRects().length > 0);
+  const scrolled = SCROLL_PANES.map((pane) => shown?.querySelector(pane)?.scrollTop ?? 0);
+  prerendered.remove();
+  document.getElementById("prerendered-style")?.remove();
+  SCROLL_PANES.forEach((pane, index) => {
+    const element = document.querySelector(`#root ${pane}`);
+    if (element && scrolled[index]) element.scrollTop = scrolled[index];
+  });
+}
+
+const prerendered = document.getElementById("prerendered");
+if (prerendered && document.documentElement.dataset.prerendered === "off") {
+  replacePrerendered(prerendered);
+} else if (prerendered) {
+  void Promise.race([pageReady, new Promise((done) => setTimeout(done, 10_000))]).then(() =>
+    replacePrerendered(prerendered),
+  );
+}

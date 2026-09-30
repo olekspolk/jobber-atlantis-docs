@@ -8,6 +8,13 @@
     <meta property="og:title" content="Atlantis" />
     <meta property="og:image" content="/atlantis_favicon.svg" />
     <title>Atlantis</title>
+    <script>
+      // The reader's theme from the first paint on (src/main.tsx applies it for the app).
+      try {
+        var theme = localStorage.getItem("theme") || new URLSearchParams(location.search).get("theme");
+        document.documentElement.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
+      } catch (error) {}
+    </script>
     <link rel="icon" type="image/svg+xml" href="/atlantis_favicon.svg" />
     <!-- The fonts of the first paint: Inter for text, Jobber Pro Black for headings. -->
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />

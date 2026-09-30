@@ -38,7 +38,7 @@ npm install
 npm run dev                # http://localhost:5190
 npm run verify             # scenario checks in headless Chrome, with the dev server running
 npm run verify -- --phone  # the same in a phone-sized window, on the small-screen layout
-npm run build              # typecheck + production build
+npm run build              # typecheck, production build, then every page prerendered
 npx vite preview           # the production build, on http://localhost:4173
 DOCS_URL=http://localhost:4173 npm run verify -- --components  # each component's check against it
 ```
@@ -51,6 +51,19 @@ against the production build, whose minified code is what the preview frames get
 
 The GIF search in the *Getting started with React* guide asks Giphy for its GIFs, with the key in
 `VITE_GIPHY_API_KEY` (in `.env` locally, a repository secret for the deployed site).
+
+## Speed
+
+Every page is also built as an HTML file with its content in it: after the production build,
+[`scripts/prerender.mjs`](scripts/prerender.mjs) renders each page in headless Chrome, at a phone's
+width and at a desktop's (it finds Chrome where it is usually installed, or in `CHROME_PATH`, and
+leaves pages to render in the browser without it). A visit shows that content at once and loads the
+app after it; the app renders the page out of sight and takes its place once the page is ready.
+
+The app itself loads in parts: a page's code, and a component's content, load with the page; Babel
+compiles examples in a worker, off the page's main thread; the preview starts once the page's
+document is in. The fonts are declared in the page's own stylesheet, Inter and Poppins served from
+the site, so no other site's stylesheet holds up the first paint.
 
 ## Deployment
 

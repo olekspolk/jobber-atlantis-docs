@@ -18,6 +18,7 @@ import GeneratorsChangelog from "../content/pages/changelog/generators.md?raw";
 import HooksChangelog from "../content/pages/changelog/hooks.md?raw";
 import StylelintConfigChangelog from "../content/pages/changelog/stylelint-config.md?raw";
 import { BaseView } from "../layout/BaseView";
+import { usePageReady } from "../site/pageReady";
 import { usePageTitle } from "../site/usePageTitle";
 
 // Every package's changelog as one table of changes: date, package, version, type, pull request.
@@ -385,6 +386,7 @@ const ChangelogDataTable = () => {
 
 export const ChangelogPage = () => {
   usePageTitle("Changelog");
+  usePageReady();
   return (
     <BaseView>
       <BaseView.Main noMaxWidth>

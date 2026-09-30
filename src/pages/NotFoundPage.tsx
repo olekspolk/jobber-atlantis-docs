@@ -2,6 +2,7 @@ import { Link } from "@jobber/components/Link";
 import { Typography } from "@jobber/components/Typography";
 import { type ReactElement, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { usePageReady } from "../site/pageReady";
 import { usePageTitle } from "../site/usePageTitle";
 import styles from "./NotFoundPage.module.css";
 
@@ -11,6 +12,7 @@ const randomFish = () => <div className={styles.fish}>{sealife[Math.floor(Math.r
 // The site's 404: a creature swims by every 30 seconds.
 export const NotFoundPage = () => {
   usePageTitle("Not Found");
+  usePageReady();
   const { pathname } = useLocation();
   const notFound = pathname.includes("components") ? "component" : "page";
   const showDeveloperMessage = window.location.host.includes("localhost") && notFound === "component";

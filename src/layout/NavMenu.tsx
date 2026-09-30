@@ -95,19 +95,21 @@ function NavMenuDisclosure({ children, title, to, selected }: { children: ReactN
     (child) => isValidElement<{ to?: string }>(child) && pathname === child.props.to,
   );
   const [isOpen, setIsOpen] = useState(selected || hasSelectedChild);
+  const section = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (selected || hasSelectedChild) setIsOpen(true);
   }, [selected, hasSelectedChild]);
 
+  // The current page's link, scrolled into view in this menu (not a prerendered copy's).
   useEffect(() => {
     if (!isOpen) return;
-    document.querySelector(`[href="${pathname}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+    section.current?.querySelector(`[href="${pathname}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [isOpen, pathname]);
 
   const isTitleSelected = pathname === to;
   return (
-    <div>
+    <div ref={section}>
       <span className={`${styles.disclosureNavItem} ${isTitleSelected ? styles.selected : ""} stickySectionHeader`}>
         <Link to={to ?? "/"} tabIndex={0} onClick={closeMobileMenu}>
           <Typography fontWeight="semiBold" size="large" textColor="heading">

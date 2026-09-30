@@ -53,7 +53,8 @@ export const Canvas = ({ children, code: providedCode }: { children?: ReactNode;
     <Card>
       <Box padding="largest" direction="column" alignItems="start">
         {children}
-        <div style={{ position: "absolute", bottom: "0", right: "0" }}>
+        {/* Marked for scripts/llms.mjs, which leaves the rendered example out and keeps its code. */}
+        <div style={{ position: "absolute", bottom: "0", right: "0" }} data-canvas-toolbar>
           <Button
             type="tertiary"
             size="small"

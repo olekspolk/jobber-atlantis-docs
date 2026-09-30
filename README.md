@@ -38,7 +38,7 @@ npm install
 npm run dev                # http://localhost:5190
 npm run verify             # scenario checks in headless Chrome, with the dev server running
 npm run verify -- --phone  # the same in a phone-sized window, on the small-screen layout
-npm run build              # typecheck, production build, then every page prerendered
+npm run build              # typecheck, production build, then every page prerendered, with llms.txt
 npx vite preview           # the production build, on http://localhost:4173
 DOCS_URL=http://localhost:4173 npm run verify -- --components  # each component's check against it
 ```
@@ -64,6 +64,16 @@ The app itself loads in parts: a page's code, and a component's content, load wi
 compiles examples in a worker, off the page's main thread; the preview starts once the page's
 document is in. The fonts are declared in the page's own stylesheet, Inter and Poppins served from
 the site, so no other site's stylesheet holds up the first paint.
+
+## Markdown
+
+The prerender also reads each page's document for [llms.txt](https://llmstxt.org)
+([`scripts/llms.mjs`](scripts/llms.mjs)): [`/llms.txt`](https://jobber-atlantis-docs.pages.dev/llms.txt)
+lists the pages, a line on each, and links to their Markdown (`/components/Button.md`,
+`/design/colors.md`...); [`/llms-full.txt`](https://jobber-atlantis-docs.pages.dev/llms-full.txt)
+holds all of it. A component's Markdown has its design guidance, its implementation notes, and the
+example and props of its Web and Mobile tabs. Examples keep their code, and a tab inside a document
+comes with the others of its group.
 
 ## Deployment
 

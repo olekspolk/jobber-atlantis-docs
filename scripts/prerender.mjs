@@ -2,7 +2,8 @@
 // from the built site rendered in headless Chrome, at a phone's width and at a desktop's. A visit
 // paints that content at once and loads the app after; the app renders the page again out of sight
 // and takes its place once the page is ready (src/main.tsx). Without Chrome (CHROME_PATH), this is
-// skipped with a warning and pages render in the browser as before.
+// skipped with a warning and pages render in the browser as before. The pages' documents are read
+// as they are rendered, for /llms.txt and the pages' Markdown (scripts/llms.mjs).
 //
 //   node scripts/prerender.mjs
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
@@ -10,6 +11,8 @@ import { createServer } from "node:http";
 import { dirname, extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer-core";
+import site from "../site.config.json" with { type: "json" };
+import { SKIPPED_PAGES, readDocument, writeLlms } from "./llms.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
@@ -190,8 +193,10 @@ try {
   );
   // Crawled: each page's links join the queue. An address the app redirects (/components/button) or
   // answers with its 404 gets no file.
-  const seen = new Set(await paths(pages[0]));
+  const start = await paths(pages[0]);
+  const seen = new Set(start);
   const queue = [...seen];
+  const documents = new Map();
   let written = 0;
   let failed = 0;
   let busy = 0;
@@ -219,6 +224,15 @@ try {
               queue.push(link);
             }
           }
+          if (!SKIPPED_PAGES.has(path)) {
+            documents.set(
+              path,
+              await readDocument(page, site.siteUrl).catch((error) => {
+                console.warn(`no Markdown for ${path} (${error.message.split("\n")[0]})`);
+                return null;
+              }),
+            );
+          }
         } catch (error) {
           failed += 1;
           console.warn(`not prerendered, rendered in the browser instead: ${path} (${error.message.split("\n")[0]})`);
@@ -229,6 +243,11 @@ try {
     }),
   );
   console.log(`prerendered ${written} pages${failed ? `, ${failed} failed` : ""}`);
+  // In the navigation's order, then the pages only links lead to.
+  const rank = new Map(start.map((path, index) => [path, index]));
+  const order = (path) => rank.get(path) ?? rank.size;
+  const sorted = new Map([...documents].sort(([a], [b]) => order(a) - order(b) || a.localeCompare(b)));
+  console.log(`llms.txt: ${writeLlms(dist, site.siteUrl, sorted)} documents`);
 } finally {
   await browser.close();
   server.close();

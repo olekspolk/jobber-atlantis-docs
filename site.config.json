@@ -1,5 +1,6 @@
 {
   "devServerPort": 5190,
+  "siteUrl": "https://jobber-atlantis-docs.pages.dev",
   "atlantisUrl": "https://atlantis.getjobber.com",
   "fontsUrl": "https://cdn.jobber.com/fonts/fonts.css"
 }

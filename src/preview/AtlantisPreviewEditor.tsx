@@ -42,6 +42,7 @@ export const AtlantisPreviewEditor = () => {
           atlantisPreviewCodeTheme,
           syntaxHighlighting(atlantisPreviewHighlightStyle),
           keymap.of([indentWithTab]),
+          EditorView.contentAttributes.of({ "aria-label": "Example code" }),
           previewLanguageSupport,
           // Every edit re-transpiles and re-renders the preview, like the original (no debounce).
           EditorView.updateListener.of((update) => {

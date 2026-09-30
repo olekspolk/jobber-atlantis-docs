@@ -73,12 +73,16 @@ const MenuSubItem = ({ children }: { children: ReactNode; selected?: boolean }) 
   </li>
 );
 
+// Items of the menu's lists, as a list's children must be; without the margin the menu's own items
+// have (NavMenu.module.css), so the menu is laid out as it was with plain boxes.
+const listEntry = { listStyle: "none", marginBottom: 0 };
+
 const sectionTitle = (section: string) => (
-  <div className={`${styles.navMenuItem} ${styles.navMenuSubTitle}`}>
+  <li className={`${styles.navMenuItem} ${styles.navMenuSubTitle}`} style={listEntry}>
     <Typography fontWeight="bold" size="small" textColor="textSecondary">
       {section.toUpperCase()}
     </Typography>
-  </div>
+  </li>
 );
 
 // A section (Patterns, Components...): its title links to its overview page, the button beside it
@@ -192,7 +196,7 @@ export const NavMenu = ({ mainContentRef }: { mainContentRef: RefObject<HTMLDivE
           <Button label="Skip to Content" onClick={skipToContent} />
         </VisibleWhenFocused>
         <div className={styles.navMenuHeaderLogo}>
-          <Link to="/">
+          <Link to="/" aria-label="Atlantis">
             <JobberLogo />
           </Link>
         </div>
@@ -203,15 +207,17 @@ export const NavMenu = ({ mainContentRef }: { mainContentRef: RefObject<HTMLDivE
             if (route.inNav === false) return null;
             if (route.children) {
               return (
-                <Box key={routeIndex}>
-                  <NavMenuDisclosure
-                    to={route.path ?? "/"}
-                    title={route.handle}
-                    selected={pathname.startsWith(route.path ?? "/")}
-                  >
-                    {subMenu(route.children, routeIndex)}
-                  </NavMenuDisclosure>
-                </Box>
+                <li key={routeIndex} style={listEntry}>
+                  <Box>
+                    <NavMenuDisclosure
+                      to={route.path ?? "/"}
+                      title={route.handle}
+                      selected={pathname.startsWith(route.path ?? "/")}
+                    >
+                      {subMenu(route.children, routeIndex)}
+                    </NavMenuDisclosure>
+                  </Box>
+                </li>
               );
             }
             return (
@@ -247,7 +253,7 @@ export const NavMenu = ({ mainContentRef }: { mainContentRef: RefObject<HTMLDivE
           onClose={closeMobileMenu}
           header={
             <Box padding={{ top: "smaller" }}>
-              <Link to="/" onClick={closeMobileMenu}>
+              <Link to="/" onClick={closeMobileMenu} aria-label="Atlantis">
                 <JobberLogo />
               </Link>
             </Box>

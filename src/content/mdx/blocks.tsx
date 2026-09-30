@@ -88,10 +88,13 @@ export const Source = ({ code }: { code: string }) => (
   </pre>
 );
 
+// Loaded as it nears the viewport: Figma's embed is heavy, and sets its cookies once it loads.
 export const Figma = ({ url }: { url: string }) => (
   <iframe
     width="800"
     height="450"
+    title="Figma design"
+    loading="lazy"
     src={`https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`}
     allowFullScreen
   />

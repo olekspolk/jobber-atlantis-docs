@@ -50,7 +50,7 @@ export const TopNav = () => {
         <Box direction="row" gap="small" alignItems="center" justifyContent="center">
           <Button ariaLabel="Menu" type="tertiary" variation="subtle" size="base" onClick={toggleMobileMenu} icon="menu" />
           <Box padding={{ top: "smaller" }}>
-            <Link to="/">
+            <Link to="/" aria-label="Atlantis">
               <JobberLogo />
             </Link>
           </Box>

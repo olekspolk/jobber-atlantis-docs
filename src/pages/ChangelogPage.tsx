@@ -8,7 +8,7 @@ import { Link } from "@jobber/components/Link";
 import { Page } from "@jobber/components/Page";
 import { Stack } from "@jobber/components/Stack";
 import { Text } from "@jobber/components/Text";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ComponentsChangelog from "../content/pages/changelog/components.md?raw";
 import ComponentsNativeChangelog from "../content/pages/changelog/components-native.md?raw";
 import DesignChangelog from "../content/pages/changelog/design.md?raw";
@@ -304,12 +304,24 @@ function TagFilterPicker({
         {options.map(({ id, label }) => (
           <FilterPicker.Option id={id} label={label} key={id} />
         ))}
+        {/* Rendered with the picker's accessibility attributes: a combobox is named by its label and
+            says whether its list is open, which the plain Chip child does not get. */}
         <FilterPicker.Activator>
-          <Chip label={activatorLabel} variation="subtle">
-            <Chip.Suffix>
-              <Icon color="interactiveSubtle" name={activatorIcon} size="small" />
-            </Chip.Suffix>
-          </Chip>
+          {({ role, ariaExpanded, ariaControls, open }) => (
+            <Chip
+              label={activatorLabel}
+              variation="subtle"
+              role={role}
+              onClick={open}
+              ariaLabel={activatorLabel}
+              aria-expanded={ariaExpanded}
+              aria-controls={ariaControls}
+            >
+              <Chip.Suffix>
+                <Icon color="interactiveSubtle" name={activatorIcon} size="small" />
+              </Chip.Suffix>
+            </Chip>
+          )}
         </FilterPicker.Activator>
       </FilterPicker>
       {selectedTags.map((tag) => (
@@ -335,6 +347,11 @@ const ChangelogDataTable = () => {
   }));
   const filteredEntries = useMemo(() => filterChangelogEntries(allEntries, filters), [filters]);
   const columns = useTableColumns();
+  // Atlantis's DataTable gives its per-page select no label: named here after the text beside it.
+  const table = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    table.current?.querySelector("select")?.setAttribute("aria-label", "Items per page");
+  });
   return (
     <Stack gap="largest">
       <Stack gap="base">
@@ -353,13 +370,15 @@ const ChangelogDataTable = () => {
           options={availableChangeTypes.map((type) => ({ id: type, label: type }))}
         />
       </Stack>
-      <DataTable
-        data={filteredEntries}
-        columns={columns}
-        pagination={{ itemsPerPage: [10, 25, 50, 100], manualPagination: false }}
-        sorting={undefined}
-        stickyHeader
-      />
+      <div ref={table} style={{ display: "contents" }}>
+        <DataTable
+          data={filteredEntries}
+          columns={columns}
+          pagination={{ itemsPerPage: [10, 25, 50, 100], manualPagination: false }}
+          sorting={undefined}
+          stickyHeader
+        />
+      </div>
     </Stack>
   );
 };

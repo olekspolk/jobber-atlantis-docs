@@ -61,7 +61,7 @@ export const ContentCard = ({ title, to, component, imageURL, onClick }: Content
                   : {}
               }
             >
-              <img style={{ width: "100%", mixBlendMode: "multiply", border: "none" }} src={imageURL} />
+              <img style={{ width: "100%", mixBlendMode: "multiply", border: "none" }} src={imageURL} alt="" />
             </div>
           )}
         </AtlantisThemeContextProvider>
@@ -70,7 +70,9 @@ export const ContentCard = ({ title, to, component, imageURL, onClick }: Content
       )}
       <div style={{ padding: "var(--space-base)" }}>
         <Content>
-          <Heading level={4}>{title}</Heading>
+          <Heading level={4} element="h3">
+            {title}
+          </Heading>
         </Content>
       </div>
     </Card>

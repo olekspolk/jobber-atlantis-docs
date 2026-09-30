@@ -1,0 +1,9 @@
+# Cloudflare Pages response headers.
+
+# Build output named by content hash: a new build brings new names, so these never change.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The self-hosted fonts keep their names; a new version would come with new ones.
+/fonts/*
+  Cache-Control: public, max-age=2592000

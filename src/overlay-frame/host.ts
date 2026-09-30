@@ -172,6 +172,9 @@ export function attachOverlayFrameHost(
   const onPagePress = () => toGuest("outsidePress", outsidePressType);
 
   const observer = new ResizeObserver(() => {
+    // A frame hidden with display: none (behind an inactive tab, say) has no box: its 0px is not a
+    // resting height, and the slot keeps its size for when the frame shows again.
+    if (!frame.getClientRects().length) return;
     const height = currentHeight();
     if (appliedHeight && Math.abs(height - appliedHeight) <= 1) return;
     restingHeight = height;

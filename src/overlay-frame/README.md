@@ -103,7 +103,8 @@ the page's own modals, tooltips and toasts. The Atlantis docs use `calc(var(--el
   The page still gets its press (focus stays where the user clicked), and it only happens while
   something floats.
 - Documents without overlays are never touched. The resting height follows the embedder and the
-  user's resize handle, which is hidden while expanded.
+  user's resize handle, which is hidden while expanded. A frame hidden with `display: none` (behind
+  an inactive tab) keeps its slot's size, and shows again at it.
 - Hosts can come and go. A detached host leaves the frame at its resting size; a host that
   attaches — late, or again while an overlay is open (as when `<OverlayFrame>`'s options change) —
   asks the guest to repeat the size it needs (`sync`). Same-origin, the frame is back at that

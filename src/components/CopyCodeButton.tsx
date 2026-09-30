@@ -1,22 +1,18 @@
 import { Button } from "@jobber/components/Button";
-import { showToast } from "@jobber/components/Toast";
+import { Tooltip } from "@jobber/components/Tooltip";
+import { copyToClipboard } from "./copyToClipboard";
 
 export const CopyCodeButton = ({ code }: { code: string }) => (
-  <div style={{ position: "absolute", bottom: 10, right: 3 }}>
-    <Button
-      icon="copy"
-      ariaLabel="Copy"
-      type="secondary"
-      variation="subtle"
-      size="small"
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(code);
-          showToast({ message: "Copied code to clipboard" });
-        } catch {
-          showToast({ message: "Unable to copy code" });
-        }
-      }}
-    />
+  <div style={{ position: "absolute", bottom: "10px", right: "3px" }}>
+    <Tooltip message="Copy code to clipboard">
+      <Button
+        ariaLabel="Copy"
+        icon="copy"
+        type="secondary"
+        variation="subtle"
+        size="small"
+        onClick={() => copyToClipboard(code, "Copied code to clipboard", "Unable to copy code")}
+      />
+    </Tooltip>
   </div>
 );

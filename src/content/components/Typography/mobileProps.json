@@ -1,0 +1,162 @@
+[
+  {
+    "displayName": "Typography",
+    "filePath": "../components-native/src/Typography/Typography.tsx",
+    "props": {
+      "UNSAFE_style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "TypographyUnsafeStyle"
+        }
+      },
+      "accessibilityRole": {
+        "description": "Accessibility role describing the context of the text",
+        "required": false,
+        "type": {
+          "name": "TextAccessibilityRole"
+        }
+      },
+      "adjustsFontSizeToFit": {
+        "description": "Determines whether text should be scaled down to fit based on maxLines prop",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "align": {
+        "description": "Alignment of text",
+        "required": false,
+        "type": {
+          "name": "TextAlign"
+        }
+      },
+      "allowFontScaling": {
+        "description": "Allow text to be resized based on user's device display scale",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "children": {
+        "description": "Text to display. Supports nesting text elements.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "color": {
+        "description": "Color of text",
+        "required": false,
+        "type": {
+          "name": "TextColor"
+        }
+      },
+      "fontFamily": {
+        "description": "Font Family",
+        "required": false,
+        "type": {
+          "name": "FontFamily"
+        }
+      },
+      "fontStyle": {
+        "description": "Font style",
+        "required": false,
+        "type": {
+          "name": "FontStyle"
+        }
+      },
+      "fontWeight": {
+        "description": "Font weight",
+        "required": false,
+        "type": {
+          "name": "\"black\" | \"bold\" | \"extraBold\" | \"medium\" | \"regular\" | \"semiBold\""
+        }
+      },
+      "hideFromScreenReader": {
+        "description": "This will make the text inaccessible to the screen reader.\nThis should be avoided unless there is a good reason.\nFor example this is used in InputText to make it so the label isn't\nselectable because it is already read from the accessibilityLabel\nof the TextInput",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "letterSpacing": {
+        "description": "Spacing between letters",
+        "required": false,
+        "type": {
+          "name": "LetterSpacing"
+        }
+      },
+      "lineHeight": {
+        "description": "Line Height",
+        "required": false,
+        "type": {
+          "name": "LineHeight"
+        }
+      },
+      "maxFontScaleSize": {
+        "description": "Set the maximum font the text can go to size when the user scales their\ndevice font size",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "maxLines": {
+        "description": "The maximum amount of lines the text can occupy before being truncated with \"...\".\nUses predefined string values that correspond to a doubling scale for the amount of lines.\nWARNING: if `selectable` is true, Android will not show an ellipsis.",
+        "required": false,
+        "type": {
+          "name": "TruncateLength"
+        }
+      },
+      "onTextLayout": {
+        "description": "Callback behaves differently on iOS and Android.\nOn iOS, it is called when the text is laid out.\nOn Android, it is called before the text is laid out.\n@see https://reactnative.dev/docs/text#ontextlayout",
+        "required": false,
+        "type": {
+          "name": "(event: TextLayoutEvent) => void"
+        }
+      },
+      "reverseTheme": {
+        "description": "Reverse theme for better display on dark background",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "selectable": {
+        "description": "Lets the user select text, to use the native copy and paste functionality.\nWARNING: if true, this prevents ellipsis from being shown on Android.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "description": "Font size",
+        "required": false,
+        "type": {
+          "name": "TextSize"
+        }
+      },
+      "strikeThrough": {
+        "description": "Have text styled with strike through",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "transform": {
+        "description": "Text capitalization",
+        "required": false,
+        "type": {
+          "name": "TextTransform"
+        }
+      },
+      "underline": {
+        "description": "Underline style to use for the text. The non-solid style is only supported\non iOS, as per React Native's Text component's limitations.\nhttps://reactnative.dev/docs/text-style-props#textdecorationstyle-ios",
+        "required": false,
+        "type": {
+          "name": "\"dashed\" | \"dotted\" | \"double\" | \"solid\""
+        }
+      }
+    }
+  }
+]

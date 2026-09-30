@@ -1,0 +1,3977 @@
+[
+  {
+    "displayName": "Option",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "children": {
+        "description": "Text that shows up as the option",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "value": {
+        "description": "The value that gets returned when an option is selected",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "accessibilityHint": {
+        "description": "Helps users understand what will happen when they perform an action",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "VoiceOver will read this string when a user selects the element",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "assistiveText": {
+        "description": "Help text shown below the control.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "children": {
+        "description": "The options to select from",
+        "required": true,
+        "type": {
+          "name": "ReactElement<SelectOption, string | JSXElementConstructor<any>>[]"
+        }
+      },
+      "defaultValue": {
+        "description": "Default value for when the component is uncontrolled",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "Disables input selection",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "invalid": {
+        "description": "Indicates the current selection is invalid",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "label": {
+        "description": "Label text shown above the selection.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "name": {
+        "description": "Name of the input.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onChange": {
+        "description": "Callback that provides the new value when the selection changes",
+        "required": false,
+        "type": {
+          "name": "(newValue?: string) => void"
+        }
+      },
+      "placeholder": {
+        "description": "Adds a first option to let users select a \"no value\".\nPlaceholder item selected by default until a selection is made.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "validations": {
+        "description": "The validations that will mark this component as invalid",
+        "required": false,
+        "type": {
+          "name": "RegisterOptions"
+        }
+      },
+      "value": {
+        "description": "Current value of the component",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.Content",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "accessibilityActions": {
+        "description": "Provides an array of custom actions available for accessibility.",
+        "required": false,
+        "type": {
+          "name": "readonly Readonly<{ name: string; label?: string; }>[]"
+        }
+      },
+      "accessibilityElementsHidden": {
+        "description": "A Boolean value indicating whether the accessibility elements contained within this accessibility element\nare hidden to the screen reader.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityHint": {
+        "description": "An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityIgnoresInvertColors": {
+        "description": "https://reactnative.dev/docs/accessibility#accessibilityignoresinvertcolorsios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "Overrides the text that's read by the screen reader when the user interacts with the element. By default, the\nlabel is constructed by traversing all the children and accumulating all the Text nodes separated by space.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabelledBy": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string | string[]"
+        }
+      },
+      "accessibilityLanguage": {
+        "description": "By using the accessibilityLanguage property, the screen reader will understand which language to use while reading the element's label, value and hint. The provided string value must follow the BCP 47 specification (https://www.rfc-editor.org/info/bcp47).\nhttps://reactnative.dev/docs/accessibility#accessibilitylanguage-ios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLargeContentTitle": {
+        "description": "When `accessibilityShowsLargeContentViewer` is set, this string will be used as title for the large content viewer.\nhttps://reactnative.dev/docs/accessibility#accessibilitylargecontenttitle\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLiveRegion": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"none\" | \"polite\""
+        }
+      },
+      "accessibilityRespondsToUserInteraction": {
+        "description": "Blocks the user from interacting with the component through keyboard while still allowing\nscreen reader to interact with it if this View is still accessible.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityRole": {
+        "description": "Accessibility Role tells a person using either VoiceOver on iOS or TalkBack on Android the type of element that is focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityRole"
+        }
+      },
+      "accessibilityShowsLargeContentViewer": {
+        "description": "A Boolean value that indicates whether or not to show the item in the large content viewer.\nAvailable on iOS 13.0+\nhttps://reactnative.dev/docs/accessibility#accessibilityshowslargecontentviewer\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityState": {
+        "description": "Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityState"
+        }
+      },
+      "accessibilityValue": {
+        "description": "Represents the current value of a component. It can be a textual description of a component's value, or for range-based components, such as sliders and progress bars,\nit contains range information (minimum, current, and maximum).",
+        "required": false,
+        "type": {
+          "name": "AccessibilityValue"
+        }
+      },
+      "accessibilityViewIsModal": {
+        "description": "A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessible": {
+        "description": "When true, indicates that the view is an accessibility element.\nBy default, all the touchable elements are accessible.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "align": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"center\" | \"end\" | \"start\""
+        }
+      },
+      "alignOffset": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-busy": {
+        "description": "alias for accessibilityState\n\nsee https://reactnative.dev/docs/accessibility#accessibilitystate",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-checked": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"mixed\" | boolean"
+        }
+      },
+      "aria-disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-expanded": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-hidden": {
+        "description": "A value indicating whether the accessibility elements contained within\nthis accessibility element are hidden.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-label": {
+        "description": "Alias for accessibilityLabel  https://reactnative.dev/docs/view#accessibilitylabel\nhttps://github.com/facebook/react-native/issues/34424",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-live": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"off\" | \"polite\""
+        }
+      },
+      "aria-modal": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-selected": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-valuemax": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuemin": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuenow": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuetext": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "asChild": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "avoidCollisions": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "collapsable": {
+        "description": "Views that are only used to layout their children or otherwise don't draw anything\nmay be automatically removed from the native hierarchy as an optimization.\nSet this property to false to disable this optimization and ensure that this View exists in the native view hierarchy.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "collapsableChildren": {
+        "description": "Setting to false prevents direct children of the view from being removed\nfrom the native view hierarchy, similar to the effect of setting\n`collapsable={false}` on each child.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "collisionBoundary": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "Element | Element[]"
+        }
+      },
+      "disablePositioningStyle": {
+        "description": "Platform: NATIVE ONLY",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "focusable": {
+        "description": "Whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "forceMount": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "true"
+        }
+      },
+      "hasTVPreferredFocus": {
+        "description": "*(Apple TV only)* May be set to true to force the Apple TV focus engine to move focus to this view.\n@platform ios\n@deprecated Use `focusable` instead",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hideWhenDetached": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hitSlop": {
+        "description": "This defines how far a touch event can start away from the view.\nTypical interface guidelines recommend touch targets that are at least\n30 - 40 points/density-independent pixels. If a Touchable view has\na height of 20 the touchable height can be extended to 40 with\nhitSlop={{top: 10, bottom: 10, left: 0, right: 0}}\nNOTE The touch area never extends past the parent view bounds and\nthe Z-index of sibling views always takes precedence if a touch\nhits two overlapping views.",
+        "required": false,
+        "type": {
+          "name": "Insets | number"
+        }
+      },
+      "id": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "importantForAccessibility": {
+        "description": "[Android] Controlling if a view fires accessibility events and if it is reported to accessibility services.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"no\" | \"no-hide-descendants\" | \"yes\""
+        }
+      },
+      "insets": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "Insets"
+        }
+      },
+      "isTVSelectable": {
+        "description": "*(Apple TV only)* When set to true, this view will be focusable\nand navigable using the Apple TV remote.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "loop": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "nativeID": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "needsOffscreenAlphaCompositing": {
+        "description": "Whether this view needs to rendered offscreen and composited with an alpha in order to preserve 100% correct colors and blending behavior.\nThe default (false) falls back to drawing the component and its children\nwith an alpha applied to the paint used to draw each element instead of rendering the full component offscreen and compositing it back with an alpha value.\nThis default may be noticeable and undesired in the case where the View you are setting an opacity on\nhas multiple overlapping elements (e.g. multiple overlapping Views, or text and a background).\n\nRendering offscreen to preserve correct alpha behavior is extremely expensive\nand hard to debug for non-native developers, which is why it is not turned on by default.\nIf you do need to enable this property for an animation,\nconsider combining it with renderToHardwareTextureAndroid if the view contents are static (i.e. it doesn't need to be redrawn each frame).\nIf that property is enabled, this View will be rendered off-screen once,\nsaved in a hardware texture, and then composited onto the screen with an alpha each frame without having to switch rendering targets on the GPU.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onAccessibilityAction": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.",
+        "required": false,
+        "type": {
+          "name": "(event: AccessibilityActionEvent) => void"
+        }
+      },
+      "onAccessibilityEscape": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onAccessibilityTap": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onBlur": {
+        "description": "Callback that is called when the view is blurred.\n\nNote: This will only be called if the view is focusable.",
+        "required": false,
+        "type": {
+          "name": "(e: BlurEvent) => void"
+        }
+      },
+      "onCloseAutoFocus": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "(event: Event) => void"
+        }
+      },
+      "onEscapeKeyDown": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "(event: KeyboardEvent) => void"
+        }
+      },
+      "onFocus": {
+        "description": "Callback that is called when the view is focused.\n\nNote: This will only be called if the view is focusable.",
+        "required": false,
+        "type": {
+          "name": "(e: FocusEvent) => void"
+        }
+      },
+      "onFocusOutside": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "(event: FocusOutsideEvent) => void"
+        }
+      },
+      "onInteractOutside": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "(event: PointerDownOutsideEvent | FocusOutsideEvent) => void"
+        }
+      },
+      "onLayout": {
+        "description": "Invoked on mount and layout changes with\n\n{nativeEvent: { layout: {x, y, width, height}}}.",
+        "required": false,
+        "type": {
+          "name": "(event: LayoutChangeEvent) => void"
+        }
+      },
+      "onMagicTap": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the magic tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onMoveShouldSetResponder": {
+        "description": "Called for every touch move on the View when it is not the responder: does this view want to \"claim\" touch responsiveness?",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onMoveShouldSetResponderCapture": {
+        "description": "onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,\nwhere the deepest node is called first.\nThat means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.\nThis is desirable in most cases, because it makes sure all controls and buttons are usable.\n\nHowever, sometimes a parent will want to make sure that it becomes responder.\nThis can be handled by using the capture phase.\nBefore the responder system bubbles up from the deepest component,\nit will do a capture phase, firing on*ShouldSetResponderCapture.\nSo if a parent View wants to prevent the child from becoming responder on a touch start,\nit should have a onStartShouldSetResponderCapture handler which returns true.",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onPointerCancel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerCancelCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerDown": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerDownCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerDownOutside": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "(event: PointerDownOutsideEvent) => void"
+        }
+      },
+      "onPointerEnter": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerEnterCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerLeave": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerLeaveCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerMove": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerMoveCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerUp": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerUpCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onResponderEnd": {
+        "description": "If the View returns true and attempts to become the responder, one of the following will happen:",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderGrant": {
+        "description": "The View is now responding for touch events.\nThis is the time to highlight and show the user what is happening",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderMove": {
+        "description": "The user is moving their finger",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderReject": {
+        "description": "Something else is the responder right now and will not release it",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderRelease": {
+        "description": "Fired at the end of the touch, ie \"touchUp\"",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderStart": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderTerminate": {
+        "description": "The responder has been taken from the View.\nMight be taken by other views after a call to onResponderTerminationRequest,\nor might be taken by the OS without asking (happens with control center/ notification center on iOS)",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderTerminationRequest": {
+        "description": "Something else wants to become responder.\nShould this view release the responder? Returning true allows release",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onStartShouldSetResponder": {
+        "description": "Does this view want to become responder on the start of a touch?",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onStartShouldSetResponderCapture": {
+        "description": "onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,\nwhere the deepest node is called first.\nThat means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.\nThis is desirable in most cases, because it makes sure all controls and buttons are usable.\n\nHowever, sometimes a parent will want to make sure that it becomes responder.\nThis can be handled by using the capture phase.\nBefore the responder system bubbles up from the deepest component,\nit will do a capture phase, firing on*ShouldSetResponderCapture.\nSo if a parent View wants to prevent the child from becoming responder on a touch start,\nit should have a onStartShouldSetResponderCapture handler which returns true.",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onTouchCancel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchEnd": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchEndCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchMove": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchStart": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "pointerEvents": {
+        "description": "In the absence of auto property, none is much like CSS's none value. box-none is as if you had applied the CSS class:\n\n.box-none {\n  pointer-events: none;\n}\n.box-none * {\n  pointer-events: all;\n}\n\nbox-only is the equivalent of\n\n.box-only {\n  pointer-events: all;\n}\n.box-only * {\n  pointer-events: none;\n}\n\nBut since pointerEvents does not affect layout/appearance, and we are already deviating from the spec by adding additional modes,\nwe opt to not include pointerEvents on style. On some platforms, we would need to implement it as a className anyways. Using style or not is an implementation detail of the platform.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"box-none\" | \"box-only\" | \"none\""
+        }
+      },
+      "position": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "\"item-aligned\" | \"popper\""
+        }
+      },
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<View>"
+        }
+      },
+      "removeClippedSubviews": {
+        "description": "This is a special performance property exposed by RCTView and is useful for scrolling content when there are many subviews,\nmost of which are offscreen. For this property to be effective, it must be applied to a view that contains many subviews that extend outside its bound.\nThe subviews must also have overflow: hidden, as should the containing view (or one of its superviews).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "renderToHardwareTextureAndroid": {
+        "description": "Whether this view should render itself (and all of its children) into a single hardware texture on the GPU.\n\nOn Android, this is useful for animations and interactions that only modify opacity, rotation, translation, and/or scale:\nin those cases, the view doesn't have to be redrawn and display lists don't need to be re-executed. The texture can just be\nre-used and re-composited with different parameters. The downside is that this can use up limited video memory, so this prop should be set back to false at the end of the interaction/animation.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "role": {
+        "description": "Indicates to accessibility services to treat UI component like a specific role.",
+        "required": false,
+        "type": {
+          "name": "Role"
+        }
+      },
+      "screenReaderFocusable": {
+        "description": "Enables the view to be screen reader focusable, not keyboard focusable.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "shouldRasterizeIOS": {
+        "description": "Whether this view should be rendered as a bitmap before compositing.\n\nOn iOS, this is useful for animations and interactions that do not modify this component's dimensions nor its children;\nfor example, when translating the position of a static view, rasterization allows the renderer to reuse a cached bitmap of a static view\nand quickly composite it during each frame.\n\nRasterization incurs an off-screen drawing pass and the bitmap consumes memory.\nTest and measure when using this property.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "side": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"bottom\" | \"top\""
+        }
+      },
+      "sideOffset": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "sticky": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "\"always\" | \"partial\""
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "StyleProp<ViewStyle>"
+        }
+      },
+      "tabIndex": {
+        "description": "Indicates whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.\nSee https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex\nfor more details.\n\nSupports the following values:\n-  0 (View is focusable)\n- -1 (View is not focusable)",
+        "required": false,
+        "type": {
+          "name": "-1 | 0"
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "tvParallaxMagnification": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 1.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxShiftDistanceX": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxShiftDistanceY": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxTiltAngle": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 0.05.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.Group",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "accessibilityActions": {
+        "description": "Provides an array of custom actions available for accessibility.",
+        "required": false,
+        "type": {
+          "name": "readonly Readonly<{ name: string; label?: string; }>[]"
+        }
+      },
+      "accessibilityElementsHidden": {
+        "description": "A Boolean value indicating whether the accessibility elements contained within this accessibility element\nare hidden to the screen reader.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityHint": {
+        "description": "An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityIgnoresInvertColors": {
+        "description": "https://reactnative.dev/docs/accessibility#accessibilityignoresinvertcolorsios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "Overrides the text that's read by the screen reader when the user interacts with the element. By default, the\nlabel is constructed by traversing all the children and accumulating all the Text nodes separated by space.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabelledBy": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string | string[]"
+        }
+      },
+      "accessibilityLanguage": {
+        "description": "By using the accessibilityLanguage property, the screen reader will understand which language to use while reading the element's label, value and hint. The provided string value must follow the BCP 47 specification (https://www.rfc-editor.org/info/bcp47).\nhttps://reactnative.dev/docs/accessibility#accessibilitylanguage-ios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLargeContentTitle": {
+        "description": "When `accessibilityShowsLargeContentViewer` is set, this string will be used as title for the large content viewer.\nhttps://reactnative.dev/docs/accessibility#accessibilitylargecontenttitle\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLiveRegion": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"none\" | \"polite\""
+        }
+      },
+      "accessibilityRespondsToUserInteraction": {
+        "description": "Blocks the user from interacting with the component through keyboard while still allowing\nscreen reader to interact with it if this View is still accessible.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityRole": {
+        "description": "Accessibility Role tells a person using either VoiceOver on iOS or TalkBack on Android the type of element that is focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityRole"
+        }
+      },
+      "accessibilityShowsLargeContentViewer": {
+        "description": "A Boolean value that indicates whether or not to show the item in the large content viewer.\nAvailable on iOS 13.0+\nhttps://reactnative.dev/docs/accessibility#accessibilityshowslargecontentviewer\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityState": {
+        "description": "Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityState"
+        }
+      },
+      "accessibilityValue": {
+        "description": "Represents the current value of a component. It can be a textual description of a component's value, or for range-based components, such as sliders and progress bars,\nit contains range information (minimum, current, and maximum).",
+        "required": false,
+        "type": {
+          "name": "AccessibilityValue"
+        }
+      },
+      "accessibilityViewIsModal": {
+        "description": "A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessible": {
+        "description": "When true, indicates that the view is an accessibility element.\nBy default, all the touchable elements are accessible.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-busy": {
+        "description": "alias for accessibilityState\n\nsee https://reactnative.dev/docs/accessibility#accessibilitystate",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-checked": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"mixed\" | boolean"
+        }
+      },
+      "aria-disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-expanded": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-hidden": {
+        "description": "A value indicating whether the accessibility elements contained within\nthis accessibility element are hidden.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-label": {
+        "description": "Alias for accessibilityLabel  https://reactnative.dev/docs/view#accessibilitylabel\nhttps://github.com/facebook/react-native/issues/34424",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-live": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"off\" | \"polite\""
+        }
+      },
+      "aria-modal": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-selected": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-valuemax": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuemin": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuenow": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuetext": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "asChild": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "collapsable": {
+        "description": "Views that are only used to layout their children or otherwise don't draw anything\nmay be automatically removed from the native hierarchy as an optimization.\nSet this property to false to disable this optimization and ensure that this View exists in the native view hierarchy.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "collapsableChildren": {
+        "description": "Setting to false prevents direct children of the view from being removed\nfrom the native view hierarchy, similar to the effect of setting\n`collapsable={false}` on each child.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "focusable": {
+        "description": "Whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hasTVPreferredFocus": {
+        "description": "*(Apple TV only)* May be set to true to force the Apple TV focus engine to move focus to this view.\n@platform ios\n@deprecated Use `focusable` instead",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hitSlop": {
+        "description": "This defines how far a touch event can start away from the view.\nTypical interface guidelines recommend touch targets that are at least\n30 - 40 points/density-independent pixels. If a Touchable view has\na height of 20 the touchable height can be extended to 40 with\nhitSlop={{top: 10, bottom: 10, left: 0, right: 0}}\nNOTE The touch area never extends past the parent view bounds and\nthe Z-index of sibling views always takes precedence if a touch\nhits two overlapping views.",
+        "required": false,
+        "type": {
+          "name": "Insets | number"
+        }
+      },
+      "id": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "importantForAccessibility": {
+        "description": "[Android] Controlling if a view fires accessibility events and if it is reported to accessibility services.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"no\" | \"no-hide-descendants\" | \"yes\""
+        }
+      },
+      "isTVSelectable": {
+        "description": "*(Apple TV only)* When set to true, this view will be focusable\nand navigable using the Apple TV remote.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "nativeID": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "needsOffscreenAlphaCompositing": {
+        "description": "Whether this view needs to rendered offscreen and composited with an alpha in order to preserve 100% correct colors and blending behavior.\nThe default (false) falls back to drawing the component and its children\nwith an alpha applied to the paint used to draw each element instead of rendering the full component offscreen and compositing it back with an alpha value.\nThis default may be noticeable and undesired in the case where the View you are setting an opacity on\nhas multiple overlapping elements (e.g. multiple overlapping Views, or text and a background).\n\nRendering offscreen to preserve correct alpha behavior is extremely expensive\nand hard to debug for non-native developers, which is why it is not turned on by default.\nIf you do need to enable this property for an animation,\nconsider combining it with renderToHardwareTextureAndroid if the view contents are static (i.e. it doesn't need to be redrawn each frame).\nIf that property is enabled, this View will be rendered off-screen once,\nsaved in a hardware texture, and then composited onto the screen with an alpha each frame without having to switch rendering targets on the GPU.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onAccessibilityAction": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.",
+        "required": false,
+        "type": {
+          "name": "(event: AccessibilityActionEvent) => void"
+        }
+      },
+      "onAccessibilityEscape": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onAccessibilityTap": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onBlur": {
+        "description": "Callback that is called when the view is blurred.\n\nNote: This will only be called if the view is focusable.",
+        "required": false,
+        "type": {
+          "name": "(e: BlurEvent) => void"
+        }
+      },
+      "onFocus": {
+        "description": "Callback that is called when the view is focused.\n\nNote: This will only be called if the view is focusable.",
+        "required": false,
+        "type": {
+          "name": "(e: FocusEvent) => void"
+        }
+      },
+      "onLayout": {
+        "description": "Invoked on mount and layout changes with\n\n{nativeEvent: { layout: {x, y, width, height}}}.",
+        "required": false,
+        "type": {
+          "name": "(event: LayoutChangeEvent) => void"
+        }
+      },
+      "onMagicTap": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the magic tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onMoveShouldSetResponder": {
+        "description": "Called for every touch move on the View when it is not the responder: does this view want to \"claim\" touch responsiveness?",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onMoveShouldSetResponderCapture": {
+        "description": "onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,\nwhere the deepest node is called first.\nThat means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.\nThis is desirable in most cases, because it makes sure all controls and buttons are usable.\n\nHowever, sometimes a parent will want to make sure that it becomes responder.\nThis can be handled by using the capture phase.\nBefore the responder system bubbles up from the deepest component,\nit will do a capture phase, firing on*ShouldSetResponderCapture.\nSo if a parent View wants to prevent the child from becoming responder on a touch start,\nit should have a onStartShouldSetResponderCapture handler which returns true.",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onPointerCancel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerCancelCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerDown": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerDownCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerEnter": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerEnterCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerLeave": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerLeaveCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerMove": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerMoveCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerUp": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerUpCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onResponderEnd": {
+        "description": "If the View returns true and attempts to become the responder, one of the following will happen:",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderGrant": {
+        "description": "The View is now responding for touch events.\nThis is the time to highlight and show the user what is happening",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderMove": {
+        "description": "The user is moving their finger",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderReject": {
+        "description": "Something else is the responder right now and will not release it",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderRelease": {
+        "description": "Fired at the end of the touch, ie \"touchUp\"",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderStart": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderTerminate": {
+        "description": "The responder has been taken from the View.\nMight be taken by other views after a call to onResponderTerminationRequest,\nor might be taken by the OS without asking (happens with control center/ notification center on iOS)",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderTerminationRequest": {
+        "description": "Something else wants to become responder.\nShould this view release the responder? Returning true allows release",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onStartShouldSetResponder": {
+        "description": "Does this view want to become responder on the start of a touch?",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onStartShouldSetResponderCapture": {
+        "description": "onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,\nwhere the deepest node is called first.\nThat means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.\nThis is desirable in most cases, because it makes sure all controls and buttons are usable.\n\nHowever, sometimes a parent will want to make sure that it becomes responder.\nThis can be handled by using the capture phase.\nBefore the responder system bubbles up from the deepest component,\nit will do a capture phase, firing on*ShouldSetResponderCapture.\nSo if a parent View wants to prevent the child from becoming responder on a touch start,\nit should have a onStartShouldSetResponderCapture handler which returns true.",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onTouchCancel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchEnd": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchEndCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchMove": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchStart": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "pointerEvents": {
+        "description": "In the absence of auto property, none is much like CSS's none value. box-none is as if you had applied the CSS class:\n\n.box-none {\n  pointer-events: none;\n}\n.box-none * {\n  pointer-events: all;\n}\n\nbox-only is the equivalent of\n\n.box-only {\n  pointer-events: all;\n}\n.box-only * {\n  pointer-events: none;\n}\n\nBut since pointerEvents does not affect layout/appearance, and we are already deviating from the spec by adding additional modes,\nwe opt to not include pointerEvents on style. On some platforms, we would need to implement it as a className anyways. Using style or not is an implementation detail of the platform.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"box-none\" | \"box-only\" | \"none\""
+        }
+      },
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<View>"
+        }
+      },
+      "removeClippedSubviews": {
+        "description": "This is a special performance property exposed by RCTView and is useful for scrolling content when there are many subviews,\nmost of which are offscreen. For this property to be effective, it must be applied to a view that contains many subviews that extend outside its bound.\nThe subviews must also have overflow: hidden, as should the containing view (or one of its superviews).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "renderToHardwareTextureAndroid": {
+        "description": "Whether this view should render itself (and all of its children) into a single hardware texture on the GPU.\n\nOn Android, this is useful for animations and interactions that only modify opacity, rotation, translation, and/or scale:\nin those cases, the view doesn't have to be redrawn and display lists don't need to be re-executed. The texture can just be\nre-used and re-composited with different parameters. The downside is that this can use up limited video memory, so this prop should be set back to false at the end of the interaction/animation.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "role": {
+        "description": "Indicates to accessibility services to treat UI component like a specific role.",
+        "required": false,
+        "type": {
+          "name": "Role"
+        }
+      },
+      "screenReaderFocusable": {
+        "description": "Enables the view to be screen reader focusable, not keyboard focusable.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "shouldRasterizeIOS": {
+        "description": "Whether this view should be rendered as a bitmap before compositing.\n\nOn iOS, this is useful for animations and interactions that do not modify this component's dimensions nor its children;\nfor example, when translating the position of a static view, rasterization allows the renderer to reuse a cached bitmap of a static view\nand quickly composite it during each frame.\n\nRasterization incurs an off-screen drawing pass and the bitmap consumes memory.\nTest and measure when using this property.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "StyleProp<ViewStyle>"
+        }
+      },
+      "tabIndex": {
+        "description": "Indicates whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.\nSee https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex\nfor more details.\n\nSupports the following values:\n-  0 (View is focusable)\n- -1 (View is not focusable)",
+        "required": false,
+        "type": {
+          "name": "-1 | 0"
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "tvParallaxMagnification": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 1.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxShiftDistanceX": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxShiftDistanceY": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxTiltAngle": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 0.05.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.GroupLabel",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "accessibilityActions": {
+        "description": "Provides an array of custom actions available for accessibility.",
+        "required": false,
+        "type": {
+          "name": "readonly Readonly<{ name: string; label?: string; }>[]"
+        }
+      },
+      "accessibilityElementsHidden": {
+        "description": "A Boolean value indicating whether the accessibility elements contained within this accessibility element\nare hidden to the screen reader.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityHint": {
+        "description": "An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityIgnoresInvertColors": {
+        "description": "https://reactnative.dev/docs/accessibility#accessibilityignoresinvertcolorsios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "Overrides the text that's read by the screen reader when the user interacts with the element. By default, the\nlabel is constructed by traversing all the children and accumulating all the Text nodes separated by space.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabelledBy": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string | string[]"
+        }
+      },
+      "accessibilityLanguage": {
+        "description": "By using the accessibilityLanguage property, the screen reader will understand which language to use while reading the element's label, value and hint. The provided string value must follow the BCP 47 specification (https://www.rfc-editor.org/info/bcp47).\nhttps://reactnative.dev/docs/accessibility#accessibilitylanguage-ios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLargeContentTitle": {
+        "description": "When `accessibilityShowsLargeContentViewer` is set, this string will be used as title for the large content viewer.\nhttps://reactnative.dev/docs/accessibility#accessibilitylargecontenttitle\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLiveRegion": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"none\" | \"polite\""
+        }
+      },
+      "accessibilityRespondsToUserInteraction": {
+        "description": "Blocks the user from interacting with the component through keyboard while still allowing\nscreen reader to interact with it if this View is still accessible.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityRole": {
+        "description": "Accessibility Role tells a person using either VoiceOver on iOS or TalkBack on Android the type of element that is focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityRole"
+        }
+      },
+      "accessibilityShowsLargeContentViewer": {
+        "description": "A Boolean value that indicates whether or not to show the item in the large content viewer.\nAvailable on iOS 13.0+\nhttps://reactnative.dev/docs/accessibility#accessibilityshowslargecontentviewer\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityState": {
+        "description": "Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityState"
+        }
+      },
+      "accessibilityValue": {
+        "description": "Represents the current value of a component. It can be a textual description of a component's value, or for range-based components, such as sliders and progress bars,\nit contains range information (minimum, current, and maximum).",
+        "required": false,
+        "type": {
+          "name": "AccessibilityValue"
+        }
+      },
+      "accessibilityViewIsModal": {
+        "description": "A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessible": {
+        "description": "When true, indicates that the view is an accessibility element.\nBy default, all the touchable elements are accessible.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "adjustsFontSizeToFit": {
+        "description": "Specifies whether font should be scaled down automatically to fit given style constraints.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "allowFontScaling": {
+        "description": "Specifies whether fonts should scale to respect Text Size accessibility settings.\nThe default is `true`.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "android_hyphenationFrequency": {
+        "description": "Hyphenation strategy",
+        "required": false,
+        "type": {
+          "name": "\"full\" | \"none\" | \"normal\""
+        }
+      },
+      "aria-busy": {
+        "description": "alias for accessibilityState\n\nsee https://reactnative.dev/docs/accessibility#accessibilitystate",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-checked": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"mixed\" | boolean"
+        }
+      },
+      "aria-disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-expanded": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-hidden": {
+        "description": "A value indicating whether the accessibility elements contained within\nthis accessibility element are hidden.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-label": {
+        "description": "Alias for accessibilityLabel  https://reactnative.dev/docs/view#accessibilitylabel\nhttps://github.com/facebook/react-native/issues/34424",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-live": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"off\" | \"polite\""
+        }
+      },
+      "aria-modal": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-selected": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-valuemax": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuemin": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuenow": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuetext": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "asChild": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "dataDetectorType": {
+        "description": "Determines the types of data converted to clickable URLs in the text element.\nBy default no data types are detected.",
+        "required": false,
+        "type": {
+          "name": "\"all\" | \"email\" | \"link\" | \"none\" | \"phoneNumber\""
+        }
+      },
+      "disabled": {
+        "description": "Specifies the disabled state of the text view for testing purposes.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "dynamicTypeRamp": {
+        "description": "The Dynamic Type scale ramp to apply to this element on iOS.",
+        "required": false,
+        "type": {
+          "name": "\"body\" | \"callout\" | \"caption1\" | \"caption2\" | \"footnote\" | \"headline\" | \"largeTitle\" | \"subheadline\" | \"title1\" | \"title2\" | \"title3\""
+        }
+      },
+      "ellipsizeMode": {
+        "description": "This can be one of the following values:\n\n- `head` - The line is displayed so that the end fits in the container and the missing text\nat the beginning of the line is indicated by an ellipsis glyph. e.g., \"...wxyz\"\n- `middle` - The line is displayed so that the beginning and end fit in the container and the\nmissing text in the middle is indicated by an ellipsis glyph. \"ab...yz\"\n- `tail` - The line is displayed so that the beginning fits in the container and the\nmissing text at the end of the line is indicated by an ellipsis glyph. e.g., \"abcd...\"\n- `clip` - Lines are not drawn past the edge of the text container.\n\nThe default is `tail`.\n\n`numberOfLines` must be set in conjunction with this prop.\n\n> `clip` is working only for iOS",
+        "required": false,
+        "type": {
+          "name": "\"clip\" | \"head\" | \"middle\" | \"tail\""
+        }
+      },
+      "id": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "importantForAccessibility": {
+        "description": "[Android] Controlling if a view fires accessibility events and if it is reported to accessibility services.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"no\" | \"no-hide-descendants\" | \"yes\""
+        }
+      },
+      "lineBreakMode": {
+        "description": "Line Break mode. Works only with numberOfLines.\nclip is working only for iOS",
+        "required": false,
+        "type": {
+          "name": "\"clip\" | \"head\" | \"middle\" | \"tail\""
+        }
+      },
+      "lineBreakStrategyIOS": {
+        "description": "Set line break strategy on iOS.",
+        "required": false,
+        "type": {
+          "name": "\"hangul-word\" | \"none\" | \"push-out\" | \"standard\""
+        }
+      },
+      "maxFontSizeMultiplier": {
+        "description": "Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:\n- null/undefined (default): inherit from the parent node or the global default (0)\n- 0: no max, ignore parent/global default\n- >= 1: sets the maxFontSizeMultiplier of this node to this value",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "minimumFontScale": {
+        "description": "Specifies smallest possible scale a font can reach when adjustsFontSizeToFit is enabled. (values 0.01-1.0).",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "nativeID": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "numberOfLines": {
+        "description": "Used to truncate the text with an ellipsis after computing the text\nlayout, including line wrapping, such that the total number of lines\ndoes not exceed this number.\n\nThis prop is commonly used with `ellipsizeMode`.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "onAccessibilityAction": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.",
+        "required": false,
+        "type": {
+          "name": "(event: AccessibilityActionEvent) => void"
+        }
+      },
+      "onAccessibilityEscape": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onAccessibilityTap": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onLayout": {
+        "description": "Invoked on mount and layout changes with\n\n{nativeEvent: { layout: {x, y, width, height}}}.",
+        "required": false,
+        "type": {
+          "name": "(event: LayoutChangeEvent) => void"
+        }
+      },
+      "onLongPress": {
+        "description": "This function is called on long press.\ne.g., `onLongPress={this.increaseSize}>`",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onMagicTap": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the magic tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onPress": {
+        "description": "This function is called on press.\nText intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onPressIn": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onPressOut": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTextLayout": {
+        "description": "Invoked on Text layout",
+        "required": false,
+        "type": {
+          "name": "(event: TextLayoutEvent) => void"
+        }
+      },
+      "pointerEvents": {
+        "description": "Controls how touch events are handled. Similar to `View`'s `pointerEvents`.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"box-none\" | \"box-only\" | \"none\""
+        }
+      },
+      "pressRetentionOffset": {
+        "description": "Defines how far your touch may move off of the button, before deactivating the button.",
+        "required": false,
+        "type": {
+          "name": "{ top: number; left: number; bottom: number; right: number; }"
+        }
+      },
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<View>"
+        }
+      },
+      "role": {
+        "description": "Indicates to accessibility services to treat UI component like a specific role.",
+        "required": false,
+        "type": {
+          "name": "Role"
+        }
+      },
+      "screenReaderFocusable": {
+        "description": "Enables the view to be screen reader focusable, not keyboard focusable.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "selectable": {
+        "description": "Lets the user select text, to use the native copy and paste functionality.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "selectionColor": {
+        "description": "The highlight color of the text.",
+        "required": false,
+        "type": {
+          "name": "ColorValue"
+        }
+      },
+      "style": {
+        "description": "@see https://reactnative.dev/docs/text#style",
+        "required": false,
+        "type": {
+          "name": "StyleProp<TextStyle>"
+        }
+      },
+      "suppressHighlighting": {
+        "description": "When `true`, no visual change is made when text is pressed down. By\ndefault, a gray oval highlights the text on press down.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "textBreakStrategy": {
+        "description": "Set text break strategy on Android API Level 23+\ndefault is `highQuality`.",
+        "required": false,
+        "type": {
+          "name": "\"balanced\" | \"highQuality\" | \"simple\""
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.Item",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "closeOnPress": {
+        "description": "Close the dropdown when this option is pressed (default behaviour).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "disabled": {
+        "description": "Disables selection and greys the label.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "indicator": {
+        "description": "Overrides the default checkmark marker shown on the selected row.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "label": {
+        "description": "The option's label — rendered as the row text and used as the value label.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "prefix": {
+        "description": "Leading content, before the label — typically a `Select.ItemPrefix`.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "suffix": {
+        "description": "Trailing content, after the label — typically a `Select.ItemSuffix`.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "value": {
+        "description": "The option's value.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.ItemPrefix",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Select.ItemSuffix",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Select.Label",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "children": {
+        "description": "The label content. Its placement (above the trigger vs. inside it) is set by\nthe `labelPlacement` prop on `Select.Root`, not by where this is written.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.Root",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "accessibilityActions": {
+        "description": "Provides an array of custom actions available for accessibility.",
+        "required": false,
+        "type": {
+          "name": "readonly Readonly<{ name: string; label?: string; }>[]"
+        }
+      },
+      "accessibilityElementsHidden": {
+        "description": "A Boolean value indicating whether the accessibility elements contained within this accessibility element\nare hidden to the screen reader.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityHint": {
+        "description": "An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityIgnoresInvertColors": {
+        "description": "https://reactnative.dev/docs/accessibility#accessibilityignoresinvertcolorsios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "Explicit accessible name for the trigger. Auto-derived from a string\n`Select.Label`; supply this when the label content is a non-string\n`ReactNode`, or to name a field that has no visible `Select.Label`.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabelledBy": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string | string[]"
+        }
+      },
+      "accessibilityLanguage": {
+        "description": "By using the accessibilityLanguage property, the screen reader will understand which language to use while reading the element's label, value and hint. The provided string value must follow the BCP 47 specification (https://www.rfc-editor.org/info/bcp47).\nhttps://reactnative.dev/docs/accessibility#accessibilitylanguage-ios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLargeContentTitle": {
+        "description": "When `accessibilityShowsLargeContentViewer` is set, this string will be used as title for the large content viewer.\nhttps://reactnative.dev/docs/accessibility#accessibilitylargecontenttitle\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLiveRegion": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"none\" | \"polite\""
+        }
+      },
+      "accessibilityRespondsToUserInteraction": {
+        "description": "Blocks the user from interacting with the component through keyboard while still allowing\nscreen reader to interact with it if this View is still accessible.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityRole": {
+        "description": "Accessibility Role tells a person using either VoiceOver on iOS or TalkBack on Android the type of element that is focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityRole"
+        }
+      },
+      "accessibilityShowsLargeContentViewer": {
+        "description": "A Boolean value that indicates whether or not to show the item in the large content viewer.\nAvailable on iOS 13.0+\nhttps://reactnative.dev/docs/accessibility#accessibilityshowslargecontentviewer\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityState": {
+        "description": "Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityState"
+        }
+      },
+      "accessibilityValue": {
+        "description": "Represents the current value of a component. It can be a textual description of a component's value, or for range-based components, such as sliders and progress bars,\nit contains range information (minimum, current, and maximum).",
+        "required": false,
+        "type": {
+          "name": "AccessibilityValue"
+        }
+      },
+      "accessibilityViewIsModal": {
+        "description": "A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessible": {
+        "description": "When true, indicates that the view is an accessibility element.\nBy default, all the touchable elements are accessible.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-busy": {
+        "description": "alias for accessibilityState\n\nsee https://reactnative.dev/docs/accessibility#accessibilitystate",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-checked": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"mixed\" | boolean"
+        }
+      },
+      "aria-disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-expanded": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-hidden": {
+        "description": "A value indicating whether the accessibility elements contained within\nthis accessibility element are hidden.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-label": {
+        "description": "Alias for accessibilityLabel  https://reactnative.dev/docs/view#accessibilitylabel\nhttps://github.com/facebook/react-native/issues/34424",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-live": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"off\" | \"polite\""
+        }
+      },
+      "aria-modal": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-selected": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-valuemax": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuemin": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuenow": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuetext": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "asChild": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "collapsable": {
+        "description": "Views that are only used to layout their children or otherwise don't draw anything\nmay be automatically removed from the native hierarchy as an optimization.\nSet this property to false to disable this optimization and ensure that this View exists in the native view hierarchy.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "collapsableChildren": {
+        "description": "Setting to false prevents direct children of the view from being removed\nfrom the native view hierarchy, similar to the effect of setting\n`collapsable={false}` on each child.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "defaultValue": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "{ value: string; label: string; }"
+        }
+      },
+      "description": {
+        "description": "Supporting text rendered below the trigger. A string renders as neutral\n`HelperText`; a `ReactNode` renders verbatim. Suppressed when `error` is\npresent.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "dir": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "\"ltr\" | \"rtl\""
+        }
+      },
+      "disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "error": {
+        "description": "Error message rendered below the trigger as critical `HelperText` (string)\nor verbatim (`ReactNode`). Takes priority over `description` and applies\nthe critical trigger styling.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "focusable": {
+        "description": "Whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hasTVPreferredFocus": {
+        "description": "*(Apple TV only)* May be set to true to force the Apple TV focus engine to move focus to this view.\n@platform ios\n@deprecated Use `focusable` instead",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hitSlop": {
+        "description": "This defines how far a touch event can start away from the view.\nTypical interface guidelines recommend touch targets that are at least\n30 - 40 points/density-independent pixels. If a Touchable view has\na height of 20 the touchable height can be extended to 40 with\nhitSlop={{top: 10, bottom: 10, left: 0, right: 0}}\nNOTE The touch area never extends past the parent view bounds and\nthe Z-index of sibling views always takes precedence if a touch\nhits two overlapping views.",
+        "required": false,
+        "type": {
+          "name": "Insets | number"
+        }
+      },
+      "id": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "importantForAccessibility": {
+        "description": "[Android] Controlling if a view fires accessibility events and if it is reported to accessibility services.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"no\" | \"no-hide-descendants\" | \"yes\""
+        }
+      },
+      "invalid": {
+        "description": "Applies the critical trigger styling without rendering an error message.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "isTVSelectable": {
+        "description": "*(Apple TV only)* When set to true, this view will be focusable\nand navigable using the Apple TV remote.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "labelPlacement": {
+        "description": "Where the field label renders: `\"inside\"` the trigger (small, above the value)\nor `\"above\"` it. DS-owned default (`\"inside\"`); overridable per instance.\nThe label content itself is authored via `Select.Label`.",
+        "required": false,
+        "type": {
+          "name": "\"above\" | \"inside\""
+        }
+      },
+      "name": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "nativeID": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "needsOffscreenAlphaCompositing": {
+        "description": "Whether this view needs to rendered offscreen and composited with an alpha in order to preserve 100% correct colors and blending behavior.\nThe default (false) falls back to drawing the component and its children\nwith an alpha applied to the paint used to draw each element instead of rendering the full component offscreen and compositing it back with an alpha value.\nThis default may be noticeable and undesired in the case where the View you are setting an opacity on\nhas multiple overlapping elements (e.g. multiple overlapping Views, or text and a background).\n\nRendering offscreen to preserve correct alpha behavior is extremely expensive\nand hard to debug for non-native developers, which is why it is not turned on by default.\nIf you do need to enable this property for an animation,\nconsider combining it with renderToHardwareTextureAndroid if the view contents are static (i.e. it doesn't need to be redrawn each frame).\nIf that property is enabled, this View will be rendered off-screen once,\nsaved in a hardware texture, and then composited onto the screen with an alpha each frame without having to switch rendering targets on the GPU.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onAccessibilityAction": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.",
+        "required": false,
+        "type": {
+          "name": "(event: AccessibilityActionEvent) => void"
+        }
+      },
+      "onAccessibilityEscape": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onAccessibilityTap": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onBlur": {
+        "description": "Callback that is called when the view is blurred.\n\nNote: This will only be called if the view is focusable.",
+        "required": false,
+        "type": {
+          "name": "(e: BlurEvent) => void"
+        }
+      },
+      "onFocus": {
+        "description": "Callback that is called when the view is focused.\n\nNote: This will only be called if the view is focusable.",
+        "required": false,
+        "type": {
+          "name": "(e: FocusEvent) => void"
+        }
+      },
+      "onLayout": {
+        "description": "Invoked on mount and layout changes with\n\n{nativeEvent: { layout: {x, y, width, height}}}.",
+        "required": false,
+        "type": {
+          "name": "(event: LayoutChangeEvent) => void"
+        }
+      },
+      "onMagicTap": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the magic tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onMoveShouldSetResponder": {
+        "description": "Called for every touch move on the View when it is not the responder: does this view want to \"claim\" touch responsiveness?",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onMoveShouldSetResponderCapture": {
+        "description": "onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,\nwhere the deepest node is called first.\nThat means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.\nThis is desirable in most cases, because it makes sure all controls and buttons are usable.\n\nHowever, sometimes a parent will want to make sure that it becomes responder.\nThis can be handled by using the capture phase.\nBefore the responder system bubbles up from the deepest component,\nit will do a capture phase, firing on*ShouldSetResponderCapture.\nSo if a parent View wants to prevent the child from becoming responder on a touch start,\nit should have a onStartShouldSetResponderCapture handler which returns true.",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onOpenChange": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(open: boolean) => void"
+        }
+      },
+      "onPointerCancel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerCancelCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerDown": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerDownCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerEnter": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerEnterCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerLeave": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerLeaveCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerMove": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerMoveCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerUp": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerUpCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onResponderEnd": {
+        "description": "If the View returns true and attempts to become the responder, one of the following will happen:",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderGrant": {
+        "description": "The View is now responding for touch events.\nThis is the time to highlight and show the user what is happening",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderMove": {
+        "description": "The user is moving their finger",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderReject": {
+        "description": "Something else is the responder right now and will not release it",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderRelease": {
+        "description": "Fired at the end of the touch, ie \"touchUp\"",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderStart": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderTerminate": {
+        "description": "The responder has been taken from the View.\nMight be taken by other views after a call to onResponderTerminationRequest,\nor might be taken by the OS without asking (happens with control center/ notification center on iOS)",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderTerminationRequest": {
+        "description": "Something else wants to become responder.\nShould this view release the responder? Returning true allows release",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onStartShouldSetResponder": {
+        "description": "Does this view want to become responder on the start of a touch?",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onStartShouldSetResponderCapture": {
+        "description": "onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,\nwhere the deepest node is called first.\nThat means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.\nThis is desirable in most cases, because it makes sure all controls and buttons are usable.\n\nHowever, sometimes a parent will want to make sure that it becomes responder.\nThis can be handled by using the capture phase.\nBefore the responder system bubbles up from the deepest component,\nit will do a capture phase, firing on*ShouldSetResponderCapture.\nSo if a parent View wants to prevent the child from becoming responder on a touch start,\nit should have a onStartShouldSetResponderCapture handler which returns true.",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onTouchCancel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchEnd": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchEndCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchMove": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchStart": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onValueChange": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(option: { value: string; label: string; }) => void"
+        }
+      },
+      "pointerEvents": {
+        "description": "In the absence of auto property, none is much like CSS's none value. box-none is as if you had applied the CSS class:\n\n.box-none {\n  pointer-events: none;\n}\n.box-none * {\n  pointer-events: all;\n}\n\nbox-only is the equivalent of\n\n.box-only {\n  pointer-events: all;\n}\n.box-only * {\n  pointer-events: none;\n}\n\nBut since pointerEvents does not affect layout/appearance, and we are already deviating from the spec by adding additional modes,\nwe opt to not include pointerEvents on style. On some platforms, we would need to implement it as a className anyways. Using style or not is an implementation detail of the platform.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"box-none\" | \"box-only\" | \"none\""
+        }
+      },
+      "readOnly": {
+        "description": "Renders the trigger as non-interactive read-only presentation (subtle\nsurface, no chevron, value as text). `disabled` takes precedence.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "removeClippedSubviews": {
+        "description": "This is a special performance property exposed by RCTView and is useful for scrolling content when there are many subviews,\nmost of which are offscreen. For this property to be effective, it must be applied to a view that contains many subviews that extend outside its bound.\nThe subviews must also have overflow: hidden, as should the containing view (or one of its superviews).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "renderToHardwareTextureAndroid": {
+        "description": "Whether this view should render itself (and all of its children) into a single hardware texture on the GPU.\n\nOn Android, this is useful for animations and interactions that only modify opacity, rotation, translation, and/or scale:\nin those cases, the view doesn't have to be redrawn and display lists don't need to be re-executed. The texture can just be\nre-used and re-composited with different parameters. The downside is that this can use up limited video memory, so this prop should be set back to false at the end of the interaction/animation.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "required": {
+        "description": "Platform: WEB ONLY",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "role": {
+        "description": "Indicates to accessibility services to treat UI component like a specific role.",
+        "required": false,
+        "type": {
+          "name": "Role"
+        }
+      },
+      "screenReaderFocusable": {
+        "description": "Enables the view to be screen reader focusable, not keyboard focusable.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "shouldRasterizeIOS": {
+        "description": "Whether this view should be rendered as a bitmap before compositing.\n\nOn iOS, this is useful for animations and interactions that do not modify this component's dimensions nor its children;\nfor example, when translating the position of a static view, rasterization allows the renderer to reuse a cached bitmap of a static view\nand quickly composite it during each frame.\n\nRasterization incurs an off-screen drawing pass and the bitmap consumes memory.\nTest and measure when using this property.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "status": {
+        "description": "`critical` applies the critical trigger styling. Defaults to `neutral`.",
+        "required": false,
+        "type": {
+          "name": "\"critical\" | \"neutral\""
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "StyleProp<ViewStyle>"
+        }
+      },
+      "tabIndex": {
+        "description": "Indicates whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.\nSee https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex\nfor more details.\n\nSupports the following values:\n-  0 (View is focusable)\n- -1 (View is not focusable)",
+        "required": false,
+        "type": {
+          "name": "-1 | 0"
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "tvParallaxMagnification": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 1.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxShiftDistanceX": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxShiftDistanceY": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxTiltAngle": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 0.05.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "value": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "{ value: string; label: string; }"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.Separator",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "accessibilityActions": {
+        "description": "Provides an array of custom actions available for accessibility.",
+        "required": false,
+        "type": {
+          "name": "readonly Readonly<{ name: string; label?: string; }>[]"
+        }
+      },
+      "accessibilityElementsHidden": {
+        "description": "A Boolean value indicating whether the accessibility elements contained within this accessibility element\nare hidden to the screen reader.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityHint": {
+        "description": "An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityIgnoresInvertColors": {
+        "description": "https://reactnative.dev/docs/accessibility#accessibilityignoresinvertcolorsios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "Overrides the text that's read by the screen reader when the user interacts with the element. By default, the\nlabel is constructed by traversing all the children and accumulating all the Text nodes separated by space.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabelledBy": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string | string[]"
+        }
+      },
+      "accessibilityLanguage": {
+        "description": "By using the accessibilityLanguage property, the screen reader will understand which language to use while reading the element's label, value and hint. The provided string value must follow the BCP 47 specification (https://www.rfc-editor.org/info/bcp47).\nhttps://reactnative.dev/docs/accessibility#accessibilitylanguage-ios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLargeContentTitle": {
+        "description": "When `accessibilityShowsLargeContentViewer` is set, this string will be used as title for the large content viewer.\nhttps://reactnative.dev/docs/accessibility#accessibilitylargecontenttitle\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLiveRegion": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"none\" | \"polite\""
+        }
+      },
+      "accessibilityRespondsToUserInteraction": {
+        "description": "Blocks the user from interacting with the component through keyboard while still allowing\nscreen reader to interact with it if this View is still accessible.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityRole": {
+        "description": "Accessibility Role tells a person using either VoiceOver on iOS or TalkBack on Android the type of element that is focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityRole"
+        }
+      },
+      "accessibilityShowsLargeContentViewer": {
+        "description": "A Boolean value that indicates whether or not to show the item in the large content viewer.\nAvailable on iOS 13.0+\nhttps://reactnative.dev/docs/accessibility#accessibilityshowslargecontentviewer\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityState": {
+        "description": "Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityState"
+        }
+      },
+      "accessibilityValue": {
+        "description": "Represents the current value of a component. It can be a textual description of a component's value, or for range-based components, such as sliders and progress bars,\nit contains range information (minimum, current, and maximum).",
+        "required": false,
+        "type": {
+          "name": "AccessibilityValue"
+        }
+      },
+      "accessibilityViewIsModal": {
+        "description": "A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessible": {
+        "description": "When true, indicates that the view is an accessibility element.\nBy default, all the touchable elements are accessible.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-busy": {
+        "description": "alias for accessibilityState\n\nsee https://reactnative.dev/docs/accessibility#accessibilitystate",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-checked": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"mixed\" | boolean"
+        }
+      },
+      "aria-disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-expanded": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-hidden": {
+        "description": "A value indicating whether the accessibility elements contained within\nthis accessibility element are hidden.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-label": {
+        "description": "Alias for accessibilityLabel  https://reactnative.dev/docs/view#accessibilitylabel\nhttps://github.com/facebook/react-native/issues/34424",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-live": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"off\" | \"polite\""
+        }
+      },
+      "aria-modal": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-selected": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-valuemax": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuemin": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuenow": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuetext": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "asChild": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "collapsable": {
+        "description": "Views that are only used to layout their children or otherwise don't draw anything\nmay be automatically removed from the native hierarchy as an optimization.\nSet this property to false to disable this optimization and ensure that this View exists in the native view hierarchy.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "collapsableChildren": {
+        "description": "Setting to false prevents direct children of the view from being removed\nfrom the native view hierarchy, similar to the effect of setting\n`collapsable={false}` on each child.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "decorative": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "focusable": {
+        "description": "Whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hasTVPreferredFocus": {
+        "description": "*(Apple TV only)* May be set to true to force the Apple TV focus engine to move focus to this view.\n@platform ios\n@deprecated Use `focusable` instead",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hitSlop": {
+        "description": "This defines how far a touch event can start away from the view.\nTypical interface guidelines recommend touch targets that are at least\n30 - 40 points/density-independent pixels. If a Touchable view has\na height of 20 the touchable height can be extended to 40 with\nhitSlop={{top: 10, bottom: 10, left: 0, right: 0}}\nNOTE The touch area never extends past the parent view bounds and\nthe Z-index of sibling views always takes precedence if a touch\nhits two overlapping views.",
+        "required": false,
+        "type": {
+          "name": "Insets | number"
+        }
+      },
+      "id": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "importantForAccessibility": {
+        "description": "[Android] Controlling if a view fires accessibility events and if it is reported to accessibility services.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"no\" | \"no-hide-descendants\" | \"yes\""
+        }
+      },
+      "isTVSelectable": {
+        "description": "*(Apple TV only)* When set to true, this view will be focusable\nand navigable using the Apple TV remote.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "nativeID": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "needsOffscreenAlphaCompositing": {
+        "description": "Whether this view needs to rendered offscreen and composited with an alpha in order to preserve 100% correct colors and blending behavior.\nThe default (false) falls back to drawing the component and its children\nwith an alpha applied to the paint used to draw each element instead of rendering the full component offscreen and compositing it back with an alpha value.\nThis default may be noticeable and undesired in the case where the View you are setting an opacity on\nhas multiple overlapping elements (e.g. multiple overlapping Views, or text and a background).\n\nRendering offscreen to preserve correct alpha behavior is extremely expensive\nand hard to debug for non-native developers, which is why it is not turned on by default.\nIf you do need to enable this property for an animation,\nconsider combining it with renderToHardwareTextureAndroid if the view contents are static (i.e. it doesn't need to be redrawn each frame).\nIf that property is enabled, this View will be rendered off-screen once,\nsaved in a hardware texture, and then composited onto the screen with an alpha each frame without having to switch rendering targets on the GPU.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onAccessibilityAction": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.",
+        "required": false,
+        "type": {
+          "name": "(event: AccessibilityActionEvent) => void"
+        }
+      },
+      "onAccessibilityEscape": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onAccessibilityTap": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onBlur": {
+        "description": "Callback that is called when the view is blurred.\n\nNote: This will only be called if the view is focusable.",
+        "required": false,
+        "type": {
+          "name": "(e: BlurEvent) => void"
+        }
+      },
+      "onFocus": {
+        "description": "Callback that is called when the view is focused.\n\nNote: This will only be called if the view is focusable.",
+        "required": false,
+        "type": {
+          "name": "(e: FocusEvent) => void"
+        }
+      },
+      "onLayout": {
+        "description": "Invoked on mount and layout changes with\n\n{nativeEvent: { layout: {x, y, width, height}}}.",
+        "required": false,
+        "type": {
+          "name": "(event: LayoutChangeEvent) => void"
+        }
+      },
+      "onMagicTap": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the magic tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onMoveShouldSetResponder": {
+        "description": "Called for every touch move on the View when it is not the responder: does this view want to \"claim\" touch responsiveness?",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onMoveShouldSetResponderCapture": {
+        "description": "onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,\nwhere the deepest node is called first.\nThat means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.\nThis is desirable in most cases, because it makes sure all controls and buttons are usable.\n\nHowever, sometimes a parent will want to make sure that it becomes responder.\nThis can be handled by using the capture phase.\nBefore the responder system bubbles up from the deepest component,\nit will do a capture phase, firing on*ShouldSetResponderCapture.\nSo if a parent View wants to prevent the child from becoming responder on a touch start,\nit should have a onStartShouldSetResponderCapture handler which returns true.",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onPointerCancel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerCancelCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerDown": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerDownCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerEnter": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerEnterCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerLeave": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerLeaveCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerMove": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerMoveCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerUp": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onPointerUpCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent) => void"
+        }
+      },
+      "onResponderEnd": {
+        "description": "If the View returns true and attempts to become the responder, one of the following will happen:",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderGrant": {
+        "description": "The View is now responding for touch events.\nThis is the time to highlight and show the user what is happening",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderMove": {
+        "description": "The user is moving their finger",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderReject": {
+        "description": "Something else is the responder right now and will not release it",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderRelease": {
+        "description": "Fired at the end of the touch, ie \"touchUp\"",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderStart": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderTerminate": {
+        "description": "The responder has been taken from the View.\nMight be taken by other views after a call to onResponderTerminationRequest,\nor might be taken by the OS without asking (happens with control center/ notification center on iOS)",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onResponderTerminationRequest": {
+        "description": "Something else wants to become responder.\nShould this view release the responder? Returning true allows release",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onStartShouldSetResponder": {
+        "description": "Does this view want to become responder on the start of a touch?",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onStartShouldSetResponderCapture": {
+        "description": "onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,\nwhere the deepest node is called first.\nThat means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.\nThis is desirable in most cases, because it makes sure all controls and buttons are usable.\n\nHowever, sometimes a parent will want to make sure that it becomes responder.\nThis can be handled by using the capture phase.\nBefore the responder system bubbles up from the deepest component,\nit will do a capture phase, firing on*ShouldSetResponderCapture.\nSo if a parent View wants to prevent the child from becoming responder on a touch start,\nit should have a onStartShouldSetResponderCapture handler which returns true.",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => boolean"
+        }
+      },
+      "onTouchCancel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchEnd": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchEndCapture": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchMove": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTouchStart": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "pointerEvents": {
+        "description": "In the absence of auto property, none is much like CSS's none value. box-none is as if you had applied the CSS class:\n\n.box-none {\n  pointer-events: none;\n}\n.box-none * {\n  pointer-events: all;\n}\n\nbox-only is the equivalent of\n\n.box-only {\n  pointer-events: all;\n}\n.box-only * {\n  pointer-events: none;\n}\n\nBut since pointerEvents does not affect layout/appearance, and we are already deviating from the spec by adding additional modes,\nwe opt to not include pointerEvents on style. On some platforms, we would need to implement it as a className anyways. Using style or not is an implementation detail of the platform.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"box-none\" | \"box-only\" | \"none\""
+        }
+      },
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<View>"
+        }
+      },
+      "removeClippedSubviews": {
+        "description": "This is a special performance property exposed by RCTView and is useful for scrolling content when there are many subviews,\nmost of which are offscreen. For this property to be effective, it must be applied to a view that contains many subviews that extend outside its bound.\nThe subviews must also have overflow: hidden, as should the containing view (or one of its superviews).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "renderToHardwareTextureAndroid": {
+        "description": "Whether this view should render itself (and all of its children) into a single hardware texture on the GPU.\n\nOn Android, this is useful for animations and interactions that only modify opacity, rotation, translation, and/or scale:\nin those cases, the view doesn't have to be redrawn and display lists don't need to be re-executed. The texture can just be\nre-used and re-composited with different parameters. The downside is that this can use up limited video memory, so this prop should be set back to false at the end of the interaction/animation.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "role": {
+        "description": "Indicates to accessibility services to treat UI component like a specific role.",
+        "required": false,
+        "type": {
+          "name": "Role"
+        }
+      },
+      "screenReaderFocusable": {
+        "description": "Enables the view to be screen reader focusable, not keyboard focusable.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "shouldRasterizeIOS": {
+        "description": "Whether this view should be rendered as a bitmap before compositing.\n\nOn iOS, this is useful for animations and interactions that do not modify this component's dimensions nor its children;\nfor example, when translating the position of a static view, rasterization allows the renderer to reuse a cached bitmap of a static view\nand quickly composite it during each frame.\n\nRasterization incurs an off-screen drawing pass and the bitmap consumes memory.\nTest and measure when using this property.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "StyleProp<ViewStyle>"
+        }
+      },
+      "tabIndex": {
+        "description": "Indicates whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.\nSee https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex\nfor more details.\n\nSupports the following values:\n-  0 (View is focusable)\n- -1 (View is not focusable)",
+        "required": false,
+        "type": {
+          "name": "-1 | 0"
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "tvParallaxMagnification": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 1.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxShiftDistanceX": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxShiftDistanceY": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "tvParallaxTiltAngle": {
+        "description": "*(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 0.05.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.Trigger",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "children": {
+        "description": "Trigger content — typically `Select.Value` (and optionally a label part).",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "ref": {
+        "description": "Imperative handle exposing `open()` / `close()`. Stays `null` when the field\nis `readOnly` (no interactive trigger is mounted).",
+        "required": false,
+        "type": {
+          "name": "Ref<TriggerRef>"
+        }
+      },
+      "testID": {
+        "description": "Used verbatim to locate the trigger in end-to-end tests. Defaults to `ATL-Select-Trigger`.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.Value",
+    "filePath": "../components-native/src/Select/Select.tsx",
+    "props": {
+      "accessibilityActions": {
+        "description": "Provides an array of custom actions available for accessibility.",
+        "required": false,
+        "type": {
+          "name": "readonly Readonly<{ name: string; label?: string; }>[]"
+        }
+      },
+      "accessibilityElementsHidden": {
+        "description": "A Boolean value indicating whether the accessibility elements contained within this accessibility element\nare hidden to the screen reader.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityHint": {
+        "description": "An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityIgnoresInvertColors": {
+        "description": "https://reactnative.dev/docs/accessibility#accessibilityignoresinvertcolorsios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "Overrides the text that's read by the screen reader when the user interacts with the element. By default, the\nlabel is constructed by traversing all the children and accumulating all the Text nodes separated by space.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabelledBy": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string | string[]"
+        }
+      },
+      "accessibilityLanguage": {
+        "description": "By using the accessibilityLanguage property, the screen reader will understand which language to use while reading the element's label, value and hint. The provided string value must follow the BCP 47 specification (https://www.rfc-editor.org/info/bcp47).\nhttps://reactnative.dev/docs/accessibility#accessibilitylanguage-ios\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLargeContentTitle": {
+        "description": "When `accessibilityShowsLargeContentViewer` is set, this string will be used as title for the large content viewer.\nhttps://reactnative.dev/docs/accessibility#accessibilitylargecontenttitle\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLiveRegion": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"none\" | \"polite\""
+        }
+      },
+      "accessibilityRespondsToUserInteraction": {
+        "description": "Blocks the user from interacting with the component through keyboard while still allowing\nscreen reader to interact with it if this View is still accessible.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityRole": {
+        "description": "Accessibility Role tells a person using either VoiceOver on iOS or TalkBack on Android the type of element that is focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityRole"
+        }
+      },
+      "accessibilityShowsLargeContentViewer": {
+        "description": "A Boolean value that indicates whether or not to show the item in the large content viewer.\nAvailable on iOS 13.0+\nhttps://reactnative.dev/docs/accessibility#accessibilityshowslargecontentviewer\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessibilityState": {
+        "description": "Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.",
+        "required": false,
+        "type": {
+          "name": "AccessibilityState"
+        }
+      },
+      "accessibilityValue": {
+        "description": "Represents the current value of a component. It can be a textual description of a component's value, or for range-based components, such as sliders and progress bars,\nit contains range information (minimum, current, and maximum).",
+        "required": false,
+        "type": {
+          "name": "AccessibilityValue"
+        }
+      },
+      "accessibilityViewIsModal": {
+        "description": "A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "accessible": {
+        "description": "When true, indicates that the view is an accessibility element.\nBy default, all the touchable elements are accessible.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "adjustsFontSizeToFit": {
+        "description": "Specifies whether font should be scaled down automatically to fit given style constraints.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "allowFontScaling": {
+        "description": "Specifies whether fonts should scale to respect Text Size accessibility settings.\nThe default is `true`.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "android_hyphenationFrequency": {
+        "description": "Hyphenation strategy",
+        "required": false,
+        "type": {
+          "name": "\"full\" | \"none\" | \"normal\""
+        }
+      },
+      "aria-busy": {
+        "description": "alias for accessibilityState\n\nsee https://reactnative.dev/docs/accessibility#accessibilitystate",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-checked": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"mixed\" | boolean"
+        }
+      },
+      "aria-disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-expanded": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-hidden": {
+        "description": "A value indicating whether the accessibility elements contained within\nthis accessibility element are hidden.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-label": {
+        "description": "Alias for accessibilityLabel  https://reactnative.dev/docs/view#accessibilitylabel\nhttps://github.com/facebook/react-native/issues/34424",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "description": "Identifies the element that labels the element it is applied to. When the assistive technology focuses on the component with this props,\nthe text is read aloud. The value should should match the nativeID of the related element.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-live": {
+        "description": "Indicates to accessibility services whether the user should be notified\nwhen this view changes. Works for Android API >= 19 only.\n@platform android\n\nSee https://reactnative.dev/docs/view#accessibilityliveregion",
+        "required": false,
+        "type": {
+          "name": "\"assertive\" | \"off\" | \"polite\""
+        }
+      },
+      "aria-modal": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-selected": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-valuemax": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuemin": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuenow": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "aria-valuetext": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "asChild": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "dataDetectorType": {
+        "description": "Determines the types of data converted to clickable URLs in the text element.\nBy default no data types are detected.",
+        "required": false,
+        "type": {
+          "name": "\"all\" | \"email\" | \"link\" | \"none\" | \"phoneNumber\""
+        }
+      },
+      "disabled": {
+        "description": "Specifies the disabled state of the text view for testing purposes.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "dynamicTypeRamp": {
+        "description": "The Dynamic Type scale ramp to apply to this element on iOS.",
+        "required": false,
+        "type": {
+          "name": "\"body\" | \"callout\" | \"caption1\" | \"caption2\" | \"footnote\" | \"headline\" | \"largeTitle\" | \"subheadline\" | \"title1\" | \"title2\" | \"title3\""
+        }
+      },
+      "ellipsizeMode": {
+        "description": "This can be one of the following values:\n\n- `head` - The line is displayed so that the end fits in the container and the missing text\nat the beginning of the line is indicated by an ellipsis glyph. e.g., \"...wxyz\"\n- `middle` - The line is displayed so that the beginning and end fit in the container and the\nmissing text in the middle is indicated by an ellipsis glyph. \"ab...yz\"\n- `tail` - The line is displayed so that the beginning fits in the container and the\nmissing text at the end of the line is indicated by an ellipsis glyph. e.g., \"abcd...\"\n- `clip` - Lines are not drawn past the edge of the text container.\n\nThe default is `tail`.\n\n`numberOfLines` must be set in conjunction with this prop.\n\n> `clip` is working only for iOS",
+        "required": false,
+        "type": {
+          "name": "\"clip\" | \"head\" | \"middle\" | \"tail\""
+        }
+      },
+      "id": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "importantForAccessibility": {
+        "description": "[Android] Controlling if a view fires accessibility events and if it is reported to accessibility services.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"no\" | \"no-hide-descendants\" | \"yes\""
+        }
+      },
+      "lineBreakMode": {
+        "description": "Line Break mode. Works only with numberOfLines.\nclip is working only for iOS",
+        "required": false,
+        "type": {
+          "name": "\"clip\" | \"head\" | \"middle\" | \"tail\""
+        }
+      },
+      "lineBreakStrategyIOS": {
+        "description": "Set line break strategy on iOS.",
+        "required": false,
+        "type": {
+          "name": "\"hangul-word\" | \"none\" | \"push-out\" | \"standard\""
+        }
+      },
+      "maxFontSizeMultiplier": {
+        "description": "Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:\n- null/undefined (default): inherit from the parent node or the global default (0)\n- 0: no max, ignore parent/global default\n- >= 1: sets the maxFontSizeMultiplier of this node to this value",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "minimumFontScale": {
+        "description": "Specifies smallest possible scale a font can reach when adjustsFontSizeToFit is enabled. (values 0.01-1.0).",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "nativeID": {
+        "description": "Used to reference react managed views from native code.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "numberOfLines": {
+        "description": "Used to truncate the text with an ellipsis after computing the text\nlayout, including line wrapping, such that the total number of lines\ndoes not exceed this number.\n\nThis prop is commonly used with `ellipsizeMode`.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "onAccessibilityAction": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.",
+        "required": false,
+        "type": {
+          "name": "(event: AccessibilityActionEvent) => void"
+        }
+      },
+      "onAccessibilityEscape": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onAccessibilityTap": {
+        "description": "When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onLayout": {
+        "description": "Invoked on mount and layout changes with\n\n{nativeEvent: { layout: {x, y, width, height}}}.",
+        "required": false,
+        "type": {
+          "name": "(event: LayoutChangeEvent) => void"
+        }
+      },
+      "onLongPress": {
+        "description": "This function is called on long press.\ne.g., `onLongPress={this.increaseSize}>`",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onMagicTap": {
+        "description": "When accessible is true, the system will invoke this function when the user performs the magic tap gesture.\n@platform ios",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onPress": {
+        "description": "This function is called on press.\nText intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onPressIn": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onPressOut": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: GestureResponderEvent) => void"
+        }
+      },
+      "onTextLayout": {
+        "description": "Invoked on Text layout",
+        "required": false,
+        "type": {
+          "name": "(event: TextLayoutEvent) => void"
+        }
+      },
+      "placeholder": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "pointerEvents": {
+        "description": "Controls how touch events are handled. Similar to `View`'s `pointerEvents`.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"box-none\" | \"box-only\" | \"none\""
+        }
+      },
+      "pressRetentionOffset": {
+        "description": "Defines how far your touch may move off of the button, before deactivating the button.",
+        "required": false,
+        "type": {
+          "name": "{ top: number; left: number; bottom: number; right: number; }"
+        }
+      },
+      "role": {
+        "description": "Indicates to accessibility services to treat UI component like a specific role.",
+        "required": false,
+        "type": {
+          "name": "Role"
+        }
+      },
+      "screenReaderFocusable": {
+        "description": "Enables the view to be screen reader focusable, not keyboard focusable.\n@platform android",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "selectable": {
+        "description": "Lets the user select text, to use the native copy and paste functionality.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "selectionColor": {
+        "description": "The highlight color of the text.",
+        "required": false,
+        "type": {
+          "name": "ColorValue"
+        }
+      },
+      "style": {
+        "description": "@see https://reactnative.dev/docs/text#style",
+        "required": false,
+        "type": {
+          "name": "StyleProp<TextStyle>"
+        }
+      },
+      "suppressHighlighting": {
+        "description": "When `true`, no visual change is made when text is pressed down. By\ndefault, a gray oval highlights the text on press down.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "textBreakStrategy": {
+        "description": "Set text break strategy on Android API Level 23+\ndefault is `highQuality`.",
+        "required": false,
+        "type": {
+          "name": "\"balanced\" | \"highQuality\" | \"simple\""
+        }
+      }
+    }
+  }
+]

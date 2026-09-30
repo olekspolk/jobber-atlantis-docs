@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "FormField",
+    "filePath": "../components-native/src/FormField/FormField.tsx",
+    "props": {
+      "children": {
+        "description": "Children to render.",
+        "required": true,
+        "type": {
+          "name": "(field: ControllerRenderProps<FieldValues, string>, error?: FieldError) => ReactNode"
+        }
+      },
+      "defaultValue": {
+        "description": "The initial value of the form field.",
+        "required": false,
+        "type": {
+          "name": "T"
+        }
+      },
+      "name": {
+        "description": "Name of the field.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "validations": {
+        "description": "Rules for returning an error when validations are violated.\nWARNING: This component needs to be nested inside a FormProvider\n  for validations to work.",
+        "required": false,
+        "type": {
+          "name": "RegisterOptions"
+        }
+      }
+    }
+  }
+]

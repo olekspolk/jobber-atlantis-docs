@@ -1,0 +1,57 @@
+[
+  {
+    "displayName": "ProgressIndicator",
+    "filePath": "../components/src/ProgressIndicator/ProgressIndicator.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "Accessible label exposed via `aria-label` on the root element. When\nomitted, defaults to `\"{value}%\"` when `max === 100` (or `max` is\nomitted), and `\"{value} / {max}\"` otherwise.\n\nOverride to localize or to describe the specific activity (e.g.\n`\"Uploading file\"`).",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "className": {
+        "description": "Custom class name merged onto the root element alongside the component's\nown classes.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "max": {
+        "description": "Maximum value. Pass `max={4}` with `value={2}` for \"2 of 4 steps\"; pass\n`value={75}` for \"75%\".",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "size": {
+        "description": "Visual size. `smaller` renders at 4px tall, `small` at 8px, `base` at 16px.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"small\" | \"smaller\""
+        }
+      },
+      "style": {
+        "description": "Custom inline styles applied to the root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "value": {
+        "description": "Current progress. Expected to be in the range `0..max` inclusive.",
+        "required": true,
+        "type": {
+          "name": "number"
+        }
+      },
+      "variation": {
+        "description": "Visual variation:\n- `continuous` renders a single fill bar driven by `value / max`.\n- `stepped` renders `max` segments, the first `value` of which are filled.",
+        "required": false,
+        "type": {
+          "name": "\"continuous\" | \"stepped\""
+        }
+      }
+    }
+  }
+]

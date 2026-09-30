@@ -1,0 +1,708 @@
+[
+  {
+    "displayName": "Portal",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectPortalState) => string)"
+        }
+      },
+      "container": {
+        "description": "A parent element to render the portal element into.",
+        "required": false,
+        "type": {
+          "name": "HTMLElement | ShadowRoot | RefObject<HTMLElement | ShadowRoot>"
+        }
+      },
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<HTMLButtonElement>"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectPortalState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectPortalState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Root",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "actionsRef": {
+        "description": "A ref to imperative actions.\n- `unmount`: Manually unmounts the select.\nCall this after any externally controlled closing animation finishes.",
+        "required": false,
+        "type": {
+          "name": "RefObject<SelectRootActions>"
+        }
+      },
+      "autoComplete": {
+        "description": "Provides a hint to the browser for autofill.\n@see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/autocomplete",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "defaultOpen": {
+        "description": "Whether the select popup is initially open.\n\nTo render a controlled select popup, use the `open` prop instead.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "defaultValue": {
+        "description": "The uncontrolled value of the select when it's initially rendered.\n\nTo render a controlled select, use the `value` prop instead.",
+        "required": false,
+        "type": {
+          "name": "SelectValueType<Value, Multiple>"
+        }
+      },
+      "disabled": {
+        "description": "Whether the component should ignore user interaction.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "form": {
+        "description": "Identifies the form that owns the hidden input.\nUseful when the select is rendered outside the form.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "highlightItemOnHover": {
+        "description": "Whether moving the pointer over items should highlight them.\nDisabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "id": {
+        "description": "The id of the Select.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "inputRef": {
+        "description": "A ref to access the hidden input element.",
+        "required": false,
+        "type": {
+          "name": "Ref<HTMLInputElement>"
+        }
+      },
+      "isItemEqualToValue": {
+        "description": "Custom comparison logic used to determine if a select item value matches the current selected value. Useful when item values are objects without matching referentially.\nDefaults to `Object.is` comparison.",
+        "required": false,
+        "type": {
+          "name": "(itemValue: Value, value: Value) => boolean"
+        }
+      },
+      "itemToStringLabel": {
+        "description": "When the item values are objects (`<Select.Item value={object}>`), this function converts the object value to a string representation for display in the trigger.\nIf the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop.",
+        "required": false,
+        "type": {
+          "name": "(itemValue: Value) => string"
+        }
+      },
+      "itemToStringValue": {
+        "description": "When the item values are objects (`<Select.Item value={object}>`), this function converts the object value to a string representation for form submission.\nIf the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop.",
+        "required": false,
+        "type": {
+          "name": "(itemValue: Value) => string"
+        }
+      },
+      "items": {
+        "description": "Data structure of the items rendered in the select popup.\nWhen specified, `<Select.Value>` renders the label of the selected item instead of the raw value.\n@example ```tsx\nconst items = {\n  sans: 'Sans-serif',\n  serif: 'Serif',\n  mono: 'Monospace',\n  cursive: 'Cursive',\n};\n<Select.Root items={items} />\n```",
+        "required": false,
+        "type": {
+          "name": "readonly Group<any>[] | Record<string, ReactNode> | readonly { label: ReactNode; value: any; }[]"
+        }
+      },
+      "modal": {
+        "description": "Determines if the select enters a modal state when open.\n- `true`: user interaction is limited to the select: document page scroll is locked and pointer interactions on outside elements are disabled.\n- `false`: user interaction with the rest of the document is allowed.\n\nOn touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "multiple": {
+        "description": "Whether multiple items can be selected.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "name": {
+        "description": "Identifies the field when a form is submitted.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onOpenChange": {
+        "description": "Event handler called when the select popup is opened or closed.",
+        "required": false,
+        "type": {
+          "name": "(open: boolean, eventDetails: SelectRootChangeEventDetails) => void"
+        }
+      },
+      "onOpenChangeComplete": {
+        "description": "Event handler called after any animations complete when the select popup is opened or closed.",
+        "required": false,
+        "type": {
+          "name": "(open: boolean) => void"
+        }
+      },
+      "onValueChange": {
+        "description": "Event handler called when the value of the select changes.",
+        "required": false,
+        "type": {
+          "name": "(value: SelectValueType<Value, Multiple> | (Multiple extends true ? never : null), eventDetails: SelectRootChangeEventDetails) => void"
+        }
+      },
+      "open": {
+        "description": "Whether the select popup is currently open.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "readOnly": {
+        "description": "Whether the user should be unable to choose a different option from the select popup.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "required": {
+        "description": "Whether the user must choose a value before submitting a form.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "value": {
+        "description": "The value of the select. Use when controlled.",
+        "required": false,
+        "type": {
+          "name": "SelectValueType<Value, Multiple>"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveFieldTrigger",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<HTMLButtonElement>"
+        }
+      },
+      "valueSlot": {
+        "description": "The value/placeholder display element rendered before the chevron.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveGroup",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectGroupState) => string)"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectGroupState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectGroupState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveGroupLabel",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectGroupLabelState) => string)"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectGroupLabelState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectGroupLabelState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveItem",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectItemState) => string)"
+        }
+      },
+      "disabled": {
+        "description": "Whether the component should ignore user interaction.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "label": {
+        "description": "Specifies the text label to use when the item is matched during keyboard text navigation.\n\nDefaults to the item text content if not provided.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "nativeButton": {
+        "description": "Whether the component renders a native `<button>` element when replacing it\nvia the `render` prop.\nSet to `false` if the rendered element is not a button (for example, `<div>`).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectItemState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectItemState) => CSSProperties)"
+        }
+      },
+      "value": {
+        "description": "A unique value that identifies this select item.",
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveItemIndicator",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectItemIndicatorState) => string)"
+        }
+      },
+      "keepMounted": {
+        "description": "Whether to keep the HTML element in the DOM when the item is not selected.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectItemIndicatorState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectItemIndicatorState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveItemText",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectItemTextState) => string)"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectItemTextState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectItemTextState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveList",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectListState) => string)"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectListState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectListState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitivePopup",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectPopupState) => string)"
+        }
+      },
+      "finalFocus": {
+        "description": "Determines the element to focus when the select popup is closed.\n\n- `false`: Do not move focus.\n- `true`: Move focus based on the default behavior (trigger or previously focused element).\n- `RefObject`: Move focus to the ref element.\n- `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`).\n  Return an element to focus, `true` to use the default behavior, or `false`/`undefined` to do nothing.",
+        "required": false,
+        "type": {
+          "name": "boolean | RefObject<HTMLElement> | ((closeType: InteractionType) => boolean | void | HTMLElement)"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectPopupState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectPopupState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitivePositioner",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "align": {
+        "description": "How to align the popup relative to the specified side.",
+        "required": false,
+        "type": {
+          "name": "Align"
+        }
+      },
+      "alignItemWithTrigger": {
+        "description": "Whether the positioner overlaps the trigger so the selected item's text is aligned with the trigger's value text. This only applies to mouse input and is automatically disabled if there is not enough space.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "alignOffset": {
+        "description": "Additional offset along the alignment axis in pixels.\nAlso accepts a function that returns the offset to read the dimensions of the anchor\nand positioner elements, along with its side and alignment.\n\nThe function takes a `data` object parameter with the following properties:\n- `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.\n- `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.\n- `data.side`: which side of the anchor element the positioner is aligned against.\n- `data.align`: how the positioner is aligned relative to the specified side.\n@example ```jsx\n<Positioner\n  alignOffset={({ side, align, anchor, positioner }) => {\n    return side === 'top' || side === 'bottom'\n      ? anchor.width\n      : anchor.height;\n  }}\n/>\n```",
+        "required": false,
+        "type": {
+          "name": "OffsetFunction | number"
+        }
+      },
+      "anchor": {
+        "description": "An element to position the popup against.\nBy default, the popup will be positioned against the trigger.",
+        "required": false,
+        "type": {
+          "name": "Element | RefObject<Element> | VirtualElement | (() => Element | VirtualElement)"
+        }
+      },
+      "arrowPadding": {
+        "description": "Minimum distance to maintain between the arrow and the edges of the popup.\n\nUse it to prevent the arrow element from hanging out of the rounded corners of a popup.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectPositionerState) => string)"
+        }
+      },
+      "collisionAvoidance": {
+        "description": "Determines how to handle collisions when positioning the popup.\n\n`side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`):\n- `'flip'`: keep the requested side when it fits; otherwise try the opposite side\n  (`top` and `bottom`, or `left` and `right`).\n- `'shift'`: never change side; keep the requested side and move the popup within\n  the clipping boundary so it stays visible.\n- `'none'`: do not correct side-axis overflow.\n\n`align` controls overflow on the alignment axis (`start`/`center`/`end`):\n- `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.\n- `'shift'`: keep side and requested alignment, then nudge the popup along the\n  alignment axis to fit.\n- `'none'`: do not correct alignment-axis overflow.\n\n`fallbackAxisSide` controls fallback behavior on the perpendicular axis when the\npreferred axis cannot fit:\n- `'start'`: allow perpendicular fallback and try the logical start side first\n  (`top` before `bottom`, or `left` before `right` in LTR).\n- `'end'`: allow perpendicular fallback and try the logical end side first\n  (`bottom` before `top`, or `right` before `left` in LTR).\n- `'none'`: do not fallback to the perpendicular axis.\n\nWhen `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`.\nIf `align` is omitted, it defaults to `'flip'`.\n@example ```jsx\n<Positioner\n  collisionAvoidance={{\n    side: 'shift',\n    align: 'shift',\n    fallbackAxisSide: 'none',\n  }}\n/>\n```",
+        "required": false,
+        "type": {
+          "name": "CollisionAvoidance"
+        }
+      },
+      "collisionBoundary": {
+        "description": "An element or a rectangle that delimits the area that the popup is confined to.",
+        "required": false,
+        "type": {
+          "name": "Boundary"
+        }
+      },
+      "collisionPadding": {
+        "description": "Additional space to maintain from the edge of the collision boundary.",
+        "required": false,
+        "type": {
+          "name": "Padding"
+        }
+      },
+      "disableAnchorTracking": {
+        "description": "Whether to disable the popup from tracking any layout shift of its positioning anchor.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "positionMethod": {
+        "description": "Determines which CSS `position` property to use.",
+        "required": false,
+        "type": {
+          "name": "\"absolute\" | \"fixed\""
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectPositionerState>"
+        }
+      },
+      "side": {
+        "description": "Which side of the anchor element to align the popup against.\nMay automatically change to avoid collisions.",
+        "required": false,
+        "type": {
+          "name": "Side"
+        }
+      },
+      "sideOffset": {
+        "description": "Distance between the anchor and the popup in pixels.\nAlso accepts a function that returns the distance to read the dimensions of the anchor\nand positioner elements, along with its side and alignment.\n\nThe function takes a `data` object parameter with the following properties:\n- `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.\n- `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.\n- `data.side`: which side of the anchor element the positioner is aligned against.\n- `data.align`: how the positioner is aligned relative to the specified side.\n@example ```jsx\n<Positioner\n  sideOffset={({ side, align, anchor, positioner }) => {\n    return side === 'top' || side === 'bottom'\n      ? anchor.height\n      : anchor.width;\n  }}\n/>\n```",
+        "required": false,
+        "type": {
+          "name": "OffsetFunction | number"
+        }
+      },
+      "sticky": {
+        "description": "Whether to maintain the popup in the viewport after\nthe anchor element was scrolled out of view.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectPositionerState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveSeparator",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "orientation": {
+        "description": "The orientation of the separator.",
+        "required": false,
+        "type": {
+          "name": "Orientation"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SeparatorState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SeparatorState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveTrigger",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectTriggerState) => string)"
+        }
+      },
+      "disabled": {
+        "description": "Whether the component should ignore user interaction.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "nativeButton": {
+        "description": "Whether the component renders a native `<button>` element when replacing it\nvia the `render` prop.\nSet to `false` if the rendered element is not a button (for example, `<div>`).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectTriggerState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectTriggerState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveValue",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "children": {
+        "description": "Accepts a function that returns a `ReactNode` to format the selected value.\n@example ```tsx\n<Select.Value>\n  {(value: string | null) => value ? labels[value] : 'No value'}\n</Select.Value>\n```",
+        "required": false,
+        "type": {
+          "name": "ReactNode | ((value: any) => ReactNode)"
+        }
+      },
+      "className": {
+        "description": "CSS class applied to the element, or a function that\nreturns a class based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "string | ((state: SelectValueState) => string)"
+        }
+      },
+      "placeholder": {
+        "description": "The placeholder value to display when no value is selected.\nThis is overridden by `children` if specified, or by a null item's label in `items`.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "render": {
+        "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectValueState>"
+        }
+      },
+      "style": {
+        "description": "Style applied to the element, or a function that\nreturns a style object based on the component's state.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | ((state: SelectValueState) => CSSProperties)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SelectPrimitiveValueText",
+    "filePath": "../components/src/primitives/SelectPrimitive/SelectPrimitive.tsx",
+    "props": {
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<HTMLButtonElement>"
+        }
+      }
+    }
+  }
+]

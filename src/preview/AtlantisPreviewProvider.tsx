@@ -10,20 +10,36 @@ import {
   useRef,
   useState,
 } from "react";
-import { EMPTY_IFRAME_HTML, type PreviewTheme, WebCodeWrapper, getPreCode, skeletonHTML } from "./skeleton";
+import { type ComponentKind, getPlatformForComponentType } from "../site/componentTypes";
+import {
+  EMPTY_IFRAME_HTML,
+  MobileCodeWrapper,
+  type PreviewPlatform,
+  type PreviewTheme,
+  WebCodeWrapper,
+  getPreCode,
+  skeletonHTML,
+} from "./skeleton";
 
 interface AtlantisPreviewContextValue {
   readonly iframe: RefObject<HTMLIFrameElement | null>;
+  readonly iframeMobile: RefObject<HTMLIFrameElement | null>;
   readonly updateCode: (code: string, forceUpdate?: boolean) => void;
   readonly code: string;
   readonly error: string;
+  /** The example shown: the web component, its supported rewrite, or the mobile one. */
+  readonly type: ComponentKind;
+  readonly updateType: (type: ComponentKind) => void;
 }
 
 const AtlantisPreviewContext = createContext<AtlantisPreviewContextValue>({
   iframe: { current: null },
+  iframeMobile: { current: null },
   updateCode: () => undefined,
   code: "",
   error: "",
+  type: "web",
+  updateType: () => undefined,
 });
 
 export const useAtlantisPreview = () => useContext(AtlantisPreviewContext);
@@ -37,8 +53,8 @@ const pendingModules = new WeakMap<HTMLIFrameElement, string>();
 
 // Same flow as atlantis.getjobber.com: the first update writes the skeleton and waits for "load",
 // later updates only post the new module to the iframe.
-const writeCodeToIFrame = (frame: HTMLIFrameElement, theme: PreviewTheme, transpiledCode: string) => {
-  const code = WebCodeWrapper(transpiledCode);
+const writeCodeToIFrame = (frame: HTMLIFrameElement, theme: PreviewTheme, platform: PreviewPlatform, transpiledCode: string) => {
+  const code = platform === "mobile" ? MobileCodeWrapper(transpiledCode) : WebCodeWrapper(transpiledCode);
   if (pendingModules.has(frame)) {
     pendingModules.set(frame, code);
     return;
@@ -63,23 +79,33 @@ const writeCodeToIFrame = (frame: HTMLIFrameElement, theme: PreviewTheme, transp
     { once: true },
   );
   doc.open();
-  doc.write(skeletonHTML(theme));
+  doc.write(skeletonHTML(theme, platform));
   doc.close();
 };
 
-export const AtlantisPreviewProvider = ({ children }: PropsWithChildren) => {
+export const AtlantisPreviewProvider = ({ children, initialType = "web" }: PropsWithChildren<{ initialType?: ComponentKind }>) => {
   const { theme } = useAtlantisTheme();
   const iframe = useRef<HTMLIFrameElement>(null);
+  const iframeMobile = useRef<HTMLIFrameElement>(null);
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
-  const lastCode = useRef("");
-  // Read when the skeleton is written, so that updateCode never changes: the page reloads its example
-  // whenever updateCode changes, and the editor keeps the one it was created with.
+  const [type, setType] = useState<ComponentKind>(initialType);
+  const lastSignature = useRef("");
+  // Read when the code is written rather than captured, so that updateCode never changes: the
+  // editor keeps the one it was created with, across the Web and Mobile tabs.
+  const currentType = useRef(initialType);
   const currentTheme = useRef(theme);
 
+  const updateType = useCallback((next: ComponentKind) => {
+    currentType.current = next;
+    setType(next);
+  }, []);
+
   const updateCode = useCallback((codeUp: string, forceUpdate?: boolean) => {
-    if (!forceUpdate && codeUp === lastCode.current) return;
-    lastCode.current = codeUp;
+    const type = currentType.current;
+    const signature = `${type}:${codeUp}`;
+    if (!forceUpdate && signature === lastSignature.current) return;
+    lastSignature.current = signature;
     setCode(codeUp);
     try {
       const transpiledCode =
@@ -88,7 +114,9 @@ export const AtlantisPreviewProvider = ({ children }: PropsWithChildren) => {
           plugins: [["transform-typescript", { isTSX: true, allExtensions: false }]],
         }).code ?? "";
       setError("");
-      if (iframe.current) writeCodeToIFrame(iframe.current, currentTheme.current, transpiledCode);
+      const platform = getPlatformForComponentType(type);
+      const frame = platform === "mobile" ? iframeMobile.current : iframe.current;
+      if (frame) writeCodeToIFrame(frame, currentTheme.current, platform, transpiledCode);
     } catch (e) {
       setError((e as Error).message);
     }
@@ -96,11 +124,13 @@ export const AtlantisPreviewProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     currentTheme.current = theme;
-    if (iframe.current) postToFrame(iframe.current, { type: "updateTheme", theme });
+    for (const frame of [iframe.current, iframeMobile.current]) {
+      if (frame) postToFrame(frame, { type: "updateTheme", theme });
+    }
   }, [theme]);
 
   return (
-    <AtlantisPreviewContext.Provider value={{ iframe, updateCode, code, error }}>
+    <AtlantisPreviewContext.Provider value={{ iframe, iframeMobile, updateCode, code, error, type, updateType }}>
       {children}
     </AtlantisPreviewContext.Provider>
   );

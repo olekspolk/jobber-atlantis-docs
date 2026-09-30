@@ -1,0 +1,153 @@
+import { Figma } from "../../mdx/blocks";
+
+# Adding an icon
+
+## Design guidelines
+
+#### Size, weight, and spacing
+
+When contributing a new icon, design for the `base` size. The `small` and
+`large` sizes will be created automatically once the `base` size has been added.
+
+<Figma url="https://www.figma.com/design/HXWXusJPZLmaJNGlKEpiyhXW/Product%2FBase?m=auto&node-id=22052-110&t=MBdtC5XQjEl6WoD4-1" />
+
+| Specification | Value |
+| --- | --- |
+| Frame size | 24x24 |
+| Max icon size | 20x20 |
+| Safe area | 2px |
+| Stroke weight | 2px |
+
+Icons are only responsible for their own 2px safe area. Spacing when used within
+other components, such as [List](/components/List), is the responsibility of
+those components.
+
+#### Corners
+
+<Figma url="https://www.figma.com/design/HXWXusJPZLmaJNGlKEpiyhXW/Product%2FBase?m=auto&node-id=22052-80&t=MBdtC5XQjEl6WoD4-1" />
+
+| Corner Type | Radius |
+| --- | --- |
+| 90° | 2px |
+| More than 90° | 1px |
+| Less than 90° | 0\.5px |
+| Interior corners | No radius |
+
+#### Line terminals
+
+<Figma url="https://www.figma.com/design/HXWXusJPZLmaJNGlKEpiyhXW/Product%2FBase?m=auto&node-id=22052-63&t=MBdtC5XQjEl6WoD4-1" />
+
+| Line Terminal Type | Style |
+| --- | --- |
+| Interrupted lines | Geometric/square |
+| Organic line endings | Round |
+
+#### Color
+
+Design your icons with `#000000`. If an icon is associated with a systemic color
+such as ["destructive"](/design/colors#component-view-design-&-usage-guidelines)
+specify the system color for the icon when it is added to Atlantis. In all other
+cases, use the default icon color.
+
+Get approval for your new icon from the design team, then proceed to creating
+and exporting a production-ready SVG from Figma.
+
+## Creating and exporting from Figma
+
+1. With the vector object selected, outline strokes (shift + command + o or
+   Object \> Outline Stroke in the Figma menu)
+
+- Tip: `CMD + /` will open quick actions.
+
+<img width="100%" src={"/assets/add_icon_1-BRCp6ck8.avif"} />
+
+2. Use the Union tool to combine all vector elements into one object
+
+<img width="100%" src={"/assets/add_icon_2-BTV524Gi.avif"} />
+
+3. Flatten the vector object (`command + e` or `Object > Flatten Selection`)
+
+<img width="100%" src={"/assets/add_icon_3-C8Pib-QM.avif"} />
+
+4. Rename the vector object "Union" (see icons in Product/Base for reference)
+
+5. Set the vector object to have a fill of `#000000`
+
+6. Open
+   [Fill Rule Editor](https://www.figma.com/community/plugin/771155994770327940/Fill-Rule-Editor)
+   from the Plugins by clicking "Run"
+
+<img width="100%" src={"/assets/add_icon_4-DpOd_hOB.avif"} />
+
+7. The goal here is to ensure everything is highlighted blue (non-zero rule)
+   under the "Fill Rule Editor" instead of orange (even-odd rule)
+
+- Figma uses even-odd rule for SVG's and it isn't widely supported
+
+<img width="100%" src={"/assets/add_icon_5-DbLaJveJ.avif"} />
+
+8. Click the orange vectors to turn them blue
+
+<img width="100%" src={"/assets/add_icon_6-B9sf_wZF.avif"} />
+
+9. Once it's in a blue state, some hollow parts will be filled again. To make
+   them have holes again, click the paths/lines you want to be hollowed.
+
+- Tip: When you hover on the path, it'll get darker. At that point, you can
+  click it! Otherwise, it'll turn orange again and you'll have to start over.
+  <img width="100%" src={"/assets/add_icon_7-B1nlioY0.gif"} />
+
+
+10. Export an SVG of your icon in the 24×24 frame. Ensure:
+    - your vector object is not going outside of the frame
+    - the Frame has the "Clip Content" checkmark unchecked
+    - width and height are 24×24
+
+<img width="100%" src={"/assets/add_icon_8-Cm4it_9G.avif"} />
+
+## Adding your icon to Atlantis
+
+Either you (the designer) or your devs can do this step. This assumes that you
+have the Atlantis repo on your machine and know how to use GitHub.
+
+1. Open the Atlantis folder in your machine and navigate to
+   `packages/design/src/icons`. Drop your exported SVG in the icons folder
+2. Open a file called `Icon.stories.mdx` and update the Icons documentation
+3. Find the appropriate section for your icon (such as Arrows, Files, or User)
+   and add it to that list
+
+### To preview locally
+
+1. Open your terminal and run `pnpm install`
+2. Run `pnpm run bootstrap`
+3. Run `pnpm start`
+
+### To publish a preview build
+
+1. Push your code to GitHub (Atlantis will compress your SVG files on commit)
+2. Create a Pull Request (PR)
+3. A preview build will be automatically created and appear on your PR as a
+   comment
+
+### Reviews and approvals
+
+1. Tag the Atlantis team for a review
+2. Once approved, Atlantis will merge your PR
+
+## Using your icon
+
+One the PR is merged, import into your project by running
+`pnpm install @jobber/components@latest @jobber/design@latest` in the repo where you
+need to use your icon.
+
+If at any point you run into issues or have questions about this process, please
+reach out to us at #team-atlantis
+
+## Troubleshooting
+
+My icon has areas filled in that shouldn't be!
+
+<img width="100%" src={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAABJCAYAAADhc1jLAAAACXBIWXMAAAsSAAALEgHS3X78AAAGFElEQVR4nO3d24uNexzH8f0/KefklEMOIYoQYi6ISMoohWwlLuRCxCY3Uw4XcjG5MqU2OYRoKewaxzIXcpz73+731FqRIVYz853nt16v+pSZZ2bNXD299/M8s/Zf6TcNDAykwcFBM7NRX39/f/jvYGaduXz+acdfAsvMxvoElplFTWCZWbETWGYWNYFlZsVOYJlZ1ASWmRU7gWVmURNYZlbsBJaZRU1gmVmxE1hmFjWBZWbFTmCZWdQElpkVO4FlZlETWGZW7ASWmUVNYJlZsRNYZhY1gWVmxU5gmVnURjywGo1G9UPMzEZ7d+/eDf8dzKwzl88/IxpY+QoWQATnHyBKu+cfgQWMec4/QBSBBRTL+QeIIrCAYjn/AFEEFlAs5x8gisACiuX8A0QRWECx2j3/RL9/zu8OGLsEFlAsgQVEEVhAsQQWEEVgAcUSWEAUgQUUS2ABUQQWUCyBBUQRWECxBBYQRWABxRJYQJRaBNZ/L16lY//0pK7uv79b/lw+9qdfB3QGgQVEqUVgDRVN38bTn34d0BkEFhClFoH1s2hq7k+/DugMAguIIrCAYgksIIrAAoolsIAoAgsolsACotQisDzkDrRjOAPr/fv3ae/evWnhwoVp1qxZ6fDhw+ndu3fVsa9fv6aNGzemzZs3p9u3b6edO3dWH58+fTp9/Pix+pqjR4+mlStXVsf37duX1q1blw4dOpTevn373c85efJkWrNmTZo+fXpav359Wr58ucCCGqpFYHmbBqAdwxlYz58/T6dOnUoPHz5MT58+TVu2bEkXL15sHb93714aP358mjt3bjpx4kQ6e/ZsWrBgQdqzZ091/PXr12nRokVp2rRpaf/+/dX3rl27Ni1ZsqSKt/w1t27dShs2bKh+7xxm+TXya+aAE1hQL7UILIB2DPctwhxCfX19qaenJx05ciTt2LGjdezNmzdp3Lhx6fr1663PPX78uPrckydPqo/z1ahjx461jn/69CnNnj07Xbhwofo4v/bq1avTo0ePWle28r9dwYL6EVhAsYYzsM6dO1ddneru7q6uUOXbgZs2bfousCZNmtS6Jdjc4sWL07Vr11qBlW8Rfnv8wIED1e3G5q3GgwcPpnnz5lVhlq9uHT9+XGBBDdUisNq59dfb9281oHMNV2B9+fIlTZkypbqF1/xcb2/vD4GVoyjfQmx+7tWrV9Utvub35cA6f/78d6+9YsWK6tZj/ne+9dh8ruvly5fp5s2b1bNY+UqYwIJ6qUVgtfPwur8cBIYrsPKVpXwlKkdVvkKVwyc/XzVUYOWH2/Px+/fvV7cQly1b1rqqlQMrf9/Vq1ermMq3CydOnFj9Ox/PV8bys135927ekpw/f35qNBoCC2qmFoHVztsvCCxgOG8R5iiaM2dOFURLly5Nly5dShMmTEhdXV2twJoxY0a6fPlyFVVTp05NW7duTc+ePWu9Rg6s/HB7/gvCyZMnp1WrVqUbN260jue/Osyvka9a5Qfgc9R9+8yWwIL6KCqw8i3Bn32N24XQeYb7IffPnz9XITXUsfz5mTNn/vR7m4H1s6tReflKV3MvXryobk3+6vWAsUtgAcUazTcazc9Z5bdgyA+xP3jw4Ifj/f391XtoXblyJd25cyd9+PChrZ8jsKAeigqsob4H6FyjFVj5Ga3du3enbdu2Vdu1a9cPf0145syZ1vHt27f/8kqWwIL6q0VgecgdaIf/VQ4QpRaB5W0agHYILCBKLQILoB0CC4gisIBiCSwgisACiiWwgCgCCyiWwAKiCCygWAILiCKwgGIJLCCKwAKK5fwDRBFYQLGcf4AoAgsolvMPEEVgAcVy/gGiCCygWM4/QBSBBRTL+QeIMuKB1Wg0qh9iZjbac/4xs6jl88+IBtaA/4IEgjj/AFHaPf8ILGDMc/4BoggsoFjOP0AUgQUUy/kHiCKwgGI5/wBRBBZQLOcfIIrAAorV7vlncHCwIwaMHIEFFEtgCSyIIrCAYgksgQVRBBZQLIElsCCKwAKKJbAEFkQRWECxBJbAgigCCyiWwBJYEEVgAcUSWAILoggsoFgCS2BBlHbPP/8Dv9iWXhKy1ewAAAAASUVORK5CYII="} />
+
+Ensure you do steps 6 to 9 of
+[Creating and exporting from Figma.](#component-view-creating-and-exporting-from-figma)

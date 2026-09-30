@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "Link",
+    "filePath": "../components/src/Link/Link.tsx",
+    "props": {
+      "ariaExpanded": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "ariaLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "external": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "url": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

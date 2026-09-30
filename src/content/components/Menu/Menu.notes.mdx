@@ -1,0 +1,226 @@
+import { Banner } from "@jobber/components/Banner";
+
+## Composable Version
+
+The composable API is the preferred way to build Menus. It supports a
+declarative structure, richer customization, and adapts automatically between a
+desktop dropdown and a small-screen bottom sheet.
+
+```tsx
+<Menu>
+  <Menu.Trigger>
+    <Button>Trigger</Button>
+  </Menu.Trigger>
+  <Menu.Content>
+    <Menu.Item onClick={clickHandler("email")} textValue="Email">
+      <Menu.ItemLabel>Email</Menu.ItemLabel>
+      <Menu.ItemIcon name="email" />
+    </Menu.Item>
+
+    <Menu.Item onClick={clickHandler("text")} textValue="Text message">
+      <Menu.ItemLabel>Text message</Menu.ItemLabel>
+      <Menu.ItemIcon name="sms" />
+    </Menu.Item>
+  </Menu.Content>
+</Menu>
+```
+
+#### Sub Components
+
+**_Menu.Trigger (Required)_**
+
+An interactive element that opens the Menu when clicked, tapped, or activated
+with the keyboard. `Menu.Trigger` handles opening and closing the Menu, so the
+trigger content itself does not need its own `onClick` to open it.
+
+`Menu.Trigger` can render a default Atlantis trigger from simple content, accept
+custom children such as a `Button` or `Chip`, or use a `render` prop when you
+need full control over the trigger element. Whatever you provide must still be
+interactive and accessible.
+
+**_Menu.Content (Required)_**
+
+A structural container for menu content. It typically contains one or more
+`Menu.Item`s and optional grouping or separation elements such as `Menu.Group`,
+`Menu.GroupLabel`, and `Menu.Separator`.
+
+Use `preferredPlacement` to influence desktop dropdown placement when needed.
+Values follow Base UI's positioner vocabulary: a side (`top`, `bottom`, `left`,
+`right`, `inline-start`, `inline-end`), optionally followed by an alignment
+(`start`, `center`, `end`) — for example `"bottom"`, `"bottom end"`, or
+`"right start"`. When omitted, the menu opens at `"bottom start"`.
+
+**_Menu.Item (Strongly recommended)_**
+
+The primary interactive row in a Menu.
+
+Each item should provide an `onClick` or an `href`. Provide `textValue` when the
+visible content is abbreviated, custom, or otherwise not ideal for type-ahead
+matching.
+
+`Menu.Item` supports:
+
+- `variation="destructive"` for destructive actions
+- `closeOnClick` to control whether the Menu closes after selection
+- `href`, `target`, and `rel` for link-style items
+
+Default item subcomponents plug into the shared menu row layout:
+
+- `Menu.ItemLabel`: Renders the primary label text.
+- `Menu.ItemIcon`: Renders a leading icon.
+- `Menu.ItemPrefix`: Renders custom leading content.
+- `Menu.ItemSuffix`: Renders custom trailing content.
+
+Use the built-in item pieces when possible. They align automatically across the
+menu and respond to shared row styling such as destructive state.
+
+If it is necessary to also adjust the _styles of the container_, style props
+apply to the _container_ element. No access is provided to internal markup due
+to accessibility and behavior requirements.
+
+**_Menu.Group (Optional)_**
+
+A structural grouping element for related menu items. Use it to create scannable
+sections or apply an `ariaLabel` to a related set of actions.
+
+**_Menu.GroupLabel (Optional)_**
+
+A presentational label for a `Menu.Group`. Use it to describe the category of
+actions in that group. Prefer `Menu.GroupLabel` over custom text styling so
+group headings stay consistent across menus.
+
+**_Menu.Separator (Optional)_**
+
+A visual divider used to separate groups of items or distinct sections of
+content.
+
+**_Menu.RadioGroup and Menu.RadioItem (Optional)_**
+
+Use radio items for persistent single-select choices such as a view mode,
+sorting option, or filter state.
+
+Radio menus remain open by default after selection. Use `closeOnClick` on a
+`Menu.RadioItem` if your experience should close after choosing an option.
+
+```tsx
+<Menu.RadioGroup defaultValue="list">
+  <Menu.RadioItem value="list" textValue="List view">
+    <Menu.ItemLabel>List view</Menu.ItemLabel>
+  </Menu.RadioItem>
+  <Menu.RadioItem value="board" textValue="Board view">
+    <Menu.ItemLabel>Board view</Menu.ItemLabel>
+  </Menu.RadioItem>
+</Menu.RadioGroup>
+```
+
+**_Menu.Submenu, Menu.SubmenuTrigger, and Menu.SubmenuContent (Optional)_**
+
+Use submenus when a related set of actions is better surfaced one level deeper.
+On desktop, submenus open adjacent to the parent menu. On small screens, they
+drill into a nested bottom-sheet view.
+
+Provide a `textValue` on `Menu.SubmenuTrigger` when the submenu label should be
+explicitly defined for typeahead behavior or the small-screen drill-down title.
+
+### Deprecated wrappers
+
+Older Menu code may use `Menu.Section`, `Menu.Header`, and `Menu.HeaderLabel`.
+These wrappers still work for backward compatibility, but new code should use
+`Menu.Group` and `Menu.GroupLabel` instead:
+
+- `Menu.Group` replaces `Menu.Section` as the grouping container.
+- `Menu.GroupLabel` replaces `Menu.Header` as the group heading.
+- Do not use `Menu.HeaderLabel` in new code. Put the heading content directly
+  inside `Menu.GroupLabel`.
+
+```tsx
+<Menu.Group>
+  <Menu.GroupLabel>Sharing</Menu.GroupLabel>
+  <Menu.Item onClick={clickHandler("email")} textValue="Email">
+    <Menu.ItemLabel>Email</Menu.ItemLabel>
+  </Menu.Item>
+</Menu.Group>
+```
+
+## Layout and spacing
+
+Composable menu rows use a shared grid/subgrid model so labels, icons, prefixes,
+suffixes, radio indicators, and submenu chevrons align consistently across rows.
+
+If at least one item uses a built-in leading slot such as `Menu.ItemIcon` or
+`Menu.ItemPrefix`, the layout reserves leading space across the menu. If no
+items use a built-in leading slot, the label column shifts flush left.
+
+This is why built-in item slots are the easiest way to get correct alignment and
+spacing.
+
+## Custom content (advanced)
+
+Prefer the built-in Menu item pieces whenever possible. They provide the most
+consistent alignment and behavior across menus.
+
+Custom item layouts are an escape hatch for exceptional cases, not a preferred
+authoring pattern.
+
+<Banner type="warning" dismissible={false}>
+Avoid mixing built-in slots with unrelated custom layout patterns unless you
+have tested carefully. The shared grid reserves space based on the presence of
+built-in slot content, which can lead to unexpected spacing or alignment. Also
+test custom layouts on small screens, where the Menu is presented in a bottom
+sheet.
+</Banner>
+
+## Component customization
+
+For the composable API, prefer `style` and `className` on the specific Menu
+piece you are customizing.
+
+- Use `Menu.Trigger` to style the trigger wrapper.
+- Use `Menu.Content` to control the menu panel.
+- Use `Menu.Group`, `Menu.GroupLabel`, `Menu.Item`, and related subcomponents to
+  style individual structural pieces.
+
+Deprecated `UNSAFE_*` props still exist for backward compatibility, but should
+not be used in new code.
+
+## Deprecated: `items` API
+
+The `items` API still exists for backward compatibility, but it is deprecated
+and should not be used for new implementations.
+
+```tsx
+<Menu
+  items={[
+    {
+      actions: [
+        {
+          label: "Edit",
+          icon: "edit",
+          onClick: () => {
+            alert("edit");
+          },
+        },
+      ],
+    },
+    {
+      header: "Send as...",
+      actions: [
+        {
+          label: "Text message",
+          icon: "sms",
+          onClick: () => {
+            alert("text");
+          },
+        },
+        {
+          label: "Email",
+          icon: "email",
+          onClick: () => {
+            alert("email");
+          },
+        },
+      ],
+    },
+  ]}
+/>
+```

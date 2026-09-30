@@ -1,0 +1,134 @@
+[
+  {
+    "displayName": "InputFieldWrapper",
+    "filePath": "../components-native/src/InputFieldWrapper/InputFieldWrapper.tsx",
+    "props": {
+      "assistiveText": {
+        "description": "Text that goes below the input to help the user understand the input",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "Disable the input",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "error": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "FieldError"
+        }
+      },
+      "focused": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hasValue": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "invalid": {
+        "description": "Highlights the field red and shows message below (if string) to indicate an error",
+        "required": false,
+        "type": {
+          "name": "boolean | string"
+        }
+      },
+      "loading": {
+        "description": "Show loading indicator.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "loadingType": {
+        "description": "Change the type of loading indicator to spinner or glimmer.",
+        "required": false,
+        "type": {
+          "name": "\"glimmer\" | \"spinner\""
+        }
+      },
+      "multiline": {
+        "description": "Whether the input is a multiline input.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onClear": {
+        "description": "Callback called when the user clicks the ClearAction button. Should clear the value passed.\nTo disallow clearing set the clearable prop to never",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "placeholder": {
+        "description": "Hint text that goes above the value once the field is filled out",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "placeholderMode": {
+        "description": "Controls how the placeholder text is displayed.\n- normal: the placeholder text will be displayed in the normal placeholder position\n- mini: the placeholder text will float above the input value\n- hidden: the placeholder text will not be displayed",
+        "required": false,
+        "type": {
+          "name": "\"hidden\" | \"mini\" | \"normal\""
+        }
+      },
+      "prefix": {
+        "description": "Symbol to display before the text input",
+        "required": false,
+        "type": {
+          "name": "{ icon?: IconNames; label?: string; }"
+        }
+      },
+      "showClearAction": {
+        "description": "Adds the ClearAction that will call the onClear handler when pressed",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "styleOverride": {
+        "description": "Custom styling to override default style of the input field",
+        "required": false,
+        "type": {
+          "name": "InputFieldStyleOverride"
+        }
+      },
+      "suffix": {
+        "description": "Symbol to display after the text input",
+        "required": false,
+        "type": {
+          "name": "{ icon?: IconNames; label?: string; onPress?: () => void; }"
+        }
+      },
+      "toolbar": {
+        "description": "Add a toolbar below the input field for actions like rewriting the text.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "toolbarVisibility": {
+        "description": "Change the behaviour of when the toolbar becomes visible.",
+        "required": false,
+        "type": {
+          "name": "\"always\" | \"while-editing\""
+        }
+      }
+    }
+  }
+]

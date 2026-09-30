@@ -1,0 +1,38 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { TypographyAlignmentExample } from "./examples/TypographyAlignmentExample";
+import TypographyAlignmentExampleSource from "./examples/TypographyAlignmentExample.tsx?raw";
+import { TypographyFontSizeExample } from "./examples/TypographyFontSizeExample";
+import TypographyFontSizeExampleSource from "./examples/TypographyFontSizeExample.tsx?raw";
+import { TypographyFontWeightExample } from "./examples/TypographyFontWeightExample";
+import TypographyFontWeightExampleSource from "./examples/TypographyFontWeightExample.tsx?raw";
+import { Banner } from "@jobber/components/Banner";
+
+# Typography
+
+<Meta title="Components/Text and Typography/Typography" />
+
+Base component that defines typographic standards across Jobber.
+
+<Banner type="notice" dismissible={false}>
+Typography is the component that powers our Heading and Text components "under
+the hood". You should first look to use [Heading](/components/Heading) and
+[Text](/components/Text) before you reach for Typography.
+</Banner>
+
+## Font size
+
+You can refer to the font sizes in our
+[Design/Typography page](/design/typography#component-view-font-size).
+
+<Canvas isColumn code={TypographyFontSizeExampleSource}><TypographyFontSizeExample /></Canvas>
+
+## Font weight
+
+<Canvas code={TypographyFontWeightExampleSource}><TypographyFontWeightExample /></Canvas>
+
+## Alignment
+
+Uses start and end instead of left and right to allow for resiliency in both LTR
+and RTL applications.
+
+<Canvas isColumn code={TypographyAlignmentExampleSource}><TypographyAlignmentExample /></Canvas>

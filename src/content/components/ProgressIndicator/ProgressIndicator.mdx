@@ -1,0 +1,103 @@
+import { Meta } from "../../mdx/blocks";
+
+<Meta title="Components/Status and Feedback/ProgressIndicator" />
+
+# Progress Indicator
+
+`ProgressIndicator` communicates **determinate** progress — a known fraction of
+a task that has been completed. Use it when you can express progress as
+`value / max`, such as a multi-step setup wizard or a file upload with a known
+total size.
+
+For indeterminate activity (loading time or fraction unknown), use
+[ActivityIndicator](/components/ActivityIndicator) instead.
+
+Some great use cases for a `ProgressIndicator` include:
+
+- Setup wizards, where we know how many steps the user has completed and how
+  many steps remain (use `variation="stepped"`).
+- File uploads, where we know the total file size and how much data has already
+  been sent (use the default `variation="continuous"`).
+
+## Design \& usage guidelines
+
+The default `ProgressIndicator` size is `base` (16px tall) and can be used in
+most cases. The `small` (8px) and `smaller` (4px) sizes should be used when the
+indicator sits inline with text or in tight surface layouts.
+
+`ProgressIndicator` always fills the width of its parent. Layout — including
+inline-vs-block placement — is the consumer's responsibility. Wrap the indicator
+with your own flex / `<Stack>` / `<Box>` container, or pass a `className` /
+`style`, to control the surrounding layout.
+
+### Continuous vs. stepped
+
+Use `variation="continuous"` (the default) when progress is a smooth value
+between `0` and `max` — for example, a file upload where any percentage is
+meaningful.
+
+Use `variation="stepped"` when progress is naturally segmented — for example, a
+multi-step wizard where the user is on step 2 of 5. Stepped renders `max`
+discrete segments and fills the first `value` of them.
+
+## Accessibility
+
+`ProgressIndicator` announces itself politely to assistive technology:
+
+- `role="progressbar"` marks the root element as a progress bar.
+- `aria-valuenow`, `aria-valuemin`, and `aria-valuemax` reflect the current
+  progress so screen readers can announce the value as a percentage or ratio
+  appropriately.
+- `aria-label` defaults to a localized-as-English template: `"{value}%"` when
+  `max === 100` (or `max` is omitted), and `"{value} / {max}"` otherwise. Pass a
+  custom `ariaLabel` to localize or to describe the specific activity (e.g.
+  `ariaLabel="Uploading file"`).
+
+In the stepped variation, the individual segments are presentational `<div>`s
+with no `role` or `aria-*` attributes. The whole indicator announces once as a
+single progressbar — the outer `aria-valuenow` / `aria-valuemax` already carry
+the progress information.
+
+The indicator does not participate in the keyboard tab order.
+
+### Reduced motion
+
+The width transition between `value` updates is disabled under
+[`prefers-reduced-motion: reduce`](https://developer.mozilla.org/docs/Web/CSS/@media/prefers-reduced-motion).
+The fill updates immediately to the new value, so current progress remains
+visible without interpolation. The stepped variation does not animate.
+
+## Relationship to ProgressBar
+
+The legacy [ProgressBar](/components/ProgressBar) component remains available
+and unchanged. New code should prefer `ProgressIndicator`. A follow-up change is
+expected to consolidate `ProgressBar` onto `ProgressIndicator`.
+
+`ProgressIndicator` renames `ProgressBar`'s props to align with HTML5
+`<progress>` semantics and mobile naming:
+
+| `ProgressBar` (legacy) | `ProgressIndicator` (new) |
+| --- | --- |
+| `currentStep` | `value` |
+| `totalSteps` | `max` |
+| `variation="progress"` | `variation="continuous"` |
+| `UNSAFE_className` | `className` |
+| `UNSAFE_style` | `style` |
+
+## Mobile
+
+Mobile (`@jobber/components-native`) ships its own `ProgressIndicator` with the
+same `value` / `max` / `variation` / `size` surface. Two platform differences:
+
+- The accessible label prop is `accessibilityLabel` (React Native's convention),
+  and the derived default follows the same percent / ratio templates. Styling
+  uses the `style` prop (there is no `className`).
+- Mobile adds a **`pendingValue`** prop (mobile-only). It renders an additional
+  in-flight band beyond `value`, on the same scale as `value` and `max`, and is
+  **additive**: with `value={2}`, `pendingValue={3}`, `max={10}` the bar shows
+  2/10 completed plus another 3/10 in flight (5/10 filled in total). It applies
+  to both the continuous and stepped variations, and adds a third derived label
+  template — `"{value} of {max}, {pendingValue} pending"`.
+
+The mobile `ProgressBar` remains available and unchanged; new mobile code should
+prefer `ProgressIndicator`.

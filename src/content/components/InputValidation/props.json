@@ -1,0 +1,22 @@
+[
+  {
+    "displayName": "InputValidation",
+    "filePath": "../components/src/InputValidation/InputValidation.tsx",
+    "props": {
+      "message": {
+        "description": "Validation message to be displayed",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "visible": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

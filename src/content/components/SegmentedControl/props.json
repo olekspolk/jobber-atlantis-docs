@@ -1,0 +1,63 @@
+[
+  {
+    "displayName": "SegmentedControl",
+    "filePath": "../components/src/SegmentedControl/SegmentedControl.tsx",
+    "props": {
+      "defaultValue": {
+        "description": "The default option to be selected initially.\nSet this prop when the component is uncontrolled.",
+        "required": false,
+        "type": {
+          "name": "T"
+        }
+      },
+      "name": {
+        "description": "A unique name for the SegmentedControl, that links the group of\noptions together. Can be a string or, if not set, will default to a generated\nid.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onSelectValue": {
+        "description": "A callback function that is called whenever the selected option changes.\nUse this prop with `selectedValue` for a controlled component.",
+        "required": false,
+        "type": {
+          "name": "(value: T) => void"
+        }
+      },
+      "selectedValue": {
+        "description": "The currently selected option. Use this prop with `onSelectValue` for\na controlled component.",
+        "required": false,
+        "type": {
+          "name": "T"
+        }
+      },
+      "size": {
+        "description": "Adjusts the size of the SegmentedControl. The default size is \"base\".",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\" | \"small\""
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SegmentedControl.Option",
+    "filePath": "../components/src/SegmentedControl/SegmentedControl.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "An aria-label that describes the option.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "value": {
+        "description": "The unique value associated with this option. This value is used to determine\nwhich option is selected and is passed to the onSelectValue callback.",
+        "required": true,
+        "type": {
+          "name": "number | string"
+        }
+      }
+    }
+  }
+]

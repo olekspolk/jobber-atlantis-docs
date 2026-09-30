@@ -1,0 +1,71 @@
+[
+  {
+    "displayName": "Chip",
+    "filePath": "../components-native/src/Chip/Chip.tsx",
+    "props": {
+      "accent": {
+        "description": "Background color to be used for Active chips",
+        "required": false,
+        "type": {
+          "name": "AccentType"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "Accessibility label for the component. It's also used for testing",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityRole": {
+        "description": "Accessibility role for the component",
+        "required": false,
+        "type": {
+          "name": "AccessibilityRole"
+        }
+      },
+      "icon": {
+        "description": "Optional Icon",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "inactiveBackgroundColor": {
+        "description": "Background color to be used for inactive chips",
+        "required": false,
+        "type": {
+          "name": "\"background\" | \"surface\""
+        }
+      },
+      "isActive": {
+        "description": "chip's active status",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "isDismissible": {
+        "description": "Boolean for chip's ability to be dismissed",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "label": {
+        "description": "label of the chip.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onPress": {
+        "description": "Press handler",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      }
+    }
+  }
+]

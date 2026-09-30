@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="{{theme}}">
+<html data-theme="{{theme}}" data-type="{{type}}">
   <head>
     <style>
       html,
@@ -14,6 +14,10 @@
         min-height: 200px;
       }
 
+      html[data-type="mobile"] {
+        border-radius: var(--radius-base);
+      }
+
       #root {
         box-sizing: border-box;
         padding: var(--space-smallest);
@@ -23,16 +27,66 @@
     <link rel="stylesheet" href="{{stylesUrl}}" />
     <link rel="stylesheet" href="{{foundationUrl}}" />
     <link rel="stylesheet" href="{{darkModeUrl}}" />
+    <link rel="stylesheet" href="/tailwind.css" />
   </head>
   <body style="background-color: transparent">
     <script type="importmap">
-      { "imports": { "@jobber/components": "/editorBundle.js" } }
+      { "imports": {{imports}} }
     </script>
     <div id="root"></div>
     <script>
       var root;
       var rootElement;
+    </script>
+    <style>
+      @container wrapper (min-width: 0px) {
+        .item > * {
+          width: 80%;
+          background-color: var(--color-surface--background);
+          border-radius: var(--radius-base);
+          padding: var(--space-large);
+        }
+      }
 
+      @container wrapper-two (min-width: 0px) {
+        .item > * {
+          width: 80%;
+          background-color: var(--color-payments);
+          color: var(--color-text--reverse);
+          border-radius: var(--radius-base);
+          padding: var(--space-large);
+        }
+
+        .item h1 {
+          color: var(--color-text--reverse--secondary);
+        }
+
+        .item p {
+          color: var(--color-text--reverse);
+        }
+      }
+
+      @container wrapper-three (min-width: 0px) {
+        .item > * {
+          width: 50%;
+          background-color: var(--color-success);
+          color: var(--color-text--reverse);
+          padding: var(--space-large);
+        }
+
+        .item h1 {
+          color: var(--color-text--secondary);
+          background-color: var(--color-surface--background);
+          padding: var(--space-small);
+          border-radius: var(--radius-base);
+        }
+
+        .item p {
+          color: var(--color-text--reverse);
+        }
+      }
+    </style>
+    <script>
       window.addEventListener("message", (event) => {
         if (event.source !== window.parent) return;
         const { type, code, theme } = event.data;
@@ -46,6 +100,7 @@
           root.appendChild(script);
         } else if (type === "updateTheme") {
           document.documentElement.dataset.theme = theme;
+          if (window.updateMobileTheme) window.updateMobileTheme(theme);
         }
       });
     </script>

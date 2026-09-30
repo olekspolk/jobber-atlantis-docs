@@ -1,0 +1,185 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { InputNumberAffixesExample } from "./examples/InputNumberAffixesExample";
+import InputNumberAffixesExampleSource from "./examples/InputNumberAffixesExample.tsx?raw";
+import { InputNumberBasicExample } from "./examples/InputNumberBasicExample";
+import InputNumberBasicExampleSource from "./examples/InputNumberBasicExample.tsx?raw";
+import { InputNumberFormattingExample } from "./examples/InputNumberFormattingExample";
+import InputNumberFormattingExampleSource from "./examples/InputNumberFormattingExample.tsx?raw";
+import { InputNumberLoadingExample } from "./examples/InputNumberLoadingExample";
+import InputNumberLoadingExampleSource from "./examples/InputNumberLoadingExample.tsx?raw";
+import { InputNumberSizesExample } from "./examples/InputNumberSizesExample";
+import InputNumberSizesExampleSource from "./examples/InputNumberSizesExample.tsx?raw";
+
+<Meta title="Components/Forms and Inputs/InputNumber" />
+
+# InputNumber
+
+## Summary
+
+`InputNumber` collects a single numeric value in a form. Reach for it when the
+value benefits from being nudged up or down, such as quantities, prices,
+durations, or counts.
+
+Most fields only need the props shown below. For rare layouts the props can't
+handle, you can build the same field from smaller pieces. See the **Implement**
+tab.
+
+### When to use
+
+- The value is a number the user increments or decrements, like a quantity,
+  price, day count, or number of repetitions
+- A stepper, min/max bounds, or number formatting would help the user
+
+### When not to use
+
+- The value is a sequence of digits that is never calculated with, such as phone
+  numbers, credit-card numbers, or postal codes. A stepper adds no value there;
+  use [InputText](/components/InputText) instead.
+
+## Anatomy
+
+`InputNumber` typically includes:
+
+- Label (required): names the value the field collects
+- Value field (required): the number the user types or steps through
+- Stepper (optional): increment and decrement controls that change the value by
+  `step`
+- Prefix or suffix (optional): a unit or symbol shown alongside the value, like
+  $ or kg
+- Loading indicator (optional): replaces the stepper while background work runs
+
+## Behavior
+
+- The field is controlled through `value`, where a number sets the value and
+  `null` leaves it empty.
+- `onValueCommitted` fires when the user commits a value: on blur, on Enter, or
+  when they use the stepper or arrow keys. Use `onValueChange` for per-keystroke
+  updates.
+- The stepper buttons and the Up and Down arrow keys change the value by `step`
+  (default 1).
+- `min` and `max` bound the value, and the stepper stops at each limit.
+- `loading` hides the stepper and shows an indicator in its place. The field
+  stays editable, so use `readOnly` or `disabled` to lock it.
+
+## Options
+
+### Basic
+
+Pass `label`, a controlled `value`, and `onValueCommitted`. Bounds (`min` /
+`max`) and `step` are optional.
+
+<Canvas code={InputNumberBasicExampleSource}><InputNumberBasicExample /></Canvas>
+
+### Prefixes and suffixes
+
+Use `prefix` or `suffix` to add a unit or symbol. A suffix can be a label, an
+icon, or a clickable icon that runs an action (give it an `ariaLabel`).
+
+<Canvas code={InputNumberAffixesExampleSource}><InputNumberAffixesExample /></Canvas>
+
+### Sizes
+
+3 sizes are available. `default` fits almost every form; use `small` only in
+tight spaces and `large` only in especially spacious layouts.
+
+<Canvas code={InputNumberSizesExampleSource}><InputNumberSizesExample /></Canvas>
+
+### Formatting
+
+`format` takes any `Intl.NumberFormatOptions` and controls only how the value is
+displayed; the committed value stays a plain number. See the **Implement** tab
+for how percent and currency values map to the underlying number.
+
+<Canvas code={InputNumberFormattingExampleSource}><InputNumberFormattingExample /></Canvas>
+
+### Loading
+
+`loading` shows a non-blocking indicator in the stepper's slot for background
+work, like saving. The field stays editable and the stepper is hidden while
+loading.
+
+<Canvas code={InputNumberLoadingExampleSource}><InputNumberLoadingExample /></Canvas>
+
+## Content guidelines
+
+### Label the unit, don't repeat it
+
+Put the unit in the label or an affix, not both.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Label "Weight", suffix "kg" | Label "Weight (kg)", suffix "kg" |
+| Label "Duration", suffix "days" | Label "Duration in days", suffix "days" |
+
+### Keep labels short and sentence case
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Quantity | Enter the quantity here |
+| Discount | DISCOUNT % |
+
+### Put the symbol where it's read
+
+Use a prefix for a leading symbol and a suffix for a trailing unit, matching how
+the value is spoken.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Prefix "$", value 40 | Suffix "$", value 40 |
+| Suffix "%", value 15 | Prefix "%", value 15 |
+
+### Keep validation errors helpful
+
+When a value breaks `min` or `max`, provide helpful guidance on what values will
+be accepted as opposed to just providing a generic error.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Enter a value between 1 and 99 | Invalid input |
+| Quantity can't be more than 50 | Error |
+
+### Use numbers as opposed to spelling them
+
+Use numerals in labels, helper text, affixes, and bounds.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Max 3 items | Max three items |
+
+## Do's and Don'ts
+
+#### Do:
+
+- ✅ Use for values the user increments or decrements
+- ✅ Set `min` and `max` when the value has real bounds
+- ✅ Use `format` for currency, percent, and decimals rather than formatting the
+  value yourself
+- ✅ Use `loading` for background work so the field stays usable
+
+#### Don't:
+
+- ❌ Use it for digit sequences that are never calculated with, like phone or
+  credit card numbers
+- ❌ Disable the field to communicate an error; show an `error` message instead
+- ❌ Repeat the unit in both the label and an affix
+
+## Accessibility notes
+
+The field is a native number input, so it is reachable and operable by keyboard
+and assistive technology.
+
+| Key | Behavior |
+| --- | --- |
+| Tab | Moves focus to the field |
+| Up / Down arrows | Increment / decrement by `step` |
+| Enter | Commits the current value |
+| Type | Replaces the value |
+
+Give a clickable affix a clear `ariaLabel` describing its action, like "Clear
+value".
+
+## Related components
+
+- For digit sequences that are not calculated with, like phone or credit card
+  numbers, use [InputText](/components/InputText).
+- For dates, use [InputDate](/components/InputDate).

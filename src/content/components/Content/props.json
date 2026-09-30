@@ -1,0 +1,22 @@
+[
+  {
+    "displayName": "Content",
+    "filePath": "../components/src/Content/Content.tsx",
+    "props": {
+      "spacing": {
+        "description": "The amount of vertical spacing between the children",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"extravagant\" | \"large\" | \"larger\" | \"largest\" | \"minuscule\" | \"slim\" | \"small\" | \"smaller\" | \"smallest\""
+        }
+      },
+      "type": {
+        "description": "Change the wrapping element to be one of the available\nsemantic tags.",
+        "required": false,
+        "type": {
+          "name": "\"article\" | \"aside\" | \"div\" | \"footer\" | \"header\" | \"main\" | \"section\""
+        }
+      }
+    }
+  }
+]

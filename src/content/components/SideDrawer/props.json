@@ -1,0 +1,97 @@
+[
+  {
+    "displayName": "SideDrawer",
+    "filePath": "../components/src/SideDrawer/SideDrawer.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: CSSProperties; }"
+        }
+      },
+      "container": {
+        "description": "Element where the SideDrawer portal should be rendered.",
+        "required": false,
+        "type": {
+          "name": "HTMLElement"
+        }
+      },
+      "inline": {
+        "description": "Changes whether the SideDrawer is positioned to the side of the viewport or inline with the content.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onRequestClose": {
+        "description": "Callback function to close the drawer.",
+        "required": true,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "open": {
+        "description": "Whether or not the drawer is open.",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "scrollDirection": {
+        "description": "Change the scrolling direction of the drawer. Useful for chat-like interfaces.",
+        "required": false,
+        "type": {
+          "name": "\"normal\" | \"reverse\""
+        }
+      },
+      "variation": {
+        "description": "Change the appearance of the drawer.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"subtle\""
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SideDrawer.Actions",
+    "filePath": "../components/src/SideDrawer/SideDrawer.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "SideDrawer.BackButton",
+    "filePath": "../components/src/SideDrawer/SideDrawer.tsx",
+    "props": {
+      "onClick": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) => void"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "SideDrawer.Footer",
+    "filePath": "../components/src/SideDrawer/SideDrawer.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "SideDrawer.Title",
+    "filePath": "../components/src/SideDrawer/SideDrawer.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "SideDrawer.Toolbar",
+    "filePath": "../components/src/SideDrawer/SideDrawer.tsx",
+    "props": {}
+  }
+]

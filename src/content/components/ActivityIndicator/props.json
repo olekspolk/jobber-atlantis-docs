@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "ActivityIndicator",
+    "filePath": "../components/src/ActivityIndicator/ActivityIndicator.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "Accessible label exposed via `aria-label` on the root element. Defaults\nto the localized \"Loading\" message. Override it to describe the specific\nactivity (e.g. \"Uploading file\").",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "className": {
+        "description": "Custom class name merged onto the root element alongside the component's\nown classes.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "size": {
+        "description": "Visual size. `base` renders at 32px, `small` renders at 16px.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"small\""
+        }
+      },
+      "style": {
+        "description": "Custom inline styles applied to the root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  }
+]

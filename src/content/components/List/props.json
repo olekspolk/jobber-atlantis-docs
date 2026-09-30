@@ -1,0 +1,57 @@
+[
+  {
+    "displayName": "List",
+    "filePath": "../components/src/List/List.tsx",
+    "props": {
+      "customItemStyles": {
+        "description": "Set to true for more control over the item styles. Only modifies styles\nwhen used with customRenderItem.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "customRenderItem": {
+        "description": "A function that will be called for each item instead of the default\nrendering\n@argument item - The item to render",
+        "required": false,
+        "type": {
+          "name": "(item: T) => ReactNode"
+        }
+      },
+      "customRenderSection": {
+        "description": "A function that will be called for each section heading instead of the default\nrendering\n@argument sectionName - The name of the section to render",
+        "required": false,
+        "type": {
+          "name": "(sectionName: string) => ReactNode"
+        }
+      },
+      "customSectionStyles": {
+        "description": "Set to true for more control over the section heading styles. Only modifies styles\nwhen used with customRenderItem.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "defaultSectionHeader": {
+        "description": "A default section header value for items that do not have a section.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "items": {
+        "description": "Array of the list items.",
+        "required": true,
+        "type": {
+          "name": "T[]"
+        }
+      },
+      "labelledBy": {
+        "description": "An ID of an element that provides the labelling for this list.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "displayName": "Disclosure",
+    "filePath": "../components-native/src/Disclosure/Disclosure.tsx",
+    "props": {
+      "animationDuration": {
+        "description": "An optional property that determines the duration of the opening and closing animation of the disclosure component.\nIt's defined in milliseconds.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "content": {
+        "description": "Specifies the main content of the disclosure component.\nIt can be any React Node - simple text, JSX, or a complex React component.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "header": {
+        "description": "Defines the header of the disclosure component.\nSimilar to `content`, it can be any React Node.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "isEmpty": {
+        "description": "A boolean that indicates whether the disclosure component is empty or not.\nIf `isEmpty` is `true`, there is no content in the disclosure; if false, there is some content.",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onToggle": {
+        "description": "A function that is called whenever the disclosure component is toggled between its open and closed states.",
+        "required": true,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "open": {
+        "description": "A boolean that determines whether the disclosure component is in an open or closed state.\nIf `open` is true, the disclosure is in an open state; if false, it's closed.",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

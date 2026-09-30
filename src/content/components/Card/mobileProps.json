@@ -1,0 +1,50 @@
+[
+  {
+    "displayName": "Card",
+    "filePath": "../components-native/src/Card/Card.tsx",
+    "props": {
+      "elevation": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "elevationProp"
+        }
+      },
+      "error": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "footer": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "FooterProps"
+        }
+      },
+      "header": {
+        "description": "@deprecated Use <ActionItem /> with the title and onPress properties instead",
+        "required": false,
+        "type": {
+          "name": "HeaderProps"
+        }
+      },
+      "reportCardHeight": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(height: number) => void"
+        }
+      },
+      "testID": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "displayName": "Banner",
+    "filePath": "../components/src/Banner/Banner.tsx",
+    "props": {
+      "controlledVisiblity": {
+        "description": "When provided, Banner's visibility is controlled by this value",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "dismissible": {
+        "description": "Set to false to hide the dismiss button",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "description": "Use to override the default status Icon",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "onDismiss": {
+        "description": "Callback to be called when the Banner is dismissed.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "primaryAction": {
+        "description": "Accepts props for Button. Default action uses a 'subtle' Button",
+        "required": false,
+        "type": {
+          "name": "{ external?: never; onClick?: never; readonly name?: string; submit: never; readonly type?: ButtonType; readonly value?: string; readonly disabled?: boolean; readonly loading?: boolean; ... 17 more ...; readonly children?: never; } | ... 34 more ... | { ...; }"
+        }
+      },
+      "type": {
+        "description": "Sets the status-based theme of the Banner",
+        "required": true,
+        "type": {
+          "name": "BannerType"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Banner.Action",
+    "filePath": "../components/src/Banner/Banner.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ readonly container?: string; readonly button?: { container?: string; buttonLabel?: { textStyle?: string; }; buttonIcon?: { svg?: string; path?: string; }; }; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ readonly container?: CSSProperties; readonly button?: { container?: CSSProperties; buttonLabel?: { textStyle?: CSSProperties; }; buttonIcon?: { svg?: CSSProperties; path?: CSSProperties; }; }; }"
+        }
+      },
+      "ariaControls": {
+        "description": "Used for screen readers. Will override label on screen\nreader if present.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "ariaExpanded": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "ariaHaspopup": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "ariaLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "external": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "fullWidth": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "iconOnRight": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "id": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "label": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "loading": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "name": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onClick": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) => void"
+        }
+      },
+      "onMouseDown": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) => void"
+        }
+      },
+      "role": {
+        "description": "Used to override the default button role.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "size": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "ButtonSize"
+        }
+      },
+      "submit": {
+        "description": "Allows the button to submit a form",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "to": {
+        "description": "**Deprecated**: to will be removed in the next major version\n@deprecated",
+        "required": false,
+        "type": {
+          "name": "LocationDescriptor<unknown> | ((location: Location<unknown>) => LocationDescriptor<unknown>)"
+        }
+      },
+      "type": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "ButtonType"
+        }
+      },
+      "url": {
+        "description": "Used to create an 'href' on an anchor tag.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "value": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "variation": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "ButtonVariation"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Banner.Content",
+    "filePath": "../components/src/Banner/Banner.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ readonly container?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ readonly container?: CSSProperties; }"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Banner.DismissButton",
+    "filePath": "../components/src/Banner/Banner.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ readonly container?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ readonly container?: CSSProperties; }"
+        }
+      },
+      "ariaLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onClick": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) => void"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Banner.Icon",
+    "filePath": "../components/src/Banner/Banner.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ readonly container?: string; readonly icon?: { svg?: string; path?: string; }; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ readonly container?: CSSProperties; readonly icon?: { svg?: CSSProperties; path?: CSSProperties; }; }"
+        }
+      },
+      "backgroundColor": {
+        "description": "Sets the background color of the icon.",
+        "required": false,
+        "type": {
+          "name": "\"disabled\" | \"success\" | \"warning\" | \"icon\" | \"base-grey--100\" | \"base-grey--200\" | \"base-grey--300\" | \"base-grey--400\" | \"base-grey--500\" | \"base-grey--600\" | \"base-grey--700\" | ... 279 more ... | \"client--onSurface\""
+        }
+      },
+      "color": {
+        "description": "Determines the color of the icon. Some icons have a default system colour\nlike quotes, jobs, and invoices. Others that doesn't have a system colour\nfalls back to greyBlueDark.",
+        "required": false,
+        "type": {
+          "name": "\"disabled\" | \"success\" | \"warning\" | \"icon\" | \"blue\" | \"green\" | \"yellow\" | \"red\" | \"grey\" | \"white\" | \"greyBlue\" | \"lightBlue\" | \"orange\" | \"navy\" | \"interactive\" | \"destructive\" | ... 34 more ... | \"brandHighlight\""
+        }
+      },
+      "customColor": {
+        "description": "Sets a custom color for the icon. Can be a rgb() or hex value.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "name": {
+        "description": "The icon to show.",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "size": {
+        "description": "Changes the size to small or large.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\" | \"small\""
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Banner.Provider",
+    "filePath": "../components/src/Banner/Banner.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ readonly container?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ readonly container?: CSSProperties; }"
+        }
+      },
+      "dismissButton": {
+        "description": "Dismiss button to be used for the Banner.\nIf you want to remove the dismiss button, set to false.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "icon": {
+        "description": "Icon to be used for the Banner.\nIf you want to remove the icon, set to false.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "onDismiss": {
+        "description": "Callback to be called when the Banner is dismissed.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "type": {
+        "description": "Sets the status-based theme of the Banner.",
+        "required": true,
+        "type": {
+          "name": "BannerType"
+        }
+      },
+      "visible": {
+        "description": "When provided, Banner's visibility is controlled by this value.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

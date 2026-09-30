@@ -1,0 +1,113 @@
+[
+  {
+    "displayName": "InputPressable",
+    "filePath": "../components-native/src/InputPressable/InputPressable.tsx",
+    "props": {
+      "accessibilityHint": {
+        "description": "Helps users understand what will happen when they perform an action",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "VoiceOver will read this string when a user selects the element",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "clearable": {
+        "description": "Add a clear action on the input that clears the value.\n\nSince the input value isn't editable (i.e. `InputDateTime`) you can\nset it to `always`. If you set it to `always` you must also provide an\nonClear to clear the input's value",
+        "required": false,
+        "type": {
+          "name": "Clearable"
+        }
+      },
+      "disabled": {
+        "description": "Disables input selection",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "error": {
+        "description": "Indicates if there is an validation error",
+        "required": false,
+        "type": {
+          "name": "FieldError"
+        }
+      },
+      "focused": {
+        "description": "Indicates if the input is focused",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "invalid": {
+        "description": "Indicates the current selection is invalid",
+        "required": false,
+        "type": {
+          "name": "boolean | string"
+        }
+      },
+      "onClear": {
+        "description": "Callback called when the user clicks the ClearAction button. Should clear\nthe value passed. To disallow clearing set the clearable prop to never",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onPress": {
+        "description": "Callback that is called when the text input is focused\n@param event",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "placeholder": {
+        "description": "Placeholder item shown until a selection is made",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "prefix": {
+        "description": "Symbol to display before the text input",
+        "required": false,
+        "type": {
+          "name": "{ icon?: IconNames; label?: string; }"
+        }
+      },
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<Text>"
+        }
+      },
+      "showMiniLabel": {
+        "description": "Controls the visibility of the mini label that appears inside the input\nwhen a value is entered. By default, the placeholder text moves up to\nbecome a mini label. Set to false to disable this behavior.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "suffix": {
+        "description": "Symbol to display after the text input",
+        "required": false,
+        "type": {
+          "name": "{ icon: IconNames; label?: string; onPress: () => void; } | { onPress?: never; icon?: IconNames; label?: string; }"
+        }
+      },
+      "value": {
+        "description": "Current value of the component",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

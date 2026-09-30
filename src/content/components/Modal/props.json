@@ -1,0 +1,78 @@
+[
+  {
+    "displayName": "ModalLegacy",
+    "filePath": "../components/src/Modal/Modal.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "Accessible name for the Modal.\nOnly required if no title is provided. Title takes precedence over ariaLabel.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "dismissible": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onRequestClose": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "open": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "primaryAction": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "{ external?: never; onClick?: never; readonly name?: string; submit: never; readonly type?: ButtonType; readonly value?: string; readonly disabled?: boolean; readonly loading?: boolean; ... 17 more ...; readonly children?: never; } | ... 34 more ... | { ...; }"
+        }
+      },
+      "secondaryAction": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "{ external?: never; onClick?: never; readonly name?: string; submit: never; readonly type?: ButtonType; readonly value?: string; readonly disabled?: boolean; readonly loading?: boolean; ... 17 more ...; readonly children?: never; } | ... 34 more ... | { ...; }"
+        }
+      },
+      "size": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"fullScreen\" | \"large\" | \"small\""
+        }
+      },
+      "tertiaryAction": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "{ external?: never; onClick?: never; readonly name?: string; submit: never; readonly type?: ButtonType; readonly value?: string; readonly disabled?: boolean; readonly loading?: boolean; ... 17 more ...; readonly children?: never; } | ... 34 more ... | { ...; }"
+        }
+      },
+      "title": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "version": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "1"
+        }
+      }
+    }
+  }
+]

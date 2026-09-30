@@ -1,0 +1,113 @@
+[
+  {
+    "displayName": "InputDate",
+    "filePath": "../components-native/src/InputDate/InputDate.tsx",
+    "props": {
+      "accessibilityHint": {
+        "description": "Helps users understand what will happen when they perform an action",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "VoiceOver will read this string when a user selects the element",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "clearable": {
+        "description": "Defaulted to \"always\" so user can clear the dates whenever there's a value.",
+        "required": false,
+        "type": {
+          "name": "\"always\" | \"never\""
+        }
+      },
+      "defaultValue": {
+        "description": "The initial value for the input.",
+        "required": false,
+        "type": {
+          "name": "Date"
+        }
+      },
+      "disabled": {
+        "description": "Disable the input",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "emptyValueLabel": {
+        "description": "This label is shown to the user when there's no selected date.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "invalid": {
+        "description": "Highlights the field red and shows message below (if string) to indicate an error",
+        "required": false,
+        "type": {
+          "name": "boolean | string"
+        }
+      },
+      "maxDate": {
+        "description": "Maximum date the user can set.",
+        "required": false,
+        "type": {
+          "name": "Date"
+        }
+      },
+      "minDate": {
+        "description": "Minimum date the user can set",
+        "required": false,
+        "type": {
+          "name": "Date"
+        }
+      },
+      "name": {
+        "description": "Adding a `name` would make this component \"Form controlled\" and must be\nnested within a `<Form />` component.\n\nCannot be declared if `value` prop is used.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onChange": {
+        "description": "The callback that fires whenever a date gets selected.",
+        "required": false,
+        "type": {
+          "name": "((value?: Date) => void) | ((value?: Date) => void)"
+        }
+      },
+      "placeholder": {
+        "description": "Hint text that goes above the value once the field is filled out",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "showMiniLabel": {
+        "description": "Controls the visibility of the mini label that appears inside the input\nwhen a value is entered. By default, the placeholder text moves up to\nbecome a mini label. Set to false to disable this behavior.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "validations": {
+        "description": "Shows an error message below the field and highlights it red when the\nvalue is invalid. Only applies when nested within a `<Form />` component.\n\nYou can see **most** of the rules you can pass in\n[React-hook-form Documentation](https://react-hook-form.com/api/useform/register#options).",
+        "required": false,
+        "type": {
+          "name": "Omit<RegisterOptions<FieldValues, string>, \"disabled\" | \"setValueAs\" | \"valueAsNumber\" | \"valueAsDate\">"
+        }
+      },
+      "value": {
+        "description": "The value shown on the field. This gets automatically formatted to the\naccount's date format.\n\nCannot be declared if `name` prop is used.",
+        "required": false,
+        "type": {
+          "name": "Date | string"
+        }
+      }
+    }
+  }
+]

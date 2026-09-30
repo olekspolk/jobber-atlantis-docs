@@ -1,0 +1,28 @@
+import { Meta } from "../../mdx/blocks";
+import { Example } from "./parts/radii";
+
+<Meta title="Design/Radii" />
+
+# Border Radius
+
+This base radius can be found in almost all of our components that have a
+defined "edge": [Button](/components/Button), [Card](/components/Card),
+[InputText](/components/InputText), and [Menu](/components/Menu) are all
+examples of this in practice.
+
+If an element is nested directly inside of a container with the base radius, or
+is itself smaller than the base radius, the small radius may be applied.
+
+Larger rounded corners should be used sparingly, but are available for cases
+where the user may expect a smoother corner, such as
+[ProgressBar](/components/ProgressBar). `--radius-circle` can be used for
+circular elements like [Radio](/components/RadioGroup) options or the "pip" in
+[Switch](/components/Switch).
+
+| Radius | Visual |
+| :-- | :-- |
+| `--radius-small` | <Example of="small" /> |
+| `--radius-base` | <Example of="base" /> |
+| `--radius-large` | <Example of="large" /> |
+| `--radius-larger` | <Example of="larger" /> |
+| `--radius-circle` | <Example of="circle" /> |

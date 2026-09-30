@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "Gallery",
+    "filePath": "../components/src/Gallery/Gallery.tsx",
+    "props": {
+      "files": {
+        "description": "The files for the Gallery to display",
+        "required": true,
+        "type": {
+          "name": "GalleryFile[]"
+        }
+      },
+      "max": {
+        "description": "The max number of thumbnails before no more thumbnails are displayed\nunless the user clicks an action to display the rest",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "onDelete": {
+        "description": "onDelete callback - this function will be called when the delete action is\ntriggered on a Gallery image",
+        "required": false,
+        "type": {
+          "name": "(file: GalleryFile) => void"
+        }
+      },
+      "size": {
+        "description": "The size of the files and their spacing in the gallery",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\""
+        }
+      }
+    }
+  }
+]

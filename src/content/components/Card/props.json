@@ -1,0 +1,81 @@
+[
+  {
+    "displayName": "Card",
+    "filePath": "../components/src/Card/Card.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: string; header?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: CSSProperties; header?: CSSProperties; }"
+        }
+      },
+      "accent": {
+        "description": "The `accent`, if provided, will effect the color accent at the top of\nthe card.",
+        "required": false,
+        "type": {
+          "name": "\"indigo\" | \"teal\" | \"blue\" | \"green\" | \"lime\" | \"yellowGreen\" | \"yellow\" | \"red\" | \"grey\" | \"white\" | \"greyBlue\" | \"lightBlue\" | \"purple\" | \"pink\" | \"orange\" | \"brown\" | \"navy\" | ... 68 more ... | \"yellowLightest\""
+        }
+      },
+      "elevation": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "elevationProp"
+        }
+      },
+      "external": {
+        "description": "Makes the URL open in new tab on click.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "header": {
+        "description": "The header props of the card.",
+        "required": false,
+        "type": {
+          "name": "string | HeaderActionProps | ReactElement<unknown, string | JSXElementConstructor<any>>"
+        }
+      },
+      "onClick": {
+        "description": "Event handler that gets called when the card is clicked.",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLAnchorElement | HTMLDivElement, MouseEvent>) => void"
+        }
+      },
+      "title": {
+        "description": "@deprecated Use header instead.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "url": {
+        "description": "URL that the card would navigate to once clicked.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Card.Body",
+    "filePath": "../components/src/Card/Card.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Card.Header",
+    "filePath": "../components/src/Card/Card.tsx",
+    "props": {}
+  }
+]

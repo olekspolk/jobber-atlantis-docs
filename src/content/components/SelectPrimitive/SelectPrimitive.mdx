@@ -1,0 +1,142 @@
+import { Meta } from "../../mdx/blocks";
+
+<Meta title="Components/Primitives/SelectPrimitive" />
+
+# SelectPrimitive
+
+`SelectPrimitive` is a set of styled wrappers around
+[Base UI's Select](https://base-ui.com/react/components/select) parts,
+pre-themed with Atlantis design tokens. It exposes every building block as a
+named sub-component so consumers compose their own field structure — no label,
+error, or description abstraction is included.
+
+> **⚠️ Experimental** — This is a primitive building block. It does not carry
+> the same stability guarantees as promoted Atlantis components. Reach out to
+> UXF before adopting it in product code.
+
+## Design \& usage guidelines
+
+Use `SelectPrimitive` when you need a composable, fully-styled select that goes
+beyond what the native `<select>` element supports — e.g. custom item layouts,
+option groups with separators, or accessible keyboard navigation baked in
+through Base UI.
+
+For everyday form selects, prefer the standard `Select` component.
+
+### Composition
+
+Because `SelectPrimitive` provides no field abstraction, consumers wire up
+labels and other field structure themselves:
+
+```tsx
+<label htmlFor="my-select">Fruit</label>
+<SelectPrimitive.Root value={value} onValueChange={setValue}>
+  <SelectPrimitive.Trigger id="my-select">
+    <SelectPrimitive.Value placeholder="Select an option" />
+  </SelectPrimitive.Trigger>
+  <SelectPrimitive.Portal>
+    <SelectPrimitive.Positioner>
+      <SelectPrimitive.Popup>
+        <SelectPrimitive.List>
+          <SelectPrimitive.Item value="apple">
+            <SelectPrimitive.ItemText>Apple</SelectPrimitive.ItemText>
+            <SelectPrimitive.ItemIndicator />
+          </SelectPrimitive.Item>
+          <SelectPrimitive.Item value="banana">
+            <SelectPrimitive.ItemText>Banana</SelectPrimitive.ItemText>
+            <SelectPrimitive.ItemIndicator />
+          </SelectPrimitive.Item>
+        </SelectPrimitive.List>
+      </SelectPrimitive.Popup>
+    </SelectPrimitive.Positioner>
+  </SelectPrimitive.Portal>
+</SelectPrimitive.Root>
+```
+
+### Placeholder
+
+Pass a `placeholder` string to `SelectPrimitive.Value` to show hint text inside
+the trigger when no value is selected. It is replaced by the selected value once
+the user makes a choice.
+
+### Dropdown
+
+The dropdown popup mirrors the `Menu` component's visual style — same border,
+shadow, border-radius, and item hover/highlight states. The popup is always at
+least as wide as the trigger.
+
+A checkmark indicator (`SelectPrimitive.ItemIndicator`) appears on the currently
+selected item. Place it inside each `SelectPrimitive.Item` to opt in.
+
+## States
+
+### Basic
+
+```tsx
+<label htmlFor="basic-select">Fruit</label>
+<SelectPrimitive.Root value={value} onValueChange={setValue}>
+  <SelectPrimitive.Trigger id="basic-select">
+    <SelectPrimitive.Value placeholder="Select an option" />
+  </SelectPrimitive.Trigger>
+  <SelectPrimitive.Portal>
+    <SelectPrimitive.Positioner>
+      <SelectPrimitive.Popup>
+        <SelectPrimitive.List>
+          <SelectPrimitive.Item value="apple">
+            <SelectPrimitive.ItemText>Apple</SelectPrimitive.ItemText>
+            <SelectPrimitive.ItemIndicator />
+          </SelectPrimitive.Item>
+          <SelectPrimitive.Item value="banana">
+            <SelectPrimitive.ItemText>Banana</SelectPrimitive.ItemText>
+            <SelectPrimitive.ItemIndicator />
+          </SelectPrimitive.Item>
+        </SelectPrimitive.List>
+      </SelectPrimitive.Popup>
+    </SelectPrimitive.Positioner>
+  </SelectPrimitive.Portal>
+</SelectPrimitive.Root>
+```
+
+### Disabled
+
+Pass `disabled` to `SelectPrimitive.Root` to prevent interaction. The trigger
+border, background, and text colour all shift to the disabled palette.
+
+### Option grouping
+
+Use `SelectPrimitive.Group` and `SelectPrimitive.GroupLabel` to organise items
+under labelled sections, and `SelectPrimitive.Separator` to add a horizontal
+rule between groups.
+
+```tsx
+<SelectPrimitive.Root value={value} onValueChange={setValue}>
+  <SelectPrimitive.Trigger id="grouped-select">
+    <SelectPrimitive.Value placeholder="Choose produce" />
+  </SelectPrimitive.Trigger>
+  <SelectPrimitive.Portal>
+    <SelectPrimitive.Positioner>
+      <SelectPrimitive.Popup>
+        <SelectPrimitive.List>
+          <SelectPrimitive.Group>
+            <SelectPrimitive.GroupLabel>Fruits</SelectPrimitive.GroupLabel>
+            <SelectPrimitive.Item value="apple">
+              <SelectPrimitive.ItemText>Apple</SelectPrimitive.ItemText>
+              <SelectPrimitive.ItemIndicator />
+            </SelectPrimitive.Item>
+          </SelectPrimitive.Group>
+
+          <SelectPrimitive.Separator />
+
+          <SelectPrimitive.Group>
+            <SelectPrimitive.GroupLabel>Vegetables</SelectPrimitive.GroupLabel>
+            <SelectPrimitive.Item value="carrot">
+              <SelectPrimitive.ItemText>Carrot</SelectPrimitive.ItemText>
+              <SelectPrimitive.ItemIndicator />
+            </SelectPrimitive.Item>
+          </SelectPrimitive.Group>
+        </SelectPrimitive.List>
+      </SelectPrimitive.Popup>
+    </SelectPrimitive.Positioner>
+  </SelectPrimitive.Portal>
+</SelectPrimitive.Root>
+```

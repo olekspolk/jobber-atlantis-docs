@@ -1,0 +1,88 @@
+import { Figma, Meta } from "../../mdx/blocks";
+
+<Meta title="Components/Status and Feedback/ActivityIndicator" />
+
+# Activity Indicator
+
+`ActivityIndicator` communicates an **indeterminate** activity the user cannot
+directly control or measure — loading, fetching, or waiting on an external
+system.
+
+Use `ActivityIndicator` when the loading time or fraction of progress is
+unknown. When the amount completed is known, use `ProgressIndicator` instead.
+
+## Design \& usage guidelines
+
+Web and mobile share the same visual language: a non-interactive ring with a
+muted track and an animated foreground arc. The platform implementations use
+different sizes and motion timing so each reads appropriately in its context.
+
+### Web
+
+The default `base` size is 32px. Use the 16px `small` size beside short text or
+inside compact interface elements such as buttons.
+
+Layout is the consumer's responsibility. Place the indicator in a suitable
+container, or use `className` and `style`, to control alignment and spacing.
+
+### Mobile
+
+The default `base` size is 44px. Use the 28px `small` size for compact mobile
+interfaces. Layout is controlled by the surrounding `View` or by passing
+`style`.
+
+Both implementations use `color-text--secondary` for the active arc and
+`color-surface--active` for the track, allowing the indicator to adapt across
+supported themes and surfaces.
+
+## Accessibility
+
+### Web
+
+- `role="status"` creates a polite live region for non-urgent loading states.
+- `ariaLabel` defaults to the localized `"Loading"` message. Override it when a
+  more specific description is helpful, such as `"Uploading file"`.
+- Visually hidden label text ensures the status is announced when it mounts.
+
+The indicator does not participate in the keyboard tab order.
+
+### Mobile
+
+- `accessibilityRole="progressbar"` and `accessibilityState={{ busy: true }}`
+  identify an ongoing indeterminate activity.
+- `accessibilityLabel` defaults to the localized `"Loading"` message. Override
+  it to describe a specific activity.
+- The resolved label is announced when the indicator mounts and whenever the
+  label changes.
+
+The indicator is non-interactive. It exposes one accessible progress element and
+does not require an action from the user.
+
+## Reduced motion
+
+The indicator automatically follows the operating system's reduced-motion
+preference. Web reads `prefers-reduced-motion`; mobile reacts to the iOS Reduce
+Motion or Android Remove Animations setting.
+
+With reduced motion enabled, the rotating and rocking layers are replaced by a
+single static ring that gently pulses its opacity. This preserves the busy state
+without rotational motion.
+
+## Cross-platform behavior
+
+| Aspect | Web | Mobile |
+| --- | --- | --- |
+| Sizes | 16px small, 32px base | 28px small, 44px base |
+| Accessible label | `ariaLabel` | `accessibilityLabel` |
+| Default label | Localized `"Loading"` | Localized `"Loading"` |
+| Styling | `className` and `style` | `style` |
+| Reduced motion | CSS media query | Operating-system setting via Reanimated |
+
+## Relationship to Spinner
+
+The legacy [Spinner](/components/Spinner) remains available during migration but
+is deprecated. New code should use `ActivityIndicator`.
+
+## Mockup
+
+<Figma collapsable url="https://www.figma.com/file/avvgu5SkbBvS8lGVePBsqO/%F0%9F%92%99-Product%2FMobile?node-id=13095%3A32" />

@@ -1,0 +1,51 @@
+import { Meta } from "../../mdx/blocks";
+
+<Meta title="Components/Forms and Inputs/Form" />
+
+# Form
+
+The Form component is a wrapper component that handles the submission and
+validation of forms.
+
+For more information about `validations` using any of the Input components, see
+the [InputText](/components/InputText) documentation.
+
+## Design \& usages guidelines
+
+The Form component has a lot of built-in features which rely on its internal
+state. To take advantage of these features, do not bypass the Form's internal
+state — the fields or inputs within the Form must have a `name` prop and **NOT**
+have a `value` and `onChange` prop.
+
+## Content guidelines
+
+### Inputs
+
+Form can accept various inputs and selection elements such as (but not limited
+to) [InputText](/components/InputText),
+[LegacySelect](/components/LegacySelect), [Switch](/components/Switch),
+[Checkbox](/components/Checkbox), and [Chips](/components/Chips). They should be
+placed [Cards](/components/Card) to indicate grouping when relevant, and groups
+of Cards can be spaced appropriately using ContentSection.
+
+### Save Button label
+
+The `saveButtonLabel` property defaults to "Save", but should be made more
+verbose to add context for the user. Use the format "Save \{object\}", such as
+"Save Job". This helps clarify to the user that tapping the Save Button is not
+saving the single input they are editing, but the entire object.
+
+### Form errors
+
+All error messaging should follow our
+[Product Vocabulary.](/content/product-vocabulary)
+
+## Setup
+
+Consuming apps using the mobile Form must wrap their app root with
+`KeyboardProvider` from `react-native-keyboard-controller`.
+
+## Accessibility
+
+The individual inputs are responsible for accessibility concerns such as the
+labels, types, values, and error messages of each input.

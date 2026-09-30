@@ -1,0 +1,258 @@
+## Component customization
+
+### Modal Provider API
+
+**Note:** This is only supported in new projects due to incompatibilities with
+some testing environments.
+
+Modal exposes its internal building blocks as subcomponents: `Modal.Provider`,
+`Modal.Activator`, `Modal.Header`, `Modal.Content`, `Modal.Actions`. This gives
+you more control over the Modal's appearance and behaviour.
+
+Here is a basic example of how our current Modal is used:
+
+```tsx
+<Modal
+  open={true}
+  onRequestClose={() => setShowModal(false)}
+  title="Modal Title"
+  primaryAction={{ label: "Submit", onClick: handlePrimaryAction }}
+  secondaryAction={{
+    label: "Cancel",
+    onClick: handleSecondaryAction,
+  }}
+>
+  <Content>Modal content goes here</Content>
+</Modal>
+```
+
+Using Modal's built-in subcomponents, this UI can alternatively be expressed as:
+
+```tsx
+
+<Modal.Provider open={true} onRequestClose={() => setShowModal(false)}>
+  <Modal.Content>
+    <Modal.Header title="Modal Title" />
+    <Modal.Content>
+      Modal content goes here
+    </Modal.Content>
+    <Modal.Actions primaryAction={{ label: "Submit", onClick: handlePrimaryAction }}
+        secondaryAction={{
+          label: "Cancel",
+          onClick: handleSecondaryAction,
+        }}} />
+  </Modal.Content>
+</Modal.Provider>
+```
+
+If you want to use a custom header, you can do the following:
+
+```tsx
+function CustomHeader() {
+  const { header } = useModalStyles();
+  const { onRequestClose } = useModalContext();
+
+  return (
+    <div className={header}>
+      <Heading level={2}>Custom Header</Heading>
+      <Menu
+        items={[
+          {
+            actions: [
+              { label: "Close Modal", onClick: onRequestClose },
+              {
+                label: "Another Action",
+                onClick: () => alert("Another Action"),
+              },
+            ],
+          },
+        ]}
+      />
+    </div>
+  );
+}
+
+function CustomModal() {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <>
+      <Button label="Open Modal" onClick={() => setShowModal(true)} />
+      <Modal.Provider
+        open={showModal}
+        onRequestClose={() => setShowModal(false)}
+      >
+        <Modal.Content>
+          <Modal.Header>
+            <CustomHeader />
+          </Modal.Header>
+          <Content>
+            <Text>Modal content goes here</Text>
+          </Content>
+          <Modal.Actions
+            primaryAction={{ label: "Submit", onClick: handlePrimaryAction }}
+            secondaryAction={{
+              label: "Cancel",
+              onClick: handleSecondaryAction,
+            }}
+          />
+        </Modal.Content>
+      </Modal.Provider>
+    </>
+  );
+}
+```
+
+### Custom headers and dismiss buttons
+
+When you supply a custom `Modal.Header`, you replace the default header. That
+means the built-in dismiss button is no longer rendered.
+
+```tsx
+<Modal.Content>
+  <Modal.Header>
+    <h3>This is my custom header</h3>
+  </Modal.Header>
+  <Content>{/* Modal content */}</Content>
+</Modal.Content>
+```
+
+If you still want a dismiss button, add one yourself and wire it to
+`onRequestClose`:
+
+```tsx
+function CustomHeaderWithDismissHeader() {
+  const { header } = useModalStyles();
+  const { onRequestClose } = useModalContext();
+
+  return (
+    <div className={header}>
+      <Cluster justify="space-between" align="center">
+        <Heading level={2}>This is my custom header</Heading>
+        <ButtonDismiss ariaLabel="Close modal" onClick={onRequestClose} />
+      </Cluster>
+    </div>
+  );
+}
+```
+
+### Sticky headers and actions
+
+Sticky headers and actions are only detected when `Modal.Header` and
+`Modal.Actions` are rendered as direct children of `Modal.Content`.
+
+```tsx
+// ✅ Works
+<Modal.Content>
+  <Modal.Header variant="sticky" />
+  <Content>...</Content>
+  <Modal.Actions variant="sticky" />
+</Modal.Content>;
+
+// ⚠️ Won’t stick (wrapped)
+const MyActions = () => <Modal.Actions variant="sticky" />;
+```
+
+### Focus management
+
+Sometimes you may want to manually control where the modal returns focus to.
+This usually happens when a modal is triggered by an element that is removed
+from the DOM after the modal is opened. The base modal component generally
+handles this, but there are some edge cases that may require manual control.
+
+To resolve this, you can use the `Modal.Activator` component to manually control
+where the modal returns focus to, you can do the following:
+
+```tsx
+function ModalWithCustomFocus() {
+  const [showModal, setShowModal] = useState(false);
+  const [hideActivator, setHideActivator] = useState(false);
+
+  return (
+    <>
+      {!hideActivator && <Button label="Open Modal" onClick={() => setShowModal(true)} />}
+      <Modal.Provider open={true} onRequestClose={() => setShowModal(false)}>
+        <Modal.Activator>
+          <InputText placeholder="Modal will return focus here"  value="" />
+      </Modal.Activator>
+      <Modal.Content>
+        <Modal.Header title="Modal Title" />
+        <Modal.Content>Modal content goes here</Modal.Content>
+      </Modal.Content>
+    </Modal.Provider>
+  );
+}
+```
+
+## Accessibility
+
+**Role and modality**: Modal renders with `role="dialog"` and
+`aria-modal="true"`.
+
+**Naming precedence**:
+
+- If a visible heading/title is provided, the dialog is named via
+  `aria-labelledby` that references the heading element.
+- If there is no visible heading/title, you can provide `ariaLabel` to provide
+  an accessible name for the Modal.
+
+### Provider Modal
+
+When using the Modal Provider API, the name is derived from `Modal.Header` when
+a `title` is provided. If you use a custom header node, set `modalLabelledBy` on
+`Modal.Provider` to the `id` of your heading element.
+
+```tsx
+// Title provided → named by aria-labelledby
+<Modal.Provider open>
+  <Modal.Content>
+    <Modal.Header title="Billing Settings" />
+    ...
+  </Modal.Content>
+ </Modal.Provider>
+
+// No title → fallback to ariaLabel
+<Modal.Provider open ariaLabel="Add Customer">
+  <Modal.Content>{/* custom content without heading */}</Modal.Content>
+</Modal.Provider>
+
+// Custom header → provide matching id via modalLabelledBy
+<Modal.Provider open modalLabelledBy="custom-header-id">
+  <Modal.Content>
+    <Modal.Header>
+      <Heading level={3} id="custom-header-id">My Custom Header</Heading>
+    </Modal.Header>
+  </Modal.Content>
+</Modal.Provider>
+```
+
+### Non Provider Modal
+
+For the non provider invocation, when `title` is present it names the dialog via
+`aria-labelledby`. If there is no `title`, you must provide `ariaLabel` to
+provide an accessible name for the Modal.
+
+```tsx
+// Title provided → named by aria-labelledby
+<Modal open title="Legacy Modal Title">...</Modal>
+
+// No title → fallback to ariaLabel
+<Modal open ariaLabel="Payment Details">...</Modal>
+```
+
+### Full Screen Modals
+
+Use `size="fullScreen"` for complex workflows or dense layouts that need more
+space without turning the task into a new route.
+
+For full screen modals, keep the dismiss button enabled (it will be shown by
+default). If you set `dismissible={false}`, the Escape key is the only way to
+exit the modal, unless you provide another explicit close action.
+
+### Testing tip
+
+Use the accessible name in queries:
+
+```tsx
+screen.getByRole("dialog", { name: /Billing Settings/i });
+```

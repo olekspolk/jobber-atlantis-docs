@@ -1,0 +1,23 @@
+## Developer notes
+
+`FormatFileThumbnail` distinguishes between a real video thumbnail and a video
+file that has no preview image available.
+
+When a video has a valid `thumbnailUrl` or decodable source, Atlantis renders
+the thumbnail and overlays the existing small `video` icon. When no preview is
+available, Atlantis renders a fallback placeholder and shows the `videoFile`
+icon by default instead of showing the OS broken-image glyph.
+
+`showFileTypeIndicator={false}` hides all file type iconography, including the
+large `videoFile` icon used by video placeholders.
+
+Use `surfaceColor` on `FormatFileThumbnail` when the tile needs to visually
+blend into surrounding chrome:
+
+```tsx
+<FormatFileThumbnail
+  file={file}
+  size={{ width: 96, height: 96 }}
+  surfaceColor="var(--color-surface)"
+/>
+```

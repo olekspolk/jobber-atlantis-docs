@@ -1,0 +1,212 @@
+import { Meta } from "../../mdx/blocks";
+
+<Meta title="Components/Overlays/Dialog" />
+
+# Dialog
+
+## Summary
+
+Dialog is a modal surface that presents a single, focused task or decision above
+the page. On large screens it appears as a centered modal; on small screens it
+appears as a sheet anchored to the bottom of the screen.
+
+## Anatomy
+
+| Part | Description |
+| --- | --- |
+| Trigger | An interactive element that opens the dialog |
+| Content | The floating panel (modal) or sheet that contains the dialog |
+| Header | Layout slot at the top, commonly holding the title and close button |
+| Title | Primary heading of the dialog, wired to the accessible name |
+| Close | The dismiss control that closes the dialog |
+| Body | The main content region, and the default scroll area |
+| Footer | Layout slot at the bottom, commonly holding the actions |
+| Actions | Optional: the primary, secondary, and tertiary action button layout |
+| ScrollArea | Optional: advanced override for which region scrolls versus pins |
+
+## Behavior
+
+#### Opening and closing
+
+The dialog opens when:
+
+- The trigger is clicked or tapped
+- The trigger is activated by keyboard (e.g. via the Enter or Space keys)
+
+The dialog closes when:
+
+- The close button is selected
+- An action that resolves the task is selected
+- A click or tap occurs outside the dialog (on the backdrop)
+- The ESC key is pressed
+
+An `alertdialog` is the exception: it ignores outside and backdrop dismissal, so
+the user must choose an action to resolve it. ESC still closes it.
+
+#### Scrolling
+
+The `Dialog.Body` is the default scroll region, while the header and footer stay
+pinned as the content scrolls. Which region scrolls is decided by composition,
+not a prop — wrap parts in a `Dialog.ScrollArea` when a header or footer should
+scroll with the content instead of pinning.
+
+#### Nested dialog
+
+A dialog can open a second dialog, which layers on top of the first. The
+underlying dialog stays in place behind the new overlay and returns when the top
+one closes.
+
+#### Small screens
+
+When a user is on a small screen such as a mobile device, the dialog opens as a
+sheet anchored to the bottom of the screen. The parts and accessibility wiring
+are identical to the desktop modal.
+
+#### Native mobile
+
+Atlantis does not provide a native `Dialog` equivalent in
+`@jobber/components-native`. For a comparable mobile-native experience, use
+[`ContentOverlay`](/components/ContentOverlay) from `@jobber/components-native`
+to present content or actions in a sheet.
+
+## Variants
+
+#### Type
+
+**1\. Dialog:** The default. Used for most tasks and content. Can be dismissed by
+clicking outside, pressing ESC, or the close button.
+
+**2\. Alert dialog:** Used to interrupt the user and require a decision, such as
+confirming a destructive action. It is always modal, cannot be dismissed by
+clicking outside, and has no close button — the user must choose an action.
+
+#### Size
+
+| Size | Max width | Use for |
+| --- | --- | --- |
+| Small | 440px | Short confirmations or simple choices |
+| Base | 720px | The default, suitable for most content |
+| Large | 1032px | Denser content or forms |
+| Full screen | Viewport | Fills the viewport on large screens; a full-height sheet on small screens |
+
+Widths are max widths — the dialog narrows to fit smaller viewports.
+
+#### Actions
+
+`Dialog.Actions` arranges the action buttons: a tertiary/destructive action on
+the left, and primary and secondary actions grouped on the right. The footer is
+a generic region, so it can also hold a note, a checkbox, or a custom layout
+instead.
+
+#### Custom content
+
+- The body supports flexible content layouts
+- `fullBleed` removes body padding when content should reach the edges
+- Header and footer are layout-only slots; they own arrangement, not typography
+  or actions
+
+## Content Guidelines
+
+These build on the general [Voice \& tone](/content/voice-and-tone) and
+[Formatting](/content/formatting) guidelines.
+
+A dialog interrupts the user, so every word should earn its place: name the
+task, state the outcome, and give a clear way out.
+
+#### Title
+
+The title names the task as opposed to the component. Use verbs when the dialog
+is asking the user to actually do something. Be specific. Use a noun when you're
+presenting information. Don't phrase confirmation requests as questions.
+
+| Do | Don't |
+| --- | --- |
+| Delete client | Are you sure you want to delete this client? |
+| Edit job details | Job Editor |
+| Assign team member | Assign |
+| Send invoice | Send |
+| Client information | Info |
+
+#### Body
+
+Body copy needs to expand on the title by providing what the title can't. It
+shouldn't repeat the title and should provide useful information such as
+explaining the impact of any action the user might be taking. For a routine
+task, one short sentence is often enough.
+
+| Do | Don't |
+| --- | --- |
+| This will remove the discount from the invoice | This will let you remove the discount that's currently applied |
+
+#### Actions
+
+Primary action lables will need to lead with a verb and match the action taking
+place. They shouldn't be generic such as "Confirm" or "Yes". The action needs to
+be clearly intentional. Also, remember that buttons are title case.
+
+| Do | Don't |
+| --- | --- |
+| Cancel Subscription | Confirm |
+| Sync QuickBooks | Next |
+| Delete 3 Files | Delete |
+
+#### Alert dialogs
+
+As `alertdialog` can't be dismissed by clicking outside, the way out needs to be
+clear. We should not be reliant on users pressing ESC. When relevant, cancel
+actions need to be considered alonsgside confirmation actions and should be just
+as easy to find. Ideally via secondary CTAs.
+
+## Do's and Don'ts
+
+Here are some general rules to follow when working with the dialog component:
+
+#### Do:
+
+- ✅ Give every dialog a clear title that names the task
+- ✅ Keep a dialog focused on a single task or decision
+- ✅ Use an alert dialog for destructive or irreversible actions, and always
+  offer a way to cancel
+- ✅ Lead with a short, action-oriented primary button label
+- ✅ Choose the size that comfortably fits the content
+
+#### Don't:
+
+- ❌ Combine multiple unrelated tasks in one dialog
+- ❌ Use a dialog for long or multi-step flows that belong on their own page
+- ❌ Use a nested dialog unless the flow genuinely requires it
+- ❌ Remove the ability to dismiss without offering an explicit action to leave
+
+## Accessibility
+
+Users need to be able to open the dialog, operate its content, and close it with
+assistive technology.
+
+#### Semantics
+
+- The surface `role` is `dialog`, or `alertdialog` for the alert type
+- `Dialog.Title` is auto-wired to `aria-labelledby`
+- `Dialog.Body` is auto-wired to `aria-describedby`
+
+#### Focus
+
+- Focus is trapped within the dialog while it is open
+- On close, focus returns to the trigger
+- When the trigger is removed while the dialog is open, focus can be directed to
+  the closest sensible element instead
+
+#### Keyboard navigation
+
+| Key | Behavior |
+| --- | --- |
+| Tab | Moves focus between focusable elements in the dialog |
+| Enter or Space | Activates the focused control |
+| Esc | Closes the dialog |
+
+## Related components
+
+- To trigger a single action rather than presenting a task or decision, use a
+  [Button](/components/Button) or [IconButton](/components/IconButton)
+- For a comparable overlay experience in native mobile, use
+  [BottomSheet](/components/BottomSheet) from `@jobber/components-native`
+- To present a list of options or actions, use a [Menu](/components/Menu)

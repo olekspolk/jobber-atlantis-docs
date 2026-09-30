@@ -1,0 +1,71 @@
+[
+  {
+    "displayName": "Checkbox",
+    "filePath": "../components-native/src/Checkbox/Checkbox.tsx",
+    "props": {
+      "accessibilityLabel": {
+        "description": "Accessibility Label for the checkbox. Defaults to label",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "assistiveText": {
+        "description": "Assistive Text, shown under label",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "checked": {
+        "description": "If the checkbox is checked. This should be set when this is intended as a controlled component",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "defaultChecked": {
+        "description": "Default value for when the checkbox is uncontrolled",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "disabled": {
+        "description": "Checkbox is disabled",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "indeterminate": {
+        "description": "When true, the checkbox is shown as indeterminate",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "label": {
+        "description": "Label to be displayed beside the checkbox",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "name": {
+        "description": "Name of the checkbox; this is important when using in a form component",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onChange": {
+        "description": "Press handler",
+        "required": false,
+        "type": {
+          "name": "((value: boolean) => void) | ((value: boolean) => void)"
+        }
+      }
+    }
+  }
+]

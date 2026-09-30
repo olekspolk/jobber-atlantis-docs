@@ -1,0 +1,64 @@
+[
+  {
+    "displayName": "FeatureSwitch",
+    "filePath": "../components/src/FeatureSwitch/FeatureSwitch.tsx",
+    "props": {
+      "description": {
+        "description": "Feature description. This supports basic markdown node types such as\n`_italic_`, `**bold**`, and `[link name](url)`",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "Determines if the switch is disabled",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "enabled": {
+        "description": "Defines if the feature should be ON or OFF by default.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "externalLink": {
+        "description": "Defines if the links in the description should open in a new tab.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hasSaveIndicator": {
+        "description": "Determines if a save indicator should show up when the `enabled` prop\nchanges. This means, it would only work for controlled components.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onEdit": {
+        "description": "Callback when clicking with the edit button. This also determines if the\nedit button should show up in the UI.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onSwitch": {
+        "description": "Callback when interacting with the switch.\n@param newValue",
+        "required": false,
+        "type": {
+          "name": "(newValue: boolean) => void"
+        }
+      },
+      "title": {
+        "description": "Feature title.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

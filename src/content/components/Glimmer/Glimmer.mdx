@@ -1,0 +1,35 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { GlimmerBasicExample } from "./examples/GlimmerBasicExample";
+import GlimmerBasicExampleSource from "./examples/GlimmerBasicExample.tsx?raw";
+import { GlimmerReverseThemeExample } from "./examples/GlimmerReverseThemeExample";
+import GlimmerReverseThemeExampleSource from "./examples/GlimmerReverseThemeExample.tsx?raw";
+import { GlimmerSemanticBlocksExample } from "./examples/GlimmerSemanticBlocksExample";
+import GlimmerSemanticBlocksExampleSource from "./examples/GlimmerSemanticBlocksExample.tsx?raw";
+import { Glimmer } from "@jobber/components/Glimmer";
+
+<Meta title="Components/Status and Feedback/Glimmer" component={Glimmer} />
+
+# Glimmer
+
+Glimmer is a foundational component that is used to build Skeleton (_coming
+soon_) or other components that invoke loading such as an image waiting to load
+on [FormatFile](/components/FormatFile).
+
+## Colors
+
+Glimmers adapts to the background you put it in. If you have a grey background,
+the `Glimmer` will automatically darken itself so it's still noticeable.
+
+<Canvas code={GlimmerBasicExampleSource}><GlimmerBasicExample /></Canvas>
+
+If the Glimmer sits on a `reverse` background (dark in light mode, light in dark
+mode), you can toggle the `reverseTheme` prop to switch the colors so it's still
+noticeable.
+
+<Canvas code={GlimmerReverseThemeExampleSource}><GlimmerReverseThemeExample /></Canvas>
+
+## Semantic blocks
+
+A pre-made block can be used to indicate a certain component.
+
+<Canvas code={GlimmerSemanticBlocksExampleSource}><GlimmerSemanticBlocksExample /></Canvas>

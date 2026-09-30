@@ -1,0 +1,15 @@
+[
+  {
+    "displayName": "Emphasis",
+    "filePath": "../components/src/Emphasis/Emphasis.tsx",
+    "props": {
+      "variation": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "\"bold\" | \"highlight\" | \"italic\""
+        }
+      }
+    }
+  }
+]

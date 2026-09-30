@@ -1,0 +1,71 @@
+[
+  {
+    "displayName": "Banner",
+    "filePath": "../components-native/src/Banner/Banner.tsx",
+    "props": {
+      "action": {
+        "description": "The function that should be performed when the Banner is pressed",
+        "required": false,
+        "type": {
+          "name": "ActionProps"
+        }
+      },
+      "children": {
+        "description": "Custom content to be displayed in the banner",
+        "required": false,
+        "type": {
+          "name": "string | ReactElement<unknown, string | JSXElementConstructor<any>> | ReactElement<unknown, string | JSXElementConstructor<any>>[]"
+        }
+      },
+      "details": {
+        "description": "**Deprecated**: Use `children` with a `<TextList level=\"text\" />` instead\n@deprecated",
+        "required": false,
+        "type": {
+          "name": "string[]"
+        }
+      },
+      "dismissAccessibilityLabel": {
+        "description": "Accessibility label for the dismiss button.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "dismissible": {
+        "description": "Set to true to show a dismiss button",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "description": "Adds an icon to the left of the banner content",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "onDismiss": {
+        "description": "Callback to be called when the Banner is dismissed.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "text": {
+        "description": "**Deprecated**: Use `children` with a `<Text level=\"text\" />`\n@deprecated",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "type": {
+        "description": "The primary theme of the banner, controls the things like the background color",
+        "required": true,
+        "type": {
+          "name": "BannerTypes"
+        }
+      }
+    }
+  }
+]

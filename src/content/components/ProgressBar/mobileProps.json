@@ -1,0 +1,71 @@
+[
+  {
+    "displayName": "ProgressBar",
+    "filePath": "../components-native/src/ProgressBar/ProgressBar.tsx",
+    "props": {
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "ProgressBarUnsafeStyle"
+        }
+      },
+      "current": {
+        "description": "The number of items that are currently completed",
+        "required": true,
+        "type": {
+          "name": "number"
+        }
+      },
+      "header": {
+        "description": "Component to render above the progress bar.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "inProgress": {
+        "description": "The number of items in progress (not completed, but to be less than the total);\nnot applicable with stepped variation",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "loading": {
+        "description": "If the progress bar is loading, the progress indicators aren't rendered on the screen",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "reverseTheme": {
+        "description": "If the amountFormatted and totalAmountFormatted text needs to appear more visibile because of the\nbackground, for example",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "description": "Set the size of the progress bar",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"small\" | \"smaller\""
+        }
+      },
+      "total": {
+        "description": "The total number of items to be completed",
+        "required": true,
+        "type": {
+          "name": "number"
+        }
+      },
+      "variation": {
+        "description": "Set the variation of the progress bar",
+        "required": false,
+        "type": {
+          "name": "\"progress\" | \"stepped\""
+        }
+      }
+    }
+  }
+]

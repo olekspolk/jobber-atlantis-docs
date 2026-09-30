@@ -1,0 +1,239 @@
+[
+  {
+    "displayName": "InputPassword",
+    "filePath": "../components-native/src/InputPassword/InputPassword.tsx",
+    "props": {
+      "accessibilityHint": {
+        "description": "An accessibility hint helps users understand what will happen when they perform an action on the\naccessibility element when that result is not clear from the accessibility label",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "VoiceOver will read this string when a user selects the associated element",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "assistiveText": {
+        "description": "Text that helps the user understand the input",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "autoCapitalize": {
+        "description": "Determines where to autocapitalize",
+        "required": false,
+        "type": {
+          "name": "\"characters\" | \"none\" | \"sentences\" | \"words\""
+        }
+      },
+      "autoComplete": {
+        "description": "Determines which content to suggest on auto complete, e.g.`username`.\nDefault is `off` which disables auto complete\n\n*Android Only*",
+        "required": false,
+        "type": {
+          "name": "\"email\" | \"name\" | \"additional-name\" | \"address-line1\" | \"address-line2\" | \"birthdate-day\" | \"birthdate-full\" | \"birthdate-month\" | \"birthdate-year\" | \"cc-csc\" | \"cc-exp\" | ... 45 more ... | \"off\""
+        }
+      },
+      "autoCorrect": {
+        "description": "Turn off autocorrect",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "autoFocus": {
+        "description": "Automatically focus the input after it is rendered",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "defaultValue": {
+        "description": "Default value for when component is uncontrolled",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "Disable the input",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "invalid": {
+        "description": "Highlights the field red and shows message below (if string) to indicate an error",
+        "required": false,
+        "type": {
+          "name": "boolean | string"
+        }
+      },
+      "loading": {
+        "description": "Show loading indicator.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "loadingType": {
+        "description": "Change the type of loading indicator to spinner or glimmer.",
+        "required": false,
+        "type": {
+          "name": "\"glimmer\" | \"spinner\""
+        }
+      },
+      "multiline": {
+        "description": "Determines if inputText will span multiple lines.\nDefault is `false`\n\nhttps://reactnative.dev/docs/textinput#multiline",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "name": {
+        "description": "Name of the input.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onBlur": {
+        "description": "Callback that is called when the text input is blurred",
+        "required": false,
+        "type": {
+          "name": "(event?: FocusEvent) => void"
+        }
+      },
+      "onChangeText": {
+        "description": "Simplified callback that only provides the new value\n@param newValue",
+        "required": false,
+        "type": {
+          "name": "(newValue: string) => void"
+        }
+      },
+      "onFocus": {
+        "description": "Callback that is called when the text input is focused\n@param event",
+        "required": false,
+        "type": {
+          "name": "(event?: FocusEvent) => void"
+        }
+      },
+      "onSubmitEditing": {
+        "description": "Callback that is called when the text input's submit button is pressed\n@param event",
+        "required": false,
+        "type": {
+          "name": "(event?: SyntheticEvent<Element, Event>) => void"
+        }
+      },
+      "placeholder": {
+        "description": "Hint text that goes above the value once the field is filled out",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "prefix": {
+        "description": "Symbol to display before the text input",
+        "required": false,
+        "type": {
+          "name": "{ icon?: IconNames; label?: string; }"
+        }
+      },
+      "readonly": {
+        "description": "Makes the input read-only",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<InputTextRef>"
+        }
+      },
+      "showMiniLabel": {
+        "description": "Controls the visibility of the mini label that appears inside the input\nwhen a value is entered. By default, the placeholder text moves up to\nbecome a mini label. Set to false to disable this behavior.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "spellCheck": {
+        "description": "Determines whether spell check is used. Turn it off to hide empty autoCorrect\nsuggestions when autoCorrect is off.\n\n*iOS Only*",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "styleOverride": {
+        "description": "Custom styling to override default style of the input text",
+        "required": false,
+        "type": {
+          "name": "InputTextStyleOverride"
+        }
+      },
+      "suffix": {
+        "description": "Symbol to display after the text input",
+        "required": false,
+        "type": {
+          "name": "{ icon?: IconNames; label?: string; onPress?: () => void; }"
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "toolbar": {
+        "description": "Add a toolbar below the input field for actions like rewriting the text.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "toolbarVisibility": {
+        "description": "Change the behaviour of when the toolbar becomes visible.",
+        "required": false,
+        "type": {
+          "name": "\"always\" | \"while-editing\""
+        }
+      },
+      "transform": {
+        "description": "transform object is used to transform the internal TextInput value\nIt's useful for components like InputNumber where we want to transform\nthe internal value to a number.\n\"input\" is a function that transform the value to the string format that should be shown to the user\n\"output\" is a function that transform the string representation of the value to the value that is sent to onChange and the form",
+        "required": false,
+        "type": {
+          "name": "{ input?: (v: any) => string; output?: (v: string) => any; }"
+        }
+      },
+      "usePrivacyEye": {
+        "description": "Determines if InputPassword uses privacy eye suffix",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "validations": {
+        "description": "Shows an error message below the field and highlight the field red when value is invalid",
+        "required": false,
+        "type": {
+          "name": "RegisterOptions"
+        }
+      },
+      "value": {
+        "description": "Set the component to a given value",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

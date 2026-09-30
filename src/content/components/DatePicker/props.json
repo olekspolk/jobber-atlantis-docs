@@ -1,0 +1,106 @@
+[
+  {
+    "displayName": "DatePicker",
+    "filePath": "../components/src/DatePicker/DatePicker.tsx",
+    "props": {
+      "activator": {
+        "description": "Use a custom activator to trigger the DatePicker",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ((props: DatePickerActivatorProps) => ReactElement<unknown, string | JSXElementConstructor<...>>)"
+        }
+      },
+      "disabled": {
+        "description": "Stops the user from interaction",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "firstDayOfWeek": {
+        "description": "Sets which day is considered the first day of the week.\n0 = Sunday, 1 = Monday, etc.",
+        "required": false,
+        "type": {
+          "name": "DayOfWeek"
+        }
+      },
+      "fullWidth": {
+        "description": "Whether the datepicker should take up a whole block",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "highlightDates": {
+        "description": "Dates on the calendar to highlight",
+        "required": false,
+        "type": {
+          "name": "Date[]"
+        }
+      },
+      "inline": {
+        "description": "Determines if the DatePicker should be shown without needing to trigger the Activator.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "maxDate": {
+        "description": "The maximum selectable date.",
+        "required": false,
+        "type": {
+          "name": "Date"
+        }
+      },
+      "minDate": {
+        "description": "The minimum selectable date.",
+        "required": false,
+        "type": {
+          "name": "Date"
+        }
+      },
+      "onChange": {
+        "description": "Change handler that will return the date selected.",
+        "required": true,
+        "type": {
+          "name": "(val: Date) => void"
+        }
+      },
+      "onMonthChange": {
+        "description": "Change handler when the selected month changes",
+        "required": false,
+        "type": {
+          "name": "(val: Date) => void"
+        }
+      },
+      "onOpenChange": {
+        "description": "Callback when the calendar open state changes",
+        "required": false,
+        "type": {
+          "name": "(open: boolean) => void"
+        }
+      },
+      "readonly": {
+        "description": "Whether or not you can select a date",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "selected": {
+        "description": "The selected Date object",
+        "required": false,
+        "type": {
+          "name": "Date"
+        }
+      },
+      "smartAutofocus": {
+        "description": "Determines if the focus moves to the selected date (if any) or back to\nthe activator",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,794 @@
+[
+  {
+    "displayName": "InputNumber",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "align": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"center\" | \"right\""
+        }
+      },
+      "aria-label": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "autoComplete": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "InputNumberAutoComplete"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "description": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "error": {
+        "description": "Renders a styled error message below the field.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "format": {
+        "description": "Number formatting for the displayed value, forwarded to Base UI\n`NumberField`'s native `format`. When omitted, typed decimals are preserved.",
+        "required": false,
+        "type": {
+          "name": "NumberFormatOptions"
+        }
+      },
+      "id": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "inline": {
+        "description": "Shrink-wrap the field to its content (auto width).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "inputMode": {
+        "description": "Virtual keyboard hint for mobile. When omitted, Base UI picks the\nkeyboard: `\"numeric\"` on most platforms, `\"decimal\"` or `\"text\"` on iOS\n(its numeric keypad has no decimal or minus key).",
+        "required": false,
+        "type": {
+          "name": "\"decimal\" | \"numeric\""
+        }
+      },
+      "invalid": {
+        "description": "Style the error border without showing an error message.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "label": {
+        "description": "Floating field label.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "loading": {
+        "description": "Shows a non-blocking loading indicator in the stepper's slot. The field\nstays editable (use `readOnly`/`disabled` to lock it); the stepper hides so\nthe two never overlap.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "max": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "min": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "name": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onBlur": {
+        "description": "Also fires once per Enter press: committing on Enter is implemented as a\n`blur()`/`focus()` round-trip, so `onBlur` and `onFocus` both fire even\nthough focus never visibly leaves the field.",
+        "required": false,
+        "type": {
+          "name": "(event?: FocusEvent<HTMLInputElement, Element>) => void"
+        }
+      },
+      "onEnter": {
+        "description": "Fires when Enter is pressed without modifier keys (Shift/Ctrl/Meta).",
+        "required": false,
+        "type": {
+          "name": "(event: KeyboardEvent<HTMLInputElement>) => void"
+        }
+      },
+      "onFocus": {
+        "description": "Also fires once per Enter press; see `onBlur` for the commit mechanics.",
+        "required": false,
+        "type": {
+          "name": "(event?: FocusEvent<HTMLInputElement, Element>) => void"
+        }
+      },
+      "onKeyDown": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: KeyboardEvent<HTMLInputElement>) => void"
+        }
+      },
+      "onKeyUp": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: KeyboardEvent<HTMLInputElement>) => void"
+        }
+      },
+      "onValueChange": {
+        "description": "Fires on every parsed value change (typing, paste, stepper, arrow step).\nEmits `null` when the field is empty.",
+        "required": false,
+        "type": {
+          "name": "(newValue: number) => void"
+        }
+      },
+      "onValueCommitted": {
+        "description": "Fires when the user commits a value (blur, Enter, stepper, arrow step).\nEmits `null` when committed empty. For per-keystroke updates use\n`onValueChange`.",
+        "required": false,
+        "type": {
+          "name": "(newValue: number) => void"
+        }
+      },
+      "prefix": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "InputNumberAffix"
+        }
+      },
+      "readOnly": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "ref": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "Ref<InputNumberRef>"
+        }
+      },
+      "showMiniLabel": {
+        "description": "Default `true`. When `false`, the floating label is hidden.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "InputNumberSize"
+        }
+      },
+      "step": {
+        "description": "Amount the stepper buttons and ArrowUp/ArrowDown keys change the value by.\nDefault `\"any\"`, which steps by `1` while accepting any decimal value. Pass a\nnumber to both set the step increment and constrain valid values to its\nmultiples (a non-multiple then fails native validation).",
+        "required": false,
+        "type": {
+          "name": "\"any\" | number"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "suffix": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "InputNumberSuffixProp"
+        }
+      },
+      "value": {
+        "description": "Controlled value. `number` sets the value; `null` (or `undefined`) is an\nempty field.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Affix",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "children": {
+        "description": "Arbitrary affix content, beyond the built-in `label`/`icon`.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "icon": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "label": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onClick": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "variation": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "\"prefix\" | \"suffix\""
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Decrement",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "Accessible label for the button.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "children": {
+        "description": "Icon content. Falls back to the default Atlantis stepper icon.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Description",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Error",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "children": {
+        "description": "Error message. Rendered with an alert icon via the `HelperText` primitive.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Footer",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Group",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Increment",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "Accessible label for the button.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "children": {
+        "description": "Icon content. Falls back to the default Atlantis stepper icon.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Input",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "children": {
+        "description": "Content rendered inside the input area (e.g. `.Label`, `.Stepper`).",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Label",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Loading",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "children": {
+        "description": "Indicator content. Falls back to the default `ActivityIndicator`.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Stepper",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "children": {
+        "description": "Stepper buttons. Falls back to the default increment/decrement pair.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "decrementLabel": {
+        "description": "Accessible label for the decrement button. Defaults to `Decrease value`.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "incrementLabel": {
+        "description": "Accessible label for the increment button. Defaults to `Increase value`.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "InputNumber.Wrapper",
+    "filePath": "../components/src/InputNumber/InputNumber.tsx",
+    "props": {
+      "align": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"center\" | \"right\""
+        }
+      },
+      "aria-label": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "autoComplete": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "InputNumberAutoComplete"
+        }
+      },
+      "children": {
+        "description": "Composed parts (`.Group`, `.Footer`, and the parts within them).",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "format": {
+        "description": "Number formatting for the displayed value, forwarded to Base UI\n`NumberField`'s native `format`. When omitted, typed decimals are preserved.",
+        "required": false,
+        "type": {
+          "name": "NumberFormatOptions"
+        }
+      },
+      "id": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "inline": {
+        "description": "Shrink-wrap the field to its content (auto width).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "inputMode": {
+        "description": "Virtual keyboard hint for mobile. When omitted, Base UI picks the\nkeyboard: `\"numeric\"` on most platforms, `\"decimal\"` or `\"text\"` on iOS\n(its numeric keypad has no decimal or minus key).",
+        "required": false,
+        "type": {
+          "name": "\"decimal\" | \"numeric\""
+        }
+      },
+      "invalid": {
+        "description": "Style the error border without showing an error message.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "loading": {
+        "description": "Shows a non-blocking loading indicator in the stepper's slot. The field\nstays editable (use `readOnly`/`disabled` to lock it); the stepper hides so\nthe two never overlap.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "max": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "min": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "name": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onBlur": {
+        "description": "Also fires once per Enter press: committing on Enter is implemented as a\n`blur()`/`focus()` round-trip, so `onBlur` and `onFocus` both fire even\nthough focus never visibly leaves the field.",
+        "required": false,
+        "type": {
+          "name": "(event?: FocusEvent<HTMLInputElement, Element>) => void"
+        }
+      },
+      "onEnter": {
+        "description": "Fires when Enter is pressed without modifier keys (Shift/Ctrl/Meta).",
+        "required": false,
+        "type": {
+          "name": "(event: KeyboardEvent<HTMLInputElement>) => void"
+        }
+      },
+      "onFocus": {
+        "description": "Also fires once per Enter press; see `onBlur` for the commit mechanics.",
+        "required": false,
+        "type": {
+          "name": "(event?: FocusEvent<HTMLInputElement, Element>) => void"
+        }
+      },
+      "onKeyDown": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: KeyboardEvent<HTMLInputElement>) => void"
+        }
+      },
+      "onKeyUp": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: KeyboardEvent<HTMLInputElement>) => void"
+        }
+      },
+      "onValueChange": {
+        "description": "Fires on every parsed value change (typing, paste, stepper, arrow step).\nEmits `null` when the field is empty.",
+        "required": false,
+        "type": {
+          "name": "(newValue: number) => void"
+        }
+      },
+      "onValueCommitted": {
+        "description": "Fires when the user commits a value (blur, Enter, stepper, arrow step).\nEmits `null` when committed empty. For per-keystroke updates use\n`onValueChange`.",
+        "required": false,
+        "type": {
+          "name": "(newValue: number) => void"
+        }
+      },
+      "readOnly": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "ref": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "Ref<InputNumberRef>"
+        }
+      },
+      "showMiniLabel": {
+        "description": "Default `true`. When `false`, the floating label is hidden.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "InputNumberSize"
+        }
+      },
+      "step": {
+        "description": "Amount the stepper buttons and ArrowUp/ArrowDown keys change the value by.\nDefault `\"any\"`, which steps by `1` while accepting any decimal value. Pass a\nnumber to both set the step increment and constrain valid values to its\nmultiples (a non-multiple then fails native validation).",
+        "required": false,
+        "type": {
+          "name": "\"any\" | number"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "value": {
+        "description": "Controlled value. `number` sets the value; `null` (or `undefined`) is an\nempty field.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "AtlantisThemeContextProvider",
+    "filePath": "../components-native/src/AtlantisThemeContext/AtlantisThemeContext.tsx",
+    "props": {
+      "children": {
+        "description": "The children to render.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "dangerouslyOverrideTheme": {
+        "description": "Force the theme for this provider to always be the same as the provided theme. Useful for sections that should remain the same theme regardless of the rest of the application's theme.\nThis is dangerous because it forces the subtree's rendered tokens while preserving the selected\ntheme semantics from the nearest non-forced provider. Calls to setTheme inside the forced subtree\nstill update the selected theme upstream.",
+        "required": false,
+        "type": {
+          "name": "EffectiveTheme"
+        }
+      },
+      "onThemeChange": {
+        "description": "Called when children request a selected theme change through setTheme.",
+        "required": false,
+        "type": {
+          "name": "(theme: Theme) => void"
+        }
+      },
+      "theme": {
+        "description": "Control the selected theme for this provider.",
+        "required": false,
+        "type": {
+          "name": "Theme"
+        }
+      }
+    }
+  }
+]

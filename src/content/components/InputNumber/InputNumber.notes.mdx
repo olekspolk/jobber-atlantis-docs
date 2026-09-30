@@ -1,0 +1,109 @@
+import { Canvas } from "../../mdx/blocks";
+import { InputNumberCompositionConditionalStepperExample } from "./examples/InputNumberCompositionConditionalStepperExample";
+import InputNumberCompositionConditionalStepperExampleSource from "./examples/InputNumberCompositionConditionalStepperExample.tsx?raw";
+import { InputNumberCompositionCustomLayoutExample } from "./examples/InputNumberCompositionCustomLayoutExample";
+import InputNumberCompositionCustomLayoutExampleSource from "./examples/InputNumberCompositionCustomLayoutExample.tsx?raw";
+import { InputNumberCompositionExample } from "./examples/InputNumberCompositionExample";
+import InputNumberCompositionExampleSource from "./examples/InputNumberCompositionExample.tsx?raw";
+import { InputNumberCompositionFooterExample } from "./examples/InputNumberCompositionFooterExample";
+import InputNumberCompositionFooterExampleSource from "./examples/InputNumberCompositionFooterExample.tsx?raw";
+import { InputNumberCompositionStepperlessExample } from "./examples/InputNumberCompositionStepperlessExample";
+import InputNumberCompositionStepperlessExampleSource from "./examples/InputNumberCompositionStepperlessExample.tsx?raw";
+
+## Anatomy
+
+The prop-driven `<InputNumber>` composes a set of parts. You only need these
+when the props can't express a layout; otherwise reach for the props shown on
+the **Design** tab.
+
+| Part | Description |
+| --- | --- |
+| `Wrapper` | Owns the field configuration and state; provides it to the parts |
+| `Group` | The bordered field row |
+| `Input` | The input area; holds the `Label` and the `Stepper` / `Loading` slot |
+| `Label` | Floating field label |
+| `Stepper` | The increment / decrement button pair |
+| `Increment` `Decrement` | The individual stepper buttons |
+| `Affix` | Prefix / suffix content (label, icon, or clickable icon) |
+| `Loading` | Non-blocking loading indicator slot |
+| `Footer` | Below-field row that holds `Description` and `Error` |
+| `Description` | Helper text below the field |
+| `Error` | Styled error message below the field |
+
+`Wrapper` owns the field state and shares it with the parts through context, so
+every part must be rendered inside a `Wrapper` (a part used outside one throws).
+
+## Customize one part
+
+Pass the content parts you want — `Label`, `Affix`, `Stepper`, `Loading`,
+`Description`, `Error` — straight to `Wrapper`. It builds `Group`, `Input`, and
+`Footer` around them and places each part at the right depth, so you never
+reproduce the skeleton to change one piece. `Wrapper` renders only the parts you
+gave it: leave one out and it is not there.
+
+The example below replaces the default stepper icons with `+` / `−` and leaves
+everything else as the default:
+
+<Canvas code={InputNumberCompositionExampleSource}><InputNumberCompositionExample /></Canvas>
+
+### Omit a part
+
+A field with no stepper is the same composition minus the `Stepper`:
+
+<Canvas code={InputNumberCompositionStepperlessExampleSource}><InputNumberCompositionStepperlessExample /></Canvas>
+
+### Show a part conditionally
+
+Presence is ordinary conditional JSX; there is no `show*` prop to reach for:
+
+<Canvas code={InputNumberCompositionConditionalStepperExampleSource}><InputNumberCompositionConditionalStepperExample /></Canvas>
+
+### Below-field content
+
+`Description` and `Error` route into the footer row, which exists only while one
+of them is rendered. The two are never shown together: when both are present the
+error replaces the description, since a description hints at what the field
+wants and the error already restates it.
+
+<Canvas code={InputNumberCompositionFooterExampleSource}><InputNumberCompositionFooterExample /></Canvas>
+
+## Custom layouts
+
+For an arrangement the standard skeleton does not produce, compose the
+structural parts (`Group`, `Input`, `Footer`) yourself. `Wrapper` then renders
+your tree exactly as written and adds nothing:
+
+<Canvas code={InputNumberCompositionCustomLayoutExampleSource}><InputNumberCompositionCustomLayoutExample /></Canvas>
+
+Pick one path per `Wrapper`. Mixing structural parts with loose content parts
+throws, rather than guessing where the loose parts belong.
+
+The sugar does not merge consumer-provided parts into its render, so there is no
+per-slot precedence to reason about — children passed to `<InputNumber>` are
+ignored. Compose on `Wrapper` instead.
+
+## Controlled usage
+
+The field is controlled: pass `value` (a `number`, or `null` for empty) and read
+changes back through one of two callbacks.
+
+| Callback | Fires | Use for |
+| --- | --- | --- |
+| `onValueChange` | On every parsed change (typing, paste, stepper, arrow step) | Live-updating UI as the user types |
+| `onValueCommitted` | When the user commits (blur, Enter, stepper, arrow step) | Saving / validating a final value |
+
+Both emit `null` when the field is empty. Prefer `onValueCommitted` for
+persistence so you are not writing on every keystroke.
+
+## Formatting semantics
+
+`format` is forwarded to Base UI's `NumberField` `format` and accepts any
+`Intl.NumberFormatOptions`. It changes the display only; the committed value is
+always a plain number. Two things to know:
+
+- **Percent** (`{ style: "percent" }`) treats the value as a ratio: `0.5`
+  renders `50%`, and the stepper moves in ratio units. If you want the value to
+  be the number itself (`50` → `50%`), use `{ style: "unit", unit: "percent" }`.
+- With no `format`, typed decimals are preserved (up to 12 fractional digits)
+  and thousands grouping follows the locale default, so `1234.5` renders as
+  `1,234.5`. Pass `{ useGrouping: false }` to render without separators.

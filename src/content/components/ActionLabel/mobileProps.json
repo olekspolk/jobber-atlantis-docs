@@ -1,0 +1,43 @@
+[
+  {
+    "displayName": "ActionLabel",
+    "filePath": "../components-native/src/ActionLabel/ActionLabel.tsx",
+    "props": {
+      "align": {
+        "description": "Alignment of action label",
+        "required": false,
+        "type": {
+          "name": "TextAlign"
+        }
+      },
+      "children": {
+        "description": "Text to display. Supports nesting text elements.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "disabled": {
+        "description": "Set the display text to disabled color",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "type": {
+        "description": "Changes the appearance to match the style of where it's getting used",
+        "required": false,
+        "type": {
+          "name": "ActionLabelType"
+        }
+      },
+      "variation": {
+        "description": "The text color",
+        "required": false,
+        "type": {
+          "name": "ActionLabelVariation"
+        }
+      }
+    }
+  }
+]

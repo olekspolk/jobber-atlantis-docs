@@ -1,0 +1,29 @@
+[
+  {
+    "displayName": "Tooltip",
+    "filePath": "../components/src/Tooltip/Tooltip.tsx",
+    "props": {
+      "message": {
+        "description": "Tooltip text",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "preferredPlacement": {
+        "description": "Describes the preferred placement of the Popover.",
+        "required": false,
+        "type": {
+          "name": "Placement"
+        }
+      },
+      "setTabIndex": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

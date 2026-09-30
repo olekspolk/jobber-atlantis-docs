@@ -1,0 +1,15 @@
+[
+  {
+    "displayName": "InputGroup",
+    "filePath": "../components/src/InputGroup/InputGroup.tsx",
+    "props": {
+      "flowDirection": {
+        "description": "Determine the direction the fields are laid out in.",
+        "required": false,
+        "type": {
+          "name": "\"horizontal\" | \"vertical\""
+        }
+      }
+    }
+  }
+]

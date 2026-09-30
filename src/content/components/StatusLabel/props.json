@@ -1,0 +1,29 @@
+[
+  {
+    "displayName": "StatusLabel",
+    "filePath": "../components/src/StatusLabel/StatusLabel.tsx",
+    "props": {
+      "alignment": {
+        "description": "Alignment of label",
+        "required": false,
+        "type": {
+          "name": "\"end\" | \"start\""
+        }
+      },
+      "label": {
+        "description": "Text to display",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "status": {
+        "description": "Status color of the indicator beside text",
+        "required": false,
+        "type": {
+          "name": "StatusIndicatorType"
+        }
+      }
+    }
+  }
+]

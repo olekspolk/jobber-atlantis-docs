@@ -1,0 +1,101 @@
+import { Canvas } from "../../mdx/blocks";
+import { Banner } from "@jobber/components/Banner";
+import { Menu } from "@jobber/components/Menu";
+import { Text } from "@jobber/components/Text";
+
+# Using Tailwind CSS with Atlantis
+
+<Banner type="notice" dismissible={false}>
+Before reaching for Tailwind, check whether an Atlantis layout component
+covers your needs. For example, <a href="/components/Stack">Stack</a>, 
+<a href="/components/Cluster">Cluster</a>, and 
+<a href="/components/Frame">Frame</a> can handle common layout patterns.
+</Banner>
+
+Atlantis ships a Tailwind CSS plugin from `@jobber/design` that maps every
+design token to a Tailwind utility class. This lets you write layout and
+compositional styles using the same tokens that Atlantis components are built
+on.
+
+Token values stay in sync automatically. When `@jobber/design` ships a new or
+updated token, its Tailwind class updates too. **No manual config maintenance**.
+
+## Platform scope
+
+The plugin is currently scoped to Atlantis web tokens and emits utilities that
+resolve to Atlantis CSS variables, such as `var(--color-interactive)`.
+`tailwindcss` is an optional peer dependency of `@jobber/design`, so mobile
+consumers do not need to install or bundle Tailwind unless they opt in to this
+web plugin.
+
+Mobile token parity should use a separate NativeWind-oriented entry point that
+maps Atlantis mobile tokens explicitly. This guide covers the web plugin only.
+
+## What the plugin provides
+
+Every token category becomes a Tailwind utility prefix:
+
+| Token type | Example token | Tailwind class |
+| --- | --- | --- |
+| Color | `color-interactive` | `bg-interactive`, `text-interactive` |
+| Spacing | `space-base` | `p-base`, `gap-base`, `m-base` |
+| Border radius | `radius-base` | `rounded-base` |
+| Border width | `border-base` | `border-base` |
+| Shadow | `shadow-base` | `shadow-base` |
+| Font size | `typography--fontSize-base` | `text-base` |
+| Breakpoints | custom media + Tailwind-only `xxl` | `sm:`, `md:`, `lg:`, `xl:`, `xxl:` |
+
+## Examples
+
+### Color, spacing, and radius
+
+The most straightforward use of the plugin is applying token-based colors,
+spacing, and radius to plain wrapper elements around Atlantis components.
+
+<Canvas><div className="flex flex-col gap-base"><div className="bg-success--surface p-base rounded-small"><Text>bg-success--surface + p-base + rounded-small</Text></div><div className="bg-critical--surface p-base rounded-base"><Text>bg-critical--surface + p-base + rounded-base</Text></div><div className="bg-informative--surface p-base rounded-large"><Text>bg-informative--surface + p-base + rounded-large</Text></div><div className="bg-warning--surface p-base rounded-larger"><Text>bg-warning--surface + p-base + rounded-larger</Text></div></div></Canvas>
+
+### Breakpoints
+
+The plugin matches Atlantis custom media breakpoints from `sm` through `xl` and
+also provides a Tailwind-only `xxl` breakpoint.
+
+<div className="flex flex-row gap-base">
+<div className="order-2 sm:order-1 bg-surface--background p-base rounded-base flex-1">
+<Text>
+<strong>Main content</strong> — second on mobile, first on desktop
+</Text>
+</div>
+
+<div className="order-1 sm:order-2 bg-informative--surface p-base rounded-base flex-1">
+<Text>
+<strong>Summary</strong> — first on mobile, second on desktop
+</Text>
+</div>
+</div>
+
+### Direct className support
+
+`Menu.Item` accepts a `className` prop directly, making it straightforward to
+apply token-based backgrounds:
+
+<Canvas><Menu><Menu.Trigger ariaLabel="Open actions menu">Actions</Menu.Trigger><Menu.Content><Menu.Item onClick={() => {}} textValue="Edit" className="bg-success--surface"><Menu.ItemLabel>Edit</Menu.ItemLabel></Menu.Item><Menu.Item onClick={() => {}} textValue="Archive" className="bg-warning--surface"><Menu.ItemLabel>Archive</Menu.ItemLabel></Menu.Item><Menu.Item onClick={() => {}} textValue="Delete" className="bg-critical--surface"><Menu.ItemLabel>Delete</Menu.ItemLabel></Menu.Item></Menu.Content></Menu></Canvas>
+
+## How tokens stay in sync
+
+The plugin calls `extractTokensFor(prefix)` on the tokens exported from
+`@jobber/design`. When you update to a new version of `@jobber/design`, any new
+or changed tokens are immediately available as Tailwind classes. There's nothing
+to configure.
+
+```ts
+// Inside atlantisPlugin — simplified
+const extractTokensFor = (prefix: string) => {
+  const output: Record<string, string> = {};
+  Object.keys(tokens).forEach(key => {
+    if (key.startsWith(prefix)) {
+      output[key.replace(prefix, "")] = `var(--${key})`;
+    }
+  });
+  return output;
+};
+```

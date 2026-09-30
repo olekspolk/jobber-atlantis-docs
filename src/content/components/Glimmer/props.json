@@ -1,0 +1,145 @@
+[
+  {
+    "displayName": "Glimmer",
+    "filePath": "../components/src/Glimmer/Glimmer.tsx",
+    "props": {
+      "reverseTheme": {
+        "description": "Use on surfaces with dark backgrounds.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "shape": {
+        "description": "Sets the shape of the glimmer.\n\nIf you need a specific width, use the `width` prop.",
+        "required": false,
+        "type": {
+          "name": "\"circle\" | \"rectangle\" | \"rectangleShort\" | \"rectangleShorter\" | \"square\""
+        }
+      },
+      "size": {
+        "description": "Sets the size of the glimmer.\n\nIf you use `\"auto\"` with a `\"rectangle\"` shape, it will fill the\nsize of the parents width and height. With how CSS works, if it can't\ndetermine the parents width and height, it'll default to `base`.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"base\" | \"large\" | \"larger\" | \"largest\" | \"small\""
+        }
+      },
+      "timing": {
+        "description": "Control how fast the shine moves from left to right. This is useful when\nthe glimmer is used on smaller spaces.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"fast\""
+        }
+      },
+      "width": {
+        "description": "Adjust the width of the glimmer in px values.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Glimmer.Button",
+    "filePath": "../components/src/Glimmer/Glimmer.tsx",
+    "props": {
+      "fullWidth": {
+        "description": "Allow `Glimmer.Button` to go full width.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "reverseTheme": {
+        "description": "Use on surfaces with dark backgrounds.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "timing": {
+        "description": "Control how fast the shine moves from left to right. This is useful when\nthe glimmer is used on smaller spaces.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"fast\""
+        }
+      },
+      "width": {
+        "description": "Adjust the width of the glimmer in px values.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Glimmer.Header",
+    "filePath": "../components/src/Glimmer/Glimmer.tsx",
+    "props": {
+      "level": {
+        "description": "Adjust the size of the `Glimmer.Header`.",
+        "required": false,
+        "type": {
+          "name": "1 | 2 | 3 | 4 | 5"
+        }
+      },
+      "reverseTheme": {
+        "description": "Use on surfaces with dark backgrounds.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "timing": {
+        "description": "Control how fast the shine moves from left to right. This is useful when\nthe glimmer is used on smaller spaces.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"fast\""
+        }
+      },
+      "width": {
+        "description": "Adjust the width of the glimmer in px values.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Glimmer.Text",
+    "filePath": "../components/src/Glimmer/Glimmer.tsx",
+    "props": {
+      "lines": {
+        "description": "Set how many lines shows up.",
+        "required": false,
+        "type": {
+          "name": "1 | 2 | 3"
+        }
+      },
+      "reverseTheme": {
+        "description": "Use on surfaces with dark backgrounds.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "timing": {
+        "description": "Control how fast the shine moves from left to right. This is useful when\nthe glimmer is used on smaller spaces.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"fast\""
+        }
+      },
+      "width": {
+        "description": "Adjust the width of the glimmer in px values.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  }
+]

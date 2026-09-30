@@ -1,0 +1,152 @@
+[
+  {
+    "displayName": "Popover",
+    "filePath": "../components/src/Popover/Popover.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: string; dismissButtonContainer?: string; arrow?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: CSSProperties; dismissButtonContainer?: CSSProperties; arrow?: CSSProperties; }"
+        }
+      },
+      "attachTo": {
+        "description": "Element the Popover will attach to and point at. A `useRef` must be attached to an html element\nand passed as an attachTo prop in order for the Popover to function properly",
+        "required": true,
+        "type": {
+          "name": "Element | RefObject<Element>"
+        }
+      },
+      "children": {
+        "description": "Popover content.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "onRequestClose": {
+        "description": "Callback executed when the user wants to close/dismiss the Popover",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "open": {
+        "description": "Control Popover visibility.",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "preferredPlacement": {
+        "description": "Describes the preferred placement of the Popover.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"bottom\" | \"left\" | \"right\" | \"top\""
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Popover.Arrow",
+    "filePath": "../components/src/Popover/Popover.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ arrow?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ arrow?: CSSProperties; }"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Popover.DismissButton",
+    "filePath": "../components/src/Popover/Popover.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ dismissButtonContainer?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ dismissButtonContainer?: CSSProperties; }"
+        }
+      },
+      "ariaLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onClick": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) => void"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Popover.Provider",
+    "filePath": "../components/src/Popover/Popover.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: CSSProperties; }"
+        }
+      },
+      "attachTo": {
+        "description": "Element the Popover will attach to and point at. A `useRef` must be attached to an html element\nand passed as an attachTo prop in order for the Popover to function properly",
+        "required": true,
+        "type": {
+          "name": "Element | RefObject<Element>"
+        }
+      },
+      "open": {
+        "description": "Control Popover visibility.",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "preferredPlacement": {
+        "description": "Describes the preferred placement of the Popover.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"bottom\" | \"left\" | \"right\" | \"top\""
+        }
+      }
+    }
+  }
+]

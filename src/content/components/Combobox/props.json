@@ -1,0 +1,316 @@
+[
+  {
+    "displayName": "Combobox",
+    "filePath": "../components/src/Combobox/Combobox.tsx",
+    "props": {
+      "actionsRef": {
+        "description": "A ref to imperative actions.\n- `unmount`: Manually unmounts the combobox.\nCall this after any externally controlled closing animation finishes.",
+        "required": false,
+        "type": {
+          "name": "RefObject<Actions>"
+        }
+      },
+      "autoComplete": {
+        "description": "Provides a hint to the browser for autofill.\n@see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/autocomplete",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "autoHighlight": {
+        "description": "Whether the first matching item is highlighted automatically while filtering.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "defaultInputValue": {
+        "description": "The uncontrolled input value when initially rendered.\n\nTo render a controlled input, use the `inputValue` prop instead.",
+        "required": false,
+        "type": {
+          "name": "string | number | readonly string[]"
+        }
+      },
+      "defaultOpen": {
+        "description": "Whether the popup is initially open.\n\nTo render a controlled popup, use the `open` prop instead.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "defaultValue": {
+        "description": "The uncontrolled selected value of the combobox when it's initially rendered.\n\nTo render a controlled combobox, use the `value` prop instead.",
+        "required": false,
+        "type": {
+          "name": "ComboboxValueType<Value, Multiple>"
+        }
+      },
+      "description": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "Whether the component should ignore user interaction.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "error": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "filter": {
+        "description": "Filter function used to match items vs input query.",
+        "required": false,
+        "type": {
+          "name": "(itemValue: Value, query: string, itemToString?: (itemValue: Value) => string) => boolean"
+        }
+      },
+      "filteredItems": {
+        "description": "Filtered items to display in the list.\nWhen provided, the list will use these items instead of filtering the `items` prop internally.\nUse when you want to control filtering logic externally with the `useFilter()` hook.",
+        "required": false,
+        "type": {
+          "name": "readonly any[] | readonly Group<any>[]"
+        }
+      },
+      "form": {
+        "description": "Identifies the form that owns the internal input.\nUseful when the combobox is rendered outside the form.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "grid": {
+        "description": "Whether list items are presented in a grid layout.\nWhen enabled, arrow keys navigate across rows and columns inferred from DOM rows.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "highlightItemOnHover": {
+        "description": "Whether moving the pointer over items should highlight them.\nDisabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "id": {
+        "description": "The id of the component.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "inline": {
+        "description": "Whether the list is rendered inline without using the component's own popup.\n\nSpecify `open` unconditionally in conjunction with this prop so the list is considered\nvisible: `<Combobox.Root inline open>`\n\nIn a `Combobox.Root` > `Dialog.Root` composition, bind the Combobox's `open` and\n`onOpenChange` props to the `Dialog`'s `open` and `onOpenChange` state instead so the\ncomponent resets its transient state (filter query, highlighted item, and input value) when\nthe dialog closes.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "inputRef": {
+        "description": "A ref to the hidden input element.",
+        "required": false,
+        "type": {
+          "name": "Ref<HTMLInputElement>"
+        }
+      },
+      "inputValue": {
+        "description": "The input value of the combobox. Use when controlled.",
+        "required": false,
+        "type": {
+          "name": "string | number | readonly string[]"
+        }
+      },
+      "invalid": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "isItemEqualToValue": {
+        "description": "Custom comparison logic used to determine if a combobox item value matches the current selected value. Useful when item values are objects without matching referentially.\nDefaults to `Object.is` comparison.",
+        "required": false,
+        "type": {
+          "name": "(itemValue: Value, value: Value) => boolean"
+        }
+      },
+      "itemToStringLabel": {
+        "description": "When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for display in the input.\nIf the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop.",
+        "required": false,
+        "type": {
+          "name": "(itemValue: Value) => string"
+        }
+      },
+      "itemToStringValue": {
+        "description": "When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for form submission.\nIf the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop.",
+        "required": false,
+        "type": {
+          "name": "(itemValue: Value) => string"
+        }
+      },
+      "items": {
+        "description": "The items to be displayed in the list.\nCan be either a flat array of items or an array of groups with items.",
+        "required": false,
+        "type": {
+          "name": "readonly any[] | readonly Group<any>[]"
+        }
+      },
+      "label": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "limit": {
+        "description": "The maximum number of items to display in the list.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "locale": {
+        "description": "The locale to use for string comparison.\nDefaults to the user's runtime locale.",
+        "required": false,
+        "type": {
+          "name": "LocalesArgument"
+        }
+      },
+      "loopFocus": {
+        "description": "Whether to loop keyboard focus back to the input when the end of the list is reached while using the arrow keys. The first item can then be reached by pressing <kbd>ArrowDown</kbd> again from the input, or the last item can be reached by pressing <kbd>ArrowUp</kbd> from the input.\nThe input is always included in the focus loop per [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).\nWhen disabled, focus does not move when on the last element and the user presses <kbd>ArrowDown</kbd>, or when on the first element and the user presses <kbd>ArrowUp</kbd>.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "modal": {
+        "description": "Determines if the popup enters a modal state when open.\n- `true`: user interaction is limited to the popup: document page scroll is locked and pointer interactions on outside elements are disabled.\n- `false`: user interaction with the rest of the document is allowed.\n\nOn touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "multiple": {
+        "description": "Whether multiple items can be selected.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "name": {
+        "description": "Identifies the field when a form is submitted.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onInputValueChange": {
+        "description": "Event handler called when the input value changes.",
+        "required": false,
+        "type": {
+          "name": "(inputValue: string, eventDetails: ChangeEventDetails) => void"
+        }
+      },
+      "onItemHighlighted": {
+        "description": "Callback fired when an item is highlighted or unhighlighted.\nReceives the highlighted item value (or `undefined` if no item is highlighted) and event details with a `reason` property describing why the highlight changed.\nThe `reason` can be:\n- `'keyboard'`: the highlight changed due to keyboard navigation.\n- `'pointer'`: the highlight changed due to pointer hovering.\n- `'none'`: the highlight changed programmatically.",
+        "required": false,
+        "type": {
+          "name": "(highlightedValue: Value, eventDetails: HighlightEventDetails) => void"
+        }
+      },
+      "onOpenChange": {
+        "description": "Event handler called when the popup is opened or closed.",
+        "required": false,
+        "type": {
+          "name": "(open: boolean, eventDetails: ChangeEventDetails) => void"
+        }
+      },
+      "onOpenChangeComplete": {
+        "description": "Event handler called after any animations complete when the popup is opened or closed.",
+        "required": false,
+        "type": {
+          "name": "(open: boolean) => void"
+        }
+      },
+      "onValueChange": {
+        "description": "Event handler called when the selected value of the combobox changes.",
+        "required": false,
+        "type": {
+          "name": "(value: ComboboxValueType<Value, Multiple> | (Multiple extends true ? never : null), eventDetails: ChangeEventDetails) => void"
+        }
+      },
+      "open": {
+        "description": "Whether the popup is currently open. Use when controlled.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "openOnInputClick": {
+        "description": "Whether the popup opens when clicking the input.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "readOnly": {
+        "description": "Whether the user should be unable to choose a different option from the popup.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "required": {
+        "description": "Whether the user must choose a value before submitting a form.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "ComboboxSize"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "value": {
+        "description": "The selected value of the combobox. Use when controlled.",
+        "required": false,
+        "type": {
+          "name": "ComboboxValueType<Value, Multiple>"
+        }
+      },
+      "virtualized": {
+        "description": "Whether the items are being externally virtualized.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

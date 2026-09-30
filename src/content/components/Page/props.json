@@ -1,0 +1,273 @@
+[
+  {
+    "displayName": "Page",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {
+      "externalIntroLinks": {
+        "description": "Causes any markdown links in the `intro` prop to open in a new\ntab, i.e. with `target=\"_blank\"`.\n\nCan only be used if `intro` prop is also specified.\n\nDefaults to `false`.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "intro": {
+        "description": "Content of the page. This supports basic markdown node types\nsuch as `_italic_`, `**bold**`, and `[link name](url)`.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "moreActionsMenu": {
+        "description": "Page title Action menu.",
+        "required": false,
+        "type": {
+          "name": "SectionProps[]"
+        }
+      },
+      "primaryAction": {
+        "description": "Page title primary action button settings.",
+        "required": false,
+        "type": {
+          "name": "ButtonActionProps"
+        }
+      },
+      "secondaryAction": {
+        "description": "Page title secondary action button settings.",
+        "required": false,
+        "type": {
+          "name": "ButtonActionProps"
+        }
+      },
+      "subtitle": {
+        "description": "Subtitle of the page.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "title": {
+        "description": "Title of the page.\n\nSupports any React node. If a string is provided, it will be rendered as an H1 heading.\nOtherwise it will be rendered as is.\n\n**Important**: If you're passing a custom element, it must include an H1-level heading within it.\nIdeally <Heading level={1}> should be used here.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "titleMetaData": {
+        "description": "TitleMetaData component to be displayed\nnext to the title. Only compatible with string titles.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "width": {
+        "description": "Determines the width of the page.\n\nFill makes the width grow to 100%.\n\nStandard caps out at 1280px.\n\nNarrow caps out at 1024px.",
+        "required": false,
+        "type": {
+          "name": "\"fill\" | \"narrow\" | \"standard\""
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Page.ActionMenu",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {
+      "ref": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "RefObject<HTMLDivElement>"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Page.ActionPrimary",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {
+      "ref": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "RefObject<HTMLDivElement>"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Page.ActionSecondary",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {
+      "ref": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "RefObject<HTMLDivElement>"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Page.Actions",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Page.Body",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Page.Header",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Page.HeaderContent",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Page.Intro",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Page.Menu",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {
+      "triggerLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Page.PrimaryButton",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "label": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "loading": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onClick": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "ref": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "RefObject<HTMLDivElement>"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Page.SecondaryButton",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "label": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "loading": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onClick": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "ref": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "RefObject<HTMLDivElement>"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Page.Subtitle",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Page.Title",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Page.TitleBar",
+    "filePath": "../components/src/Page/Page.tsx",
+    "props": {}
+  }
+]

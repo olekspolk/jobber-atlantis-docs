@@ -1,0 +1,207 @@
+import { Meta } from "../../mdx/blocks";
+
+<Meta title="Components/Selections/Combobox" />
+
+# Combobox
+
+## Summary
+
+Combobox lets a user search and select one or more values from a list. Use it
+when the list benefits from filtering, when the selected values need to appear
+in the field, or when the popup needs supporting actions such as creating a new
+option.
+
+Use Combobox when the selected value is saved, submitted, assigned, or otherwise
+becomes part of the user's work.
+
+## Anatomy
+
+| Part | Description |
+| --- | --- |
+| Field | Label, optional note, description, and error treatment |
+| Trigger | Visible field that opens the popup and displays the current value |
+| Search | Input used to filter options, either in the trigger or popup |
+| Content | Popup or mobile sheet that contains options and affordances |
+| Item | Selectable option with optional prefix, description, and suffix |
+| Empty state | Message shown when search has no matching options |
+| Actions | Sticky action rows below the option list |
+| Footer | Sticky region for multiple-selection affordances |
+
+## Behavior
+
+#### Opening and closing
+
+Combobox opens when the trigger is clicked, tapped, or activated by keyboard. It
+closes when the user selects a single-select option, clicks or taps outside the
+popup, or presses Esc.
+
+Multiple-selection comboboxes stay open while values are selected so users can
+choose more than one option.
+
+#### Search
+
+Search filters the option list as the user types. Search can happen directly in
+the trigger or inside the popup, depending on the trigger pattern.
+
+#### Empty state
+
+When no options match, the empty state appears above actions and footer content.
+This keeps creation actions and multiple-selection controls in predictable
+locations.
+
+#### Actions and footer
+
+Actions are anchored below the option list. The multiple-selection footer is
+anchored below options and actions when present.
+
+#### Small screens
+
+On small screens, Combobox automatically presents the popup as a bottom-anchored
+sheet. Consumers use the same Combobox API across desktop and mobile web.
+
+## Trigger patterns
+
+Use `Combobox.TriggerInput` when the user searches directly in the field.
+
+Use `Combobox.TriggerValue` when the closed field should behave more like a
+Select and search belongs inside the popup.
+
+Use `Combobox.TriggerMultipleValue` for multi-select fields that show selected
+chips in the closed field and keep search inside the popup.
+
+## Variants
+
+#### Single select
+
+Use single select when the user can choose one value.
+
+#### Multiple select
+
+Use multiple select when the user can choose several values and needs selected
+values to remain visible in the field.
+
+#### Popup search
+
+Use popup search when the trigger should display the current value and search
+should happen after the popup opens.
+
+## Item content
+
+Items can be plain text for the default row treatment, or composed with
+`Combobox.ItemPrefix`, `Combobox.ItemLabel`, `Combobox.ItemDescription`, and
+`Combobox.ItemSuffix` for richer option content. The selected checkmark is
+included by default.
+
+## Empty and loading states
+
+Combobox includes a default empty state so search results always resolve in the
+right place, above actions and footer content. Customize the message through
+`Combobox.Content`, render your own `Combobox.Empty`, or opt out when the
+experience needs to own that region.
+
+Loading uses four glimmer rows by default. The row count and loading content can
+be customized when a product needs a different loading treatment.
+
+## Actions
+
+Actions are for work outside option selection, such as creating or inviting an
+item. The default action row uses the leading add icon shown in Figma, while
+`Combobox.ActionPrefix` and `Combobox.ActionLabel` are available when the row
+needs custom content.
+
+## Multiple-selection footer
+
+Use `Combobox.SelectionFooter` for the opinionated multiple-select footer. It
+keeps selected count, clear, and select-all controls in a consistent order.
+
+Select-all behavior is product-owned: the app decides whether "all" means
+visible, filtered, loaded, paginated, or server-known results.
+
+## Content Guidelines
+
+#### Labels
+
+Use a short noun label that names the value being selected.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Team member | Choose which team member to use |
+| Job type | Select one of these job types |
+| Service area | Search and pick a service region |
+
+#### Search placeholder
+
+Use placeholder text that describes what can be searched. Keep it short.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Search team members | Start typing to search all team members |
+| Search clients | Enter the name of the client to find them |
+| Search job types | Filter the dropdown |
+
+#### Item text
+
+Use the item label for the selectable value. Use descriptions only when they
+help distinguish similar options.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Ryan Clearwater | Select Ryan Clearwater |
+| Ryan Clearwater + Sales lead | Ryan Clearwater, who is the sales lead |
+| Downtown + Service area | Downtown service area available for jobs |
+
+#### Actions
+
+Use actions for work outside option selection, such as creating or inviting an
+item. Action labels should be verb-first and sentence-cased.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Create team member | Team member creation |
+| Invite team member | Send invitation to staff |
+| Add client | Client |
+
+## Do's and Don'ts
+
+#### Do
+
+- ✅ Use Combobox when the list benefits from search or filtering
+- ✅ Use enough item context to distinguish similar values
+- ✅ Keep empty state above actions and footer controls
+- ✅ Use the multiple-selection footer for clear and select-all affordances
+- ✅ Define what "select all" means before including it
+
+#### Don't
+
+- ❌ Don't use Combobox for a tiny static list where Select is simpler
+- ❌ Don't hide empty state behind actions or footer controls
+- ❌ Don't assume "select all" means every server result
+- ❌ Don't mix unrelated actions into the popup
+- ❌ Don't overload item rows with content that slows scanning
+
+## Rich item data
+
+Options can include more than a primary label when extra context helps users
+choose confidently. Use descriptions, prefixes, or suffixes when similar options
+need to be distinguished at a glance. Those fields can also be made filterable,
+so search can match the details users naturally type.
+
+## Accessibility
+
+Combobox should have a clear accessible label. Keyboard behavior and active item
+management are provided by Base UI.
+
+#### Keyboard navigation
+
+| Key | Behavior |
+| --- | --- |
+| Tab | Moves focus to the trigger, actions, or footer buttons |
+| Up and Down arrows | Moves through available options |
+| Enter | Selects the highlighted option or activates an action |
+| Esc | Closes the popup |
+
+## Related components
+
+- To choose one value from a small static list, use [Select](/components/Select)
+- To present actions that do not filter or select form values, use
+  [Menu](/components/Menu)

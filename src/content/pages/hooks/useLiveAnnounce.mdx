@@ -1,0 +1,18 @@
+import { Canvas } from "../../mdx/blocks";
+import { UseLiveAnnounce } from "./demos/UseLiveAnnounce";
+import UseLiveAnnounceSource from "./demos/UseLiveAnnounce.tsx?raw";
+
+# useLiveAnnounce
+
+Announce a message through the screen reader whenever a user does an action like
+deletion or addition.
+
+```ts
+import { useLiveAnnounce } from "@jobber/hooks/useLiveAnnounce";
+```
+
+Before you try this example, turn on Voice Over (Mac), or a Windows equivalent.
+You can turn on Voice Over by holding `Command ⌘` and press the fingerprint key
+3 times (fast).
+
+<Canvas code={UseLiveAnnounceSource}><UseLiveAnnounce /></Canvas>

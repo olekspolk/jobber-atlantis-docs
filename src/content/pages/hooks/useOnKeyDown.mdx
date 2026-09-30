@@ -1,0 +1,20 @@
+import { Canvas } from "../../mdx/blocks";
+import { UseOnKeyDown } from "./demos/UseOnKeyDown";
+import UseOnKeyDownSource from "./demos/UseOnKeyDown.tsx?raw";
+
+# useOnKeyDown
+
+`useOnKeyDown` is a simple hook that adds the `keydown` event handler when the
+component is mounted and removed when unmounted.
+
+`useOnKeyDown` should **only** be used when building keyboard shortcuts in a
+component.
+
+```tsx
+import { useOnKeyDown } from "@jobber/hooks/useOnKeyDown";
+```
+
+You can specify a list of keys to watch including a key modifier with the event
+handler.
+
+<Canvas code={UseOnKeyDownSource}><UseOnKeyDown /></Canvas>

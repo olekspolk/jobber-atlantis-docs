@@ -1,0 +1,42 @@
+[
+  {
+    "displayName": "Grid",
+    "filePath": "../components/src/Grid/Grid.tsx",
+    "props": {
+      "alignItems": {
+        "description": "Adjust the alignment of columns. We only support a few select properties\nfrom `align-items` due to the nature of the other properties acting the\nsame. Read more about [align-items](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items) property values.",
+        "required": false,
+        "type": {
+          "name": "\"center\" | \"end\" | \"start\" | \"stretch\""
+        }
+      },
+      "children": {
+        "description": "`Grid.Cell` children",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "gap": {
+        "description": "Add spacing between elements. Can be a boolean for default spacing,\nor a semantic token for custom spacing.\n@deprecated The boolean type for the 'gap' prop is deprecated and will be removed in a future version.\nPlease use a GapSpacing token (e.g., 'small', 'base', 'large') for fixed spacing.\nUsing 'true' applies default responsive spacing. Using 'false' results in no gap.",
+        "required": false,
+        "type": {
+          "name": "GapSpacing | boolean"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Grid.Cell",
+    "filePath": "../components/src/Grid/Grid.tsx",
+    "props": {
+      "size": {
+        "description": "Set how many columns wide the cell is in the grid",
+        "required": true,
+        "type": {
+          "name": "{ xs?: ColumnSizes; sm?: ColumnSizes; md?: ColumnSizes; lg?: ColumnSizes; xl?: ColumnSizes; }"
+        }
+      }
+    }
+  }
+]

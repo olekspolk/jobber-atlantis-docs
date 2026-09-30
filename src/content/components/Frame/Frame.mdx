@@ -1,0 +1,50 @@
+import { Canvas } from "../../mdx/blocks";
+import { FrameBasicExample } from "./examples/FrameBasicExample";
+import FrameBasicExampleSource from "./examples/FrameBasicExample.tsx?raw";
+import { FrameFourByThreeExample } from "./examples/FrameFourByThreeExample";
+import FrameFourByThreeExampleSource from "./examples/FrameFourByThreeExample.tsx?raw";
+import { FrameSquareExample } from "./examples/FrameSquareExample";
+import FrameSquareExampleSource from "./examples/FrameSquareExample.tsx?raw";
+import { FrameWithContentExample } from "./examples/FrameWithContentExample";
+import FrameWithContentExampleSource from "./examples/FrameWithContentExample.tsx?raw";
+
+# Frame
+
+Frame is a component that creates a fixed aspect ratio container for content.
+It's particularly useful for handling images and videos, ensuring they maintain
+consistent proportions across different screen sizes.
+
+## Usage
+
+Frame accepts any content as a child element and maintains the specified aspect
+ratio. By default, it uses a 16:9 ratio, but this can be customized using the
+`aspectX` and `aspectY` props.
+
+<Canvas code={FrameBasicExampleSource}><FrameBasicExample /></Canvas>
+
+### Common aspect ratios
+
+Frame supports various aspect ratios through its `n` (numerator) and `d`
+(denominator) props:
+
+#### 1:1 (square)
+
+<Canvas code={FrameSquareExampleSource}><FrameSquareExample /></Canvas>
+
+#### 4:3
+
+<Canvas code={FrameFourByThreeExampleSource}><FrameFourByThreeExample /></Canvas>
+
+### Content handling
+
+Frame automatically centers its content and handles overflow. Images and videos
+are set to `object-fit: cover` by default, ensuring they fill the frame while
+maintaining their aspect ratio.
+
+<Canvas code={FrameWithContentExampleSource}><FrameWithContentExample /></Canvas>
+
+## Related components
+
+- For responsive layouts with multiple frames, consider using
+  [Tiles](/components/Tiles)
+- For full-height layouts with centered content, use [Cover](/components/Cover)

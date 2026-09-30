@@ -21,8 +21,16 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      # Copies the FilterPicker docs, builds /editorBundle.js, then typechecks and builds dist/.
+      # The original site's mobile preview module, kept between runs: a build needs no download.
+      - uses: actions/cache@v6
+        with:
+          path: public/editorMobileBundle.js
+          key: editor-mobile-bundle-v1
+      # Downloads /editorMobileBundle.js if not cached, builds /editorBundle.js, then typechecks and
+      # builds dist/.
       - run: npm run build
+        env:
+          VITE_GIPHY_API_KEY: ${{ secrets.VITE_GIPHY_API_KEY }}
       - uses: actions/upload-artifact@v7
         with:
           name: dist

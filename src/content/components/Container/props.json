@@ -1,0 +1,91 @@
+[
+  {
+    "displayName": "Container",
+    "filePath": "../components/src/Container/Container.tsx",
+    "props": {
+      "ariaAttributes": {
+        "description": "Standard HTML aria attributes. Accepts all standard HTML aria attributes.",
+        "required": false,
+        "type": {
+          "name": "AriaAttributes"
+        }
+      },
+      "as": {
+        "description": "The HTML tag to render the container as. Defaults to `div`.",
+        "required": false,
+        "type": {
+          "name": "CommonAllowedElements"
+        }
+      },
+      "autoWidth": {
+        "description": "Whether to allow the container to take the width of the content. Defaults to 100%",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "className": {
+        "description": "The class name for the container. This allows you to target the container with CSS.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "dataAttributes": {
+        "description": "Standard HTML data attributes. Accepts anything in a {{\"data-key\":\"value\"}} format.",
+        "required": false,
+        "type": {
+          "name": "{ [key: `data-${string}`]: string; }"
+        }
+      },
+      "id": {
+        "description": "Standard HTML id attribute.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "name": {
+        "description": "The name of the container. This allows you to name your container query, but it's not necessary.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "role": {
+        "description": "Standard HTML role attribute.",
+        "required": false,
+        "type": {
+          "name": "AriaRole"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Container.Apply",
+    "filePath": "../components/src/Container/Container.tsx",
+    "props": {
+      "autoWidth": {
+        "description": "Whether to allow the container to take the width of the content. Defaults to 100%",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "className": {
+        "description": "The class name for the container. This allows you to target the container with CSS.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "The style for the container",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  }
+]

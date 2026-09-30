@@ -1,0 +1,154 @@
+[
+  {
+    "displayName": "FormatFile",
+    "filePath": "../components-native/src/FormatFile/FormatFile.tsx",
+    "props": {
+      "accessibilityHint": {
+        "description": "Accessibility hint",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "Accessibility label",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "bottomSheetOptionsSuffix": {
+        "description": "A file type to show at Bottom Sheet options",
+        "required": false,
+        "type": {
+          "name": "BottomSheetOptionsSuffix"
+        }
+      },
+      "createThumbnail": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CreateThumbnail"
+        }
+      },
+      "file": {
+        "description": "File upload details object. Can be a File or a FileUpload",
+        "required": true,
+        "type": {
+          "name": "File | FileUpload"
+        }
+      },
+      "onPreviewPress": {
+        "description": "Handler for the \"Preview\" Bottom Sheet Option press",
+        "required": false,
+        "type": {
+          "name": "(formattedFile: FormattedFile) => void"
+        }
+      },
+      "onRemove": {
+        "description": "A function to be called on \"Remove\" Bottom Sheet Option press",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onTap": {
+        "description": "A function which handles the onTap event.",
+        "required": false,
+        "type": {
+          "name": "(file: T) => void"
+        }
+      },
+      "showFileTypeIndicator": {
+        "description": "Set false to hide all file type iconography, including the video fallback\nplaceholder icon.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "styleInGrid": {
+        "description": "Uses a grid layout when multi-file upload is supported",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "testID": {
+        "description": "A reference to the element in the rendered output",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "FormatFileContent",
+    "filePath": "../components-native/src/FormatFile/FormatFile.tsx",
+    "props": {
+      "accessibilityLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "file": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "FormattedFile"
+        }
+      },
+      "isMedia": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onMediaLoadEnd": {
+        "description": "@internal A function to be called when the media has loaded.\nThis is only used in FormatFileThumbnail.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onUploadComplete": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "showOverlay": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "skipContainerStyles": {
+        "description": "@internal When true, the component skips its container wrapper entirely\n(no border, background, or dimension styles). Use this when the\nparent component handles container styling directly, such as in\nFormatFileThumbnail.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "styleInGrid": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "surfaceColor": {
+        "description": "Optional override for the tile's surface colour, forwarded to the\nunderlying `FileView` or `MediaView`. Only meaningful when\n`skipContainerStyles` is true and the consumer (e.g.\n`FormatFileThumbnail`) is wrapping this content directly.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

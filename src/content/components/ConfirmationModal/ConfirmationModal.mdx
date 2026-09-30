@@ -1,0 +1,109 @@
+import { Meta } from "../../mdx/blocks";
+
+# Confirmation Modal
+
+<Meta title="Components/Overlays/ConfirmationModal" />
+
+A ConfirmationModal allows users to confirm or cancel actions that they are
+performing. Examples of actions that may need confirmation are navigating off an
+edited page or deleting an object.
+
+## Design \& usage guidelines
+
+ConfirmationModal should be used to confirm or cancel an action the user is
+performing.
+
+If the user is confirming an action that will destroy, delete, or remove
+something, use a
+[destructive](/storybook/web/?path=/story/components-overlays-confirmationmodal--destructive)
+ConfirmationModal to visually reinforce the potential consequences.
+
+In some instances, such as when dealing with a collection of items with common
+actions, you may want to place a single ConfirmationModal on a page and then
+call to open it when required for each action. We can do this by using the
+`confirmationModalRef` which exposes a `show` method, allowing you to present a
+confirmation modal on demand. In the
+[Controlled](/storybook/web/?path=/story/components-overlays-confirmationmodal--controlled)
+example, we have an array of users and then render a button for each that
+presents a confirm modal.
+
+## Content guidelines
+
+Keep language in a ConfirmationModal clear, concise, and consistent. Every word
+should help the user make a confident decision — not slow them down or cause
+unnecessary anxiety.
+
+### Title
+
+The title should clearly state the action being confirmed. It gives the user
+immediate context about what they're being asked to decide.
+
+- Write as a statement, not a question. Do not use question marks.
+- Lead with a verb that matches the `confirmLabel`.
+- Be specific — include the object where possible (e.g. the job number, client
+  name, or item being affected).
+- Avoid generic titles like "Are you sure?" or "Confirm action."
+
+| **✅ Do** | **❌ Don't** |
+| --- | --- |
+| **Discard unsaved changes** | **Discard unsaved changes?** |
+| **Delete job #2121** | **Are you sure?** |
+| **Remove Acme Corp** | **Confirm removal** |
+| **Leave without saving** | **Cancel editing?** |
+
+### Body copy
+
+Use the body to explain what will happen as a result of the action — especially
+if the consequences aren't immediately obvious from the title alone.
+
+- Focus on consequences, not instructions. The user already knows what they're
+  about to do.
+- Be specific about what will be lost, removed, or changed.
+- Keep it to one or two short sentences.
+- Omit body copy entirely if the title is already self-explanatory.
+
+| **✅ Do** | **❌ Don't** |
+| --- | --- |
+| Deleting this job will remove all associated visits and invoices | Are you sure you want to delete this job? |
+| Your changes will be lost and can't be recovered | This action cannot be undone |
+| Acme Corp will be removed from your client list. You will still be able to view their job history. | Confirm you want to remove this client. |
+
+### Button labels
+
+Button labels are the most important content in a ConfirmationModal. They must
+be clear, specific, and match the action being taken.
+
+- Use a specific verb for the `confirmLabel` that mirrors the title (e.g. if the
+  title is "Delete job #2121", the label should be "Delete Job").
+- Always use **Cancel** as the dismiss label — not "No", "Go back", or "Exit".
+- Avoid generic labels like "OK", "Yes", or "Confirm".
+- For destructive actions, the `confirmLabel` should reinforce the severity of
+  the action without being alarming.
+
+| **Action** | **✅ confirmLabel** | **❌ Don't use** |
+| --- | --- | --- |
+| Deleting a job | Delete Job | Yes / OK |
+| Discarding changes | Discard | Leave / Exit |
+| Removing a client | Remove Client | Confirm / Proceed |
+| Stopping a file upload | Stop Upload | Yes / OK |
+
+### Destructive actions
+
+When a ConfirmationModal is used for a destructive action — one that will
+permanently delete or remove something — use the destructive variant. The
+language should be direct and honest about the impact without being alarming.
+
+- Do not soften the language with phrases like "just" or "simply".
+- Do not over-explain or repeat the same information across the title and body.
+- Make the `confirmLabel` the same verb as the title action.
+
+| **✅ Do** | **❌ Don't** |
+| --- | --- |
+| **Delete job #2121** / Deleting this job will remove all associated visits. / Cancel / Delete Job | **Are you sure?** / Deleting the job will remove it forever. Are you absolutely sure you want to continue? / No / Yes, delete it |
+
+## Related components
+
+- To present non-blocking, contextual, text-only content, use a
+  [Tooltip](/components/Tooltip)
+- To simply present information for users to view, edit, or for a temporary
+  change of context, use a regular [Dialog](/components/Dialog)

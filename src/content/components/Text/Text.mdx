@@ -1,0 +1,103 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { TextAlignmentExample } from "./examples/TextAlignmentExample";
+import TextAlignmentExampleSource from "./examples/TextAlignmentExample.tsx?raw";
+import { TextDefaultExample } from "./examples/TextDefaultExample";
+import TextDefaultExampleSource from "./examples/TextDefaultExample.tsx?raw";
+import { TextDisabledExample } from "./examples/TextDisabledExample";
+import TextDisabledExampleSource from "./examples/TextDisabledExample.tsx?raw";
+import { TextFeedbackExample } from "./examples/TextFeedbackExample";
+import TextFeedbackExampleSource from "./examples/TextFeedbackExample.tsx?raw";
+import { TextMaxLinesExample } from "./examples/TextMaxLinesExample";
+import TextMaxLinesExampleSource from "./examples/TextMaxLinesExample.tsx?raw";
+import { TextSizesExample } from "./examples/TextSizesExample";
+import TextSizesExampleSource from "./examples/TextSizesExample.tsx?raw";
+import { TextSubduedExample } from "./examples/TextSubduedExample";
+import TextSubduedExampleSource from "./examples/TextSubduedExample.tsx?raw";
+
+<Meta title="Components/Text and Typography/Text" />
+
+# Text
+
+Text is used to add an additional visual meaning on your content
+
+## Design \& usage guidelines
+
+The default styling of a text is used as the body text for almost everything.
+
+<Canvas code={TextDefaultExampleSource}><TextDefaultExample /></Canvas>
+
+### Subdued
+
+De-emphasize a piece of text that is less important to the user.
+
+<Canvas code={TextSubduedExampleSource}><TextSubduedExample /></Canvas>
+
+### Feedback message
+
+The variation also includes text that conveys feedback messages.
+
+<Canvas code={TextFeedbackExampleSource}><TextFeedbackExample /></Canvas>
+
+### Disabled
+
+Use when the text is part of a disabled section of the interface.
+
+Do not use `disabled` text to explain why an element is disabled. That text
+should be default text with full intended contrast so that the user can clearly
+identify why an element is disabled.
+
+<Canvas code={TextDisabledExampleSource}><TextDisabledExample /></Canvas>
+
+## Alignment
+
+Use left-aligned text for the the vast majority of use cases, particularly when
+setting paragraphs. You may need to right-align text in cases where a label or
+other small typographic element helps maintain vertical alignment on the right
+side of a layout.
+
+Centered text should be used sparingly, and largely in standalone cases like
+empty states where the content is vertically and horizontally centered.
+
+For text alignment, we use `start` and `end` instead of `left` and `right`. This
+allows us to support
+[bi-directionality](https://material.io/design/usability/bidirectionality.html#mirroring-layout)
+when needed.
+
+<Canvas isColumn code={TextAlignmentExampleSource}><TextAlignmentExample /></Canvas>
+
+## maxLines
+
+Used to truncate large text with `...` based on line wrapping, such that the
+total number of lines does not exceed the preset. This is an optional prop. If
+left undefined all the contents are shown.
+
+<Canvas code={TextMaxLinesExampleSource}><TextMaxLinesExample /></Canvas>
+
+## Platform Considerations (Web)
+
+### Sizes
+
+Text can be used with different sizes.
+
+<Canvas code={TextSizesExampleSource}><TextSizesExample /></Canvas>
+
+#### Base
+
+Base is the default size and is optimized for the widest range of uses,
+including:
+
+- Long paragraphs of text content
+- Descriptions of subsequent UI elements
+- Labels on UI elements such as checkboxes and radio buttons
+- Freeform user-generated content
+
+#### Large
+
+Typically large is to be used as an introductory paragraph that gives important
+information about a page, and requires greater prominence.
+
+#### Small
+
+The small size is intended to be used as helper content on things like
+checkboxes, radio buttons, inputs or any other UI elements that need help
+provided.

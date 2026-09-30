@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "Toast",
+    "filePath": "../components/src/Toast/Toast.tsx",
+    "props": {
+      "action": {
+        "description": "**Deprecated**: action will be removed in the next major version\n@deprecated",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "actionLabel": {
+        "description": "**Deprecated**: actionLabel will be removed in the next major version\n@deprecated",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "message": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "variation": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"error\" | \"info\" | \"success\""
+        }
+      }
+    }
+  }
+]

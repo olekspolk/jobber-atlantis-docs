@@ -1,0 +1,50 @@
+[
+  {
+    "displayName": "Heading",
+    "filePath": "../components/src/Heading/Heading.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom classNames for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ textStyle?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom styles for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ textStyle?: CSSProperties; }"
+        }
+      },
+      "element": {
+        "description": "Allows overriding of the element rendered. Defaults to the heading specified with level.",
+        "required": false,
+        "type": {
+          "name": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"p\" | \"span\""
+        }
+      },
+      "id": {
+        "description": "Adds a unique identifier to the heading.\nUseful when the heading needs to be referenced by another element.\nNot intended for styling.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "level": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "HeadingLevel"
+        }
+      },
+      "maxLines": {
+        "description": "The maximum amount of lines the text can occupy before being truncated with \"...\".\nUses predefined string values that correspond to a doubling scale for the amount of lines.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\" | \"larger\" | \"single\" | \"small\" | \"unlimited\""
+        }
+      }
+    }
+  }
+]

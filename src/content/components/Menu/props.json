@@ -1,0 +1,573 @@
+[
+  {
+    "displayName": "Menu",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).\n@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string | { menu?: string; header?: string; action?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).\n@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties | { menu?: CSSProperties; header?: CSSProperties; action?: CSSProperties; }"
+        }
+      },
+      "activator": {
+        "description": "Custom menu activator. If this is not provided a default [… More] will be used.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<{ [key: string]: unknown; fullWidth?: boolean; onClick?: (event?: MouseEvent<Element, MouseEvent>) => void; }, string | JSXElementConstructor<any>>"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "defaultOpen": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "items": {
+        "description": "Collection of action items.",
+        "required": true,
+        "type": {
+          "name": "SectionProps[]"
+        }
+      },
+      "onOpenChange": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(isOpen: boolean) => void"
+        }
+      },
+      "open": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.Content",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "preferredPlacement": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "MenuPlacement"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.Group",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "ariaLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.GroupLabel",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.Header",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.HeaderLabel",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Menu.ItemIcon",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom classnames for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ svg?: string; path?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ svg?: CSSProperties; path?: CSSProperties; }"
+        }
+      },
+      "color": {
+        "description": "Determines the color of the icon. Some icons have a default system colour\nlike quotes, jobs, and invoices. Others that doesn't have a system colour\nfalls back to greyBlueDark.",
+        "required": false,
+        "type": {
+          "name": "\"disabled\" | \"success\" | \"warning\" | \"icon\" | \"blue\" | \"green\" | \"yellow\" | \"red\" | \"grey\" | \"white\" | \"greyBlue\" | \"lightBlue\" | \"orange\" | \"navy\" | \"interactive\" | \"destructive\" | ... 34 more ... | \"brandHighlight\""
+        }
+      },
+      "customColor": {
+        "description": "Sets a custom color for the icon. Can be a rgb() or hex value.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "name": {
+        "description": "The icon to show.",
+        "required": true,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "size": {
+        "description": "Changes the size to small or large.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\" | \"small\""
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.ItemLabel",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "Menu.ItemPrefix",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.ItemSuffix",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.RadioGroup",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "defaultValue": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onValueChange": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(value: string) => void"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "value": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.Section",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "ariaLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.Separator",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.Submenu",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "defaultOpen": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onOpenChange": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(isOpen: boolean) => void"
+        }
+      },
+      "open": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Menu.SubmenuContent",
+    "filePath": "../components/src/Menu/Menu.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "@deprecated Use `className` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "@deprecated Use `style` instead.\nThis is kept for backward compatibility on the composable Menu pieces.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  }
+]

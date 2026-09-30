@@ -1,0 +1,197 @@
+[
+  {
+    "displayName": "FormatFile",
+    "filePath": "../components/src/FormatFile/FormatFile.tsx",
+    "props": {
+      "display": {
+        "description": "To display as either a file row or thumbnail",
+        "required": false,
+        "type": {
+          "name": "\"compact\" | \"expanded\""
+        }
+      },
+      "displaySize": {
+        "description": "The base dimensions of the thumbnail",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\""
+        }
+      },
+      "file": {
+        "description": "File upload details object. (See FileUpload type.)",
+        "required": true,
+        "type": {
+          "name": "FileUpload"
+        }
+      },
+      "onClick": {
+        "description": "Function to execute when format file is clicked",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>) => void"
+        }
+      },
+      "onDelete": {
+        "description": "onDelete callback - this function will be called when the delete action is triggered",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "FormatFile.Body",
+    "filePath": "../components/src/FormatFile/FormatFile.tsx",
+    "props": {
+      "ariaBusy": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "isComplete": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onClick": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "MouseEventHandler<HTMLButtonElement | HTMLDivElement>"
+        }
+      },
+      "tabIndex": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "type": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"button\" | \"reset\" | \"submit\""
+        }
+      }
+    }
+  },
+  {
+    "displayName": "FormatFile.DeleteButton",
+    "filePath": "../components/src/FormatFile/FormatFile.tsx",
+    "props": {
+      "onDelete": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLButtonElement, MouseEvent>) => void"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "FormatFile.DeleteButtonContainer",
+    "filePath": "../components/src/FormatFile/FormatFile.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "isHidden": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "FormatFile.Expanded",
+    "filePath": "../components/src/FormatFile/FormatFile.tsx",
+    "props": {
+      "file": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "FileUpload"
+        }
+      },
+      "fileSize": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "isVisible": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "FormatFile.ProgressContainer",
+    "filePath": "../components/src/FormatFile/FormatFile.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "isHidden": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "FormatFile.ThumbnailContainer",
+    "filePath": "../components/src/FormatFile/FormatFile.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "FormatFile.Wrapper",
+    "filePath": "../components/src/FormatFile/FormatFile.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

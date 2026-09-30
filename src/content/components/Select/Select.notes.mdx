@@ -1,0 +1,64 @@
+## Component customization
+
+Select is intentionally opinionated: it exposes a curated set of props rather
+than the full underlying API. The subcomponents (`Select.Item`, `Select.Group`,
+`Select.GroupLabel`, `Select.Separator`) accept `className` and `style` for
+per-option styling; reach out to UXF if you need behaviour beyond what the props
+provide.
+
+## Using with a form library
+
+Select is form-library-agnostic — it exposes plain controlled props, so any
+system (React Hook Form, Formik, TanStack Form, or plain `useState`) drives it
+by wiring:
+
+- `value` — the current value
+- `onValueChange` — the library's value setter
+- `onBlur` / `onFocus` — touched state and blur/focus-mode validation
+- `error` (message) or `invalid` (styling only) — validation feedback
+- `ref` — exposes `focus()`, so a form can focus this field on error
+
+Because the change prop is `onValueChange` (not `onChange`), spreading a field
+object whose handler is named `onChange` — for example React Hook Form's `field`
+via `<Select {...field} />` — will **not** wire up the change handler.
+`field.onChange` lands on a prop nothing reads, and JSX spread does not error,
+so the field silently stops updating. Wire the props explicitly instead:
+
+```tsx
+<Controller
+  control={control}
+  name="status"
+  render={({ field }) => (
+    <Select
+      label="Status"
+      name={field.name}
+      value={field.value}
+      onValueChange={field.onChange}
+      onBlur={field.onBlur}
+      ref={field.ref}
+    >
+      {/* Select.Item options */}
+    </Select>
+  )}
+/>
+```
+
+If you want spread ergonomics, keep the remap in your own app — the design
+system intentionally ships no form-library adapter:
+
+```tsx
+// app-side helper, not part of @jobber/components
+const toValueField = ({ onChange, ...field }) => ({
+  ...field,
+  onValueChange: onChange,
+});
+
+<Select label="Status" {...toValueField(field)}>
+  {/* Select.Item options */}
+</Select>;
+```
+
+> **Note:** Select is built on Base UI's `Field` primitive, but it is not yet
+> wired to participate in a surrounding Base UI `<Form>` — the `Form` `errors`
+> prop and `Form`\-driven focus-on-error do not reach Select. Drive validation
+> through the `error` / `invalid` props for now.

@@ -1,0 +1,306 @@
+import { Meta } from "../../mdx/blocks";
+import { AtlantisThemeContextProvider } from "@jobber/components/AtlantisThemeContext";
+
+<Meta title="Components/Themes/AtlantisThemeContext" component={AtlantisThemeContextProvider} />
+
+# AtlantisThemeContext
+
+Provides a way to control the theme of Atlantis components and the design
+tokens.
+
+## Design \& usage guidelines
+
+Web and mobile both expose Atlantis theme context, but the runtime ownership is
+slightly different across platforms.
+
+Each platform provides a `useAtlantisTheme` hook that you may use to access the
+current theme information and design tokens in your components.
+
+On mobile, the hook returns:
+
+- `theme`: the selected theme preference (`"system" | "light" | "dark"`)
+- `effectiveTheme`: the resolved theme Atlantis uses for tokens
+  (`"light" | "dark"`)
+- `tokens`
+- `setTheme`
+
+Typically there will only be a single provider at the root, and the consuming
+app will control `theme` and persist that preference outside Atlantis.
+
+On web, you'll need to import the `updateTheme` function and call it with the
+new theme. This is a separate function because it synchronizes the theme update
+across all providers under various React trees. Synchronizing across providers
+is necessary for cases where an island-based architecture is used.
+
+### Usage for web
+
+```tsx
+import {
+  AtlantisThemeContextProvider,
+  updateTheme,
+  useAtlantisTheme,
+} from "@jobber/components/AtlantisThemeContext";
+
+function App() {
+  return (
+    <AtlantisThemeContextProvider>
+      <ThemedComponent />
+    </AtlantisThemeContextProvider>
+  );
+}
+
+function ThemedComponent() {
+  const { theme, tokens } = useAtlantisTheme();
+  return (
+    <Content>
+      <div
+        style={{
+          background: tokens["surface-background"],
+          padding: tokens["space-base"],
+        }}
+      >
+        <Content>
+          <Text>The current theme is: {theme}.</Text>
+          <Text>
+            The javascript tokens can be accessed via the tokens object.
+          </Text>
+          <Text>The theme can be changed using `updateTheme`</Text>
+          <Button
+            onClick={() => updateTheme("light")}
+            label="The theme can be changed to light"
+          />
+          <Button
+            onClick={() => updateTheme("dark")}
+            label="The theme can be changed to dark"
+          />
+        </Content>
+      </div>
+    </Content>
+  );
+}
+```
+
+### Usage for mobile
+
+```tsx
+import {
+  AtlantisThemeContextProvider,
+  useAtlantisTheme,
+} from "@jobber/components/AtlantisThemeContext";
+
+function App() {
+  return (
+    <AtlantisThemeContextProvider>
+      <ThemedComponent />
+    </AtlantisThemeContextProvider>
+  );
+}
+
+function ThemedComponent() {
+  const { theme, effectiveTheme, tokens, setTheme } = useAtlantisTheme();
+  return (
+    <Content>
+      <View
+        style={{
+          background: tokens["surface-background"],
+          padding: tokens["space-base"],
+        }}
+      >
+        <Content>
+          <Text>The selected theme is: {theme}.</Text>
+          <Text>The effective theme is: {effectiveTheme}.</Text>
+          <Text>
+            The javascript tokens can be accessed via the tokens object.
+          </Text>
+          <Text>The theme can be changed using `setTheme`</Text>
+          <Button
+            onPress={() => setTheme("system")}
+            label="The theme can be changed to system"
+          />
+          <Button
+            onPress={() => setTheme("light")}
+            label="The theme can be changed to light"
+          />
+          <Button
+            onPress={() => setTheme("dark")}
+            label="The theme can be changed to dark"
+          />
+        </Content>
+      </View>
+    </Content>
+  );
+}
+```
+
+### Cross-tab theme sync (Web Only)
+
+The provider can keep the theme in sync across a user's open browser tabs. This
+is opt-in: pass the `localStorage` key your app writes to as the `storageKey`
+prop. The provider then listens for
+[`storage` events](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event)
+on that key and applies theme changes from other tabs. The `storage` event fires
+only in tabs _other_ than the one that wrote the value, so there's no feedback
+loop.
+
+**Your app is responsible for writing to `localStorage`** when the theme changes
+— Atlantis only handles the listen-and-react side.
+
+```tsx
+<AtlantisThemeContextProvider storageKey="my_app_theme">
+  <ThemedComponent />
+</AtlantisThemeContextProvider>
+```
+
+```tsx
+// Theme toggle — write to the same key after calling updateTheme
+import { updateTheme } from "@jobber/components/AtlantisThemeContext";
+
+function toggleTheme(newTheme: "light" | "dark") {
+  updateTheme(newTheme); // updates all providers in this tab immediately
+
+  try {
+    localStorage.setItem("my_app_theme", newTheme); // signals other tabs
+  } catch {
+    // localStorage unavailable (e.g. private mode) — degrades gracefully
+  }
+}
+```
+
+Omit `storageKey` and no `storage` listener is added, keeping the previous
+within-tab-only behavior. Multiple dynamic providers on the same page all share
+the same internal store, so a single provider with a `storageKey` is enough — a
+cross-tab signal updates every dynamic provider at once. Providers mounted with
+`dangerouslyOverrideTheme` are unaffected.
+
+### Forcing a theme for an AtlantisThemeContextProvider
+
+In some scenarios you may want to force a theme for specific components
+regardless of the main application theme. This can be done by setting the
+`dangerouslyOverrideTheme` prop to `<themeToSet>` on the
+`AtlantisThemeContextProvider`.
+
+On mobile, forcing a theme changes the rendered tokens for that subtree, but it
+does not replace the selected theme preference semantics from the nearest
+non-forced provider.
+
+Note: If you're using `buildThemedStyles`, any `useStyles` calls must be done
+within a _child component_ of the `AtlantisThemeContextProvider`, not in the
+same component that renders the provider. Same goes for `useAtlantisTheme`.
+
+```tsx
+import {
+  AtlantisThemeContextProvider,
+  updateTheme,
+  useAtlantisTheme,
+} from "@jobber/components/AtlantisThemeContext";
+
+function App() {
+  return (
+    <AtlantisThemeContextProvider>
+      <ThemedComponent />
+      <AtlantisThemeContextProvider dangerouslyOverrideTheme="dark">
+        <Text>These components will always be dark themed</Text>
+        <ThemedComponent />
+      </AtlantisThemeContextProvider>
+    </AtlantisThemeContextProvider>
+  );
+}
+
+function ThemedComponent() {
+  const { theme, tokens } = useAtlantisTheme();
+  return (
+    <Content>
+      <div
+        style={{
+          background: tokens["surface-background"],
+          padding: tokens["space-base"],
+        }}
+      >
+        <Content>
+          <Text>The current theme is: {theme}. </Text>
+          <Text>
+            The javascript tokens can be accessed via the tokens object.
+          </Text>
+          <Text>The theme can be changed using `updateTheme`</Text>
+          <Button
+            onClick={() => updateTheme("light")}
+            label="The theme can be changed to light"
+          />
+          <Button
+            onClick={() => updateTheme("dark")}
+            label="The theme can be changed to dark"
+          />
+        </Content>
+      </div>
+    </Content>
+  );
+}
+```
+
+### Overriding theme tokens (Web Only)
+
+If you need to override theme tokens, you can do so by supplying the
+`dangerouslyOverrideTokens` prop to the `AtlantisThemeContextProvider`. You can
+also supply custom tokens which are exposed as CSS variables to any elements
+under this `AtlantisThemeContextProvider`. All overridden tokens are also
+accessible via the `overrideTokens` object from the `useAtlantisTheme` hook.
+
+This capability allows you to create custom theme providers.
+
+```tsx
+import {
+  AtlantisThemeContextProvider,
+  updateTheme,
+  useAtlantisTheme,
+} from "@jobber/components/AtlantisThemeContext";
+
+function App() {
+  return (
+    <AtlantisThemeContextProvider
+      dangerouslyOverrideTokens={{
+        "color-text": "fuchsia",
+      }}
+    >
+      <Text>This text will be fuchsia!</Text>
+    </AtlantisThemeContextProvider>
+  );
+}
+```
+
+### Creating themed styles with buildThemedStyles (Mobile Only)
+
+The `buildThemedStyles` utility is available to help create themed StyleSheets
+that automatically update when the theme changes.
+
+```tsx
+// In the .style.ts file
+import { buildThemedStyles } from "@jobber/components-native";
+
+const useStyles = buildThemedStyles(tokens => ({
+  container: {
+    backgroundColor: tokens["color-surface"],
+    padding: tokens["space-base"],
+    borderRadius: tokens["radius-base"],
+  },
+  text: {
+    color: tokens["color-text"],
+    fontSize: tokens["font-size-base"],
+  },
+}));
+
+// In the component file
+function ThemedComponent() {
+  const styles = useStyles();
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Themed content</Text>
+    </View>
+  );
+}
+```
+
+Key features:
+
+- Automatically updates styles when the theme changes
+- Works with React Native's StyleSheet system
+- Memoized so that the StyleSheet is only re-created when the theme changes

@@ -1,0 +1,694 @@
+## Component customization
+
+### Composable API
+
+`Dialog` is composed from its building-block subcomponents rather than driven by
+a single set of props: `Dialog.Trigger`, `Dialog.Content`, `Dialog.Header`,
+`Dialog.Title`, `Dialog.Close`, `Dialog.Body`, `Dialog.Footer`,
+`Dialog.Actions`, and `Dialog.ScrollArea`. This gives you control over the
+dialog's layout while keeping the accessibility wiring automatic.
+
+Here is a basic example:
+
+```tsx
+<Dialog>
+  <Dialog.Trigger>
+    <Button label="Open" />
+  </Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Dialog title</Dialog.Title>
+      <Dialog.Close />
+    </Dialog.Header>
+    <Dialog.Body>
+      <Text>Body content goes here.</Text>
+    </Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Actions
+        primary={{ label: "Save", onClick: handleSave }}
+        secondary={{ label: "Cancel", onClick: handleCancel }}
+      />
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog>
+```
+
+`Dialog.Header` and `Dialog.Footer` are layout-only slots — they own
+arrangement, not typography or actions. `Dialog.Actions` is the action-button
+layout (tertiary on the left; primary/secondary grouped on the right) and is
+dropped inside a `Dialog.Footer`.
+
+### Controlled open state
+
+By default the dialog manages its own open state — the trigger opens it and the
+close/actions dismiss it, with no state to wire up. To drive it yourself (for
+example, to open it from elsewhere or to gate closing on a save), pass `open`
+and handle `onRequestClose`. `onRequestClose` fires whenever the user asks to
+close — Escape, a backdrop click, or the dismiss button — so a controlled dialog
+should update its state there. The trigger's own control still opens the dialog
+via its `onClick`.
+
+```tsx
+function ControlledDialog() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dialog open={open} onRequestClose={() => setOpen(false)}>
+      <Dialog.Trigger>
+        <Button label="Open" onClick={() => setOpen(true)} />
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Header>
+          <Dialog.Title>Edit details</Dialog.Title>
+          <Dialog.Close />
+        </Dialog.Header>
+        <Dialog.Body>
+          <Text>Body content goes here.</Text>
+        </Dialog.Body>
+        <Dialog.Footer>
+          <Dialog.Actions
+            primary={{ label: "Save", onClick: () => setOpen(false) }}
+            secondary={{ label: "Cancel", onClick: () => setOpen(false) }}
+          />
+        </Dialog.Footer>
+      </Dialog.Content>
+    </Dialog>
+  );
+}
+```
+
+Because the state is yours, you can keep the dialog open when a save fails —
+only call `setOpen(false)` once the action succeeds. When you don't need that
+control, omit `open`/`onRequestClose` and let the dialog manage itself.
+
+### Trigger and close customization
+
+`Dialog.Trigger` and `Dialog.Close` accept Atlantis-style content and can render
+a default control, composed Atlantis `Button` content, or a custom element via
+`render`. An Atlantis `<Button>` is adapted automatically; any other valid
+element is used as-is. When `render` is a function, it receives the Base UI
+props so the element stays wired to open/close the dialog.
+
+```tsx
+{/* default primary Button trigger / default close Button */}
+<Dialog.Trigger>Open</Dialog.Trigger>
+<Dialog.Close />
+
+{/* custom element */}
+<Dialog.Trigger render={<Button type="tertiary" label="Open" />} />
+<Dialog.Close render={<Button type="tertiary" label="Done" />} />
+
+{/* render function */}
+<Dialog.Close render={closeProps => <MyClose {...closeProps} />} />
+```
+
+### Detached triggers
+
+When the trigger can't be nested inside the `Dialog` — for example an action
+inside a `Combobox`, `Autocomplete`, or `Menu` overlay — connect it through a
+`handle` from `Dialog.createHandle()` instead of nesting. The trigger can pass
+`payload` data that is available to `Dialog`'s render-function `children`.
+
+```tsx
+const handle = Dialog.createHandle();
+
+<Dialog handle={handle}>
+  {({ payload }) => <Dialog.Content>{/* read payload here */}</Dialog.Content>}
+</Dialog>;
+
+<Dialog.Trigger handle={handle} payload={selectedClient}>
+  Create client
+</Dialog.Trigger>;
+```
+
+### Scroll and sticky model
+
+Composition — not a `sticky` prop — decides what scrolls. The scroll region is a
+real element and owns the scrollbar:
+
+- Content **inside** the scroll region scrolls (the scrollbar lives here).
+- Content **outside** the scroll region (a direct child of `Dialog.Content`)
+  stays pinned.
+
+`Dialog.Body` is the default scroll region, so a flat `Header`/`Body`/`Footer`
+pins the header and footer and scrolls the body — the common case needs nothing
+extra.
+
+```tsx
+<Dialog.Content>
+  <Dialog.Header /> {/* pinned */}
+  <Dialog.Body>…</Dialog.Body> {/* scrolls */}
+  <Dialog.Footer /> {/* pinned */}
+</Dialog.Content>
+```
+
+To make a header or footer scroll with the content instead of pinning, wrap the
+parts that should scroll together in `Dialog.ScrollArea`. Anything inside it
+scrolls; anything left as a sibling in `Dialog.Content` stays pinned.
+
+```tsx
+{
+  /* sticky Header, scrolling Footer */
+}
+<Dialog.Content>
+  <Dialog.Header /> {/* pinned */}
+  <Dialog.ScrollArea>
+    <Dialog.Body>…</Dialog.Body>
+    <Dialog.Footer /> {/* inside → scrolls */}
+  </Dialog.ScrollArea>
+</Dialog.Content>;
+```
+
+The four sticky combinations map to composition:
+
+| Sticky combination | Composition |
+| --- | --- |
+| Both sticky | `Header`, `Body`, `Footer` flat in `Content` (basic) |
+| Sticky header, scrolling footer | `Header`, then `ScrollArea{ Body, Footer }` |
+| Scrolling header, sticky footer | `ScrollArea{ Header, Body }`, then `Footer` |
+| Nothing sticky | `ScrollArea{ Header, Body, Footer }` |
+
+### Rendering the surface as a form
+
+`Dialog.Content` accepts Base UI's `render` escape hatch. Pass
+`render={<form onSubmit={…} />}` to make the surface itself a `<form>`, so a
+submit button in `Dialog.Footer` submits it while the header and footer stay
+pinned. For two or more independent forms in one dialog, give each
+`<form id="…">` its own id in the body and point each submit control at it with
+the native `form` attribute instead.
+
+```tsx
+<Dialog.Content render={<form onSubmit={handleSubmit} />}>
+  <Dialog.Header>…</Dialog.Header>
+  <Dialog.Body>{/* form fields */}</Dialog.Body>
+  <Dialog.Footer>
+    <Dialog.Actions primary={{ label: "Save", type: "submit" }} />
+  </Dialog.Footer>
+</Dialog.Content>
+```
+
+### Focus return when the trigger unmounts
+
+Base UI returns focus on close to the trigger, then the element focused before
+open — each only if it is still connected to the DOM. It never walks to a
+neighbor. A common Jobber flow breaks both at once: a "Create…" action opens the
+dialog, and on save the trigger is replaced by a card. By the time the dialog
+closes, the trigger is gone and focus falls to `document.body`.
+
+For that case, `finalFocus` accepts a function. Build it with
+`getDialogReturnFocus({ trigger, boundary })`:
+
+```tsx
+const triggerRef = useRef<HTMLButtonElement>(null);
+const boundaryRef = useRef<HTMLDivElement>(null);
+
+<div ref={boundaryRef}>
+  {created ? <Card>…</Card> : <Trigger ref={triggerRef} />}
+</div>;
+
+<Dialog
+  handle={handle}
+  finalFocus={getDialogReturnFocus({
+    trigger: triggerRef,
+    boundary: boundaryRef,
+  })}
+>
+  …
+</Dialog>;
+```
+
+Resolution order on close:
+
+1. `trigger`, if it is still connected (the normal case);
+2. otherwise the first focusable element inside `boundary` (typically the card
+   that replaced the trigger);
+3. otherwise `null`, letting Base UI fall back to its default behavior.
+
+Keep `boundary` scoped tightly around the region that swaps. When the trigger
+never unmounts, a plain `finalFocus={triggerRef}` is enough and this helper is
+unnecessary.
+
+### Alert dialog
+
+`type="alertdialog"` is always modal, ignores outside/backdrop dismissal, and
+omits the default `Dialog.Close` button — the user must choose an action. Escape
+still closes it. Always include a cancel action so there is a genuine way out.
+
+```tsx
+<Dialog type="alertdialog">
+  <Dialog.Trigger>Delete client</Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Delete client</Dialog.Title>
+    </Dialog.Header>
+    <Dialog.Body>
+      <Text>
+        Sarah Johnson and all her history will be removed. This can't be undone.
+      </Text>
+    </Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Actions
+        primary={{ label: "Delete Client", onClick: handleDelete }}
+        secondary={{ label: "Cancel", onClick: handleCancel }}
+      />
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog>
+```
+
+## Sizing
+
+`size` accepts `"small"` (440px), `"base"` (720px, the default), `"large"`
+(1032px), and `"fullScreen"`. The pixel values are max widths; the dialog
+narrows to fit smaller viewports.
+
+Use `size="fullScreen"` for complex workflows or dense layouts that need more
+space without turning the task into a new route. On desktop it fills the
+viewport with squared corners; on mobile the bottom sheet becomes a full-width,
+full-height surface instead of the default peek.
+
+Use `fullBleed` on `Dialog.Body` to remove its padding when content should reach
+the edges — for example a full-width image, table, or map.
+
+## Accessibility
+
+**Role and modality**: `Dialog.Content` renders with `role="dialog"`, or
+`role="alertdialog"` when `type="alertdialog"`. Focus is trapped within the
+dialog while it is open.
+
+**Naming**: the accessible name and description are wired automatically from the
+composed parts:
+
+- `Dialog.Title` is wired to `aria-labelledby`.
+- `Dialog.Body` is wired to `aria-describedby`.
+
+**Responsive parity**: on small screens the dialog is presented as a bottom
+sheet built on the `BottomSheet`/`Drawer` primitives, but the public parts and
+accessibility wiring match the desktop modal.
+
+### Testing tip
+
+Query by the accessible name derived from `Dialog.Title`:
+
+```tsx
+screen.getByRole("dialog", { name: /Dialog title/i });
+```
+
+## Migrating to Dialog
+
+`Dialog` is the successor to both `Modal` (in its prop-driven and composable
+`Modal.Provider` forms) and `ConfirmationModal`. This guide maps each old API
+onto the composable Dialog parts.
+
+The same target shape covers every source: a `Dialog` root that owns state and
+behavior, a `Dialog.Content` surface, and the layout parts (`Header`, `Title`,
+`Close`, `Body`, `Footer`, `Actions`) inside it.
+
+```tsx
+<Dialog open={open} onRequestClose={() => setOpen(false)}>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Title</Dialog.Title>
+      <Dialog.Close />
+    </Dialog.Header>
+    <Dialog.Body>…</Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Actions primary={…} secondary={…} />
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog>
+```
+
+### Behavior differences to know first
+
+A few defaults changed, so a mechanical find-and-replace won't be correct on its
+own:
+
+- **Sticky is inverted.** `Modal.Header`/`Modal.Actions` were `inline` by
+  default and opted into `variant="sticky"`. In Dialog the header and footer are
+  **pinned by default**, and you opt _out_ by wrapping the parts that should
+  scroll in `Dialog.ScrollArea`. Most `variant="sticky"` usages become the plain
+  default; the rare non-sticky header/footer is what now needs extra markup.
+- **`dismissible={false}` becomes `type="alertdialog"`.** Blocking
+  outside/backdrop dismissal is no longer a boolean — it's the alert dialog
+  type, which also drops the default close button. Escape still closes.
+- **Naming is automatic.** `ariaLabel` / `modalLabelledBy` are gone. A
+  `Dialog.Title` is auto-wired to `aria-labelledby` and `Dialog.Body` to
+  `aria-describedby`. If you have no visible title, provide one (visually hidden
+  if needed) rather than an `ariaLabel` prop.
+- **Sizes shifted.** See the size table at the end.
+
+---
+
+## Prop-driven Modal → Dialog
+
+The legacy `<Modal>` is controlled by `open` and renders its title and actions
+from props. Move the title into `Dialog.Header`/`Dialog.Title`, the children
+into `Dialog.Body`, and the `*Action` props into `Dialog.Actions`. Keep
+controlling `open`/`onRequestClose` exactly as before — a trigger is optional.
+
+```tsx
+// Before
+<Modal
+  open={open}
+  onRequestClose={() => setOpen(false)}
+  title="Edit client"
+  size="large"
+  primaryAction={{ label: "Save", onClick: handleSave }}
+  secondaryAction={{ label: "Cancel", onClick: () => setOpen(false) }}
+>
+  <Content>{/* form */}</Content>
+</Modal>
+```
+
+```tsx
+// After
+<Dialog open={open} onRequestClose={() => setOpen(false)} size="large">
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Edit client</Dialog.Title>
+      <Dialog.Close />
+    </Dialog.Header>
+    <Dialog.Body>{/* form */}</Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Actions
+        primary={{ label: "Save", onClick: handleSave }}
+        secondary={{ label: "Cancel", onClick: () => setOpen(false) }}
+      />
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog>
+```
+
+| Modal prop | Dialog equivalent |
+| --- | --- |
+| `open` | `open` (unchanged) |
+| `onRequestClose` | `onRequestClose` (now also receives Base UI event details) |
+| `title` | `<Dialog.Title>` inside `<Dialog.Header>` |
+| `children` | `<Dialog.Body>` |
+| `primaryAction` | `<Dialog.Actions primary={…} />` |
+| `secondaryAction` | `<Dialog.Actions secondary={…} />` |
+| `tertiaryAction` | `<Dialog.Actions tertiary={…} />` (rendered left) |
+| `size` | `size` (remap values — see table) |
+| `dismissible={false}` | `type="alertdialog"` (also removes the default close button) |
+| `ariaLabel` | Use a `Dialog.Title`; naming is auto-wired |
+| `version` | Removed |
+
+The default close button lives in the header as `<Dialog.Close />`, so add one
+there instead of relying on the modal's built-in dismiss. If you were opening
+the modal from a button, you can keep that button external (controlled `open`)
+or wrap it in `Dialog.Trigger` and drop the manual `setOpen(true)`.
+
+---
+
+## Composable Modal (`Modal.Provider`) → Dialog
+
+The Provider API already composes parts, so the migration is close to a rename —
+with the sticky inversion being the one real change.
+
+```tsx
+// Before
+<Modal.Provider open={open} onRequestClose={() => setOpen(false)}>
+  <Modal.Activator>
+    <Button label="Open" onClick={() => setOpen(true)} />
+  </Modal.Activator>
+  <Modal.Content>
+    <Modal.Header title="Billing settings" variant="sticky" />
+    <Content>{/* body */}</Content>
+    <Modal.Actions
+      variant="sticky"
+      primary={{ label: "Save", onClick: handleSave }}
+      secondary={{ label: "Cancel", onClick: () => setOpen(false) }}
+    />
+  </Modal.Content>
+</Modal.Provider>
+```
+
+```tsx
+// After
+<Dialog open={open} onRequestClose={() => setOpen(false)}>
+  <Dialog.Trigger>
+    <Button label="Open" onClick={() => setOpen(true)} />
+  </Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Billing settings</Dialog.Title>
+      <Dialog.Close />
+    </Dialog.Header>
+    <Dialog.Body>{/* body */}</Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Actions
+        primary={{ label: "Save", onClick: handleSave }}
+        secondary={{ label: "Cancel", onClick: () => setOpen(false) }}
+      />
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog>
+```
+
+| `Modal.Provider` part | Dialog equivalent |
+| --- | --- |
+| `Modal.Provider` | `Dialog` (`open`, `onRequestClose`) |
+| `Modal.Activator` | `Dialog.Trigger` |
+| `Modal.Content` (outer) | `Dialog.Content` |
+| `Modal.Header title="…"` | `Dialog.Header` \+ `Dialog.Title` (+ `Dialog.Close`) |
+| `Modal.Header` with children | `Dialog.Header` with children |
+| inner `Content` / body children | `Dialog.Body` |
+| `Modal.Actions` | `Dialog.Footer` \+ `Dialog.Actions` |
+| `variant="sticky"` (header/actions) | Default — flat parts pin automatically |
+| `variant="inline"` (scroll with body) | Wrap the part in `Dialog.ScrollArea` |
+| `dismissible={false}` | `type="alertdialog"` |
+| `ariaLabel` / `modalLabelledBy` | `Dialog.Title` auto-wires `aria-labelledby` |
+
+`Modal.Activator` also controlled focus return. That's its own migration — see
+[Focus return](#focus-return-modalactivator--finalfocus) below.
+
+---
+
+## Focus return (`Modal.Activator`) → `finalFocus`
+
+`Modal.Activator` wrapped the element that focus should return to after close.
+Under the hood floating-ui also gave you a **fallback for free**: it anchored a
+hidden `<span>` next to the activator, so if the element that opened the modal
+unmounted while it was open — the classic "Create…" action whose trigger is
+replaced by a card on save — focus still landed at a sensible nearby spot
+instead of falling to `document.body`.
+
+Base UI's dialog dropped that anchored-span mechanism, so Dialog reintroduces
+the fallback explicitly through the root's `finalFocus`. There are two cases:
+
+**The trigger stays mounted** (most dialogs). Point `finalFocus` at a ref and
+you're done — this covers the plain `Modal.Activator` redirect:
+
+```tsx
+// Before
+<Modal.Provider open={open} onRequestClose={() => setOpen(false)}>
+  <Modal.Content>…</Modal.Content>
+  <Modal.Activator>
+    <InputText
+      placeholder="Focus returns here"
+      value={value}
+      onChange={setValue}
+    />
+  </Modal.Activator>
+</Modal.Provider>
+```
+
+```tsx
+// After
+const returnRef = useRef<HTMLInputElement>(null);
+
+<Dialog
+  open={open}
+  onRequestClose={() => setOpen(false)}
+  finalFocus={returnRef}
+>
+  <Dialog.Content>…</Dialog.Content>
+</Dialog>;
+
+<InputText
+  ref={returnRef}
+  placeholder="Focus returns here"
+  value={value}
+  onChange={setValue}
+/>;
+```
+
+**The trigger can unmount** (the fallback floating-ui used to handle). Build
+`finalFocus` with `getDialogReturnFocus({ trigger, boundary })`. The `boundary`
+ref is the equivalent of the old anchored span: if the trigger is gone on close,
+focus moves to the first focusable element inside `boundary` instead:
+
+```tsx
+const triggerRef = useRef<HTMLButtonElement>(null);
+const boundaryRef = useRef<HTMLDivElement>(null);
+
+<div ref={boundaryRef}>
+  {created ? <Card>…</Card> : <Trigger ref={triggerRef} />}
+</div>;
+
+<Dialog
+  handle={handle}
+  finalFocus={getDialogReturnFocus({
+    trigger: triggerRef,
+    boundary: boundaryRef,
+  })}
+>
+  …
+</Dialog>;
+```
+
+Resolution order on close: the `trigger` if still connected, otherwise the first
+focusable inside `boundary`, otherwise `null` (Base UI's default). Keep
+`boundary` scoped tightly around the region that swaps.
+
+| Before (`Modal.Activator`) | After (`finalFocus`) |
+| --- | --- |
+| Wrap the return target in `Modal.Activator` | `finalFocus={ref}` pointing at the return target |
+| Floating-ui's automatic unmount fallback | `finalFocus={getDialogReturnFocus({ trigger, boundary })}` |
+| (no equivalent — was implicit) | `boundary` names where focus lands when the trigger is gone |
+
+See the focus-return section of the component notes for the full behavior.
+
+---
+
+## ConfirmationModal → Dialog
+
+A confirmation is an alert dialog: `type="alertdialog"` blocks outside dismissal
+and omits the close button, so the user must choose confirm or cancel. Map
+`confirmLabel`/`onConfirm` to the primary action and `cancelLabel`/`onCancel` to
+the secondary.
+
+```tsx
+// Before
+<ConfirmationModal
+  open={open}
+  title="Delete job #2121"
+  message="Deleting this job will remove all associated visits and invoices."
+  confirmLabel="Delete Job"
+  cancelLabel="Cancel"
+  variation="destructive"
+  onConfirm={handleDelete}
+  onCancel={() => setOpen(false)}
+/>
+```
+
+```tsx
+// After
+<Dialog
+  type="alertdialog"
+  size="small"
+  open={open}
+  onRequestClose={() => setOpen(false)}
+>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Delete job #2121</Dialog.Title>
+    </Dialog.Header>
+    <Dialog.Body style={{ paddingTop: "var(--space-base)" }}>
+      <Text>
+        Deleting this job will remove all associated visits and invoices.
+      </Text>
+    </Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Actions
+        primary={{
+          label: "Delete Job",
+          onClick: handleDelete,
+          variation: "destructive",
+        }}
+        secondary={{ label: "Cancel", onClick: () => setOpen(false) }}
+      />
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog>
+```
+
+**Match the body spacing.** The old `ConfirmationModal` rendered its message
+with `16px` (`--space-base`) of space below the title. `Dialog.Body` doesn't add
+that gap by default, so add `16px` of top padding to the body to keep the same
+spacing:
+
+```tsx
+<Dialog.Body style={{ paddingTop: "var(--space-base)" }}>…</Dialog.Body>
+```
+
+| ConfirmationModal prop | Dialog equivalent |
+| --- | --- |
+| `open` | `open` |
+| `onCancel` / dismiss | `onRequestClose` (+ the secondary/cancel action) |
+| `title` | `<Dialog.Title>` |
+| `message` | `<Dialog.Body><Text>…</Text></Dialog.Body>` |
+| `children` (in place of `message`) | `<Dialog.Body>` |
+| `confirmLabel` \+ `onConfirm` | `Dialog.Actions primary={{ label, onClick }}` |
+| `cancelLabel` \+ `onCancel` | `Dialog.Actions secondary={{ label, onClick }}` |
+| `variation="destructive"` | `primary={{ …, variation: "destructive" }}` |
+| `variation="work"` | Default primary button |
+| `size="small" \| "large"` | `size="small"` / `size="base"` |
+| (implicit alert behavior) | `type="alertdialog"` |
+
+### The imperative `ref.show()` pattern
+
+`ConfirmationModal` exposed a `confirmationModalRef` with a `show({ … })` method
+so one modal could be reused across a list of items. Dialog replaces that with a
+detached trigger connected through a handle, passing the per-item data as
+`payload`:
+
+```tsx
+const handle = Dialog.createHandle();
+
+// One Dialog, rendered once
+<Dialog handle={handle} type="alertdialog" size="small">
+  {({ payload }) => (
+    <Dialog.Content>
+      <Dialog.Header>
+        <Dialog.Title>Remove {payload?.name}</Dialog.Title>
+      </Dialog.Header>
+      <Dialog.Body>
+        <Text>{payload?.name} will be removed from your client list.</Text>
+      </Dialog.Body>
+      <Dialog.Footer>
+        <Dialog.Actions
+          primary={{
+            label: "Remove Client",
+            variation: "destructive",
+            onClick: () => payload?.onConfirm(),
+          }}
+          secondary={{ label: "Cancel" }}
+        />
+      </Dialog.Footer>
+    </Dialog.Content>
+  )}
+</Dialog>;
+
+// A trigger per row, each passing its own payload
+{
+  clients.map(client => (
+    <Dialog.Trigger key={client.id} handle={handle} payload={client}>
+      <Button label="Remove" />
+    </Dialog.Trigger>
+  ));
+}
+```
+
+If you'd rather not use a handle, hold the active item in state and drive a
+single controlled `Dialog` — open it when a row's button is clicked and read the
+stored item in the body.
+
+---
+
+## Size mapping
+
+Dialog widths are max widths; the dialog narrows to fit smaller viewports.
+
+| Source | Old width | Use in Dialog |
+| --- | --- | --- |
+| Modal default | 600px | `size="base"` (720px) |
+| Modal `size="small"` | 400px | `size="small"` (440px) |
+| Modal `size="large"` | 940px | `size="large"` (1032px) |
+| Modal `size="fullScreen"` | 100dvw | `size="fullScreen"` |
+| ConfirmationModal `size="small"` | — | `size="small"` |
+| ConfirmationModal `size="large"` | — | `size="base"` |
+
+Widths aren't pixel-identical to the old components — pick the closest size and
+verify the result rather than expecting an exact match.

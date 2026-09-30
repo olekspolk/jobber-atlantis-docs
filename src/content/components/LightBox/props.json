@@ -1,0 +1,265 @@
+[
+  {
+    "displayName": "LightBox",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "boxSizing": {
+        "description": "Sets the box-sizing for the thumbnails in the lightbox. This is a solution for a problem where\ntailwind was setting the box-sizing to `border-box` and causing issues with the lightbox.",
+        "required": false,
+        "type": {
+          "name": "BoxSizing"
+        }
+      },
+      "imageIndex": {
+        "description": "Use this to specify which image in `images` to initialize the lightbox with.\nThis is useful when you have a collection of thumbnails as you only need one\ncollection of image urls, order doesn't matter.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "images": {
+        "description": "Images is an array of objects defining a LightBox image. This object consists of\n`title`, `caption`, `alt` and `url`. `title`, `alt` and `caption` are optional, `url` is\nrequired, for each image.",
+        "required": true,
+        "type": {
+          "name": "PresentedImage[]"
+        }
+      },
+      "onRequestClose": {
+        "description": "This function must set open to false in order to close the lightbox. Note there\nis a 300ms easing animation on lightbox close that occurs before this function\nis called.\nThis function receives an object as an argument with the key `lastPosition`\nthat has the index of the image the user was on when LightBox was closed.",
+        "required": true,
+        "type": {
+          "name": "(options: RequestCloseOptions) => void"
+        }
+      },
+      "open": {
+        "description": "Specify if the Lightbox is open or closed.",
+        "required": true,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.Background",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.Caption",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "LightBox.DownloadAction",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "Accessible label for the action, also used as the tooltip message.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.Navigation",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "nextButtonClassName": {
+        "description": "The class name to apply to the next button wrapper.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "prevButtonClassName": {
+        "description": "The class name to apply to the previous button wrapper.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.OpenInNewTabAction",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "Accessible label for the action, also used as the tooltip message.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.Overlay",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.Provider",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "boxSizing": {
+        "description": "Sets the box-sizing for the thumbnails in the lightbox. This is a solution for a problem where\ntailwind was setting the box-sizing to `border-box` and causing issues with the lightbox.",
+        "required": false,
+        "type": {
+          "name": "BoxSizing"
+        }
+      },
+      "imageIndex": {
+        "description": "Use this to specify which image in `images` to initialize the lightbox with.\nThis is useful when you have a collection of thumbnails as you only need one\ncollection of image urls, order doesn't matter.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "images": {
+        "description": "Images is an array of objects defining a LightBox image. This object consists of\n`title`, `caption`, `alt` and `url`. `title`, `alt` and `caption` are optional, `url` is\nrequired, for each image.",
+        "required": true,
+        "type": {
+          "name": "PresentedImage[]"
+        }
+      },
+      "onImageChange": {
+        "description": "Callback function that is invoked whenever the current image index changes.\nThis includes when the user navigates to a different image (via arrow keys,\nnavigation buttons, or swipe gestures) or when clicking a thumbnail.\n@param index - The new current image index (0-based)",
+        "required": false,
+        "type": {
+          "name": "(index: number) => void"
+        }
+      },
+      "onRequestClose": {
+        "description": "This function must set open to false in order to close the lightbox. Note there\nis a 300ms easing animation on lightbox close that occurs before this function\nis called.\nThis function receives an object as an argument with the key `lastPosition`\nthat has the index of the image the user was on when LightBox was closed.",
+        "required": false,
+        "type": {
+          "name": "(options: RequestCloseOptions) => void"
+        }
+      },
+      "open": {
+        "description": "Specify if the Lightbox is open or closed.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.Slides",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.Thumbnail",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "children": {
+        "description": "The content rendered inside the selectable thumbnail cell, typically a\n`LightBox.ThumbnailImage`.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "Additional class name to apply to the thumbnail cell.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "index": {
+        "description": "The index of the image this thumbnail represents. Used to derive the\nselected state and to navigate to the image when activated.",
+        "required": true,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.ThumbnailBar",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "children": {
+        "description": "The thumbnails to render inside the scrollable bar, typically one\n`LightBox.Thumbnail` per image.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "Additional class name to apply to the thumbnail bar wrapper.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.ThumbnailImage",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {
+      "alt": {
+        "description": "The alternative text for the image.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "className": {
+        "description": "Additional class name to apply to the image.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "src": {
+        "description": "The image source to render.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "LightBox.Thumbnails",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "LightBox.Toolbar",
+    "filePath": "../components/src/LightBox/LightBox.tsx",
+    "props": {}
+  }
+]

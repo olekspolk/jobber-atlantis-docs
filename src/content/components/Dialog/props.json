@@ -1,0 +1,410 @@
+[
+  {
+    "displayName": "Dialog",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {
+      "children": {
+        "description": "The content of the dialog. This can be a regular React node or a render function that receives the payload of the active trigger.",
+        "required": false,
+        "type": {
+          "name": "ReactNode | ((state: { payload: Payload; }) => ReactNode)"
+        }
+      },
+      "defaultTriggerId": {
+        "description": "ID of the trigger that the dialog is associated with.\nThis is useful in conjunction with the `defaultOpen` prop to create an initially open dialog.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "finalFocus": {
+        "description": "@see {@link https://base-ui.com/react/components/dialog#DialogPopup-finalFocus}",
+        "required": false,
+        "type": {
+          "name": "boolean | RefObject<HTMLElement> | ((closeType: InteractionType) => boolean | void | HTMLElement)"
+        }
+      },
+      "handle": {
+        "description": "A handle to associate the dialog with a trigger.\nIf specified, allows external triggers to control the dialog's open state.\nCan be created with the Dialog.createHandle() method.",
+        "required": false,
+        "type": {
+          "name": "DialogHandle<Payload>"
+        }
+      },
+      "onOpenChange": {
+        "description": "Event handler called when the dialog is opened or closed.",
+        "required": false,
+        "type": {
+          "name": "(open: boolean, eventDetails: DialogRootChangeEventDetails) => void"
+        }
+      },
+      "onOpenChangeComplete": {
+        "description": "Event handler called after any animations complete when the dialog is opened or closed.",
+        "required": false,
+        "type": {
+          "name": "(open: boolean) => void"
+        }
+      },
+      "onRequestClose": {
+        "description": "Called when the user asks to close (escape, backdrop, dismiss button).\nReceives BaseUI's change-event details (reason + originating event),\nmatching how BaseUI types its open/close callbacks.",
+        "required": false,
+        "type": {
+          "name": "(eventDetails: DialogRootChangeEventDetails) => void"
+        }
+      },
+      "open": {
+        "description": "Whether the dialog is currently open.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "description": "Width of the dialog.\nOn mobile when this is set to \"fullScreen\" the bottom sheet will be full screen (100% height).",
+        "required": false,
+        "type": {
+          "name": "DialogSize"
+        }
+      },
+      "triggerId": {
+        "description": "ID of the trigger that the dialog is associated with.\nThis is useful in conjunction with the `open` prop to create a controlled dialog.\nThere's no need to specify this prop when the dialog is uncontrolled (that is, when the `open` prop is not set).",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "type": {
+        "description": "Type of the dialog. An `alertdialog` requires the user to choose an action\nbefore it can be closed (no outside/backdrop dismissal).",
+        "required": false,
+        "type": {
+          "name": "DialogType"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Dialog.Actions",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {
+      "align": {
+        "description": "Layout for the right-hand action group.",
+        "required": false,
+        "type": {
+          "name": "DialogActionsAlign"
+        }
+      },
+      "className": {
+        "description": "Class name applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "primary": {
+        "description": "Primary action (right).",
+        "required": false,
+        "type": {
+          "name": "{ external?: never; onClick?: never; readonly name?: string; submit: never; readonly type?: ButtonType; readonly value?: string; readonly disabled?: boolean; readonly loading?: boolean; ... 17 more ...; readonly children?: never; } | ... 35 more ... | (({ ...; } | ... 35 more ... | ReactElement<...>) & ({ ...; } | ...."
+        }
+      },
+      "secondary": {
+        "description": "Secondary action (right, subtle).",
+        "required": false,
+        "type": {
+          "name": "{ external?: never; onClick?: never; readonly name?: string; submit: never; readonly type?: ButtonType; readonly value?: string; readonly disabled?: boolean; readonly loading?: boolean; ... 17 more ...; readonly children?: never; } | ... 35 more ... | (({ ...; } | ... 35 more ... | ReactElement<...>) & ({ ...; } | ...."
+        }
+      },
+      "style": {
+        "description": "Inline styles applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "tertiary": {
+        "description": "Tertiary/destructive action (left).",
+        "required": false,
+        "type": {
+          "name": "{ external?: never; onClick?: never; readonly name?: string; submit: never; readonly type?: ButtonType; readonly value?: string; readonly disabled?: boolean; readonly loading?: boolean; ... 17 more ...; readonly children?: never; } | ... 35 more ... | (({ ...; } | ... 35 more ... | ReactElement<...>) & ({ ...; } | ...."
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Dialog.Body",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {
+      "children": {
+        "description": "Body content; describes the dialog (wired to `aria-describedby`).",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "Class name applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "fullBleed": {
+        "description": "Removes body padding",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "style": {
+        "description": "Inline styles applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Dialog.Close",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {
+      "children": {
+        "description": "Optional content for the dismiss control. An Atlantis `<Button>` is adapted\nautomatically; any other valid element is used as-is. Defaults to a subtle\ntertiary `Button` with a `cross` icon when neither `children` nor `render`\nis provided.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "Class name applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "nativeButton": {
+        "description": "Whether the component renders a native `<button>` element when replacing it\nvia the `render` prop.\nSet to `false` if the rendered element is not a button (for example, `<div>`).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "render": {
+        "description": "Renders a custom dismiss element in place of the default close button.\nPass an element or a function that receives the\nBaseUI close props (so the element stays wired to close the dialog).",
+        "required": false,
+        "type": {
+          "name": "DialogCloseRender"
+        }
+      },
+      "style": {
+        "description": "Inline styles applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Dialog.Content",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {
+      "className": {
+        "description": "Class name applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "render": {
+        "description": "@see {@link https://base-ui.com/react/components/dialog#DialogPopup-render}",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogPopupState>"
+        }
+      },
+      "style": {
+        "description": "Inline styles applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Dialog.Footer",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {
+      "children": {
+        "description": "Footer content. Commonly a `Dialog.Actions`, but the footer is a generic\nregion — it can hold anything (a note, a checkbox, a custom layout).",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "Class name applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "Inline styles applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Dialog.Header",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {
+      "children": {
+        "description": "Header content — commonly a `Dialog.Title` and a `Dialog.Close`. The header\nonly owns layout; it does not impose typography or actions.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "Class name applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "Inline styles applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Dialog.ScrollArea",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {
+      "children": {
+        "description": "Content that scrolls together — typically a `Dialog.Body` and a non-pinned\n`Dialog.Header`/`Dialog.Footer`.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "Class name applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "Inline styles applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Dialog.Title",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {
+      "children": {
+        "description": "Title text. Rendered as a `Heading` and auto-wired to the dialog's\n`aria-labelledby`.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "Class name applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "Inline styles applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Dialog.Trigger",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {
+      "children": {
+        "description": "Trigger content; an Atlantis `<Button>` or raw text.\nOptional content forwarded to the rendered element.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "Class name applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "handle": {
+        "description": "Links a detached trigger to a `Dialog` with the matching `handle`, when the\ntrigger can't be nested inside the `Dialog`.",
+        "required": false,
+        "type": {
+          "name": "DialogHandle<Payload>"
+        }
+      },
+      "id": {
+        "description": "ID of the trigger. In addition to being forwarded to the rendered element,\nit is also used to specify the active trigger for the dialog in controlled mode (with the DialogRoot `triggerId` prop).",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "nativeButton": {
+        "description": "Whether the component renders a native `<button>` element when replacing it\nvia the `render` prop.\nSet to `false` if the rendered element is not a button (for example, `<div>`).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "payload": {
+        "description": "Data passed to the dialog when this trigger opens it (used with `handle`).",
+        "required": false,
+        "type": {
+          "name": "Payload"
+        }
+      },
+      "render": {
+        "description": "Renders a custom trigger element in place of the default `<Button>`.",
+        "required": false,
+        "type": {
+          "name": "DialogTriggerRender"
+        }
+      },
+      "style": {
+        "description": "Inline styles applied to the part's root element.",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Dialog.createHandle",
+    "filePath": "../components/src/Dialog/Dialog.tsx",
+    "props": {}
+  }
+]

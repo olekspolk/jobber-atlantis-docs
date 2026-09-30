@@ -3,71 +3,90 @@ import { DataList } from "@jobber/components/DataList";
 import { Grid } from "@jobber/components/Grid";
 import { InlineLabel } from "@jobber/components/InlineLabel";
 import { InputText } from "@jobber/components/InputText";
-import { type ReactElement, useState } from "react";
-import type { PropGroup } from "../content/parseDocs";
+import { type ReactElement, useMemo, useState } from "react";
+import type { PropsEntry } from "../content/types";
 
-// DataList hands each field back as a rendered element.
-type PropItem = Record<"id" | "key" | "required" | "description" | "component", ReactElement>;
+interface PropRow {
+  readonly id: number;
+  readonly key: string;
+  readonly required: string;
+  readonly description?: string;
+  readonly component?: string;
+}
 
-export const PropsList = ({ values }: { values: readonly PropGroup[] }) => {
+// react-docgen's props, one list per component (Menu, Menu.Item...), as the site's DataList.
+export const usePropsAsDataList = (props: readonly PropsEntry[] | undefined) =>
+  useMemo(
+    () =>
+      (props ?? []).map((entry) => ({
+        name: entry.displayName,
+        props: Object.entries(entry.props).map(
+          ([key, prop], index): PropRow => ({
+            id: index,
+            key,
+            required: prop?.required ? "*" : "",
+            description: prop?.description,
+            component: prop?.type?.name,
+          }),
+        ),
+      })),
+    [props],
+  );
+
+type DataItem = Record<keyof PropRow, ReactElement>;
+
+export const PropsList = ({ values }: { values: ReturnType<typeof usePropsAsDataList> }) => {
   const [search, setSearch] = useState("");
+  const filteredValues = values.map((meta) => ({
+    ...meta,
+    props: meta.props
+      .filter((prop) => prop.key.toLowerCase().includes(search.toLowerCase()))
+      .map((prop) => ({ ...prop, key: <pre>{prop.key}</pre> })),
+  }));
 
   return (
     <div data-props-list>
       <Content>
-        <InputText
-          value={search}
-          onChange={(value: string) => setSearch(value)}
-          placeholder="Search Props"
-        />
-        {values.map((group) => {
-          const data = group.props
-            .filter((prop) => prop.key.toLowerCase().includes(search.toLowerCase()))
-            .map((prop) => ({
-              id: prop.id,
-              key: <pre className="props-key">{prop.key}</pre>,
-              required: prop.required ? "*" : "",
-              description: prop.description,
-              component: prop.type,
-            }));
-
-          return (
-            <DataList
-              key={group.name}
-              title={`${group.name} properties`}
-              data={data}
-              headers={{ key: "Property", description: "Description", component: "Type" }}
-              headerVisibility={{ xs: false, lg: true }}
-            >
-              <DataList.Layout size="md">
-                {(item: PropItem) => (
-                  <Grid>
-                    <Grid.Cell size={{ md: 5, lg: 3 }}>
-                      <div style={{ display: "flex", gap: "var(--space-small)", flexWrap: "wrap" }}>
-                        {item.key}
-                        {item.required && <InlineLabel>Required</InlineLabel>}
-                      </div>
-                    </Grid.Cell>
-                    <Grid.Cell size={{ md: 7, lg: 3 }}>{item.component}</Grid.Cell>
-                    <Grid.Cell size={{ md: 12, lg: 6 }}>{item.description}</Grid.Cell>
-                  </Grid>
-                )}
-              </DataList.Layout>
-              <DataList.Layout size="xs">
-                {(item: PropItem) => (
-                  <Content spacing="small">
+        <InputText value={search} onChange={(value: string) => setSearch(value)} placeholder="Search Props" />
+        {filteredValues.map((value, index) => (
+          <DataList
+            title={`${value.name} properties`}
+            data={value.props}
+            headers={{ key: "Property", description: "Description", component: "Type" }}
+            headerVisibility={{ xs: false, lg: true }}
+            key={index}
+          >
+            <DataList.Layout size="md">
+              {(item: DataItem) => (
+                <Grid>
+                  <Grid.Cell size={{ md: 5, lg: 3 }}>
                     <div style={{ display: "flex", gap: "var(--space-small)", flexWrap: "wrap" }}>
                       {item.key}
                       {item.required && <InlineLabel>Required</InlineLabel>}
                     </div>
-                    {item.component}
-                    {item.description}
-                  </Content>
-                )}
-              </DataList.Layout>
-            </DataList>
-          );
-        })}
+                  </Grid.Cell>
+                  <Grid.Cell size={{ md: 7, lg: 3 }}>{item.component}</Grid.Cell>
+                  <Grid.Cell size={{ md: 12, lg: 6 }}>{item.description}</Grid.Cell>
+                </Grid>
+              )}
+            </DataList.Layout>
+            <DataList.Layout size="xs">
+              {(item: DataItem) => (
+                <Grid>
+                  <Grid.Cell size={{ xs: 12 }}>
+                    <div style={{ display: "flex", gap: "var(--space-smaller", flexWrap: "wrap" }}>
+                      {item.key}
+                      {item.required && <InlineLabel>Required</InlineLabel>}
+                    </div>
+                  </Grid.Cell>
+                  <Grid.Cell size={{ xs: 12 }}>{item.component}</Grid.Cell>
+                  <Grid.Cell size={{ xs: 12 }}>{item.description}</Grid.Cell>
+                </Grid>
+              )}
+            </DataList.Layout>
+            <DataList.EmptyState type="filtered" message="No props found with your search criteria." />
+          </DataList>
+        ))}
       </Content>
     </div>
   );

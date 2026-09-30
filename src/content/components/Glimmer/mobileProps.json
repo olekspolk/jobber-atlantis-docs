@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "Glimmer",
+    "filePath": "../components-native/src/Glimmer/Glimmer.tsx",
+    "props": {
+      "shape": {
+        "description": "Sets the size of the glimmer.",
+        "required": false,
+        "type": {
+          "name": "\"circle\" | \"rectangle\" | \"square\""
+        }
+      },
+      "size": {
+        "description": "Sets the shape of the glimmer.\n\nIf you need a specific width, use the `width` prop.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\" | \"larger\" | \"largest\" | \"small\""
+        }
+      },
+      "timing": {
+        "description": "Control how fast the shine moves from left to right. This is useful when\nthe glimmer is used on smaller spaces.",
+        "required": false,
+        "type": {
+          "name": "GlimmerTimings"
+        }
+      },
+      "width": {
+        "description": "Adjust the width of the glimmer in px or % values.",
+        "required": false,
+        "type": {
+          "name": "number | `${number}%`"
+        }
+      }
+    }
+  }
+]

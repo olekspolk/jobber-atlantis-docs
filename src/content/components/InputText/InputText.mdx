@@ -1,0 +1,106 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { InputTextBasicExample } from "./examples/InputTextBasicExample";
+import InputTextBasicExampleSource from "./examples/InputTextBasicExample.tsx?raw";
+import { InputTextDisabledExample } from "./examples/InputTextDisabledExample";
+import InputTextDisabledExampleSource from "./examples/InputTextDisabledExample.tsx?raw";
+import { InputTextExternalLabelExample } from "./examples/InputTextExternalLabelExample";
+import InputTextExternalLabelExampleSource from "./examples/InputTextExternalLabelExample.tsx?raw";
+import { InputTextInvalidExample } from "./examples/InputTextInvalidExample";
+import InputTextInvalidExampleSource from "./examples/InputTextInvalidExample.tsx?raw";
+import { InputTextKeyboardExample } from "./examples/InputTextKeyboardExample";
+import InputTextKeyboardExampleSource from "./examples/InputTextKeyboardExample.tsx?raw";
+import { InputTextMultilineExample } from "./examples/InputTextMultilineExample";
+import InputTextMultilineExampleSource from "./examples/InputTextMultilineExample.tsx?raw";
+import { InputTextPrefixSuffixExample } from "./examples/InputTextPrefixSuffixExample";
+import InputTextPrefixSuffixExampleSource from "./examples/InputTextPrefixSuffixExample.tsx?raw";
+import { InputTextValidationExample } from "./examples/InputTextValidationExample";
+import InputTextValidationExampleSource from "./examples/InputTextValidationExample.tsx?raw";
+import { Disclosure } from "@jobber/components/Disclosure";
+import { InputText } from "@jobber/components/InputText";
+
+<Meta title="Components/Forms and Inputs/InputText" component={InputText} />
+
+# Input Text
+
+Input text is used in forms that accept short or long answers from users.
+
+## Design \& usage guidelines
+
+### Controlled
+
+Use this to allow users to provide short answers.
+
+<Canvas code={InputTextBasicExampleSource}><InputTextBasicExample /></Canvas>
+
+<Disclosure title="Show code"><pre><code>{InputTextBasicExampleSource.replace(/^import\s.+$/gm, "").replace(/^export\s+(const|function)\s/gm, "$1 ").trim()}</code></pre></Disclosure>
+
+### Multiline
+
+Use this to allow users to provide long answers. The default number of rows is
+three. Note that `loading={true}` is unimplemented for multiline input text.
+
+For web, you can set a minimum and maximum number of rows. See:
+[Web/rows example](/storybook/web/?path=/story/components-forms-and-inputs-inputtext--multiline).
+
+<Canvas code={InputTextMultilineExampleSource}><InputTextMultilineExample /></Canvas>
+
+### Prefix/suffix
+
+Use a prefix or suffix when additional visual cues about an input's function may
+be helpful.
+
+Some fields have common visual patterns such as "search" having a magnifying
+glass icon, "Select" having a downwards arrow, or currency inputs having a
+currency symbol. These signifiers reinforce the purpose of the input to increase
+[Recognition over Recall](https://www.nngroup.com/articles/ten-usability-heuristics/)
+and align the input with
+[Consistency and Standards](https://www.nngroup.com/articles/ten-usability-heuristics/).
+With clearer guidance around the purpose of inputs, the user is able to better
+focus on the task at hand.
+
+Either affix can be given an `onClick` to make it an action, which renders the
+affix icon as a button. An actioned affix requires both an `icon` and an
+`ariaLabel` to name the button — affix labels are not actionable.
+
+<Canvas code={InputTextPrefixSuffixExampleSource}><InputTextPrefixSuffixExample /></Canvas>
+
+### Validation message
+
+You can add your own custom validation messages on a field to assist the user in
+successfully completing a form. This doesn't _replace_ server-side validation,
+but minimizes the need for it as the user should be set up for success by proper
+guidance pre-submission before any "bad" data gets to the server.
+
+Follow the
+[product vocabulary](/content/product-vocabulary#component-view-general-phrasing)
+for guidance on writing helpful error messages.
+
+<Canvas code={InputTextValidationExampleSource}><InputTextValidationExample /></Canvas>
+
+## States
+
+### Disabled
+
+<Canvas code={InputTextDisabledExampleSource}><InputTextDisabledExample /></Canvas>
+
+### Invalid
+
+For mobile, you can pass a string to the `invalid` prop to display an error.
+See:
+[Mobile/invalid example](/storybook/mobile/?path=/story/components-forms-and-inputs-inputtext--invalid).
+
+<Canvas code={InputTextInvalidExampleSource}><InputTextInvalidExample /></Canvas>
+
+### External label
+
+You can use `FormFieldLabel` to provide a label outside of the input. The
+`showMiniLabel` prop on `InputText` can be used to hide the mini label that
+appears when a value is provided.
+
+<Canvas code={InputTextExternalLabelExampleSource}><InputTextExternalLabelExample /></Canvas>
+
+### Keyboard
+
+Determine what default keyboard appears on mobile.
+
+<Canvas code={InputTextKeyboardExampleSource}><InputTextKeyboardExample /></Canvas>

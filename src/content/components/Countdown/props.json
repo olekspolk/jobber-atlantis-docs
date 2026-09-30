@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "Countdown",
+    "filePath": "../components/src/Countdown/Countdown.tsx",
+    "props": {
+      "date": {
+        "description": "The date that is being counted down to.\nValue for date as a `string` should be in ISO 8601 format.",
+        "required": true,
+        "type": {
+          "name": "Date | number | string"
+        }
+      },
+      "granularity": {
+        "description": "Defines the time format presented\n(e.g., dhms will show days, hours, minutes, and seconds)",
+        "required": false,
+        "type": {
+          "name": "GranularityOptions"
+        }
+      },
+      "onComplete": {
+        "description": "Callback when the countdown is done",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "showUnits": {
+        "description": "Whether or not to present the unit of time to the user, or just the raw numbers.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

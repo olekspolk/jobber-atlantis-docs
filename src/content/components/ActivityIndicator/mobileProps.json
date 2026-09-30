@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "ActivityIndicator",
+    "filePath": "../components-native/src/ActivityIndicator/ActivityIndicator.tsx",
+    "props": {
+      "accessibilityLabel": {
+        "description": "Accessible label exposed to assistive technology and announced on\nmount. Defaults to a localized \"Loading\" string via\n`useAtlantisI18n(\"loading\")`.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "size": {
+        "description": "Visual size. `\"base\"` renders at 44px, `\"small\"` renders at 28px.\n`\"large\"` is a deprecated alias for `\"base\"` and will be removed in a\nfuture release.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\" | \"small\""
+        }
+      },
+      "style": {
+        "description": "Inline styles applied to the root view.",
+        "required": false,
+        "type": {
+          "name": "StyleProp<ViewStyle>"
+        }
+      },
+      "testID": {
+        "description": "Test identifier applied to the root view. Defaults to\n`\"ActivityIndicator\"`.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

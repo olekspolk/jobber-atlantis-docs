@@ -1,0 +1,50 @@
+[
+  {
+    "displayName": "AutoLink",
+    "filePath": "../components-native/src/AutoLink/AutoLink.tsx",
+    "props": {
+      "bottomTabsVisible": {
+        "description": "Determines the placement of the toast that gets shown onLongPress",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "children": {
+        "description": "Text to display.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "email": {
+        "description": "Flag for linking emails in text",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "phone": {
+        "description": "Flag for linking phone numbers in text",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "selectable": {
+        "description": "Lets the user select text, to use the native copy and paste functionality.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "urls": {
+        "description": "Flag for linking urls in text",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

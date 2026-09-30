@@ -1,0 +1,29 @@
+[
+  {
+    "displayName": "Divider",
+    "filePath": "../components-native/src/Divider/Divider.tsx",
+    "props": {
+      "direction": {
+        "description": "The direction of the divider",
+        "required": false,
+        "type": {
+          "name": "\"horizontal\" | \"vertical\""
+        }
+      },
+      "size": {
+        "description": "The weight of the divider.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\" | \"larger\" | \"largest\""
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,56 @@
+import { Canvas } from "../../mdx/blocks";
+import { ResponsiveSwitcherBasicExample } from "./examples/ResponsiveSwitcherBasicExample";
+import ResponsiveSwitcherBasicExampleSource from "./examples/ResponsiveSwitcherBasicExample.tsx?raw";
+import { ResponsiveSwitcherCustomSpacingExample } from "./examples/ResponsiveSwitcherCustomSpacingExample";
+import ResponsiveSwitcherCustomSpacingExampleSource from "./examples/ResponsiveSwitcherCustomSpacingExample.tsx?raw";
+import { ResponsiveSwitcherCustomThresholdExample } from "./examples/ResponsiveSwitcherCustomThresholdExample";
+import ResponsiveSwitcherCustomThresholdExampleSource from "./examples/ResponsiveSwitcherCustomThresholdExample.tsx?raw";
+import { ResponsiveSwitcherWithItemLimitExample } from "./examples/ResponsiveSwitcherWithItemLimitExample";
+import ResponsiveSwitcherWithItemLimitExampleSource from "./examples/ResponsiveSwitcherWithItemLimitExample.tsx?raw";
+
+# ResponsiveSwitcher
+
+The ResponsiveSwitcher component is a layout component that automatically
+switches between horizontal and vertical arrangements based on the available
+space. It's designed to create responsive layouts that adapt to different screen
+sizes without requiring media queries.
+
+## When to use
+
+Use ResponsiveSwitcher when you need to:
+
+- Create layouts that switch between horizontal and vertical arrangements based
+  on container width
+- Build responsive interfaces without writing media queries
+- Implement flexible grid-like layouts that adapt to available space
+- Create responsive form layouts
+- Build adaptive content sections that work across different screen sizes
+
+## Examples
+
+### Basic Usage
+
+<Canvas code={ResponsiveSwitcherBasicExampleSource}><ResponsiveSwitcherBasicExample /></Canvas>
+
+### Custom Spacing
+
+<Canvas code={ResponsiveSwitcherCustomSpacingExampleSource}><ResponsiveSwitcherCustomSpacingExample /></Canvas>
+
+### Custom Threshold
+
+<Canvas code={ResponsiveSwitcherCustomThresholdExampleSource}><ResponsiveSwitcherCustomThresholdExample /></Canvas>
+
+### With Item Limit
+
+<Canvas code={ResponsiveSwitcherWithItemLimitExampleSource}><ResponsiveSwitcherWithItemLimitExample /></Canvas>
+
+## Implementation Details
+
+The ResponsiveSwitcher uses CSS Flexbox with the `flex-wrap` property to create
+responsive layouts. It calculates when to switch between layouts using CSS
+`calc()` and custom properties, avoiding the need for media queries.
+
+## Related Components
+
+- For vertical layouts with consistent spacing, use [Stack](/components/Stack)
+- For horizontal layouts with wrapping, use [Cluster](/components/Cluster)

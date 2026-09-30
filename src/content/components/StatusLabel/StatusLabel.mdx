@@ -1,0 +1,88 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { StatusLabelAlignmentExample } from "./examples/StatusLabelAlignmentExample";
+import StatusLabelAlignmentExampleSource from "./examples/StatusLabelAlignmentExample.tsx?raw";
+import { StatusLabelAllStatusesExample } from "./examples/StatusLabelAllStatusesExample";
+import StatusLabelAllStatusesExampleSource from "./examples/StatusLabelAllStatusesExample.tsx?raw";
+
+<Meta title="Components/Status and Feedback/StatusLabel" />
+
+# Status Label
+
+The StatusLabel component is a visual component that allows users to quickly
+determine the status of an item (e.g., "Active", "Overdue").
+
+## Design \& usage guidelines
+
+StatusLabel is a more opinionated version of
+[InlineLabel](/components/InlineLabel) and offers only 5 possible status
+representations:
+
+### Success
+
+Convey that an item is in a successful state, such as approved or paid.
+
+### Critical
+
+Alert the user to a critically important issue such as a late appointment or an
+overdue payment.
+
+### Warning
+
+Warn the user of a potential forthcoming issue like an upcoming deadline or an
+item awaiting response.
+
+### Informative
+
+Inform the user about something that may not require action, such as a quote
+that has already been converted into a job.
+
+### Inactive
+
+Signify that an item has been archived, closed, or otherwise removed from an
+active workflow.
+
+<Canvas code={StatusLabelAllStatusesExampleSource}><StatusLabelAllStatusesExample /></Canvas>
+
+### Alignment
+
+Align the color indicator with the start or end of a layout as needed.
+
+For example, in a [List](/components/List) where the StatusLabel is on the
+right, use the `end` alignment.
+
+<Canvas code={StatusLabelAlignmentExampleSource}><StatusLabelAlignmentExample /></Canvas>
+
+## Related components
+
+[InlineLabel](/components/InlineLabel) is a more generic badging element that
+can be used in non-"status"-y ways
+
+- counts
+- trends
+- tags
+- labels that need to be distinguished from other typographic content
+
+## Content guidelines
+
+StatusLabel does not accept any child content. It presents only a text-based
+label describing the status, and a visual color indicator to reinforce the
+status.
+
+The label should be short, ideally no longer than two words.
+
+## Accessibility
+
+The StatusLabel has a `role` of `status` which is communicated to assistive
+technology. It does not pull focus to itself but informs the user of its'
+purpose.
+
+The label portion of StatusLabel should be readable by assistive technology.
+
+The color indicator is always used with a text label so that color is not the
+only method of communicating status.
+
+## Responsiveness
+
+StatusLabel should "hug" it's contents, but otherwise grow as long as needed in
+the available space. If StatusLabel's label is longer than the space available,
+the label should wrap.

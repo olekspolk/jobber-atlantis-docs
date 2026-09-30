@@ -1,0 +1,169 @@
+[
+  {
+    "displayName": "Form",
+    "filePath": "../components-native/src/Form/Form.tsx",
+    "props": {
+      "UNSAFE_allowDiscardLocalCacheWhenOffline": {
+        "description": "If true, the local cache will be removed when the user navigates away from\nthe dirty form even when offline. By default, cache is only removed on back when online.\nDefaults to false.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "bannerErrors": {
+        "description": "Network or user errors to be displayed as a banner at the top of the form",
+        "required": false,
+        "type": {
+          "name": "FormBannerErrors"
+        }
+      },
+      "bannerMessages": {
+        "description": "Status messages to be displayed as a banner at the top of the form",
+        "required": false,
+        "type": {
+          "name": "FormBannerMessage[]"
+        }
+      },
+      "children": {
+        "description": "Content to be passed into the form",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "disableKeyboardAwareScroll": {
+        "description": "@internal Do not use this prop. It is a hack and will be removed.\nTODO: JOB-147156 This is a HACK for multiline inputs on iOS scrolling issue.\nDisables the keyboard aware scroll view.\nThis is needed to fix issues with multiline inputs on iOS. DO NOT",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "formRef": {
+        "description": "ref object to access react hook form methods and state",
+        "required": false,
+        "type": {
+          "name": "RefObject<UseFormReturn<T> & { scrollViewRef?: RefObject<KeyboardAwareScrollViewRef>; saveButtonHeight?: number; messageBannerHeight?: number; }>"
+        }
+      },
+      "initialLoading": {
+        "description": "Loading when the initial form data is being fetched",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "initialValues": {
+        "description": "The initial values of the form inputs\nThis should be available as soon as initialLoading is set to false",
+        "required": false,
+        "type": {
+          "name": "{ [x: string]: any; } | ((BrowserNativeObject | NestedValue) & FieldValues) | { [x: string]: any; }"
+        }
+      },
+      "localCacheExclude": {
+        "description": "Forms field names that will not be considered for caching.\nUseful for omitting sensitive data.",
+        "required": false,
+        "type": {
+          "name": "string[]"
+        }
+      },
+      "localCacheId": {
+        "description": "A string or array of strings that can be used to identify the pre-filled\ndata on the form. This can be used to support local caching for forms that\nprefill data without inadvertently applying the cache at the wrong time.\n\nFor example this can be used to when an object is based on data from\nanother object (Quote being converted into a Job). This will allow\nthe user to retrieve data from the cache when trying to create the\nsame object (same Quote being converted into a Job) following an app crash.\n\nThere is still only one copy of data for each `localCacheKey`.\nIf a user opens the same form the data will only be loaded if the `localCacheId` matches",
+        "required": false,
+        "type": {
+          "name": "string | string[]"
+        }
+      },
+      "localCacheKey": {
+        "description": "Adding a key will save a local copy of the form data that will be used to\nrecover values when the app is backgrounded or has crashed.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "mode": {
+        "description": "When the validation should happen.\nPossible values are \"onBlur\", \"onChange\", \"onSubmit\", \"onTouched\", and \"all\".\nThe default value is \"onTouched\"",
+        "required": false,
+        "type": {
+          "name": "\"all\" | \"onBlur\" | \"onChange\" | \"onSubmit\" | \"onTouched\""
+        }
+      },
+      "onBeforeSubmit": {
+        "description": "A callback function that is run before invoking onSubmit. Form submission is canceled if the promise resolves to false.",
+        "required": false,
+        "type": {
+          "name": "(data: T) => Promise<boolean>"
+        }
+      },
+      "onSubmit": {
+        "description": "A callback function that handles the submission of form data.\nIf an error occurs during submission, it should not be caught and handled silently; the error must be thrown again.\nIf the submission is successful and no error is thrown, the `onSubmitSuccess` callback will be called.\nIf an error is thrown, the `onSubmitError` callback will be called.",
+        "required": true,
+        "type": {
+          "name": "(data: T) => Promise<S>"
+        }
+      },
+      "onSubmitError": {
+        "description": "A callback function that handles any error that occurs during \"onSubmit\"",
+        "required": true,
+        "type": {
+          "name": "(error: FormErrors) => void"
+        }
+      },
+      "onSubmitSuccess": {
+        "description": "A callback function that handles a successful form submission from \"onSubmit\"",
+        "required": true,
+        "type": {
+          "name": "(data: S) => void"
+        }
+      },
+      "reValidateMode": {
+        "description": "When the validation after submission should happen.\nPossible values are \"onBlur\", \"onChange\", and \"onSubmit\".\nThe default value is \"onChange\"",
+        "required": false,
+        "type": {
+          "name": "\"onBlur\" | \"onChange\" | \"onSubmit\""
+        }
+      },
+      "renderFooter": {
+        "description": "Renders a footer below the save button.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "renderStickySection": {
+        "description": "@deprecated use `secondaryAction` instead.\nOverride default save button in the sticky section of the form with another element.",
+        "required": false,
+        "type": {
+          "name": "(onSubmit: () => void, label: string, isSubmitting: boolean) => ReactElement<unknown, string | JSXElementConstructor<any>>"
+        }
+      },
+      "saveButtonLabel": {
+        "description": "Label to be displayed for the save button",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "saveButtonOffset": {
+        "description": "A number that will pull down the save button when the position is sticky.\nUseful when there's a footer or content below the form that is pulling\nthe button up.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "secondaryActions": {
+        "description": "Secondary Action for ButtonGroup",
+        "required": false,
+        "type": {
+          "name": "SecondaryActionProp[]"
+        }
+      },
+      "showStickySaveButton": {
+        "description": "Forces to render the sticky save button instead of the inline.\nThe sticky save button is default for iOS but not for Android due to\nlimitations. Use this prop with caution on Android.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

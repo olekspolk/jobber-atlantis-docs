@@ -1,0 +1,64 @@
+[
+  {
+    "displayName": "Switch",
+    "filePath": "../components-native/src/Switch/Switch.tsx",
+    "props": {
+      "accessibilityLabel": {
+        "description": "Accessibility label for this switch",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "defaultValue": {
+        "description": "Default value of the switch when uncontrolled",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "description": {
+        "description": "Optional descriptive text to display under the switch",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "When true, the switch cannot be toggled",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "label": {
+        "description": "Optional label to display in front of the switch",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "name": {
+        "description": "Name of the input.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onValueChange": {
+        "description": "Callback to handle value changes",
+        "required": false,
+        "type": {
+          "name": "(val: boolean) => void"
+        }
+      },
+      "value": {
+        "description": "Value of the switch",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,30 @@
+import { Meta } from "../../mdx/blocks";
+import { Banner } from "@jobber/components/Banner";
+
+<Meta title="Components/Lists and Tables/DataList" parameters={{
+  alpha: true
+}} />
+
+# DataList
+
+<Banner type="notice" dismissible={false}>
+DataList is a Legacy component and should not be used for new implementations.
+Use [DataTable](/components/DataTable) composable atoms instead. Existing
+usages are supported.
+</Banner>
+
+DataList is used to show a collection list of similar items in a simpler manner
+than [DataTable](/components/DataTable).
+
+It allows more control over the layout of the list items. It can also add
+different layouts depending on the size of the screen that we support.
+
+## Design \& usage guidelines
+
+While it's tempting to add a large amount of information to the DataList's
+layout, it's important to keep in mind that the DataList is meant to be a simple
+list of important items. We recommend not going over more than 5 data points per
+item.
+
+If you need to add more information, consider using the
+[DataTable](/components/DataTable) component instead.

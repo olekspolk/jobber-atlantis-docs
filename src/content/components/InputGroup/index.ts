@@ -1,0 +1,32 @@
+import { getStorybookUrl } from "../../../site/storybook";
+import type { ComponentContent } from "../../types";
+import props from "./props.json";
+
+export default {
+  title: "InputGroup",
+  content: () => import("./InputGroup.mdx"),
+  toc: [{ id: "component-view-design-&-usage-guidelines", label: "Design & usage guidelines" }],
+  props,
+  component: {
+    element: `const startTime = new Date();
+startTime.setHours(8, 35, 0, 0);
+
+const endTime = new Date();
+endTime.setHours(22, 55, 0, 0);
+
+return (
+  <InputGroup flowDirection={"vertical"}>
+    <InputTime defaultValue={startTime} />
+    <InputTime defaultValue={endTime} />
+  </InputGroup>
+);`,
+    defaultProps: {},
+  },
+  links: [
+    {
+      label: "Web Storybook",
+      type: "web",
+      url: getStorybookUrl("?path=/story/components-forms-and-inputs-inputgroup--basic", "web"),
+    },
+  ],
+} satisfies ComponentContent;

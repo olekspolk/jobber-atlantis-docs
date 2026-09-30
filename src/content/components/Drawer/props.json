@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "Drawer",
+    "filePath": "../components/src/Drawer/Drawer.tsx",
+    "props": {
+      "id": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onRequestClose": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "open": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "title": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

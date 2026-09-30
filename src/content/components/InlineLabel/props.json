@@ -1,0 +1,22 @@
+[
+  {
+    "displayName": "InlineLabel",
+    "filePath": "../components/src/InlineLabel/InlineLabel.tsx",
+    "props": {
+      "color": {
+        "description": "The color of the label",
+        "required": false,
+        "type": {
+          "name": "InlineLabelColors"
+        }
+      },
+      "size": {
+        "description": "The size of the label",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\" | \"larger\" | \"small\""
+        }
+      }
+    }
+  }
+]

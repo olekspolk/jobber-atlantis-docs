@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "Flex",
+    "filePath": "../components/src/Flex/Flex.tsx",
+    "props": {
+      "align": {
+        "description": "Adjusts the alignment of the Flex children.",
+        "required": false,
+        "type": {
+          "name": "\"center\" | \"end\" | \"start\""
+        }
+      },
+      "direction": {
+        "description": "The direction of the content.",
+        "required": false,
+        "type": {
+          "name": "Direction"
+        }
+      },
+      "gap": {
+        "description": "The spacing between the children.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"extravagant\" | \"large\" | \"larger\" | \"largest\" | \"minuscule\" | \"none\" | \"slim\" | \"small\" | \"smaller\" | \"smallest\""
+        }
+      },
+      "template": {
+        "description": "Determine how the children gets laid out\n\n**Supported keys**\n- `\"grow\"` - Grows to the space available. If all children are set to\n  grow, then they'll have equal width.\n- `\"shrink\"` - Shrinks to the smallest size possible. Normally the size of\n  the child.",
+        "required": true,
+        "type": {
+          "name": "ColumnKeys[]"
+        }
+      }
+    }
+  }
+]

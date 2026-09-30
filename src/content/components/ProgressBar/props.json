@@ -1,0 +1,50 @@
+[
+  {
+    "displayName": "ProgressBar",
+    "filePath": "../components/src/ProgressBar/ProgressBar.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "currentStep": {
+        "description": "The current step that the progress bar is on.",
+        "required": true,
+        "type": {
+          "name": "number"
+        }
+      },
+      "size": {
+        "description": "Set the size of the progress bar",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"small\" | \"smaller\""
+        }
+      },
+      "totalSteps": {
+        "description": "The total steps to use. For percentages you can set this to 100.",
+        "required": true,
+        "type": {
+          "name": "number"
+        }
+      },
+      "variation": {
+        "description": "Set the variation of the progress bar",
+        "required": false,
+        "type": {
+          "name": "\"progress\" | \"stepped\""
+        }
+      }
+    }
+  }
+]

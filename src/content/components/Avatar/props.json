@@ -1,0 +1,71 @@
+[
+  {
+    "displayName": "Avatar",
+    "filePath": "../components/src/Avatar/Avatar.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: string; } & InitialsUnsafeClassNameProps"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: CSSProperties; } & InitialsUnsafeStyleProps"
+        }
+      },
+      "color": {
+        "description": "The background and border color that represents the user. This should be\nrepresented as a value that can be read by CSS",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "imageUrl": {
+        "description": "A URL for the image that will be displayed\n@deprecated Use `src` instead.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "initials": {
+        "description": "The initials that will be displayed if no image is set.\\",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "name": {
+        "description": "A users name to be used for assistive technology",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "size": {
+        "description": "Change the size of the avatar\n@property \"large\" - Make avatar to be the focal point\n@property \"small\" - For higher-density/compact places or components",
+        "required": false,
+        "type": {
+          "name": "AvatarSize"
+        }
+      },
+      "src": {
+        "description": "A URL for the image that will be displayed",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "testID": {
+        "description": "A reference to the element in the rendered output",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

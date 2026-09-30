@@ -1,0 +1,365 @@
+[
+  {
+    "displayName": "Autocomplete",
+    "filePath": "../components/src/Autocomplete/Autocomplete.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ menu?: string; option?: string; section?: string; action?: string; input?: string; header?: string; footer?: string; selection?: string; }"
+        }
+      },
+      "UNSAFE_styles": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ menu?: CSSProperties; option?: CSSProperties; section?: CSSProperties; action?: CSSProperties; input?: CSSProperties; header?: CSSProperties; footer?: CSSProperties; selection?: CSSProperties; }"
+        }
+      },
+      "allowFreeForm": {
+        "description": "Whether the autocomplete allows free-form input.\nWhen true, the input value is not restricted to the options * in the menu. Input can be used to create a new value.\nWhen false, the input value must match an option in the menu.\nInput value will be cleared if no selection is made and\nWhether the autocomplete allows free-form input.\nWhen true, the input value is not restricted to the options in the menu. Input can be used to create a new value.\nWhen false, the input value must match an option in the menu.\nInput value will be cleared if no selection is made and focus is lost.\nWhether the autocomplete allows free-form input.\nWhen true, the input value is not restricted to the options in the menu. Input can be used to create a new value.\nWhen false, the input value must match an option in the menu.\nInput value will be cleared if no selection is made and focus is lost.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "aria-describedby": {
+        "description": "Identifies the element (or elements) that describes the object.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-describedby}",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-details": {
+        "description": "Identifies the element (or elements) that provide a detailed, extended description.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-details}",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-label": {
+        "description": "Defines a string value that labels the current element.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-label}",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "description": "Identifies the element (or elements) that labels the current element.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-labelledby}",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-required": {
+        "description": "Indicates that user input is required before form submission.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-required}",
+        "required": false,
+        "type": {
+          "name": "Booleanish"
+        }
+      },
+      "autoFocus": {
+        "description": "Whether the input should be auto-focused (React casing).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "clearable": {
+        "description": "Add a clear action on the input that clears the value.",
+        "required": false,
+        "type": {
+          "name": "Clearable"
+        }
+      },
+      "createFreeFormValue": {
+        "description": "Factory used to create a Value from free-form input when committing. Necessary with complex option values. The only value the input can produce is a string.\n@param input - The input value",
+        "required": true,
+        "type": {
+          "name": "(input: string) => Value"
+        }
+      },
+      "customRenderAction": {
+        "description": "Render prop to customize the rendering of an action.\n@param args.value - The action value including all extra keys from the menu item\n@param args.isActive - Whether the action is currently highlighted/active\n@param args.origin - The origin of the action (\"menu\" or \"empty\")",
+        "required": false,
+        "type": {
+          "name": "(args: { value: MenuAction<ExtraProps>; isActive: boolean; origin?: ActionOrigin; }) => ReactNode"
+        }
+      },
+      "customRenderFooter": {
+        "description": "Render prop to customize the rendering of footer items.",
+        "required": false,
+        "type": {
+          "name": "(args: { value: MenuFooter<ExtraProps>; isActive?: boolean; }) => ReactNode"
+        }
+      },
+      "customRenderHeader": {
+        "description": "Render prop to customize the rendering of header items.",
+        "required": false,
+        "type": {
+          "name": "(args: { value: MenuHeader<ExtraProps>; isActive?: boolean; }) => ReactNode"
+        }
+      },
+      "customRenderInput": {
+        "description": "Render prop to customize the rendering of the input.\n@param props.inputRef - The ref to the input element\n@param props.inputProps - The props to pass to the input element\nNote that you must pass the inputRef to the input",
+        "required": false,
+        "type": {
+          "name": "(props: { inputRef: Ref<HTMLInputElement | HTMLTextAreaElement>; inputProps: InputTextProps; }) => ReactNode"
+        }
+      },
+      "customRenderLoading": {
+        "description": "Custom render prop for content to render when `loading` is true.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "customRenderOption": {
+        "description": "Render prop to customize the rendering of an option.\n@param args.value - The option value including all extra keys from the menu item\n@param args.isActive - Whether the option is currently highlighted/active\n@param args.isSelected - Whether the option is currently selected",
+        "required": false,
+        "type": {
+          "name": "(args: { value: Value; isActive: boolean; isSelected: boolean; }) => ReactNode"
+        }
+      },
+      "customRenderSection": {
+        "description": "Render prop to customize the rendering of a section.\n@param args.section - The section value including all extra keys from the menu item",
+        "required": false,
+        "type": {
+          "name": "(section: MenuSection<Value, ExtraProps, ExtraProps>) => ReactNode"
+        }
+      },
+      "customRenderValue": {
+        "description": "Render prop to customize the content inside each selection chip.\nOnly applicable in `multiple` mode. The Autocomplete handles the chip container,\npadding, dismiss button, hover/focus states, and disabled/readOnly behavior.\nYou only provide the content that appears to the left of the dismiss button.\n\nWhen not provided, the chip content defaults to `getOptionLabel(option)`.\n@param args.value - The selected option this chip represents\n@param args.getOptionLabel - Function to get the display text for an option",
+        "required": false,
+        "type": {
+          "name": "(args: { value: Value; getOptionLabel: (option: Value) => string; }) => ReactNode"
+        }
+      },
+      "debounce": {
+        "description": "Debounce in milliseconds for input-driven filtering and search render.\nSet to 0 to disable debouncing.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "description": {
+        "description": "Further description of the input, can be used for a hint.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "disabled": {
+        "description": "Whether the input is disabled.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "emptyActions": {
+        "description": "Actions to display when there are no options to render after filtering.\nCan be a static list or a function that derives actions from the current input value.\nWhen provided and options are empty, these are rendered as navigable actions. Compatible with or without `emptyStateMessage`.",
+        "required": false,
+        "type": {
+          "name": "MenuAction<ExtraProps>[] | ((args: { inputValue: string; }) => MenuAction<ExtraProps>[])"
+        }
+      },
+      "emptyStateMessage": {
+        "description": "Render a custom empty state when the menu is empty.\nNOTE: Do not put interactive elements in the empty state, it will break accessibility.\nIf you require interactive elements in the empty state, use the `emptyActions` prop.\nTo opt out of the default empty state message entirely use \"false\".",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "error": {
+        "description": "Error message to display. This also highlights the field red.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "filterOptions": {
+        "description": "Controls how options are filtered in response to the current input value.\n- Omit to use the default case-insensitive substring match against labels using getOptionLabel\n- Provide a function to implement custom filtering logic\n- Set to `false` to opt out of filtering entirely (useful for async options)",
+        "required": false,
+        "type": {
+          "name": "false | ((options: Value[], inputValue: string) => Value[])"
+        }
+      },
+      "getOptionLabel": {
+        "description": "Used to determine the label for a given option, useful for custom data for options.\nDefaults to  option.label.",
+        "required": false,
+        "type": {
+          "name": "(option: Value) => string"
+        }
+      },
+      "inputEqualsOption": {
+        "description": "Custom equality for input text to option mapping.\nDefaults to case-sensitive label equality via getOptionLabel.",
+        "required": false,
+        "type": {
+          "name": "(input: string, option: Value) => boolean"
+        }
+      },
+      "inputValue": {
+        "description": "The current input value of the Autocomplete.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "invalid": {
+        "description": "Highlights the field red to indicate an error.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "isOptionEqualToValue": {
+        "description": "Custom equality for option to value mapping.",
+        "required": false,
+        "type": {
+          "name": "(option: Value, value: Value) => boolean"
+        }
+      },
+      "limitSelectionText": {
+        "description": "Function to generate the label displayed when selections are truncated\nby `limitVisibleSelections`. Receives the number of hidden selections.\nThe final returned content must be Phrasing Content eg. string, span, etc.\n\nOnly applicable when `multiple` is `true`. Ignored for single-select.",
+        "required": false,
+        "type": {
+          "name": "(truncatedCount: number) => ReactNode"
+        }
+      },
+      "limitVisibleSelections": {
+        "description": "Maximum number of selection chips visible when the input is not focused.\nWhen the input gains focus, all selections are shown regardless of this value.\nSet to `-1` to always show all selections.\n\nOnly applicable when `multiple` is `true`. Ignored for single-select.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "loading": {
+        "description": "Show a spinner to indicate loading.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "menu": {
+        "description": "Data structure for the menu.\nObserves a data hierarchy to determine elements, order, and grouping.\nAccepts Sections, Options as top level objects in the array.\nActions may appear in both sections and options.",
+        "required": true,
+        "type": {
+          "name": "MenuItem<Value, ExtraProps, ExtraProps>[]"
+        }
+      },
+      "multiple": {
+        "description": "Whether the autocomplete allows multiple selections.\nWhen true, selected values are displayed as dismissible chips above the input.\nThe menu stays open after each selection so the user can pick additional options.\nPressing Backspace on an empty input removes the most recently added selection.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "name": {
+        "description": "The name attribute for the input element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onBlur": {
+        "description": "Blur event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void"
+        }
+      },
+      "onChange": {
+        "description": "Callback invoked when the selection value changes.\nThis is called when we consider a selection \"committed\"\n- The user presses enter\n- The user clicks outside the menu with a selection typed\n- The user clicks the clear button\nThe user clears a previous selection by deleting the input value\n- The user selects an option with click or enter\n- The user types a value that matches an option\n- The user types a value that does not match an option and allowFreeForm is true\nCallback invoked when the selection value changes.",
+        "required": true,
+        "type": {
+          "name": "((value: AutocompleteValue<Value, Multiple>) => void) | ((value: AutocompleteValue<Value, Multiple>) => void)"
+        }
+      },
+      "onClose": {
+        "description": "Callback invoked when the menu closes.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onFocus": {
+        "description": "Focus event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void"
+        }
+      },
+      "onInputChange": {
+        "description": "Callback invoked when the input value changes.",
+        "required": true,
+        "type": {
+          "name": "(value: string) => void"
+        }
+      },
+      "onOpen": {
+        "description": "Callback invoked when the menu opens.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "openOnFocus": {
+        "description": "Whether the menu should open when the input gains focus.\nNote: Clicking on the input will always open the menu.\nopenOnFocus only determines the behavior of focus events such as tabs or programmatic focus.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "placeholder": {
+        "description": "Text that appears inside the input when empty and floats above the value\nas a mini label once the user enters a value.\nWhen showMiniLabel is false, this text only serves as a standard placeholder and\ndisappears when the user types.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "prefix": {
+        "description": "Adds a prefix label and icon with an optional action to the field.",
+        "required": false,
+        "type": {
+          "name": "AffixProp"
+        }
+      },
+      "readOnly": {
+        "description": "Whether the input is read-only (HTML standard casing).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "ref": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "Ref<HTMLInputElement | HTMLTextAreaElement>"
+        }
+      },
+      "size": {
+        "description": "Adjusts the interface to either have small or large spacing.",
+        "required": false,
+        "type": {
+          "name": "\"large\" | \"small\""
+        }
+      },
+      "suffix": {
+        "description": "Adds a suffix label and icon with an optional action to the field.",
+        "required": false,
+        "type": {
+          "name": "AffixProp"
+        }
+      },
+      "value": {
+        "description": "The currently selected value of the Autocomplete.\nSingle-select: undefined indicates no selection",
+        "required": true,
+        "type": {
+          "name": "Value[] | OptionLike"
+        }
+      }
+    }
+  }
+]

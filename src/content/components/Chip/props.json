@@ -1,0 +1,113 @@
+[
+  {
+    "displayName": "Chip",
+    "filePath": "../components/src/Chip/Chip.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "Accessible label, which can be different from the primary label.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "data-testid": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "Disables both mouse and keyboard functionality, and updates the visual style of the Chip to appear disabled.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "heading": {
+        "description": "Adds more prominent text to act as a heading. Will be displayed on the left with a | separator.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "invalid": {
+        "description": "Changes Chip styling to inform the user of an issue.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "label": {
+        "description": "The content of the chip. Will be displayed on the right if you include a heading.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onClick": {
+        "description": "Chip click callback using a standard event-first signature.",
+        "required": false,
+        "type": {
+          "name": "((ev: MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>) => void) & MouseEventHandler<ChipElement>"
+        }
+      },
+      "onClickValue": {
+        "description": "Value-first click callback retained as an upgrade path for existing consumers.\n@deprecated Prefer `onClick` with a closure over the value.",
+        "required": false,
+        "type": {
+          "name": "(value: string | number, ev: MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>) => void"
+        }
+      },
+      "onKeyDown": {
+        "description": "Callback. Called when you keydown on Chip. Ships the event, so you can get the key pushed.",
+        "required": false,
+        "type": {
+          "name": "((ev: KeyboardEvent<HTMLButtonElement | HTMLDivElement>) => void) & KeyboardEventHandler<ChipElement>"
+        }
+      },
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<HTMLButtonElement | HTMLDivElement>"
+        }
+      },
+      "role": {
+        "description": "The accessible role the Chip is fulfilling. Defaults to 'button'",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "tabIndex": {
+        "description": "Used for accessibility purpopses, specifically using the tab key as navigation.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "testID": {
+        "description": "The testing id for the chip if necessary.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "value": {
+        "description": "Will be passed to onClick, when the user clicks on this Chip.",
+        "required": false,
+        "type": {
+          "name": "number | string"
+        }
+      },
+      "variation": {
+        "description": "Button style variation. Does not affect functionality.",
+        "required": false,
+        "type": {
+          "name": "ChipVariations"
+        }
+      }
+    }
+  }
+]

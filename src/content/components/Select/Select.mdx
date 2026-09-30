@@ -1,0 +1,294 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { SelectBasicExample } from "./examples/SelectBasicExample";
+import SelectBasicExampleSource from "./examples/SelectBasicExample.tsx?raw";
+import { SelectDescriptionExample } from "./examples/SelectDescriptionExample";
+import SelectDescriptionExampleSource from "./examples/SelectDescriptionExample.tsx?raw";
+import { SelectDisabledExample } from "./examples/SelectDisabledExample";
+import SelectDisabledExampleSource from "./examples/SelectDisabledExample.tsx?raw";
+import { SelectEmptyExample } from "./examples/SelectEmptyExample";
+import SelectEmptyExampleSource from "./examples/SelectEmptyExample.tsx?raw";
+import { SelectErrorExample } from "./examples/SelectErrorExample";
+import SelectErrorExampleSource from "./examples/SelectErrorExample.tsx?raw";
+import { SelectGroupedExample } from "./examples/SelectGroupedExample";
+import SelectGroupedExampleSource from "./examples/SelectGroupedExample.tsx?raw";
+import { SelectInlineExample } from "./examples/SelectInlineExample";
+import SelectInlineExampleSource from "./examples/SelectInlineExample.tsx?raw";
+import { SelectRenderValueExample } from "./examples/SelectRenderValueExample";
+import SelectRenderValueExampleSource from "./examples/SelectRenderValueExample.tsx?raw";
+import { SelectSizeExample } from "./examples/SelectSizeExample";
+import SelectSizeExampleSource from "./examples/SelectSizeExample.tsx?raw";
+import { Select } from "@jobber/components/Select";
+
+<Meta title="Components/Selections/Select" component={Select} />
+
+# Select
+
+## Summary
+
+Select presents a defined list of options and lets the user pick a single value.
+Use it when the choice is one of a known, reasonably short list that lives
+inside a form. For longer lists or free-text search, use
+[Autocomplete](/components/Autocomplete); for triggering an action rather than
+picking a value, use [Menu](/components/Menu).
+
+<Canvas code={SelectBasicExampleSource}><SelectBasicExample /></Canvas>
+
+## Anatomy
+
+| Part | Description |
+| --- | --- |
+| Trigger | The field the user clicks to open the list |
+| Label | Names the field. Sits inside the trigger when empty, floats to a mini-label once a value is chosen. Doubles as the empty-state hint |
+| Value | The selected option, shown inside the trigger |
+| Dropdown | The floating panel of options on large screens |
+| Bottom sheet | The panel of options on small screens (≤490px). Automatic |
+| Item | An individual option in the list |
+| Group | Optional — wraps related items under a shared heading |
+| Group label | Optional — the heading shown above a group |
+| Separator | Optional — a divider between items outside of groups |
+| Description | Optional — helper text shown beneath the field |
+| Error message | Optional — replaces the description while an error is present |
+
+## Behaviour
+
+#### Label as placeholder
+
+The `label` names the field and doubles as the empty state. While no value is
+selected it sits centered inside the trigger; once the user picks an option it
+floats up as a mini-label. There is no separate `placeholder` prop — the label
+fills that role.
+
+<Canvas code={SelectEmptyExampleSource}><SelectEmptyExample /></Canvas>
+
+#### Selected value display
+
+The closed trigger shows the selected `value`, capitalized (e.g. `"active"` →
+`"Active"`). It does **not** read the item's children. When the display label
+differs from the capitalized value, pass `renderValue` to control what the
+trigger shows — otherwise the trigger will silently drift from the list.
+
+<Canvas code={SelectRenderValueExampleSource}><SelectRenderValueExample /></Canvas>
+
+#### Small screens
+
+On viewports ≤490px the options open as a bottom sheet instead of an anchored
+dropdown, matching the pattern used by [Menu](/components/Menu) and
+[Dialog](/components/Dialog). This is automatic — the same authored child tree
+renders on both. Resize the preview narrow to see the sheet.
+
+#### Controlled only
+
+Select is controlled: always pass `value` and `onValueChange`. There is no
+uncontrolled `defaultValue`. The change prop is named `onValueChange` (not
+`onChange`) to match the Base UI foundation and to encode the payload — the
+value, not an event — in its name. See [Content guidelines](#content-guidelines)
+for how this affects form-library wiring.
+
+#### Grouping
+
+Organize related options under section headers with `Select.Group` and
+`Select.GroupLabel`. Adjacent groups are divided automatically, so you don't
+need a `Select.Separator` between them — reach for `Select.Separator` only to
+divide items that sit outside groups.
+
+<Canvas code={SelectGroupedExampleSource}><SelectGroupedExample /></Canvas>
+
+#### States
+
+- **Description** — pass `description` to add supporting help text beneath the
+  field.
+- **Error** — pass an `error` message to mark the field invalid and show the
+  message beneath the field. The error replaces the description while it is
+  present.
+- **Invalid without a message** — use `invalid` on its own to apply the invalid
+  styling without a message, for example when a form library renders the error
+  text itself.
+- **Disabled** — set `disabled` to prevent interaction with the field.
+
+<Canvas code={SelectDescriptionExampleSource}><SelectDescriptionExample /></Canvas>
+
+<Canvas code={SelectErrorExampleSource}><SelectErrorExample /></Canvas>
+
+<Canvas code={SelectDisabledExampleSource}><SelectDisabledExample /></Canvas>
+
+## Variants
+
+### Sizes
+
+Use `size="small"` for tighter layouts. The floating mini-label is hidden at the
+small size, so the compact control keeps a single-line height. Prefer the
+default (large) size in forms so the label remains visible after selection.
+
+<Canvas code={SelectSizeExampleSource}><SelectSizeExample /></Canvas>
+
+### Inline
+
+Set `inline` to embed the Select within a line of text. The description and
+error messaging are suppressed in inline mode, so pair it with validation that
+lives elsewhere in the surrounding sentence or paragraph.
+
+<Canvas code={SelectInlineExampleSource}><SelectInlineExample /></Canvas>
+
+## Content guidelines
+
+Option labels are scanned quickly while the list is open and then read back as
+the chosen value once it's closed so they have to work in both places. And
+because the `label` prop doubles as the empty-state hint, it has to work as a
+field name and as an invitation to pick.
+
+#### Sentence case
+
+Option labels and group labels are sentence-cased. Capitalize only the first
+letter unless there is a proper noun (a person's name, a brand). Jobber features
+like jobs, quotes, and invoices are not proper nouns.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Credit/debit card | Credit/Debit Card |
+| Bank transfer | BANK TRANSFER |
+| Authorize.net | authorize.net |
+| Jasmine Williams | jasmine williams |
+
+#### Noun-first labels
+
+Select options represent things the user is picking, not actions they're taking.
+Lead with the noun. If a label reads like an imperative verb phrase, reach for
+[Menu](/components/Menu) or a set of buttons instead.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Cash | Paid by cash |
+| Draft | Save as draft |
+| Overdue | Show overdue only |
+| Active | Set status to active |
+
+#### Keep labels short and parallel
+
+Aim for 1–3 words. Every item in the same list should follow the same
+grammatical shape.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Small / Medium / Large | Small / 12px / Large |
+| Draft / Sent / Paid | Draft / Sent to client / Payment received |
+| Bank transfer / Credit card / Cash | Bank transfer / Charge to credit card / Cash on hand |
+
+#### The `label` prop names the field and is the empty state
+
+The `label` is both the field heading and, before a value is picked, the
+placeholder inside the trigger. Use a noun or short noun phrase (1–3 words).
+Don't include the word "Select" or "Choose"; the field itself is the invitation.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Payment method | Select a payment method |
+| Status | Choose a status |
+| Team member | Please assign a team member |
+
+#### Don't repeat the label in every option
+
+The `label` already names the category. Repeating it in each option adds noise
+and eats horizontal space in the trigger. With a `label` of "Payment method":
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Cash | Cash payment method |
+| Cheque | Cheque payment method |
+| E-transfer | Payment by e-transfer |
+
+#### Group labels describe, don't instruct
+
+Keep group labels to 1–2 words that name the category. Don't phrase them as
+prompts to the user.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Jobber Payments | Payments through Jobber |
+| Manual entry | Record a payment manually |
+| Active | Currently active statuses |
+
+#### Use `renderValue` when the trigger should differ from the item
+
+By default the trigger shows the selected `value` capitalized. Pass
+`renderValue` when the item label carries detail the trigger doesn't need, when
+the underlying value is a raw enum, or when items include an icon or adornment.
+The item shows what the user is choosing between; the trigger
+shows what they chose.
+
+| Scenario | Item label | `renderValue` returns |
+| --- | --- | --- |
+| Item has qualifying detail | `High — needs response today` | `High` |
+| Item includes an icon adornment | `🔒 Private` | `Private` |
+
+## Do's and Don'ts
+
+#### Do:
+
+- ✅ Use sentence case for option and group labels
+- ✅ Pass `renderValue` whenever the item label differs from the capitalized
+  `value`
+- ✅ Wire `value`, `onValueChange`, `onBlur`, and `ref` explicitly when using a
+  form library
+- ✅ Group options with `Select.Group` \+ `Select.GroupLabel` when they fall into
+  two or more categories
+- ✅ Reach for [Autocomplete](/components/Autocomplete) instead when the list is
+  long or benefits from typeahead
+
+#### Don't:
+
+- ❌ Don't spread a React Hook Form `field` object into Select — `onValueChange`
+  won't wire from `field.onChange` and the field will silently stop updating
+- ❌ Don't include "Select" or "Choose" in the `label` — the field itself is the
+  invitation
+- ❌ Don't mix noun options and verb options in the same list; if the items are
+  actions, use [Menu](/components/Menu) instead
+- ❌ Don't repeat the field's label as a prefix in every option
+- ❌ Don't assume the trigger shows the item's children — it shows the `value`,
+  capitalized, unless you pass `renderValue`
+
+## Accessibility
+
+Select is built on Base UI's `Field` and `Select` primitives, which handle label
+wiring, ARIA state, and the interaction model.
+
+#### Keyboard navigation
+
+| Key | Behaviour |
+| --- | --- |
+| Tab | Moves focus to the trigger |
+| Enter or Space | Opens the dropdown / bottom sheet |
+| Up and Down arrows | Move through the list. Wrap at the ends |
+| Home / End | Jump to the first or last option |
+| Enter | Selects the highlighted option and closes |
+| Esc | Closes without selecting |
+| Type-to-select | Typing letters jumps to the next option starting with those letters |
+
+#### Screen readers
+
+The `label` is wired to the trigger via `Field.Label`, so screen readers
+announce the field's purpose along with the selected value. When `error` or
+`invalid` is set, the field is announced as invalid; the `error` message is
+associated with the field so it is read after the label.
+
+#### Focus management
+
+Select exposes an imperative `ref.focus()` handle that moves focus to the
+trigger. Use it to implement focus-on-error in a form — for example, focusing
+the first invalid Select when the SP tries to submit.
+
+#### Touch targets
+
+On small screens (≤490px) the options open as a bottom sheet, so each item gets
+the vertical space needed to hit standard touch-target sizing. No per-item
+configuration required.
+
+## Related components
+
+- Use [LegacySelect](/components/LegacySelect) if you are working in an app that
+  has not yet migrated off the previous native `<select>`\-based implementation.
+- Use [Autocomplete](/components/Autocomplete) when the list is long, needs
+  typeahead search, or when the user might type a value that isn't in the list.
+- Use [Menu](/components/Menu) when the choice triggers an action rather than
+  picking a value that persists in the form.
+- Use [RadioGroup](/components/RadioGroup) when the set of options is small
+  (roughly five or fewer) and it helps the SP to see all of them at once.

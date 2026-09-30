@@ -1,0 +1,153 @@
+[
+  {
+    "displayName": "ButtonGroup",
+    "filePath": "../components-native/src/ButtonGroup/ButtonGroup.tsx",
+    "props": {
+      "allowTapWhenOffline": {
+        "description": "Allows you to Tap the button while offline",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "bottomSheetHeading": {
+        "description": "An optional heading to display in the secondary bottom sheet header.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onCloseBottomSheet": {
+        "description": "Callback that is called when the secondary actions bottom sheet is closed.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onOpenBottomSheet": {
+        "description": "Callback that is called when the secondary actions bottom sheet is opened.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "showCancelInBottomSheet": {
+        "description": "Display a cancel button in the secondary bottom sheet footer.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "ButtonGroup.PrimaryAction",
+    "filePath": "../components-native/src/ButtonGroup/ButtonGroup.tsx",
+    "props": {
+      "buttonType": {
+        "description": "Sets the action button style (default: \"primary\")",
+        "required": false,
+        "type": {
+          "name": "ButtonType"
+        }
+      },
+      "buttonVariation": {
+        "description": "Themes the action button to the type of action it performs (default: \"work\")",
+        "required": false,
+        "type": {
+          "name": "ButtonVariation"
+        }
+      },
+      "customButton": {
+        "description": "Optional custom button that can be rendered in place of the primary action button",
+        "required": false,
+        "type": {
+          "name": "ReactElement<unknown, string | JSXElementConstructor<any>>"
+        }
+      },
+      "icon": {
+        "description": "Icon to be displayed on the action button",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "iconColor": {
+        "description": "Determines the color of the icon. If not specified, some icons have a default system colour which will be used\nOthers that don't have a system colour fall back to greyBlue.\nOnly applies the iconColor to ButtonGroup.PrimaryAction when it is rendered under the \"more\" menu.",
+        "required": false,
+        "type": {
+          "name": "\"task\" | \"text\" | \"warning\" | \"icon\" | \"iconSecondary\" | \"white\" | \"grey\" | \"greyBlue\" | \"greyBlueDark\" | \"greyBlueLighter\" | \"blue\" | \"lightBlue\" | \"green\" | \"yellow\" | \"red\" | ... 35 more ... | \"brandHighlight\""
+        }
+      },
+      "label": {
+        "description": "Text to be displayed on the action button",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "loading": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onPress": {
+        "description": "Press handler for the action button",
+        "required": true,
+        "type": {
+          "name": "() => void"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "ButtonGroup.SecondaryAction",
+    "filePath": "../components-native/src/ButtonGroup/ButtonGroup.tsx",
+    "props": {
+      "destructive": {
+        "description": "Indicates whether the secondary action is destructive in nature.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "description": "Icon to be displayed on the action button",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "iconColor": {
+        "description": "Determines the color of the icon. If not specified, some icons have a default system colour which will be used\nOthers that don't have a system colour fall back to greyBlue.\nOnly applies the iconColor to ButtonGroup.PrimaryAction when it is rendered under the \"more\" menu.",
+        "required": false,
+        "type": {
+          "name": "\"task\" | \"text\" | \"warning\" | \"icon\" | \"iconSecondary\" | \"white\" | \"grey\" | \"greyBlue\" | \"greyBlueDark\" | \"greyBlueLighter\" | \"blue\" | \"lightBlue\" | \"green\" | \"yellow\" | \"red\" | ... 35 more ... | \"brandHighlight\""
+        }
+      },
+      "label": {
+        "description": "Text to be displayed on the action button",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "loading": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onPress": {
+        "description": "Press handler for the action button",
+        "required": true,
+        "type": {
+          "name": "() => void"
+        }
+      }
+    }
+  }
+]

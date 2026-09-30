@@ -1,0 +1,43 @@
+[
+  {
+    "displayName": "TextList",
+    "filePath": "../components-native/src/TextList/TextList.tsx",
+    "props": {
+      "childSpacing": {
+        "description": "The amount of spacing that will be applied between the list items.",
+        "required": false,
+        "type": {
+          "name": "Spacing"
+        }
+      },
+      "emphasis": {
+        "description": "Change the appearance of the text",
+        "required": false,
+        "type": {
+          "name": "\"strong\""
+        }
+      },
+      "items": {
+        "description": "Text to display.",
+        "required": false,
+        "type": {
+          "name": "string[]"
+        }
+      },
+      "level": {
+        "description": "Visual hierarchy of the text.",
+        "required": false,
+        "type": {
+          "name": "TextLevel"
+        }
+      },
+      "spacing": {
+        "description": "The amount of spacing that content will give.",
+        "required": false,
+        "type": {
+          "name": "Spacing"
+        }
+      }
+    }
+  }
+]

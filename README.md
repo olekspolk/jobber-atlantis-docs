@@ -7,6 +7,13 @@ page and close on a click anywhere on it, as if the example were not in an ifram
 
 **Live:** [jobber-atlantis-docs.pages.dev](https://jobber-atlantis-docs.pages.dev)
 
+Everything else is as on the original: every page (components with their Design, Web, Mobile and
+Implement tabs, patterns, content, design tokens, hooks, guides, packages, the changelog), the
+navigation, search and theme toggle. Two parts rely on Jobber's own services: Triton, the AI
+assistant, keeps its button and drawer but answers only on the original site, and the mobile
+previews run on the original site's React Native Web bundle, which `npm run dev` and
+`npm run build` download to `public/`.
+
 ![The DatePicker page before and after the fix: the calendar cut off at the bottom of the 260px preview, then opening in full over the page](docs/datepicker-before-after.png)
 
 ![The Select page before and after the fix: the list squeezed into the 260px preview, showing one option and scrolling, then opening in full over the page](docs/select-before-after.png)
@@ -38,6 +45,9 @@ npm run build              # typecheck + production build
 first painted frame, that neither the example nor the page moves, and that a click outside closes
 them — including resized previews, menus that flip, overlays past the preview's sides, scrollbars,
 modal backdrops and edits.
+
+The GIF search in the *Getting started with React* guide asks Giphy for its GIFs, with the key in
+`VITE_GIPHY_API_KEY` (in `.env` locally, a repository secret for the deployed site).
 
 ## Deployment
 

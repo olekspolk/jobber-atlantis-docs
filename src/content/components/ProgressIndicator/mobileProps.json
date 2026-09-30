@@ -1,0 +1,57 @@
+[
+  {
+    "displayName": "ProgressIndicator",
+    "filePath": "../components-native/src/ProgressIndicator/ProgressIndicator.tsx",
+    "props": {
+      "accessibilityLabel": {
+        "description": "Accessible label override. When omitted, the label is derived via\n`useAtlantisI18n`: `\"{value}%\"` when `max` is `100` (or omitted) and\n`pendingValue` is `0`; `\"{value} / {max}\"` when `max` is not `100` and\n`pendingValue` is `0`; `\"{value} of {max}, {pendingValue} pending\"` when\n`pendingValue` is greater than `0`.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "max": {
+        "description": "Maximum value.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "pendingValue": {
+        "description": "Additional in-flight progress beyond `value`, measured on the same scale as\n`value` and `max`. The bar visually fills `value + pendingValue` of `max`,\nwith the `value` portion shown as completed and the `pendingValue` portion\nshown as pending. Mobile-only; there is no web counterpart.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "size": {
+        "description": "Set the size of the progress indicator. Corresponds to bar heights of\n4px / 8px / 16px.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"small\" | \"smaller\""
+        }
+      },
+      "style": {
+        "description": "Custom style applied to the root element.",
+        "required": false,
+        "type": {
+          "name": "StyleProp<ViewStyle>"
+        }
+      },
+      "value": {
+        "description": "Current progress. Expected to be in the range `0..max` inclusive.",
+        "required": true,
+        "type": {
+          "name": "number"
+        }
+      },
+      "variation": {
+        "description": "Set the variation of the progress indicator. `continuous` renders a single\nfill; `stepped` renders one segment per integer step from `1..max`.",
+        "required": false,
+        "type": {
+          "name": "\"continuous\" | \"stepped\""
+        }
+      }
+    }
+  }
+]

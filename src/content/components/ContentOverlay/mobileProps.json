@@ -1,0 +1,141 @@
+[
+  {
+    "displayName": "ContentOverlay",
+    "filePath": "../components-native/src/ContentOverlay/ContentOverlay.tsx",
+    "props": {
+      "accessibilityLabel": {
+        "description": "Optional accessibilityLabel describing the overlay.\nThis will read out when the overlay is opened.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "adjustToContentHeight": {
+        "description": "If true, automatically adjusts the overlay height to the content height.\nThis will disable the ability to drag the overlay to fullscreen when\n`isDraggable` is true.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "allowDragWithBeforeExit": {
+        "description": "When `true`, `onBeforeExit` intercepts the dismiss button and back press\nbut does not disable drag. Drag-to-dismiss bypasses `onBeforeExit`.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "children": {
+        "description": "Content to be passed into the overlay",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "enableContentPanningGesture": {
+        "description": "Whether pan on the content area drags the sheet. Set `false` to let\nnested scrollables own the gesture. Defaults to the resolved draggable\nstate.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "enablePanDownToClose": {
+        "description": "Whether panning down on the content area closes the sheet. Set false to prevent the sheet from being closed by panning down.\nDefaults to the resolved draggable state.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "fullScreen": {
+        "description": "Force overlay height to fill the screen.\nWidth not impacted.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "isDraggable": {
+        "description": "If false, hides the handle and turns off dragging.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "keyboardShouldPersistTaps": {
+        "description": "Allows taps to be registered behind keyboard if enabled",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "loading": {
+        "description": "Boolean to show a disabled state",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "modalBackgroundColor": {
+        "description": "Set the background color of the modal window",
+        "required": false,
+        "type": {
+          "name": "ModalBackgroundColor"
+        }
+      },
+      "onBeforeExit": {
+        "description": "Callback that is called between overlay is closed and when the \"x\" button is pressed",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onClose": {
+        "description": "Callback that is called when the overlay is closed.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onOpen": {
+        "description": "Callback that is called when the overlay is opened.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "ref": {
+        "description": "Ref to the content overlay component.",
+        "required": false,
+        "type": {
+          "name": "Ref<{ open?: () => void; close?: () => void; }>"
+        }
+      },
+      "scrollEnabled": {
+        "description": "Enables scrolling in the content body of overlay",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "showDismiss": {
+        "description": "Display the dismiss button in the header of the overlay.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "snapPoints": {
+        "description": "Explicit snap points for the overlay (percentages or pixel values).\nWhen provided, `adjustToContentHeight` is ignored and the sheet snaps\nto these positions instead of the measured content height.",
+        "required": false,
+        "type": {
+          "name": "(string | number)[]"
+        }
+      },
+      "title": {
+        "description": "Title of overlay, appears in the header next to the close button.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

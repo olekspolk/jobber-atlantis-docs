@@ -1,0 +1,207 @@
+[
+  {
+    "displayName": "DataTable",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {
+      "columns": {
+        "description": "Should follow the\n@tanstack /react-table [ColumnDef](https://tanstack.com/table/v8/docs/guide/column-defs).\n[createColumnHelper](https://tanstack.com/table/v8/docs/guide/column-defs#column-helpers) is also exposed to make it more convenient\nto create columns.",
+        "required": true,
+        "type": {
+          "name": "ColumnDef<T>[]"
+        }
+      },
+      "data": {
+        "description": "The actual data that will be used for the table.\nTypescript should infer T from typeof data.",
+        "required": true,
+        "type": {
+          "name": "T[]"
+        }
+      },
+      "emptyState": {
+        "description": "The elements to display when the data table is empty",
+        "required": false,
+        "type": {
+          "name": "ReactNode | ReactNode[]"
+        }
+      },
+      "height": {
+        "description": "This will force the table to have the specified hight",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "loading": {
+        "description": "When true, shows the loading state of the DataTable",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onRowClick": {
+        "description": "Enables row click action. The provided callback will be executed when the row is clicked.",
+        "required": false,
+        "type": {
+          "name": "(row: Row<T>) => void"
+        }
+      },
+      "pagination": {
+        "description": "Enables pagination, mostly follows:\nhttps://tanstack.com/table/v8/docs/api/features/pagination",
+        "required": false,
+        "type": {
+          "name": "PaginationType"
+        }
+      },
+      "pinFirstColumn": {
+        "description": "Pins the firstColumn when scrolling horizontally",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sorting": {
+        "description": "Enables sorting, mostly follows:\nhttps://tanstack.com/table/v8/docs/api/features/sorting#table-options",
+        "required": false,
+        "type": {
+          "name": "SortingType"
+        }
+      },
+      "stickyHeader": {
+        "description": "When set to true makes the header sticky while scrolling vertically",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "DataTable.Actions",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "DataTable.Body",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "DataTable.Container",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "DataTable.Footer",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "DataTable.Header",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "DataTable.HeaderCell",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "DataTable.Pagination",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "DataTable.PaginationButton",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "Function that returns the aria-label for the button. Required for accessibility.\nShould return translated strings based on the direction parameter.",
+        "required": true,
+        "type": {
+          "name": "(direction: \"next\" | \"previous\") => string"
+        }
+      },
+      "direction": {
+        "description": "The direction of the pagination button",
+        "required": true,
+        "type": {
+          "name": "\"next\" | \"previous\""
+        }
+      },
+      "disabled": {
+        "description": "Whether the pagination button is disabled",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onClick": {
+        "description": "Callback function when the pagination button is clicked",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "DataTable.RowActions",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "DataTable.SortableHeader",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {
+      "align": {
+        "description": "The horizontal alignment of the header content and sort icon.",
+        "required": false,
+        "type": {
+          "name": "\"center\" | \"end\" | \"start\""
+        }
+      },
+      "children": {
+        "description": "The header content to display (text, icons, etc.)",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "direction": {
+        "description": "The current sort direction for this column. When undefined, the header renders as non-interactive.",
+        "required": false,
+        "type": {
+          "name": "SortDirection"
+        }
+      },
+      "onSort": {
+        "description": "Callback function triggered when the sortable header is clicked.\nWhen undefined, the header renders as non-interactive.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "DataTable.Table",
+    "filePath": "../components/src/DataTable/DataTable.tsx",
+    "props": {
+      "layout": {
+        "description": "Controls the table layout.\n- `auto` (default): Columns size to content.\n- `fixed`: Column widths can be set explicitly; columns without widths share remaining space.",
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"fixed\""
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "ThumbnailList",
+    "filePath": "../components-native/src/ThumbnailList/ThumbnailList.tsx",
+    "props": {
+      "createThumbnail": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CreateThumbnail"
+        }
+      },
+      "files": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "File[]"
+        }
+      },
+      "handleOpenFile": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "({ file, index, imageList, }: { file: File; index: number; imageList: File[]; }) => void"
+        }
+      },
+      "rowCount": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "RowCount"
+        }
+      }
+    }
+  }
+]

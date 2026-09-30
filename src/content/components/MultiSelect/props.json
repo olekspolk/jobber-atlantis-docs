@@ -1,0 +1,43 @@
+[
+  {
+    "displayName": "MultiSelect",
+    "filePath": "../components/src/MultiSelect/MultiSelect.tsx",
+    "props": {
+      "allSelectedLabel": {
+        "description": "The label to be displayed when all options are selected",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "defaultLabel": {
+        "description": "The label to be displayed by default when no options are selected",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onOptionsChange": {
+        "description": "Change handler",
+        "required": true,
+        "type": {
+          "name": "Dispatch<SetStateAction<Options>>"
+        }
+      },
+      "options": {
+        "description": "List of options to be checked",
+        "required": true,
+        "type": {
+          "name": "Options"
+        }
+      },
+      "size": {
+        "description": "Adjusts the interface to either have small or large spacing.",
+        "required": false,
+        "type": {
+          "name": "\"large\" | \"small\""
+        }
+      }
+    }
+  }
+]

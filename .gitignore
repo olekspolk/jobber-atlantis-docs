@@ -1,4 +1,5 @@
 node_modules
 dist
 public/editorBundle.js
+public/editorMobileBundle.js
 src/generated

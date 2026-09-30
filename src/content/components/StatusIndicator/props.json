@@ -1,0 +1,15 @@
+[
+  {
+    "displayName": "StatusIndicator",
+    "filePath": "../components/src/StatusIndicator/StatusIndicator.tsx",
+    "props": {
+      "status": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "StatusIndicatorType"
+        }
+      }
+    }
+  }
+]

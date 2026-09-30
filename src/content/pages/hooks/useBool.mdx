@@ -1,0 +1,15 @@
+import { Canvas } from "../../mdx/blocks";
+import { UseBool } from "./demos/UseBool";
+import UseBoolSource from "./demos/UseBool.tsx?raw";
+
+# UseBool
+
+`useBool` is a simple wrapper around `useState` for managing boolean values. It
+provides a simple API for toggling the value, setting it to true, and setting it
+to false.
+
+```tsx
+import { useBool } from "@jobber/hooks/useBool";
+```
+
+<Canvas code={UseBoolSource}><UseBool /></Canvas>

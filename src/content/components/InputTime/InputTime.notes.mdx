@@ -1,0 +1,14 @@
+## Time typeahead
+
+The InputTime component includes a type-ahead feature where typing at least 1
+number automatically fills in the rest of the time. For example, typing `2` will
+fill in `2:00 PM` and typing `1` waits for a few milliseconds in case the user
+wants to type `10`, `11`, or `12`.
+
+## Sizes and the placeholder
+
+Consistent with other inputs, `size="small"` does not show the floating mini
+label. The placeholder appears while the field is empty and unfocused, and is
+hidden while the field is being edited or has a value, keeping the field at its
+small height throughout. The default and `large` sizes float the placeholder up
+as a mini label while editing or once a value is set.

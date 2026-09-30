@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "AtlantisThemeContextProvider",
+    "filePath": "../components/src/AtlantisThemeContext/AtlantisThemeContext.tsx",
+    "props": {
+      "children": {
+        "description": "The children to render.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "dangerouslyOverrideTheme": {
+        "description": "Force the theme for this provider to always be the same as the provided theme. Useful for sections that should remain the same theme regardless of the rest of the application's theme.\nThis is dangerous because the children in this provider will not be able to change the theme.",
+        "required": false,
+        "type": {
+          "name": "Theme"
+        }
+      },
+      "dangerouslyOverrideTokens": {
+        "description": "Overrides existing design tokens with custom values. Can also supply custom tokens which will be accessible\nvia useAtlantisTheme() context and css variables.\nIf provided, these tokens will be used for both light and dark themes.\n\n**Important**: you should provide a constant or at least a memoized value for performance reasons.",
+        "required": false,
+        "type": {
+          "name": "OverrideTokens"
+        }
+      },
+      "storageKey": {
+        "description": "The `localStorage` key your app writes to when toggling the theme (e.g.\n`\"jobber_theme\"`). When set, the provider listens for `window` `storage`\nevents on this key and applies theme changes signalled by other browser\ntabs. Writing to `localStorage` remains the app's responsibility; Atlantis\nonly handles the listen-and-react side.\n\nCross-tab sync is opt-in: omit this prop and no `storage` listener is added,\npreserving the previous within-tab-only behavior.\n\nHas no effect when `dangerouslyOverrideTheme` is set, since that provider\nis intentionally isolated from the shared theme store.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

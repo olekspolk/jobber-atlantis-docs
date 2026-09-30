@@ -1,0 +1,38 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { EmphasisBoldExample } from "./examples/EmphasisBoldExample";
+import EmphasisBoldExampleSource from "./examples/EmphasisBoldExample.tsx?raw";
+import { EmphasisHighlightExample } from "./examples/EmphasisHighlightExample";
+import EmphasisHighlightExampleSource from "./examples/EmphasisHighlightExample.tsx?raw";
+import { EmphasisItalicExample } from "./examples/EmphasisItalicExample";
+import EmphasisItalicExampleSource from "./examples/EmphasisItalicExample.tsx?raw";
+
+<Meta title="Components/Text and Typography/Emphasis" />
+
+# Emphasis
+
+Use this component to emphasize certain content of a Heading or Text component.
+There are variations on Emphasis, each with their own use case and meaning.
+
+## Design \& usage guidelines
+
+### Bold
+
+Used to call attention to a piece of text. Bold should indicate that its
+contents have
+[strong importance, seriousness, or urgency.](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong)
+
+<Canvas code={EmphasisBoldExampleSource}><EmphasisBoldExample /></Canvas>
+
+### Italic
+
+Italic emphasis should be used when there is stress emphasis on a word (or
+words) which modifies the meaning of the sentence itself.
+
+<Canvas code={EmphasisItalicExampleSource}><EmphasisItalicExample /></Canvas>
+
+### Highlight
+
+Used to call attention to a specific value prop on a heading. Highlight should
+only be used on page titles and subtitle, and is similar in meaning to Bold.
+
+<Canvas code={EmphasisHighlightExampleSource}><EmphasisHighlightExample /></Canvas>

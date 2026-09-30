@@ -1,0 +1,64 @@
+[
+  {
+    "displayName": "Heading",
+    "filePath": "../components-native/src/Heading/Heading.tsx",
+    "props": {
+      "align": {
+        "description": "Alignment of heading",
+        "required": false,
+        "type": {
+          "name": "TextAlign"
+        }
+      },
+      "allowFontScaling": {
+        "description": "Allow text to be resized based on user's device display scale",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "children": {
+        "description": "Text to display. Supports nesting text elements.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "level": {
+        "description": "The type of heading, e.g., \"Title\"",
+        "required": false,
+        "type": {
+          "name": "HeadingLevel"
+        }
+      },
+      "maxLines": {
+        "description": "The maximum amount of lines the text can occupy before being truncated with \"...\".\nUses predefined string values that correspond to a doubling scale for the amount of lines.",
+        "required": false,
+        "type": {
+          "name": "TruncateLength"
+        }
+      },
+      "reverseTheme": {
+        "description": "Uses the reverse variant of the text color for the heading",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "selectable": {
+        "description": "Lets the user select text, to use the native copy and paste functionality.\nWARNING: if true, this prevents ellipsis from being shown on Android.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "variation": {
+        "description": "The text color of heading",
+        "required": false,
+        "type": {
+          "name": "HeadingColor"
+        }
+      }
+    }
+  }
+]

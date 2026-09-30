@@ -1,0 +1,73 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { ClusterAlignmentOptionsExample } from "./examples/ClusterAlignmentOptionsExample";
+import ClusterAlignmentOptionsExampleSource from "./examples/ClusterAlignmentOptionsExample.tsx?raw";
+import { ClusterBasicUsageExample } from "./examples/ClusterBasicUsageExample";
+import ClusterBasicUsageExampleSource from "./examples/ClusterBasicUsageExample.tsx?raw";
+import { ClusterGapVariationsExample } from "./examples/ClusterGapVariationsExample";
+import ClusterGapVariationsExampleSource from "./examples/ClusterGapVariationsExample.tsx?raw";
+import { ClusterJustificationOptionsExample } from "./examples/ClusterJustificationOptionsExample";
+import ClusterJustificationOptionsExampleSource from "./examples/ClusterJustificationOptionsExample.tsx?raw";
+import { ClusterTagCollectionsExample } from "./examples/ClusterTagCollectionsExample";
+import ClusterTagCollectionsExampleSource from "./examples/ClusterTagCollectionsExample.tsx?raw";
+import { Cluster } from "@jobber/components/Cluster";
+
+<Meta title="Components/Layout/Cluster" component={Cluster} />
+
+# Cluster
+
+A layout component that manages a groups of elements with varying lengths
+responsively. When there is no more room for an item in the cluster, it will
+wrap to the next line.
+
+## Design \& usage guidelines
+
+The Cluster component is ideal for:
+
+- Button groups
+- Collections of tags or keywords
+- Metadata displays
+- Any horizontally arranged elements that need consistent spacing
+
+You can control the alignment of clustered elements (left, right, or center) to
+match your layout requirements with the `align` prop, along with the
+justification of the cluster itself with the `justify` prop.
+
+## Examples
+
+### Basic Usage
+
+The most common use case is grouping related elements with consistent spacing.
+
+<Canvas code={ClusterBasicUsageExampleSource}><ClusterBasicUsageExample /></Canvas>
+
+### Tag Collections
+
+Perfect for displaying multiple tags or status indicators.
+
+<Canvas code={ClusterTagCollectionsExampleSource}><ClusterTagCollectionsExample /></Canvas>
+
+### Justification Options
+
+Control how items are justified within the cluster.
+
+<Canvas code={ClusterJustificationOptionsExampleSource}><ClusterJustificationOptionsExample /></Canvas>
+
+### Alignment Options
+
+Control how items are aligned within the cluster.
+
+<Canvas code={ClusterAlignmentOptionsExampleSource}><ClusterAlignmentOptionsExample /></Canvas>
+
+### Gap Variations
+
+Adjust the gap between items using the `gap` prop.
+
+<Canvas code={ClusterGapVariationsExampleSource}><ClusterGapVariationsExample /></Canvas>
+
+## Related components
+
+Use [Stack](/components/Stack) when you need to arrange elements vertically
+instead of in a horizontal cluster.
+
+Use [Tiles](/components/Tiles) when you need elements arranged in a grid with
+equal spacing and consistent sizing.

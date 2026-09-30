@@ -1,0 +1,228 @@
+[
+  {
+    "displayName": "Select",
+    "filePath": "../components/src/Select/Select.tsx",
+    "props": {
+      "children": {
+        "description": "`Select.Item`, `Select.Group`, `Select.GroupLabel`, and `Select.Separator`\nthat make up the dropdown list.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "description": {
+        "description": "Helper text rendered beneath the field.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "disabled": {
+        "description": "Disables the whole field.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "error": {
+        "description": "Error message. Shows the message beneath the field and applies invalid\nstyling. Replaces the description while present.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "id": {
+        "description": "Id applied to the field's trigger. Auto-generated when omitted.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "inline": {
+        "description": "Renders the field inline and suppresses the description / error.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "invalid": {
+        "description": "Applies invalid styling without rendering a message. Use when the message\nis rendered elsewhere (e.g. by React Hook Form).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "label": {
+        "description": "Floating label shown inside the field. It sits as the placeholder when no\nvalue is selected and rises to a mini-label once a value is chosen.\nRecommended for accessibility. Hidden at the `small` size.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "name": {
+        "description": "Name used for the form field (FormData key, autofill, test selectors).",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onBlur": {
+        "description": "Called when the field's trigger loses focus. Useful for touched state and\nblur-mode validation.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onFocus": {
+        "description": "Called when the field's trigger receives focus.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onValueChange": {
+        "description": "Called with the newly selected value. Named to match Base UI. Note: React\nHook Form's `field.onChange` will not be wired by a `{...field}` spread —\npass `onValueChange={field.onChange}` explicitly.",
+        "required": false,
+        "type": {
+          "name": "(value: string) => void"
+        }
+      },
+      "ref": {
+        "description": "Imperative handle exposing `focus()`.",
+        "required": false,
+        "type": {
+          "name": "Ref<SelectRef>"
+        }
+      },
+      "renderValue": {
+        "description": "Renders the selected value shown in the closed trigger. When omitted, the\nvalue is shown capitalized (e.g. `\"active\"` → `\"Active\"`).",
+        "required": false,
+        "type": {
+          "name": "(value: string) => ReactNode"
+        }
+      },
+      "size": {
+        "description": "Field size.",
+        "required": false,
+        "type": {
+          "name": "\"large\" | \"small\""
+        }
+      },
+      "value": {
+        "description": "The controlled selected value. `null` (or `undefined`) when empty.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.Group",
+    "filePath": "../components/src/Select/Select.tsx",
+    "props": {
+      "children": {
+        "description": "A `Select.GroupLabel` and the `Select.Item`s that belong to the group.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.GroupLabel",
+    "filePath": "../components/src/Select/Select.tsx",
+    "props": {
+      "children": {
+        "description": "The section heading shown above the group's options.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.Item",
+    "filePath": "../components/src/Select/Select.tsx",
+    "props": {
+      "children": {
+        "description": "The display label for the option.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      },
+      "value": {
+        "description": "The value submitted when this option is selected.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "Select.Separator",
+    "filePath": "../components/src/Select/Select.tsx",
+    "props": {
+      "className": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "style": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "CSSProperties"
+        }
+      }
+    }
+  }
+]

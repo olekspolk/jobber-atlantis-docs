@@ -1,0 +1,36 @@
+[
+  {
+    "displayName": "Markdown",
+    "filePath": "../components/src/Markdown/Markdown.tsx",
+    "props": {
+      "basicUsage": {
+        "description": "Only allow basic inline elements such as `_italic_`, `**bold**`, and\n`[link name](url)`",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "content": {
+        "description": "Rich text content.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "externalLink": {
+        "description": "Open all links in new tab.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onLinkClick": {
+        "description": "Callback that gets called when a link in the text is clicked.\n@param target the target element that was clicked",
+        "required": false,
+        "type": {
+          "name": "(target: HTMLAnchorElement) => void"
+        }
+      }
+    }
+  }
+]

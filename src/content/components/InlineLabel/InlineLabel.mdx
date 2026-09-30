@@ -1,0 +1,71 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { InlineLabelCountsExample } from "./examples/InlineLabelCountsExample";
+import InlineLabelCountsExampleSource from "./examples/InlineLabelCountsExample.tsx?raw";
+import { InlineLabelSizesExample } from "./examples/InlineLabelSizesExample";
+import InlineLabelSizesExampleSource from "./examples/InlineLabelSizesExample.tsx?raw";
+import { InlineLabelTagsExample } from "./examples/InlineLabelTagsExample";
+import InlineLabelTagsExampleSource from "./examples/InlineLabelTagsExample.tsx?raw";
+import { InlineLabelTrendsExample } from "./examples/InlineLabelTrendsExample";
+import InlineLabelTrendsExampleSource from "./examples/InlineLabelTrendsExample.tsx?raw";
+import { InlineLabelTypographyExample } from "./examples/InlineLabelTypographyExample";
+import InlineLabelTypographyExampleSource from "./examples/InlineLabelTypographyExample.tsx?raw";
+import { InlineLabel } from "@jobber/components/InlineLabel";
+
+<Meta title="Components/Status and Feedback/InlineLabel" />
+
+# Inline Label
+
+InlineLabel is a generic badging element that can be used to distinguish a
+labeling element from other typographic content.
+
+## Design \& usage guidelines
+
+Inline labels can be used fairly broadly, but the application of
+[color](/design/colors) should be handled with intent. Use of color along with a
+descriptive label can help the user understand the meaning of an item.
+
+### Counts
+
+<Canvas code={InlineLabelCountsExampleSource}><InlineLabelCountsExample /></Canvas>
+
+### Trends
+
+<Canvas code={InlineLabelTrendsExampleSource}><InlineLabelTrendsExample /></Canvas>
+
+### Tags
+
+<Canvas code={InlineLabelTagsExampleSource}><InlineLabelTagsExample /></Canvas>
+
+### Labels that need to be distinguished from other typographic element
+
+<Canvas code={InlineLabelTypographyExampleSource}><InlineLabelTypographyExample /></Canvas>
+
+## Related components
+
+[StatusLabel](/components/StatusLabel) should be used when you're conveying the
+"status" of something.
+
+## Variants
+
+### Sizes
+
+<Canvas code={InlineLabelSizesExampleSource}><InlineLabelSizesExample /></Canvas>
+
+### Colors
+
+| Inline Label | Color |
+| :-- | :-- |
+| <InlineLabel color="greyBlue">GreyBlue</InlineLabel> | `greyBlue` |
+| <InlineLabel color="red">Red</InlineLabel> | `red` |
+| <InlineLabel color="orange">Orange</InlineLabel> | `orange` |
+| <InlineLabel color="green">Green</InlineLabel> | `green` |
+| <InlineLabel color="blue">Blue</InlineLabel> | `blue` |
+| <InlineLabel color="yellow">Yellow</InlineLabel> | `yellow` |
+| <InlineLabel color="lime">Lime</InlineLabel> | `lime` |
+| <InlineLabel color="purple">Purple</InlineLabel> | `purple` |
+| <InlineLabel color="pink">Pink</InlineLabel> | `pink` |
+| <InlineLabel color="teal">Teal</InlineLabel> | `teal` |
+| <InlineLabel color="yellowGreen">YellowGreen</InlineLabel> | `yellowGreen` |
+| <InlineLabel color="blueDark">BlueDark</InlineLabel> | `blueDark` |
+| <InlineLabel color="lightBlue">LightBlue</InlineLabel> | `lightBlue` |
+| <InlineLabel color="indigo">Indigo</InlineLabel> | `indigo` |

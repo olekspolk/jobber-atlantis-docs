@@ -1,0 +1,29 @@
+[
+  {
+    "displayName": "DataDump",
+    "filePath": "../components/src/DataDump/DataDump.tsx",
+    "props": {
+      "data": {
+        "description": "Data to display.",
+        "required": true,
+        "type": {
+          "name": "unknown"
+        }
+      },
+      "defaultOpen": {
+        "description": "Should the `DataDump` default to open?",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "label": {
+        "description": "Label for the DataDump",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

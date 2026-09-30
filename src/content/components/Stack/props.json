@@ -1,0 +1,92 @@
+[
+  {
+    "displayName": "Stack",
+    "filePath": "../components/src/Stack/Stack.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom class names for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ container?: CSSProperties; }"
+        }
+      },
+      "align": {
+        "description": "The alignment of the stack.",
+        "required": false,
+        "type": {
+          "name": "\"center\" | \"end\" | \"start\""
+        }
+      },
+      "ariaAttributes": {
+        "description": "Standard HTML aria attributes. Accepts all standard HTML aria attributes.",
+        "required": false,
+        "type": {
+          "name": "AriaAttributes"
+        }
+      },
+      "as": {
+        "description": "The HTML tag to render the container as. Defaults to `div`.",
+        "required": false,
+        "type": {
+          "name": "CommonAllowedElements"
+        }
+      },
+      "autoWidth": {
+        "description": "Whether to allow the stack to take the width of the content. Defaults to 100%",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "dataAttributes": {
+        "description": "Standard HTML data attributes. Accepts anything in a {{\"data-key\":\"value\"}} format.",
+        "required": false,
+        "type": {
+          "name": "{ [key: `data-${string}`]: string; }"
+        }
+      },
+      "gap": {
+        "description": "The amount of space between the children. Semantic tokens are available.",
+        "required": false,
+        "type": {
+          "name": "GapSpacing"
+        }
+      },
+      "id": {
+        "description": "Standard HTML id attribute.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "recursive": {
+        "description": "Whether to recursively apply the stack spacing to all the children, not just the top-level.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "role": {
+        "description": "Standard HTML role attribute.",
+        "required": false,
+        "type": {
+          "name": "AriaRole"
+        }
+      },
+      "splitAfter": {
+        "description": "Setting this will push the stack down to the bottom of the parent container,\nafter the number of children provided (1-15).\nRequires parent to have height greater than the sum of the children.",
+        "required": false,
+        "type": {
+          "name": "1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15"
+        }
+      }
+    }
+  }
+]

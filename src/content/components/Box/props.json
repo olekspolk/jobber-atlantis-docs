@@ -1,0 +1,134 @@
+[
+  {
+    "displayName": "Box",
+    "filePath": "../components/src/Box/Box.tsx",
+    "props": {
+      "alignItems": {
+        "description": "This feature is well established and works across many devices and browser versions. It’s been available across browsers since September 2015.\n\n**Syntax**: `normal | stretch | <baseline-position> | [ <overflow-position>? <self-position> ] | anchor-center`\n\n**Initial value**: `normal`\n\n|  Chrome  | Firefox | Safari  |  Edge  |   IE   |\n| :------: | :-----: | :-----: | :----: | :----: |\n|  **29**  | **20**  |  **9**  | **12** | **11** |\n| 21 _-x-_ |         | 7 _-x-_ |        |        |\n@see https://developer.mozilla.org/docs/Web/CSS/Reference/Properties/align-items",
+        "required": false,
+        "type": {
+          "name": "AlignItems"
+        }
+      },
+      "alignSelf": {
+        "description": "This feature is well established and works across many devices and browser versions. It’s been available across browsers since September 2015.\n\n**Syntax**: `auto | normal | stretch | <baseline-position> | <overflow-position>? <self-position> | anchor-center`\n\n**Initial value**: `auto`\n\n|  Chrome  | Firefox | Safari  |  Edge  |   IE   |\n| :------: | :-----: | :-----: | :----: | :----: |\n|  **29**  | **20**  |  **9**  | **12** | **10** |\n| 21 _-x-_ |         | 7 _-x-_ |        |        |\n@see https://developer.mozilla.org/docs/Web/CSS/Reference/Properties/align-self",
+        "required": false,
+        "type": {
+          "name": "AlignSelf"
+        }
+      },
+      "as": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"article\" | \"aside\" | \"div\" | \"main\" | \"section\" | \"span\""
+        }
+      },
+      "background": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"disabled\" | \"success\" | \"warning\" | \"icon\" | \"base-grey--100\" | \"base-grey--200\" | \"base-grey--300\" | \"base-grey--400\" | \"base-grey--500\" | \"base-grey--600\" | \"base-grey--700\" | ... 279 more ... | \"client--onSurface\""
+        }
+      },
+      "border": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"thick\" | \"thicker\" | \"thickest\" | BoxBorderWidth"
+        }
+      },
+      "borderColor": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"disabled\" | \"success\" | \"warning\" | \"icon\" | \"base-grey--100\" | \"base-grey--200\" | \"base-grey--300\" | \"base-grey--400\" | \"base-grey--500\" | \"base-grey--600\" | \"base-grey--700\" | ... 279 more ... | \"client--onSurface\""
+        }
+      },
+      "direction": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "FlexDirection"
+        }
+      },
+      "gap": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"extravagant\" | \"large\" | \"larger\" | \"largest\" | \"minuscule\" | \"slim\" | \"small\" | \"smaller\" | \"smallest\""
+        }
+      },
+      "height": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "BoxDimension"
+        }
+      },
+      "justifyContent": {
+        "description": "This feature is well established and works across many devices and browser versions. It’s been available across browsers since September 2015.\n\n**Syntax**: `normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ]`\n\n**Initial value**: `normal`\n\n|  Chrome  | Firefox | Safari  |  Edge  |   IE   |\n| :------: | :-----: | :-----: | :----: | :----: |\n|  **29**  | **20**  |  **9**  | **12** | **11** |\n| 21 _-x-_ |         | 7 _-x-_ |        |        |\n@see https://developer.mozilla.org/docs/Web/CSS/Reference/Properties/justify-content",
+        "required": false,
+        "type": {
+          "name": "JustifyContent"
+        }
+      },
+      "margin": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"extravagant\" | \"large\" | \"larger\" | \"largest\" | \"minuscule\" | \"slim\" | \"small\" | \"smaller\" | \"smallest\" | BoxSpace"
+        }
+      },
+      "overflow": {
+        "description": "This feature is well established and works across many devices and browser versions. It’s been available across browsers since July 2015.\n\n**Syntax**: `[ visible | hidden | clip | scroll | auto ]{1,2}`\n\n**Initial value**: `visible`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   |\n| :----: | :-----: | :----: | :----: | :---: |\n| **1**  |  **1**  | **1**  | **12** | **4** |\n@see https://developer.mozilla.org/docs/Web/CSS/Reference/Properties/overflow",
+        "required": false,
+        "type": {
+          "name": "Overflow"
+        }
+      },
+      "padding": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"extravagant\" | \"large\" | \"larger\" | \"largest\" | \"minuscule\" | \"slim\" | \"small\" | \"smaller\" | \"smallest\" | BoxSpace"
+        }
+      },
+      "position": {
+        "description": "This feature is well established and works across many devices and browser versions. It’s been available across browsers since July 2015.\n\n**Syntax**: `static | relative | absolute | sticky | fixed`\n\n**Initial value**: `static`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   |\n| :----: | :-----: | :----: | :----: | :---: |\n| **1**  |  **1**  | **1**  | **12** | **4** |\n@see https://developer.mozilla.org/docs/Web/CSS/Reference/Properties/position",
+        "required": false,
+        "type": {
+          "name": "Position"
+        }
+      },
+      "preserveWhiteSpace": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "radius": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"circle\" | \"large\" | \"larger\" | \"small\""
+        }
+      },
+      "tabIndex": {
+        "description": "[MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/tabIndex)",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "width": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "BoxDimension"
+        }
+      }
+    }
+  }
+]

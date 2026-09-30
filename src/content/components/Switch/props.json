@@ -1,0 +1,43 @@
+[
+  {
+    "displayName": "Switch",
+    "filePath": "../components/src/Switch/Switch.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "name": {
+        "description": "Adds a name for the hidden input and an ID so a label can be used to\ndescribe the switch instead of an aria-label. This prevents screen readers\nfrom reading the label twice",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onChange": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(newValue: boolean) => void"
+        }
+      },
+      "value": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

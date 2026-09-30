@@ -1,0 +1,44 @@
+## Configuration
+
+### Controlled vs uncontrolled
+
+`SelectPrimitive.Root` supports both controlled (`value` \+ `onValueChange`) and
+uncontrolled (`defaultValue`) usage.
+
+### Generic value type
+
+`SelectPrimitive.Root` is generic over the value type — the `value` and
+`onValueChange` props stay fully typed without extra casting.
+
+### Keyboard navigation
+
+Base UI provides full keyboard support out of the box:
+
+- **Arrow Up / Down** — move between items
+- **Enter / Space** — select the highlighted item
+- **Escape** — close the dropdown without changing the value
+- **Home / End** — jump to the first / last item
+
+### Form integration
+
+Pass `name` and `required` to `SelectPrimitive.Root` to participate in standard
+HTML form submission. The value is serialised via a hidden `<input>` managed by
+Base UI.
+
+## Sub-components
+
+| Sub-component | Purpose |
+| --- | --- |
+| `SelectPrimitive.Root` | Provides state, value, and open/close control. No DOM element of its own. |
+| `SelectPrimitive.Trigger` | The button that opens the dropdown. Renders the chevron icon automatically. |
+| `SelectPrimitive.Value` | Displays the selected value (or placeholder) inside the trigger. |
+| `SelectPrimitive.Portal` | Renders the popup in a portal outside the current DOM subtree. |
+| `SelectPrimitive.Positioner` | Positions the popup relative to the trigger using floating-ui. |
+| `SelectPrimitive.Popup` | The styled dropdown container. Sized to at least the trigger's width. |
+| `SelectPrimitive.List` | Scrollable list container inside the popup. |
+| `SelectPrimitive.Item` | An individual selectable option. Accepts `value`, `disabled`, and `label`. |
+| `SelectPrimitive.ItemText` | The visible text label inside an item. |
+| `SelectPrimitive.ItemIndicator` | A checkmark shown only on the selected item. Renders an Atlantis icon by default; pass `children` to override. |
+| `SelectPrimitive.Group` | Groups items together under a common label. |
+| `SelectPrimitive.GroupLabel` | The heading rendered above a group. |
+| `SelectPrimitive.Separator` | A horizontal rule between groups. |

@@ -1,0 +1,43 @@
+[
+  {
+    "displayName": "RadioGroup",
+    "filePath": "../components/src/RadioGroup/RadioGroup.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "Defines the aria label that describes the radio group.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "direction": {
+        "description": "Layout direction for the options.",
+        "required": false,
+        "type": {
+          "name": "\"horizontal\" | \"vertical\""
+        }
+      },
+      "name": {
+        "description": "The name of the radio group, that links the radio options back up\nto the group.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onChange": {
+        "description": "Change handler for the RadioGroup.\n@param newValue",
+        "required": true,
+        "type": {
+          "name": "(newValue: string | number) => void"
+        }
+      },
+      "value": {
+        "description": "Defines the default value that will be pre-selected in the radio group.",
+        "required": true,
+        "type": {
+          "name": "number | string"
+        }
+      }
+    }
+  }
+]

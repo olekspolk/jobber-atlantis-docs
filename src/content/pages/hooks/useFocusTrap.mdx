@@ -1,0 +1,16 @@
+import { Canvas } from "../../mdx/blocks";
+import { UseFocusTrap } from "./demos/UseFocusTrap";
+import UseFocusTrapSource from "./demos/UseFocusTrap.tsx?raw";
+
+# UseFocusTrap
+
+Trap focus within a DOM node.
+
+Useful for building Modals, lightboxes, menus, bottom sheets, etc. The user will
+be able to navigate the component using `Tab` and `Shift+Tab`.
+
+```ts
+import { useFocusTrap } from "@jobber/hooks/useFocusTrap";
+```
+
+<Canvas code={UseFocusTrapSource}><UseFocusTrap /></Canvas>

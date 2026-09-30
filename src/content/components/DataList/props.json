@@ -1,0 +1,282 @@
+[
+  {
+    "displayName": "DataList",
+    "filePath": "../components/src/DataList/DataList.tsx",
+    "props": {
+      "data": {
+        "description": "The data to render in the DataList.",
+        "required": true,
+        "type": {
+          "name": "T[]"
+        }
+      },
+      "filtered": {
+        "description": "Adjusts the DataList to show the UX when it is filtered.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "headerVisibility": {
+        "description": "Determine if the header is visible at a given breakpoint. If one isn't provided,\nit will use the value from the next smallest breakpoint that has a value.",
+        "required": false,
+        "type": {
+          "name": "{ xs?: boolean; sm?: boolean; md?: boolean; lg?: boolean; xl?: boolean; }"
+        }
+      },
+      "headers": {
+        "description": "The header of the DataList. The object keys are determined by the\nkeys in the data.",
+        "required": true,
+        "type": {
+          "name": "DataListHeader<T>"
+        }
+      },
+      "loadingState": {
+        "description": "Set the loading state of the DataList. There are a few guidelines on when to use what.\n\n- `\"initial\"` - loading the first set of data\n- `\"filtering\"` - loading after a filter is applied\n- `\"loadingMore\"` - loading more data after the user scrolls to the bottom",
+        "required": false,
+        "type": {
+          "name": "\"filtering\" | \"initial\" | \"loadingMore\" | \"none\""
+        }
+      },
+      "onLoadMore": {
+        "description": "The callback function when the user scrolls to the bottom of the list.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onSelect": {
+        "description": "Callback when an item checkbox is clicked.",
+        "required": false,
+        "type": {
+          "name": "(selected: DataListSelectedType<T[\"id\"]>) => void"
+        }
+      },
+      "onSelectAll": {
+        "description": "Callback when the select all checkbox is clicked.",
+        "required": false,
+        "type": {
+          "name": "(selected: DataListSelectedType<T[\"id\"]>) => void"
+        }
+      },
+      "selected": {
+        "description": "The list of Selected Item ids",
+        "required": false,
+        "type": {
+          "name": "DataListSelectedType<T[\"id\"]>"
+        }
+      },
+      "sorting": {
+        "description": "`sortable`: List of keys that are sortable.\n`state`: The state of the sorting.\n`onSort`: The callback function when the user sorting a column.",
+        "required": false,
+        "type": {
+          "name": "{ readonly sortable: DataListSortable[]; readonly state: DataListSorting; readonly onSort: (sorting?: DataListSorting) => void; }"
+        }
+      },
+      "title": {
+        "description": "The title of the DataList.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "totalCount": {
+        "description": "Total number of items in the DataList.\n\nThis renders an \"N results\" text with the DataList\nthat helps users know how many items they have\nin the list",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "DataList.BatchAction",
+    "filePath": "../components/src/DataList/DataList.tsx",
+    "props": {
+      "actionUrl": {
+        "description": "The URL to navigate to when the action is clicked.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "alwaysVisible": {
+        "description": "Determine if the action is always visible. It is not recommended to set this to true on more then one action.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "destructive": {
+        "description": "Adjust the styling of an action label and icon to be more destructive.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "description": "The icon beside the label",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "label": {
+        "description": "The label of the action",
+        "required": true,
+        "type": {
+          "name": "string | ((item: DataListObject) => string)"
+        }
+      },
+      "onClick": {
+        "description": "The callback function when the action is clicked.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "DataList.BatchActions",
+    "filePath": "../components/src/DataList/DataList.tsx",
+    "props": {
+      "children": {
+        "description": "The actions to render on the top of the DataList to make actions to multiple items.\nThis only accepts the DataList.BatchAction component.",
+        "required": false,
+        "type": {
+          "name": "Fragment<ReactElement<DataListBulkActionProps, string | JSXElementConstructor<any>>>"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "DataList.EmptyState",
+    "filePath": "../components/src/DataList/DataList.tsx",
+    "props": {
+      "action": {
+        "description": "The action that shows when the DataList is empty.\n\nThis only accepts a Button component. Adding a non-Button component will\nthrow an error.",
+        "required": false,
+        "type": {
+          "name": "ReactElement<{ external?: never; onClick?: never; readonly name?: string; submit: never; readonly type?: ButtonType; readonly value?: string; readonly disabled?: boolean; readonly loading?: boolean; ... 17 more ...; readonly children?: never; } | ... 34 more ... | { ...; }, string | JSXElementConstructor<...>>"
+        }
+      },
+      "customRender": {
+        "description": "Custom render function for the empty state.\n\nIf provided, this function will be used to render the empty state instead\nof the default rendering logic.",
+        "required": false,
+        "type": {
+          "name": "(emptyState: Omit<DataListEmptyStateProps, \"customRender\">) => ReactNode"
+        }
+      },
+      "message": {
+        "description": "The message that shows when the DataList is empty.",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "type": {
+        "description": "Determine the type of empty state to show.\n\nBy default, it will show the \"empty\" state when there is no data. If you\nwant to show the \"filtered\" type, you need to set the `filtered` prop\nto the DataList component.",
+        "required": false,
+        "type": {
+          "name": "\"empty\" | \"filtered\""
+        }
+      }
+    }
+  },
+  {
+    "displayName": "DataList.Filters",
+    "filePath": "../components/src/DataList/DataList.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "DataList.ItemAction",
+    "filePath": "../components/src/DataList/DataList.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "DataList.ItemActions",
+    "filePath": "../components/src/DataList/DataList.tsx",
+    "props": {
+      "children": {
+        "description": "The actions to render for each item in the DataList. This only accepts the\nDataList.Action component.",
+        "required": false,
+        "type": {
+          "name": "Fragment<ReactElement<DataListActionProps<T>, string | JSXElementConstructor<any>>>"
+        }
+      },
+      "disableContextMenu": {
+        "description": "Disable the custom context menu. This allows the browser's native context menu to be shown.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onClick": {
+        "description": "Callback when an item is clicked.",
+        "required": false,
+        "type": {
+          "name": "(item: T, event?: MouseEvent<HTMLElement, MouseEvent>) => void"
+        }
+      },
+      "to": {
+        "description": "If a React Navigation is needed, use this prop to use the `Link` component\nthat comes with React Router.",
+        "required": false,
+        "type": {
+          "name": "string | ((item: T) => string)"
+        }
+      },
+      "url": {
+        "description": "If a normal page navigation is needed, use this prop to change the element\nto an `a` tag with an `href`.",
+        "required": false,
+        "type": {
+          "name": "string | ((item: T) => string)"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "DataList.Layout",
+    "filePath": "../components/src/DataList/DataList.tsx",
+    "props": {}
+  },
+  {
+    "displayName": "DataList.Search",
+    "filePath": "../components/src/DataList/DataList.tsx",
+    "props": {
+      "initialValue": {
+        "description": "The initial value of the search input.\n\nUpdating this prop after the component has mounted will rerender the\ncomponent with the new value. Only update the value of this when you\nabsolutely have to.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onSearch": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "(value: string) => void"
+        }
+      },
+      "placeholder": {
+        "description": "The placeholder text for the search input. This either uses the title prop\nprepended by \"Search\" or just falls back to \"Search\".",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "value": {
+        "description": "The controlled value of the search input.\n\nSupply this field if you want to take control over the search input's\nvalue. You'll need to use `onSearch` to handle updating your state with\nthe latest value.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "displayName": "DataList.StatusBar",
+    "filePath": "../components/src/DataList/DataList.tsx",
+    "props": {}
+  }
+]

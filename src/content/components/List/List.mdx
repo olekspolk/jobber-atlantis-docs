@@ -1,0 +1,48 @@
+import { Canvas, Meta } from "../../mdx/blocks";
+import { ListBasicExample } from "./examples/ListBasicExample";
+import ListBasicExampleSource from "./examples/ListBasicExample.tsx?raw";
+import { ListSectionedListItemsExample } from "./examples/ListSectionedListItemsExample";
+import ListSectionedListItemsExampleSource from "./examples/ListSectionedListItemsExample.tsx?raw";
+
+<Meta title="Components/Lists and Tables/List" />
+
+# List
+
+The `List` component renders a collection of items in a structured way. It
+supports both
+[flat lists](/storybook/web/?path=/story/components-lists-and-tables-list--basic)
+and
+[sectioned lists](/storybook/web/?path=/story/components-lists-and-tables-list--sectioned-list-items),
+and allows for
+[custom rendering](/storybook/web/?path=/story/components-lists-and-tables-list--sectioned-list-with-custom-item)
+of list items via a render function..
+
+## Design \& usage Guidelines
+
+The `List` component is a great solution if you are looking to display a
+collection of objects that are either the same type or related to one another,
+like billing or activity feed. The main purpose of a list is to help the user
+find an object that leads to its full representation.
+
+The majority of list implementations can be achieved without needing to
+customize rendering. If your items conform to the `ListItemProps` interface, the
+component will render them automatically with the default behavior. A prop of
+type `ListItemProps` must be used when using default rendering.
+
+#### Basic Flat List
+
+<Canvas code={ListBasicExampleSource}><ListBasicExample /></Canvas>
+
+#### Sectioned List
+
+If a section field is present in any item, the list will group the items by
+their section and display them under section headers. If even one section key
+exists in any of items then it will be expected that every object within that
+collection will have a section defined.
+
+If a section is missing, "Other" will be used by default, and any items with a
+section of "Other" will be grouped with that first occurrence that has no
+section. To provide your header value for items missing a section, use the
+`defaultSectionHeader` prop.
+
+<Canvas code={ListSectionedListItemsExampleSource}><ListSectionedListItemsExample /></Canvas>

@@ -1,0 +1,92 @@
+[
+  {
+    "displayName": "ConfirmationModal",
+    "filePath": "../components/src/ConfirmationModal/ConfirmationModal.tsx",
+    "props": {
+      "cancelLabel": {
+        "description": "Label for the cancel button.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "children": {
+        "description": "Child component. Not displayed if **message** prop is passed.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "confirmLabel": {
+        "description": "Label for the confirm button.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "message": {
+        "description": "Text or rich text content for the body of the modal.\nNot displayed if **children** prop is passed.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onCancel": {
+        "description": "Callback for when the cancel button is pressed.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onConfirm": {
+        "description": "Callback for when the confirm button is pressed.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onRequestClose": {
+        "description": "Callback for whenever a user's action should close the modal.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "open": {
+        "description": "Controls if the modal is open or not.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<ConfirmationModalRef>"
+        }
+      },
+      "size": {
+        "description": "Size of the modal (small, large),",
+        "required": false,
+        "type": {
+          "name": "\"large\" | \"small\""
+        }
+      },
+      "title": {
+        "description": "Title for the modal.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "variation": {
+        "description": "Type (Work or destructive) for confirm button.",
+        "required": false,
+        "type": {
+          "name": "\"destructive\" | \"work\""
+        }
+      }
+    }
+  }
+]

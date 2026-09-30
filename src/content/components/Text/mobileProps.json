@@ -1,0 +1,127 @@
+[
+  {
+    "displayName": "Text",
+    "filePath": "../components-native/src/Text/Text.tsx",
+    "props": {
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "TypographyUnsafeStyle"
+        }
+      },
+      "adjustsFontSizeToFit": {
+        "description": "Determines whether text should be scaled down to fit based on maxLines prop",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "align": {
+        "description": "Alignment of text",
+        "required": false,
+        "type": {
+          "name": "TextAlign"
+        }
+      },
+      "allowFontScaling": {
+        "description": "Allow text to be resized based on user's device display scale",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "children": {
+        "description": "Text to display. Supports nesting text elements.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "emphasis": {
+        "description": "Change the appearance of the text",
+        "required": false,
+        "type": {
+          "name": "\"strong\""
+        }
+      },
+      "hideFromScreenReader": {
+        "description": "This will make the text inaccessible to the screen reader.\nThis should be avoided unless there is a good reason.\nFor example this is used in InputText to make it so the label isn't\nselectable because it is already read from the accessibilityLabel\nof the TextInput",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "italic": {
+        "description": "Use italic font style",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "level": {
+        "description": "Visual hierarchy of the text",
+        "required": false,
+        "type": {
+          "name": "TextLevel"
+        }
+      },
+      "maxFontScaleSize": {
+        "description": "Set the maximum font the text can go to size when the user scales their\ndevice font size",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "maxLines": {
+        "description": "The maximum amount of lines the text can occupy before being truncated with \"...\".\nUses predefined string values that correspond to a doubling scale for the amount of lines.",
+        "required": false,
+        "type": {
+          "name": "TruncateLength"
+        }
+      },
+      "onTextLayout": {
+        "description": "Callback that is called when the text is laid out.",
+        "required": false,
+        "type": {
+          "name": "(event: TextLayoutEvent) => void"
+        }
+      },
+      "reverseTheme": {
+        "description": "Reverse theme for better display on dark background",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "selectable": {
+        "description": "Lets the user select text, to use the native copy and paste functionality.\nWARNING: if true, this prevents ellipsis from being shown on Android.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "strikeThrough": {
+        "description": "Have text styled with strike through",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "underline": {
+        "description": "Underline style to use for the text. The non-solid style is only supported\non iOS, as per React Native's Text component's limitations.\nhttps://reactnative.dev/docs/text-style-props#textdecorationstyle-ios",
+        "required": false,
+        "type": {
+          "name": "\"dotted\" | \"solid\""
+        }
+      },
+      "variation": {
+        "description": "Color variation of text",
+        "required": false,
+        "type": {
+          "name": "TextVariation"
+        }
+      }
+    }
+  }
+]

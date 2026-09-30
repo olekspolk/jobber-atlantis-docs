@@ -1,0 +1,57 @@
+[
+  {
+    "displayName": "Icon",
+    "filePath": "../components/src/Icon/Icon.tsx",
+    "props": {
+      "UNSAFE_className": {
+        "description": "**Use at your own risk:** Custom classnames for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ svg?: string; path?: string; }"
+        }
+      },
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "{ svg?: CSSProperties; path?: CSSProperties; }"
+        }
+      },
+      "color": {
+        "description": "Determines the color of the icon. Some icons have a default system colour\nlike quotes, jobs, and invoices. Others that doesn't have a system colour\nfalls back to greyBlueDark.",
+        "required": false,
+        "type": {
+          "name": "\"disabled\" | \"success\" | \"warning\" | \"icon\" | \"blue\" | \"green\" | \"yellow\" | \"red\" | \"grey\" | \"white\" | \"greyBlue\" | \"lightBlue\" | \"orange\" | \"navy\" | \"interactive\" | \"destructive\" | ... 34 more ... | \"brandHighlight\""
+        }
+      },
+      "customColor": {
+        "description": "Sets a custom color for the icon. Can be a rgb() or hex value.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "name": {
+        "description": "The icon to show.",
+        "required": true,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "size": {
+        "description": "Changes the size to small or large.",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"large\" | \"small\""
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

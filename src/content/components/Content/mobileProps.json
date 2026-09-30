@@ -1,0 +1,43 @@
+[
+  {
+    "displayName": "Content",
+    "filePath": "../components-native/src/Content/Content.tsx",
+    "props": {
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "ContentUnsafeStyle"
+        }
+      },
+      "childSpacing": {
+        "description": "The amount of spacing that will be applied between children.",
+        "required": false,
+        "type": {
+          "name": "Spacing"
+        }
+      },
+      "children": {
+        "description": "The child or children that will be given spacing.",
+        "required": true,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "direction": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "\"horizontal\" | \"vertical\""
+        }
+      },
+      "spacing": {
+        "description": "The amount of spacing that content will give.",
+        "required": false,
+        "type": {
+          "name": "Spacing"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,322 @@
+import { Banner } from "@jobber/components/Banner";
+
+## Composition
+
+Combobox is a composable field built on `ComboboxPrimitive`. The sugared
+component provides common recipes while preserving access to lower-level pieces
+when a product flow needs more control.
+
+### Trigger recipes
+
+Most implementations should start with one of the trigger recipes.
+
+#### `Combobox.TriggerInput`
+
+Use `Combobox.TriggerInput` when the user should search directly in the field.
+
+```tsx
+<Combobox label="Team member" items={teamMembers}>
+  <Combobox.TriggerInput placeholder="Search team members" />
+  <Combobox.Content>
+    <Combobox.List>
+      {member => (
+        <Combobox.Item key={member.id} value={member}>
+          {member.name}
+        </Combobox.Item>
+      )}
+    </Combobox.List>
+  </Combobox.Content>
+</Combobox>
+```
+
+#### `Combobox.TriggerValue`
+
+Use `Combobox.TriggerValue` when the closed field should display the selected
+value and the search input should live inside the popup.
+
+```tsx
+<Combobox label="Team member" items={teamMembers}>
+  <Combobox.TriggerValue placeholder="Select team member" />
+  <Combobox.Content>
+    <Combobox.Input placeholder="Search team members" />
+    <Combobox.List>
+      {member => (
+        <Combobox.Item key={member.id} value={member}>
+          {member.name}
+        </Combobox.Item>
+      )}
+    </Combobox.List>
+  </Combobox.Content>
+</Combobox>
+```
+
+#### `Combobox.TriggerMultipleValue`
+
+Use `Combobox.TriggerMultipleValue` when the closed field should display
+selected chips and the search input should live inside the popup.
+
+```tsx
+<Combobox multiple label="Assigned team" items={teamMembers}>
+  <Combobox.TriggerMultipleValue getItemLabel={member => member.name} />
+  <Combobox.Content>
+    <Combobox.Input placeholder="Search team members" />
+    <Combobox.List>
+      {member => (
+        <Combobox.Item key={member.id} value={member}>
+          {member.name}
+        </Combobox.Item>
+      )}
+    </Combobox.List>
+  </Combobox.Content>
+</Combobox>
+```
+
+#### `Combobox.TriggerMultipleWithInput`
+
+Use `Combobox.TriggerMultipleWithInput` when multi-select chips and search
+should both live in the trigger.
+
+```tsx
+<Combobox multiple label="Assigned team" items={teamMembers}>
+  <Combobox.TriggerMultipleWithInput getItemLabel={member => member.name} />
+  <Combobox.Content>
+    <Combobox.List>
+      {member => (
+        <Combobox.Item key={member.id} value={member}>
+          {member.name}
+        </Combobox.Item>
+      )}
+    </Combobox.List>
+  </Combobox.Content>
+</Combobox>
+```
+
+### Field text
+
+Pass `label`, `description`, and `error` on `Combobox` for the default Atlantis
+field treatment. If the layout needs different placement, compose
+`Combobox.Label`, `Combobox.Description`, and `Combobox.Error` manually.
+
+A field shows a description or an error, never both. When both root props are
+set the error replaces the description, since a description hints at what the
+field wants and the error already restates it. Manually composed
+`Combobox.Description` and `Combobox.Error` parts are unaffected.
+
+```tsx
+<Combobox label="Team member" description="Search by name" items={teamMembers}>
+  {/* trigger and content */}
+</Combobox>
+```
+
+```tsx
+// `description` is not rendered while `error` is set
+<Combobox
+  label="Team member"
+  description="Search by name"
+  error="Choose a team member"
+  items={teamMembers}
+>
+  {/* trigger and content */}
+</Combobox>
+```
+
+### Empty state
+
+`Combobox.Content` renders `"No results found"` by default when search has no
+matches. The empty state is placed after options and before actions or footer
+content.
+
+Use the `empty` prop to customize the default message:
+
+```tsx
+<Combobox.Content empty="No team members found">
+  {/* options */}
+</Combobox.Content>
+```
+
+When the empty state needs custom markup, omit the automatic empty state and
+render `Combobox.Empty` directly:
+
+```tsx
+<Combobox.Content empty={null}>
+  <Combobox.List>{/* options */}</Combobox.List>
+  <Combobox.Empty>No team members match this search.</Combobox.Empty>
+</Combobox.Content>
+```
+
+### Actions
+
+Use `Combobox.Action` for interactive rows that are not selectable options, such
+as creating a new customer or inviting a team member. Use `Combobox.Item` when
+the row represents a value the Combobox can select.
+
+```tsx
+<Combobox.Content empty={`No matches for "${query}"`}>
+  <Combobox.List>{/* options */}</Combobox.List>
+  <Combobox.Actions>
+    <Combobox.Action onClick={() => createTeamMember(query)}>
+      Create team member
+    </Combobox.Action>
+  </Combobox.Actions>
+</Combobox.Content>
+```
+
+Clicking an action runs the action's handler and leaves the popup open. If an
+action should close the popup, control `open` from product state and set it to
+`false` in the action handler. If the action opens another overlay, such as a
+Dialog, also coordinate that from product state so focus and closing behavior
+match the product flow.
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Combobox open={open} onOpenChange={setOpen}>
+  <Combobox.TriggerInput />
+  <Combobox.Content>
+    <Combobox.List>{/* options */}</Combobox.List>
+    <Combobox.Actions>
+      <Combobox.Action
+        onClick={() => {
+          createTeamMember();
+          setOpen(false);
+        }}
+      >
+        Create team member
+      </Combobox.Action>
+    </Combobox.Actions>
+  </Combobox.Content>
+</Combobox>;
+```
+
+### Footer and select all
+
+`Combobox.SelectionFooter` is the default multiple-select footer. It owns the
+visual ordering for selected count, clear, and select all. Use
+`showSelectedCount={false}` when the count should be omitted.
+
+Select-all behavior is intentionally not automatic. Products must decide the
+candidate set and pass `onSelectAll`.
+
+```tsx
+const selectAllState = Combobox.getSelectAllState({
+  selectedValues,
+  candidateValues: visibleValues,
+});
+```
+
+The candidate set can be visible results, filtered results, loaded results, the
+current page, or another product-defined set.
+
+```tsx
+const [selectedMembers, setSelectedMembers] = useState([]);
+const selectAllState = Combobox.getSelectAllState({
+  selectedValues: selectedMembers,
+  candidateValues: visibleMembers,
+});
+
+<Combobox
+  multiple
+  value={selectedMembers}
+  onValueChange={setSelectedMembers}
+  items={visibleMembers}
+>
+  <Combobox.TriggerMultipleValue getItemLabel={member => member.name} />
+  <Combobox.Content>
+    <Combobox.Input placeholder="Search team members" />
+    <Combobox.List>{/* options */}</Combobox.List>
+    <Combobox.SelectionFooter
+      selectAllState={selectAllState}
+      onSelectAll={() =>
+        setSelectedMembers(
+          Combobox.getNextSelectAllValues({
+            selectedValues: selectedMembers,
+            candidateValues: visibleMembers,
+          })
+        )
+      }
+    />
+  </Combobox.Content>
+</Combobox>;
+```
+
+## Controlled and uncontrolled usage
+
+Combobox follows Base UI's value model. Use `value` and `onValueChange` when the
+app owns selection state, or `defaultValue` for uncontrolled selection.
+
+Single-select values are one item or `null`. Multi-select values are arrays.
+When values are objects, use `itemToString` for display and `itemToValue` for
+form submission.
+
+```tsx
+<Combobox
+  value={selectedMember}
+  onValueChange={setSelectedMember}
+  itemToString={member => member?.name ?? ""}
+  itemToValue={member => member.id}
+  items={teamMembers}
+>
+  {/* trigger and content */}
+</Combobox>
+```
+
+## Filtering and data strategy
+
+For local data, pass `items` and optionally customize the root `filter` prop.
+`Combobox.useFilter` exposes Base UI's filter helper with Atlantis locale wired
+in, so matching handles locale-sensitive text consistently.
+
+```tsx
+const filter = Combobox.useFilter();
+
+<Combobox
+  items={teamMembers}
+  filter={(member, query) =>
+    filter.contains(member.name, query) ||
+    filter.contains(member.department, query) ||
+    filter.contains(member.role, query)
+  }
+>
+  {/* trigger and content */}
+</Combobox>;
+```
+
+`Combobox.useFilteredItems` exposes Base UI's filtered item collection for
+custom list rendering, virtualization, or pagination affordances. It does not
+load additional data on its own; it only reads the filtered items currently
+known to Combobox.
+
+Combobox does not own pagination, but it gives products the pieces to build it.
+Pass the currently loaded items into `items`, load additional pages from product
+state or an API call, and compose loading UI inside the popup with
+`Combobox.Status` and `ActivityIndicator` when needed. For local large lists,
+use `Combobox.useFilteredItems` when custom rendering or virtualization needs
+access to the current filtered collection.
+
+```tsx
+<Combobox.Content>
+  <Combobox.Input placeholder="Search team members" />
+  <Combobox.List>{/* loaded options */}</Combobox.List>
+  {isLoadingMore && (
+    <Combobox.Status>
+      <ActivityIndicator aria-label="Loading more team members" />
+    </Combobox.Status>
+  )}
+</Combobox.Content>
+```
+
+For async, paginated, virtualized, or server-filtered data, keep the data
+strategy in product code. Fetch from input changes, pass the current loaded or
+windowed items to Combobox, and disable client filtering when the server already
+returned filtered results.
+
+<Banner type="notice" dismissible={false}>
+Combobox does not infer total result sets, page boundaries, or select-all
+semantics for server-backed data.
+</Banner>
+
+## Mobile web
+
+Combobox automatically switches to a bottom-anchored sheet at the Atlantis small
+breakpoint. This uses Base UI's Combobox modal and backdrop behavior, not
+Atlantis `BottomSheet`, so consumers do not need a separate mobile API.

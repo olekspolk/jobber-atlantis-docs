@@ -1,0 +1,106 @@
+[
+  {
+    "displayName": "Button",
+    "filePath": "../components-native/src/Button/Button.tsx",
+    "props": {
+      "UNSAFE_style": {
+        "description": "**Use at your own risk:** Custom style for specific elements. This should only be used as a\n**last resort**. Using this may result in unexpected side effects.\nMore information in the [Customizing components Guide](https://atlantis.getjobber.com/guides/customizing-components).",
+        "required": false,
+        "type": {
+          "name": "ButtonUnsafeStyle"
+        }
+      },
+      "accessibilityHint": {
+        "description": "Accessibility hint to help users understand what will happen when they press the button",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "accessibilityLabel": {
+        "description": "Accessibility label for the component. This is required for components that\nhave an `icon` but not a `label`.\n\nIf the string is the same as the `label` prop, you don't need to add an\n`accessibilityLabel`. **Don't use this for testing purposes.**",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "description": "Makes the button un-clickable",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "fullHeight": {
+        "description": "Will make the button scale to take up all the available height",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "fullWidth": {
+        "description": "Will make the button scale to take up all of the available width",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "description": "Adds an leading icon beside the label.",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "label": {
+        "description": "Text to be displayed on the button",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "loading": {
+        "description": "Changes the button interface to imply loading and prevents the press callback",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onPress": {
+        "description": "Press handler",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "size": {
+        "description": "Defines the size of the button",
+        "required": false,
+        "type": {
+          "name": "ButtonSize"
+        }
+      },
+      "testID": {
+        "description": "Used to locate this view in end-to-end tests.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "type": {
+        "description": "Sets the visual hierarchy",
+        "required": false,
+        "type": {
+          "name": "ButtonType"
+        }
+      },
+      "variation": {
+        "description": "Themes the button to the type of action it performs",
+        "required": false,
+        "type": {
+          "name": "ButtonVariation"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,71 @@
+[
+  {
+    "displayName": "ActionItem",
+    "filePath": "../components-native/src/ActionItem/ActionItem.tsx",
+    "props": {
+      "actionIcon": {
+        "description": "Action icon to display",
+        "required": false,
+        "type": {
+          "name": "ActionIconNames"
+        }
+      },
+      "actionIconAlignment": {
+        "description": "Alignment of action icon",
+        "required": false,
+        "type": {
+          "name": "\"center\" | \"flex-end\" | \"flex-start\""
+        }
+      },
+      "actionIconColour": {
+        "description": "Colour of the action icon",
+        "required": false,
+        "type": {
+          "name": "ActionIconColour"
+        }
+      },
+      "children": {
+        "description": "Content to display.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "icon": {
+        "description": "Name of the icon to display before content",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "iconColor": {
+        "description": "Colour of the icon displayed before content",
+        "required": false,
+        "type": {
+          "name": "\"task\" | \"text\" | \"warning\" | \"icon\" | \"iconSecondary\" | \"white\" | \"grey\" | \"greyBlue\" | \"greyBlueDark\" | \"greyBlueLighter\" | \"blue\" | \"lightBlue\" | \"green\" | \"yellow\" | \"red\" | ... 35 more ... | \"brandHighlight\""
+        }
+      },
+      "onPress": {
+        "description": "Press handler",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "testID": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "title": {
+        "description": "Title of the Action Item",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

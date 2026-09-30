@@ -475,13 +475,26 @@ async function run(browser) {
   await call("click", "Teammates");
   await sleep(1200);
   const search = await pagePoint('button[aria-label="Search"]');
+  // What has the focus when the page's button gets its click: the button itself, when the press
+  // reaches the page as it would with no frame. (The search dialog it opens moves the focus later.)
+  await page.evaluate(() => {
+    window.__focusAtClick = null;
+    const record = () => (window.__focusAtClick = document.activeElement?.getAttribute("aria-label") ?? null);
+    document.addEventListener("click", record, { capture: true, once: true });
+  });
   await page.mouse.click(search.x, search.y);
   await sleep(1200);
   r.outsideButton = {
     ...(await snap()),
     open: await call("openLayers"),
-    focus: await page.evaluate(() => document.activeElement?.getAttribute("aria-label") ?? null),
+    focusAtClick: await page.evaluate(() => window.__focusAtClick),
+    // The site's search button opens its search dialog, with the focus in the dialog's input.
+    searchOpened: await page.evaluate(
+      () => document.activeElement?.tagName === "INPUT" && document.activeElement.closest('[role="dialog"]') !== null,
+    ),
   };
+  await page.keyboard.press("Escape");
+  await sleep(800);
 
   console.log("· resized preview");
   await call("resize", 420);
@@ -578,7 +591,8 @@ async function run(browser) {
   await load(EXAMPLES.nestedReturn);
   r.nestedReturn = await call("trigger", "Nested return");
   await load(EXAMPLES.edited);
-  await page.click('button[aria-label="Switch to dark theme"]');
+  // The site's theme toggle is labelled with the moon it switches to.
+  await page.evaluate(() => [...document.querySelectorAll("nav button")].find((b) => b.innerText.trim() === "🌒").click());
   await sleep(1500);
   r.themeChange = {
     ...(await page.evaluate(() => ({
@@ -725,7 +739,7 @@ const CHECKS = [
   ["wheel over the covered area scrolls the page", (r) => r.wheelScrolled > 0],
   ["click on covered content: dismisses the menu, frame back to rest", (r) => r.coveredClick.layers.length === 0 && r.coveredClick.frame === RESTING],
   ["click on the page outside the frame: menu closes, frame back to rest", (r) => r.outsideHeading.open === 0 && r.outsideHeading.frame === RESTING && !r.outsideHeading.frozen],
-  ["click on a page button outside the frame: menu closes, the button keeps focus", (r) => r.outsideButton.open === 0 && r.outsideButton.focus === "Search"],
+  ["click on a page button outside the frame: menu closes, the button takes the focus and the press (search opens)", (r) => r.outsideButton.open === 0 && r.outsideButton.focusAtClick === "Search" && r.outsideButton.searchOpened],
   ["user-resized preview (420px): menu visible, returns to 420px", (r) => r.resizedOpen.allVisible && r.resizedOpen.slot === 420 && r.resizedClosed.frame === 420],
   ["minimum-size preview: first frame not cut off, example does not move", (r) => !r.minFirst.clipped && same(r.minFirst.trigger, r.minRest)],
   ["minimum-size preview: back to 200px, example where it was", (r) => r.minClosed.frame === 200 && same(r.minClosed.trigger, r.minRest)],

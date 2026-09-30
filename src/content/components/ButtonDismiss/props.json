@@ -1,0 +1,22 @@
+[
+  {
+    "displayName": "ButtonDismiss",
+    "filePath": "../components/src/ButtonDismiss/ButtonDismiss.tsx",
+    "props": {
+      "ariaLabel": {
+        "description": "",
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onClick": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) => void"
+        }
+      }
+    }
+  }
+]

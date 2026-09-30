@@ -1,0 +1,323 @@
+[
+  {
+    "displayName": "InputEmail",
+    "filePath": "../components/src/InputEmail/InputEmail.tsx",
+    "props": {
+      "align": {
+        "description": "Determines the alignment of the text inside the input.",
+        "required": false,
+        "type": {
+          "name": "\"center\" | \"right\""
+        }
+      },
+      "aria-activedescendant": {
+        "description": "ID of the currently active descendant element.\nUsed for composite widgets like combobox or listbox.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-activedescendant}",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-autocomplete": {
+        "description": "Indicates the type of autocomplete interaction.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-autocomplete}",
+        "required": false,
+        "type": {
+          "name": "\"both\" | \"inline\" | \"list\" | \"none\""
+        }
+      },
+      "aria-controls": {
+        "description": "Indicates the element that controls the current element.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-controls}",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-describedby": {
+        "description": "Identifies the element (or elements) that describes the object.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-describedby}",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-details": {
+        "description": "Identifies the element (or elements) that provide a detailed, extended description.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-details}",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-expanded": {
+        "description": "Indicates whether the element is expanded or collapsed.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-expanded}",
+        "required": false,
+        "type": {
+          "name": "Booleanish"
+        }
+      },
+      "aria-label": {
+        "description": "Defines a string value that labels the current element.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-label}",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "description": "Identifies the element (or elements) that labels the current element.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-labelledby}",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-required": {
+        "description": "Indicates that user input is required before form submission.\n@see {@link https://www.w3.org/TR/wai-aria-1.2/#aria-required}",
+        "required": false,
+        "type": {
+          "name": "Booleanish"
+        }
+      },
+      "autoComplete": {
+        "description": "Autocomplete behavior for the input (React casing, string values only).\nUse standard HTML autocomplete values or \"on\"/\"off\".",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "autoFocus": {
+        "description": "Whether the input should be auto-focused (React casing).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "clearable": {
+        "description": "Add a clear action on the input that clears the value.",
+        "required": false,
+        "type": {
+          "name": "Clearable"
+        }
+      },
+      "description": {
+        "description": "Further description of the input, can be used for a hint.",
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "disabled": {
+        "description": "Whether the input is disabled.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "error": {
+        "description": "Error message to display. This also highlights the field red.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "id": {
+        "description": "The unique identifier for the input element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "inline": {
+        "description": "Adjusts the form field to go inline with content.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "inputMode": {
+        "description": "Input mode hint for virtual keyboards.",
+        "required": false,
+        "type": {
+          "name": "\"decimal\" | \"email\" | \"none\" | \"numeric\" | \"search\" | \"tel\" | \"text\" | \"url\""
+        }
+      },
+      "invalid": {
+        "description": "Highlights the field red to indicate an error.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "loading": {
+        "description": "Show a spinner to indicate loading.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "maxLength": {
+        "description": "Maximum number of characters allowed in the input.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "name": {
+        "description": "The name attribute for the input element.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onBlur": {
+        "description": "Blur event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: FocusEvent<HTMLInputElement, Element>) => void"
+        }
+      },
+      "onChange": {
+        "description": "Custom onChange handler that provides the new value as the first argument.",
+        "required": false,
+        "type": {
+          "name": "(newValue: string, event?: ChangeEvent<HTMLInputElement>) => void"
+        }
+      },
+      "onClick": {
+        "description": "Click event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLInputElement, MouseEvent>) => void"
+        }
+      },
+      "onEnter": {
+        "description": "@deprecated Use `onKeyDown` or `onKeyUp` instead.",
+        "required": false,
+        "type": {
+          "name": "(event: KeyboardEvent<Element>) => void"
+        }
+      },
+      "onFocus": {
+        "description": "Focus event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: FocusEvent<HTMLInputElement, Element>) => void"
+        }
+      },
+      "onKeyDown": {
+        "description": "Key down event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: KeyboardEvent<HTMLInputElement>) => void"
+        }
+      },
+      "onKeyUp": {
+        "description": "Key up event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: KeyboardEvent<HTMLInputElement>) => void"
+        }
+      },
+      "onMouseDown": {
+        "description": "Mouse down event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLInputElement, MouseEvent>) => void"
+        }
+      },
+      "onMouseUp": {
+        "description": "Mouse up event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: MouseEvent<HTMLInputElement, MouseEvent>) => void"
+        }
+      },
+      "onPointerDown": {
+        "description": "Pointer down event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent<HTMLInputElement>) => void"
+        }
+      },
+      "onPointerUp": {
+        "description": "Pointer up event handler.",
+        "required": false,
+        "type": {
+          "name": "(event: PointerEvent<HTMLInputElement>) => void"
+        }
+      },
+      "pattern": {
+        "description": "Validation pattern (regex) for the input.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "placeholder": {
+        "description": "Text that appears inside the input when empty and floats above the value\nas a mini label once the user enters a value.\nWhen showMiniLabel is false, this text only serves as a standard placeholder and\ndisappears when the user types.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "prefix": {
+        "description": "Adds a prefix label and icon with an optional action to the field.",
+        "required": false,
+        "type": {
+          "name": "AffixProp"
+        }
+      },
+      "readOnly": {
+        "description": "Whether the input is read-only (HTML standard casing).",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "ref": {
+        "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).\n@see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}",
+        "required": false,
+        "type": {
+          "name": "Ref<HTMLInputElement>"
+        }
+      },
+      "required": {
+        "description": "Whether the input is required before form submission.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "role": {
+        "description": "Role attribute for accessibility.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "size": {
+        "description": "Adjusts the interface to either have small or large spacing.",
+        "required": false,
+        "type": {
+          "name": "\"large\" | \"small\""
+        }
+      },
+      "suffix": {
+        "description": "Adds a suffix label and icon with an optional action to the field.",
+        "required": false,
+        "type": {
+          "name": "AffixProp"
+        }
+      },
+      "tabIndex": {
+        "description": "Tab index for keyboard navigation.",
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "value": {
+        "description": "The current value of the input.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

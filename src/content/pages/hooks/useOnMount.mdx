@@ -1,0 +1,15 @@
+import { Canvas } from "../../mdx/blocks";
+import { UseOnMount } from "./demos/UseOnMount";
+import UseOnMountSource from "./demos/UseOnMount.tsx?raw";
+
+# UseOnMount
+
+`useOnMount` should be used to perform a callback once a component mounts.
+Useful for emitting analytics events, fetching data, or other side effects that
+should only occur once.
+
+```tsx
+import { useOnMount } from "@jobber/hooks/useOnMount";
+```
+
+<Canvas code={UseOnMountSource}><UseOnMount /></Canvas>

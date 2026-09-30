@@ -1,0 +1,50 @@
+[
+  {
+    "displayName": "EmptyState",
+    "filePath": "../components-native/src/EmptyState/EmptyState.tsx",
+    "props": {
+      "description": {
+        "description": "Description of the empty state.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "icon": {
+        "description": "Icon to display.",
+        "required": false,
+        "type": {
+          "name": "IconNames"
+        }
+      },
+      "iconColor": {
+        "description": "Color of Icon to display.",
+        "required": false,
+        "type": {
+          "name": "\"task\" | \"text\" | \"warning\" | \"icon\" | \"iconSecondary\" | \"white\" | \"grey\" | \"greyBlue\" | \"greyBlueDark\" | \"greyBlueLighter\" | \"blue\" | \"lightBlue\" | \"green\" | \"yellow\" | \"red\" | ... 35 more ... | \"brandHighlight\""
+        }
+      },
+      "primaryAction": {
+        "description": "Handler for the primary action.",
+        "required": false,
+        "type": {
+          "name": "Action"
+        }
+      },
+      "secondaryAction": {
+        "description": "Handler for the secondary action.",
+        "required": false,
+        "type": {
+          "name": "Action"
+        }
+      },
+      "title": {
+        "description": "Title of the empty state.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  }
+]

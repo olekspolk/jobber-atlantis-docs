@@ -1,0 +1,50 @@
+[
+  {
+    "displayName": "BottomSheet",
+    "filePath": "../components-native/src/BottomSheet/BottomSheet.tsx",
+    "props": {
+      "heading": {
+        "description": "An optional heading to display in the bottom sheet header.",
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "loading": {
+        "description": "Hide or show the cancel button when loading state is provided.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onClose": {
+        "description": "Callback that is called when the overlay is closed.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onOpen": {
+        "description": "Callback that is called when the overlay is opened.",
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "ref": {
+        "description": "",
+        "required": false,
+        "type": {
+          "name": "Ref<BottomSheetRef>"
+        }
+      },
+      "showCancel": {
+        "description": "Display a cancel button in the bottom sheet footer.",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
+  }
+]

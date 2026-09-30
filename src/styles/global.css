@@ -1,3 +1,5 @@
+/* The site's global stylesheet, as atlantis.getjobber.com ships it. */
+
 :root {
   --sideBarWidth: 200px;
 }
@@ -8,135 +10,215 @@
   }
 }
 
-html,
 body {
   margin: 0;
-  background: var(--color-surface);
-  color: var(--color-text);
-  font-family: var(--typography--fontFamily-normal, Inter, Helvetica, Arial, sans-serif);
-  font-size: 14px;
-  line-height: 21px;
+  font-family: var(--typography--fontFamily-normal);
 }
 
-/* Component names are long single words (AtlantisThemeContext, FormatFile.DeleteButtonContainer):
-   on a narrow phone, headings break them rather than overflow the column. */
-.baseView-main :is(h1, h2, h3, h4) {
-  overflow-wrap: anywhere;
+h1 {
+  font-size: var(--typography--fontSize-jumbo);
+  font-weight: 800;
+  font-family: var(--typography--fontFamily-display);
 }
 
-.docs-mdx {
-  overflow-wrap: break-word;
-}
-
-.docs-mdx h2 {
-  font-size: 24px;
-  line-height: 36px;
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
-  margin: 20px 0 24px;
-  color: var(--color-text);
 }
 
-.docs-mdx h3 {
-  font-size: 20px;
-  line-height: 30px;
-  font-weight: 700;
-  margin: 20px 0 24px;
-  color: var(--color-text);
+h2 {
+  font-size: var(--typography--fontSize-largest);
 }
 
-.docs-mdx h4 {
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 700;
-  margin: 16px 0 16px;
-  color: var(--color-text);
+h3 {
+  font-size: var(--typography--fontSize-larger);
 }
 
-.docs-mdx p {
-  margin: 14px 0 24px;
+h4 {
+  font-size: var(--typography--fontSize-large);
 }
 
-.docs-mdx ul {
-  margin: 0 0 24px;
-  padding-left: var(--space-large);
+h5 {
+  font-size: var(--typography--fontSize-base);
 }
 
-.docs-mdx li {
-  margin-bottom: var(--space-smaller);
+h6 {
+  font-size: var(--typography--fontSize-small);
+  text-transform: uppercase;
 }
 
-.docs-mdx a {
-  color: var(--color-interactive);
-}
-
-.docs-mdx code {
-  font-family: monospace;
-  font-size: 14px;
-  background-color: var(--color-surface--background);
-  color: var(--color-informative--onSurface);
+a {
+  margin: calc(-1 * var(--space-smallest));
   padding: var(--space-smallest);
   border-radius: var(--radius-small);
+  color: var(--color-interactive);
+  transition: all var(--timing-quick) ease-out;
 }
 
-.docs-mdx pre {
-  margin: 0 0 24px;
-  padding: var(--space-base);
-  overflow-x: auto;
-  background-color: var(--color-surface--background);
-  border: var(--border-base) solid var(--color-border);
+a:hover,
+a:focus {
+  outline: transparent;
+  color: var(--color-interactive--hover);
+  background-color: var(--color-surface--hover);
+}
+
+a:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+a:visited {
+  color: var(--color-interactive--hover);
+}
+
+blockquote {
+  background-color: var(--color-surface--background--subtle);
+  margin: 0;
+  padding: var(--space-base) var(--space-large);
   border-radius: var(--radius-base);
 }
 
-.docs-mdx pre code {
-  padding: 0;
-  background: none;
+custom-elements,
+section[role="tabpanel"] {
+  & table {
+    min-width: 100%;
+    margin: var(--space-large) 0;
+    font-size: var(--typography--fontSize-base);
+    line-height: 24px;
+    padding: 0;
+    border-collapse: collapse;
+    box-shadow: var(--shadow-low);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+  }
+
+  & thead {
+    font-size: var(--typography--fontSize-base);
+    line-height: 24px;
+    text-align: start;
+    background-color: var(--color-surface--background);
+  }
+
+  & tr {
+    border-top: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  & tr th {
+    text-align: inherit;
+    font-weight: bold;
+    color: var(--color-text);
+    border: none;
+    margin: 0;
+    padding: var(--space-base);
+  }
+
+  & tr td {
+    border: none;
+    color: var(--color-text);
+    margin: 0;
+    padding: var(--space-base);
+  }
+}
+
+pre,
+code {
+  background-color: var(--color-surface--background);
+  border-radius: var(--radius-small);
+  padding: var(--space-smallest);
+  margin: 0;
+}
+
+pre code {
+  padding: var(--space-small);
+  display: block;
+}
+
+code.root-code[class*="language-"] {
+  color: var(--color-request);
+}
+
+pre.root-pre[class*="language-"] {
+  padding: var(--space-larger);
+}
+
+pre.root-pre code.root-code {
+  background: var(--color-surface--background);
   color: var(--color-text);
 }
 
-.docs-mdx-table {
-  overflow-x: auto;
-  margin: 0 0 24px;
+pre.root-pre {
+  background: var(--color-surface--background);
+  padding: var(--space-large);
 }
 
-.docs-mdx table {
+section[role="tabpanel"] > div > h1:first-of-type {
+  display: none;
+}
+
+iframe {
   width: 100%;
-  border-collapse: collapse;
 }
 
-.docs-mdx th,
-.docs-mdx td {
-  padding: var(--space-base);
-  text-align: left;
-  vertical-align: top;
-  line-height: 24px;
+.headerBlock {
+  padding: var(--space-large);
+  width: 100%;
+  height: 100%;
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-.docs-mdx th {
-  font-weight: 700;
+@media screen and (min-width: 1024px) {
+  .headerBlock {
+    padding: var(--space-extravagant);
+  }
 }
 
-.docs-mdx tbody tr:nth-child(odd) {
-  background-color: var(--color-surface--background--subtle);
+.headerBlock:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-surface);
+  mask-image: url("/distress_paper-rip.svg");
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  width: 100%;
+  height: 2vw;
 }
 
-.docs-mdx > :first-child {
-  margin-top: 0;
+.headerBlock > * {
+  width: 100%;
+  max-width: 1024px;
 }
 
-.docs-mdx .mdx-banner {
-  margin: 0 0 24px;
+.contentCardWrapper {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-rows: auto;
+  gap: var(--space-base);
+  isolation: isolate;
 }
 
-.docs-mdx .mdx-banner p {
-  margin: 14px 0;
+@media screen and (min-width: 1024px) {
+  .contentCardWrapper {
+    gap: var(--space-larger);
+  }
 }
 
-.props-key {
-  margin: 0;
-  font-family: monospace;
-  font-size: 14px;
-  white-space: pre-wrap;
-  word-break: break-word;
+.stickySectionHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .baseView-sideRail {
@@ -156,19 +238,155 @@ body {
   }
 }
 
-.baseView-sideRail a {
-  display: inline-block;
-  padding: var(--space-smallest);
-  margin: calc(-1 * var(--space-smallest));
-  border-radius: var(--radius-small);
-  color: var(--color-interactive);
-  text-decoration: underline;
+/* Prism's theme on the site: code highlighted when a live example shows its code. */
+pre {
+  --color-code--yellow: var(--color-base-yellow--600);
+  --color-code--lime: var(--color-base-lime--600);
+  --color-code--pink: var(--color-base-pink--600);
+  --color-code--orange: var(--color-base-orange--600);
+  --color-code--teal: var(--color-base-teal--600);
 }
 
-.siderail-link {
-  display: block;
+:root[data-theme="dark"] pre {
+  --color-code--yellow: var(--color-base-yellow--300);
+  --color-code--lime: var(--color-base-lime--300);
+  --color-code--pink: var(--color-base-pink--300);
+  --color-code--orange: var(--color-base-orange--300);
+  --color-code--teal: var(--color-base-teal--300);
 }
 
-.siderail-link:hover {
-  color: var(--color-interactive--hover);
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-size: 1em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  tab-size: 4;
+  hyphens: none;
+}
+pre[class*="language-"] {
+  padding: 0.4em 0.8em;
+  margin: 0.5em 0;
+  overflow: auto;
+  background-size: 1em 1em;
+}
+
+code[class*="language-"] {
+  color: var(--color-text);
+}
+:not(pre) > code[class*="language-"] {
+  padding: 0.2em;
+  border-radius: 0.3em;
+  box-shadow: none;
+  white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #aaa;
+}
+
+.token.punctuation {
+  color: #999;
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: var(--color-code--teal);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: var(--color-code--yellow);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.token.variable,
+.token.inserted {
+  color: var(--color-code--lime);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: var(--color-code--pink);
+}
+
+.token.regex,
+.token.important {
+  color: var(--color-code--orange);
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.deleted {
+  color: var(--color-critical);
+}
+pre.diff-highlight.diff-highlight > code .token.deleted:not(.prefix),
+pre > code.diff-highlight.diff-highlight .token.deleted:not(.prefix) {
+  background-color: rgba(255, 0, 0, 0.3);
+  display: inline;
+}
+
+pre.diff-highlight.diff-highlight > code .token.inserted:not(.prefix),
+pre > code.diff-highlight.diff-highlight .token.inserted:not(.prefix) {
+  background-color: rgba(0, 255, 128, 0.3);
+  display: inline;
+}
+
+/* The replica's own, so that nothing makes the whole page scroll sideways on a narrow screen: a
+   table or a block of code wider than the column scrolls by itself (Prism's rule above covers only
+   the blocks it has highlighted, not plain ones), and a long prop name wraps. */
+@media (max-width: 767px) {
+  custom-elements table,
+  section[role="tabpanel"] table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  custom-elements pre,
+  section[role="tabpanel"] pre {
+    overflow-x: auto;
+  }
+
+  [data-props-list] pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Headings break long component names (AtlantisThemeContext) instead of overflowing the column. */
+.baseView-main :is(h1, h2, h3, h4) {
+  overflow-wrap: anywhere;
 }

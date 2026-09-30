@@ -1,0 +1,225 @@
+import { Meta } from "../../mdx/blocks";
+
+<Meta title="Components/Navigation/Menu" />
+
+# Menu
+
+## Summary
+
+The menu displays a list of options for a user to choose from. It is activated
+by an interactive element such as a button or icon button.
+
+## Anatomy
+
+| Part | Description |
+| --- | --- |
+| Trigger | An interactive element that opens the menu |
+| Container | The floating panel or sheet that contains the list of items |
+| Label | Primary text of an item |
+| Prefix | Optional leading slot |
+| Suffix | Optional trailing slot |
+| GroupLabel | Optional subdued heading used to group related items |
+| Separator | Optional horizontal divider used to separate group of items |
+
+## Behavior
+
+#### Opening and closing the menu
+
+The menu opens when:
+
+- The trigger is clicked or tapped
+- The trigger is triggered by keyboard E.g. Via Enter or Space keys
+
+The menu closes when:
+
+- A action menu item is selected
+- A click or tap occurs outside the menu
+- The ESC key is pressed
+
+Radio menu items remain open by default, but can be configured to close on
+selection.
+
+#### Width
+
+Menu width should by default match the trigger's width **or** hug the width of
+the menu items so that the label doesn't wrap. The menu's width can by adjusted
+manually however.
+
+#### Positioning
+
+Menu is positioned below the element that triggered it by default. It should
+automatically reposition to appear on the left, right, above, or bottom of the
+element that triggers it if the menu is cut off.
+
+#### Submenus
+
+Submenu opens next to the main menu item. On small screens, tapping a submenu
+opens up a second sheet that displays the nested menu items.
+
+#### Small screens
+
+When a user is on a small screen such as a mobile device, the menu opens up as a
+sheet anchored to the bottom of the screen.
+
+#### Native mobile
+
+Atlantis does not provide a native `Menu` equivalent in
+`@jobber/components-native`. For a comparable mobile-native experience, use
+[`BottomSheet`](/components/BottomSheet) from `@jobber/components-native` to
+present a list of actions or choices.
+
+## Variants
+
+#### Menu Items
+
+**1\. Action:** Standard one-time actions such as navigating or triggering a
+modal
+
+**2\. Radio:** Persistent choices like a filter of a view preference. Use when
+choice persists and the user needs to see which option is active.
+
+**3\. Submenu:** Opens a nested menu of options on click and on hover. Use when
+related actions are better surfaced one level deeper.
+
+#### Menu Items: States
+
+- Default
+- Highlighted
+- Selected (radio items only)
+
+#### Group Label and Separator
+
+Group labels and separators can be used to separate and group menu items into
+scannable sections.
+
+#### Custom Content
+
+- Menus have custom slots that support more flexible item layouts
+- Custom menu items can appear anywhere in a menu
+- The padding of the menu container should not be altered
+- Menu items must represent a single action. Avoid nesting interactive elements
+  inside a menu item
+
+## Content Guidelines
+
+#### Sentence case
+
+Menu action labels should be sentence-cased. Capitalize only the first letter of
+the label unless there is a proper noun (such as a person's name). Jobber
+features like jobs, quotes, and invoices are not proper nouns and should not be
+capitalized.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Send text message | Send Text Message |
+| Collect signature | COLLECT SIGNATURE |
+| Assign Jasmine Williams | Assign jasmine williams |
+
+#### Verb-first labels
+
+Menu items represent actions. Lead with the verb so the SP can scan quickly.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Edit client | Client editing |
+| Send as text message | Text message options |
+| Archive quote | Quote archiving |
+
+#### Keep labels concise
+
+Aim for 2-4 words. Menu items are scanned, not read carefully.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Delete job | Delete this job permanently |
+| Collect signature | Collect a signature from the client |
+| Mark as complete | Mark this visit as complete |
+
+#### Don't repeat the trigger context
+
+If the menu is triggered from a button on a job card, the items don't need to
+say "job" in every label.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Edit | Edit job |
+| Archive | Archive job |
+| Delete | Delete job |
+
+#### Use consistent verb tense
+
+All items in a single menu should use the same grammatical form.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Edit client / Send invoice / Delete job | Edit client / Sending invoice / Archived |
+| Mark as complete / Assign to team | Completed / Assign to team |
+
+#### Group labels should describe, not instruct
+
+Keep group labels to 1-2 words that name the category.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Communication | Choose how to communicate |
+| Actions | Things you can do |
+| Scheduling | Schedule options for this visit |
+
+#### Destructive items should be explicit
+
+Name what's being removed so the SP isn't guessing, especially when the menu
+acts on multiple object types.
+
+| ✅ Do | ❌ Don't |
+| --- | --- |
+| Delete job | Delete |
+| Remove line item | Remove |
+| Cancel visit | Cancel |
+
+## Do's and Don'ts
+
+#### Do
+
+- ✅ Sentence case for menu item labels and group labels
+- ✅ Labels should be short and action oriented
+- ✅ Keep menu items simple
+- ✅ Use icons only when they add clarity
+- ✅ Cluster similar menu items together
+
+#### Don't
+
+- ❌ Avoid adding too many items in a menu
+- ❌ Don't mix unrelated actions in the same menu, or use grouping when needed
+
+## Accessibility
+
+Users need to be able to navigate to, open, select menu items, and close a menu
+with assistive technology.
+
+#### Keyboard navigation
+
+| Key | Behavior |
+| --- | --- |
+| Tab | Moves focus to the trigger |
+| Up and Down arrows | Closed menus: Opens menu. Opened menus: Moves up and down the list |
+| Left and Right arrows | Opens and closes a submenu |
+| Enter or Space | Closed menus: Opens menu. Opened menus: Selects menu item |
+| Esc | Closes the menu |
+
+#### Touch target
+
+Minimum menu item height:
+
+- **Large screens:** 40px
+- **Small screens:** 48px
+
+## Related components
+
+- To trigger a single action rather than presenting a list of options, use a
+  [Button](/components/Button) or [IconButton](/components/IconButton)
+- For a comparable action-list experience in native mobile, use
+  [BottomSheet](/components/BottomSheet) from `@jobber/components-native`
+- To allow the user to choose a value from a predefined list within a form, use
+  a [LegacySelect](/components/LegacySelect)
+- To allow the user to search and filter through a list of options, use a
+  [FilterPicker](/components/FilterPicker)

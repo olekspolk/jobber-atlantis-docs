@@ -1,0 +1,180 @@
+# Linking Atlantis locally
+
+Test Atlantis design system changes in your app instantly — no pre-release
+publishing required.
+
+## Why use this?
+
+Every time you change a component, token, or hook in Atlantis, you'd normally
+have to publish a pre-release, wait for CI, install it in your app, and then see
+the result. That loop takes 15–20 minutes per iteration.
+
+With local linking, you edit a file in Atlantis, wait 2–10 seconds, and see the
+change hot-reload in your running app.
+
+**Good for:** iterating on component styles, previewing token changes, building
+new components, fixing bugs across the boundary.
+
+## How it works
+
+```
+Atlantis repo                          Your app
+─────────────────                      ─────────────────
+src/ → watcher → dist/                 node_modules/@jobber/*
+                   ↑                          │
+                   └──── symlink ─────────────┘
+
+You edit src/ → watcher rebuilds dist/ → your app's dev server hot-reloads
+```
+
+Your app's `node_modules/@jobber/design` (and siblings) become symlinks pointing
+to the local Atlantis checkout. Atlantis runs file watchers that rebuild `dist/`
+on every save. Your app's bundler (Metro, Vite) sees the changed files and
+triggers hot-reload.
+
+When not linked, everything behaves exactly as before — the symlink detection is
+automatic and returns a no-op when no links exist.
+
+## Quick start
+
+You need two terminals open side-by-side.
+
+### Terminal 1 — Atlantis (watch mode)
+
+```bash
+cd atlantis
+pnpm install              # once, if deps aren't installed
+pnpm run dev:link:native  # for React Native apps
+# or
+pnpm run dev:link:web     # for web consumers
+```
+
+This starts watchers for all relevant packages. Leave it running.
+
+### Terminal 2 — Your app
+
+The link script builds the Atlantis packages and creates symlinks. Then start
+your dev server as usual.
+
+**React Native / Metro:**
+
+```bash
+cd your-app-directory
+./scripts/link-atlantis.sh ../atlantis
+pnpm exec react-native start --reset-cache
+```
+
+**Web apps using Vite:**
+
+```bash
+cd your-app-directory
+pnpm link-atlantis             # links only this app
+pnpm dev                       # start Vite as usual
+```
+
+Or from the monorepo root, link a specific app or all apps:
+
+```bash
+pnpm link-atlantis                       # links all apps
+./scripts/link-atlantis.sh --app my-app  # links one app
+```
+
+Vite follows symlinks natively — no bundler configuration changes are required.
+The existing `resolve.dedupe` entries for `@jobber/*` and `react` prevent
+duplicate dependency issues.
+
+> **jobber-frontend (Vite): faster source linking.** jobber-frontend also ships
+> an opt-in path that resolves `@jobber/components`, `@jobber/hooks`, and
+> `@jobber/formatters` directly from Atlantis **source**: no `dev:link:web`
+> watcher, no symlink, and edits hot-reload via React Fast Refresh in sub-second
+> time. Run `pnpm dev-atlantis` from `apps/<app>`. Design tokens still go
+> through the symlink path below (they're a build artifact). See
+> jobber-frontend's
+> [`docs/frontend/atlantis-local-linking.md`](https://github.com/GetJobber/jobber-frontend/blob/main/docs/frontend/atlantis-local-linking.md).
+
+The Atlantis path defaults to `../atlantis` relative to the monorepo root. Pass
+an explicit path for non-standard locations (e.g. a git worktree):
+`./scripts/link-atlantis.sh --app my-app /path/to/atlantis`.
+
+That's it. Edit any file in Atlantis and watch the change appear in your app.
+
+### Unlinking
+
+```bash
+pnpm unlink-atlantis
+# or
+./scripts/unlink-atlantis.sh
+```
+
+This restores registry versions by running `pnpm install --frozen-lockfile`
+(\~5–15 seconds).
+
+## Rebuild times
+
+| Package | What rebuilds it | Typical time |
+| --- | --- | --- |
+| `@jobber/design` | chokidar → token generation → rollup | \~5–10s |
+| `@jobber/formatters` | rollup `--watch` | \~1–2s |
+| `@jobber/hooks` | rollup `--watch` | \~1–2s |
+| `@jobber/components` | rollup `--watch` | \~1–2s |
+| `@jobber/components-native` | tsc `--watch` | \~2–3s |
+
+Design token changes are the slowest because they go through a generate → build
+pipeline. Component and hook changes are near-instant.
+
+## Things to know
+
+**Package installs wipe your links.** Any time you run `pnpm install` in your
+app, the package manager replaces the symlinks with registry packages. Re-run
+`pnpm link-atlantis` to restore them.
+
+**Link all packages together.** The link scripts handle this automatically.
+Partial linking is not supported because the packages depend on each other at
+runtime. Web apps link three packages (design, hooks, components); React Native
+apps link four (design, formatters, hooks, components-native).
+
+**First link takes longer.** The link script runs a full build of each Atlantis
+package before creating symlinks. Subsequent rebuilds via the watcher are
+incremental and fast.
+
+**Linking is for development only.** Don't run production builds or CI while
+packages are linked.
+
+## Works with git worktrees and agentic workflows
+
+If you use git worktrees, linking works without any special setup.
+
+**Why it just works:** symlinks point to filesystem paths, not git branches.
+Each worktree is a fully independent directory with its own source files,
+`node_modules/`, and build output. The link script accepts a path argument, so
+you can point it at any checkout:
+
+```bash
+# Link against the main Atlantis checkout
+./scripts/link-atlantis.sh ../atlantis
+
+# Link against a worktree on a different branch
+./scripts/link-atlantis.sh /path/to/worktrees/atlantis/my-feature
+```
+
+**Multiple checkouts can link independently.** If you have two app worktrees,
+each can link to a different Atlantis branch — handy for comparing behavior
+across branches.
+
+## Troubleshooting
+
+**Metro fails to start after linking** — Run
+`pnpm exec react-native start --reset-cache`. Metro caches module resolution and
+needs a fresh start after symlinks change.
+
+**Vite shows stale modules after linking** — Stop and restart the dev server.
+Vite's dependency pre-bundling cache (`.vite/`) may need to be invalidated. If
+restarting alone doesn't help, delete `node_modules/.vite` and restart.
+
+**"Cannot find module" errors at runtime** — Make sure the Atlantis watchers are
+running (`pnpm run dev:link:native` in the Atlantis terminal). The watchers need
+to complete at least one build cycle before the bundler can pick up the files.
+
+**Changes in Atlantis aren't showing up** — Check the Atlantis terminal for
+rebuild logs. If nothing appears, the file you edited might be outside the watch
+scope (e.g., a test file or config).

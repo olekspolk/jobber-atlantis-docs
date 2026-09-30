@@ -1,0 +1,81 @@
+import { Meta } from "../../mdx/blocks";
+import { Banner } from "@jobber/components/Banner";
+import { FilterPicker } from "@jobber/components/FilterPicker";
+
+<Meta title="Components/Selections/FilterPicker" component={FilterPicker} parameters={{
+  alpha: true
+}} />
+
+# FilterPicker
+
+<Banner type="notice" dismissible={false}>
+This component was previously named `Combobox`. Use `FilterPicker` for
+filtering existing content. For searchable field selection, use the new Base
+UI-backed [Combobox](/components/Combobox).
+</Banner>
+
+FilterPicker lets users narrow an existing list, table, report, or page of
+records. Use it when selected options act as filters for nearby content.
+
+If the user is choosing a value to save, submit, assign, or display in a form
+field, use [Combobox](/components/Combobox) instead.
+
+## Design \& usage guidelines
+
+FilterPicker's primary function is to apply filter criteria to existing content.
+
+The FilterPicker also has the flexibility to allow for custom actions, such as
+adding a new item to the list of options or managing a selection.
+
+## Content guidelines
+
+FilterPicker is designed to handle lists of selectable options, so the component
+is text based.
+
+You may customize the activator and action `label`. Refer to the
+[Product Vocabulary](/content/product-vocabulary) for consistency in consistency
+in terminology and naming conventions when setting these values.
+
+You may also set an optional `subjectNoun` for the FilterPicker content. This
+will be used in the
+[empty state](/storybook/web/?path=/story/components-selections-filterpicker--empty-state)
+of the FilterPicker, as well as the noun within the search placeholder.
+Consumer-provided strings such as `label`, `subjectNoun`, action labels, and
+option labels are rendered as provided and should be localized by the consuming
+application. FilterPicker localizes its own default labels and messages from
+`AtlantisContext.locale`.
+
+You may include a prefix element to any `FilterPicker.Option` by setting its
+`prefix` prop. This could be a [StatusIndicator](/components/StatusIndicator) or
+[Icon](/components/Icon) to provide additional context to the option.
+
+### Empty states
+
+In cases where the list of options is empty, the FilterPicker content will
+display a localized message indicating the absence of options. In English, the
+default reads _"No options yet"_ or _"You don't have any \[subjectNoun\] yet"_ if
+you've set the `subjectNoun` prop.
+
+If options are available, but the search query does not match any of them, the
+FilterPicker Content will display a message indicating that no options match the
+search query.
+
+## Accessibility
+
+| Shortcut Keys | Action |
+| --- | --- |
+| Space or Return | Open/close the FilterPicker |
+| Escape | Close the FilterPicker and return focus to the activator |
+| Tab | When closed: Move to activator<br />When open: Move from search input to clear button to actions |
+| Up/Down Arrow | Navigate through options list |
+| Space or Return | Select focused option |
+
+### Assistive technology
+
+- The activator element is given a `role="combobox"` to inform the user of the
+  type of content they'll be interacting with
+- Once the user opens the FilterPicker, the search input is focused and
+  announced
+- The title and "selected/unselected" status of each item is announced as the
+  user navigates the options
+- The actions (if present) are announced and operable as buttons

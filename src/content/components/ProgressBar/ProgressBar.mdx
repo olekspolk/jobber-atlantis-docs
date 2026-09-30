@@ -1,0 +1,35 @@
+import { Meta } from "../../mdx/blocks";
+
+<Meta title="Components/Status and Feedback/ProgressBar" />
+
+# Progress Bar
+
+> **Deprecated.** Use [ProgressIndicator](/components/ProgressIndicator) for new
+> work. `ProgressIndicator` is the supported determinate progress indicator
+> going forward — it offers the same semantic with a cleaner prop surface
+> (`value` / `max` instead of `currentStep` / `totalSteps`,
+> `variation="continuous"` instead of `"progress"`, plain `className` / `style`
+> instead of `UNSAFE_*`), theme-adaptive tokens, and a unified
+> `<div role="progressbar">` structure across continuous and stepped variations.
+> `ProgressBar` continues to work unchanged for existing call sites.
+
+A ProgressBar is a visual indicator of how close something is to completion.
+
+## Design \& usage guidelines
+
+The ProgressBar should be used to show "definite" progress; we know exactly how
+close the process is to completion. For "indefinite" progress, where we may not
+know exactly how much longer something might take, use a
+[Spinner](/components/Spinner).
+
+Some great use cases for a ProgressBar include:
+
+- Setup wizard, where we know how many steps the user has completed and how many
+  steps remain.
+- File uploads, where we know the total file size and how much data has already
+  been sent.
+
+An example where you might be better served using a Spinner:
+
+- Loading a calendar within a view, where we do not know it's "complete" until
+  there's no more data left to load.

@@ -1,0 +1,98 @@
+## Validating icon names at runtime
+
+When icon names arrive as runtime data (API responses, configuration, user
+input), validate them before rendering with the exports from
+`@jobber/components` (also available from `@jobber/design`):
+
+- `iconNames`: a readonly array of every valid icon name
+- `isIconName(value)`: a type guard that narrows a value to `IconNames`
+
+```tsx
+import { Icon, isIconName } from "@jobber/components";
+
+function StatusIcon({ iconName }: { readonly iconName: string }) {
+  if (!isIconName(iconName)) return null;
+
+  return <Icon name={iconName} />;
+}
+```
+
+## Component customization
+
+### UNSAFE\_ props (advanced usage)
+
+General information for using `UNSAFE_` props can be found
+[here](/guides/customizing-components).
+
+**Note**: Use of `UNSAFE_` props is **at your own risk** and should be
+considered a **last resort**. Future Icon updates may lead to unintended
+breakages.
+
+Icon has two elements that can be targeted with classes or styles:
+
+- `svg`: The container element of the icon
+- `path`: The actual shape and color of the icon
+
+#### UNSAFE\_className (web)
+
+Use `UNSAFE_className` to apply custom classes to the Icon. This can be useful
+for applying styles via CSS Modules.
+
+```tsx
+// Icon.tsx
+UNSAFE_className={{
+  svg: styles.iconContainer,
+  path: styles.iconPath,
+}}
+
+// Icon.module.css
+.iconContainer {
+  padding: var(--space-small);
+  border-radius: var(--radius-large);
+  background-color: var(--color-purple);
+}
+
+.iconPath {
+  fill: var(--color-orange);
+}
+```
+
+Using `UNSAFE_className` for modifying the icon's dimensions (width, height) may
+not work as expected. For size modifications, use `UNSAFE_style.svg` instead.
+
+#### UNSAFE\_style (web)
+
+The `UNSAFE_style` prop provides granular control over the icon's appearance
+through inline styles, allowing you to modify the dimensions and colors
+independently.
+
+```tsx
+<Icon
+  name="arrowDown"
+  UNSAFE_style={{
+    svg: {
+      width: "48px",
+      height: "48px",
+      backgroundColor: "var(--color-purple)",
+      padding: "var(--space-small)",
+      borderRadius: "var(--radius-large)",
+    },
+    path: {
+      fill: "orange",
+    },
+  }}
+/>
+```
+
+##### Key styling notes:
+
+- To modify icon dimensions, use `UNSAFE_style.svg` with both `width` and
+  `height`
+- To override an icon's color, use `fill` in the `path` styles, instead of
+  `color`
+- Container styling (background, padding, border) should be applied to the `svg`
+  styles
+
+Remember that the standard `size` prop is the recommended way to control icon
+dimensions. Only use `UNSAFE_style.svg` for custom sizing when absolutely
+necessary.

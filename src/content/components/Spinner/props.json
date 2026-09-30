@@ -1,0 +1,22 @@
+[
+  {
+    "displayName": "Spinner",
+    "filePath": "../components/src/Spinner/Spinner.tsx",
+    "props": {
+      "inline": {
+        "description": "Spinner becomes an inline element when true,\notherwise it is a block element",
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "description": "Specifies the size of the spinner",
+        "required": false,
+        "type": {
+          "name": "\"base\" | \"small\""
+        }
+      }
+    }
+  }
+]
